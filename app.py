@@ -6,11 +6,18 @@ import webbrowser
 from dataclasses import dataclass
 from pathlib import Path
 from tkinter import ttk
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 
 from history import HistoryManager
+from imbuements_data import IMBUEMENTS_RESOURCE
 
 SEARCH_PAGE_URL = "https://tibia.fandom.com/wiki/Special:Search"
+FANDOM_BASE_URL = IMBUEMENTS_RESOURCE.get("wiki_base", "https://tibia.fandom.com/wiki/")
+
+
+def fandom_article_url(title: str) -> str:
+    slug = title.strip().replace(" ", "_")
+    return f"{FANDOM_BASE_URL}{quote(slug, safe='_')}"
 
 
 @dataclass(frozen=True)
@@ -30,629 +37,26 @@ class Imbuement:
         return f"{self.category}|{self.name}"
 
 
-IMBUEMENTS: tuple[Imbuement, ...] = (
-    Imbuement(
-        category="Mana Leech",
-        name="Basic Void",
-        materials=(
-            Material(25, "Rope Belt"),
-            Material(25, "Silencer Claws"),
-            Material(5, "Grimeleech Wings"),
-        ),
-    ),
-    Imbuement(
-        category="Mana Leech",
-        name="Intricate Void",
-        materials=(
-            Material(25, "Rope Belt"),
-            Material(25, "Silencer Claws"),
-            Material(10, "Grimeleech Wings"),
-        ),
-    ),
-    Imbuement(
-        category="Mana Leech",
-        name="Powerful Void",
-        materials=(
-            Material(50, "Rope Belt"),
-            Material(50, "Silencer Claws"),
-            Material(20, "Grimeleech Wings"),
-        ),
-    ),
-    Imbuement(
-        category="Life Leech",
-        name="Basic Vampirism",
-        materials=(
-            Material(25, "Vampire Teeth"),
-            Material(15, "Bloody Pincers"),
-            Material(5, "Piece of Dead Brain"),
-        ),
-    ),
-    Imbuement(
-        category="Life Leech",
-        name="Intricate Vampirism",
-        materials=(
-            Material(25, "Vampire Teeth"),
-            Material(25, "Bloody Pincers"),
-            Material(10, "Piece of Dead Brain"),
-        ),
-    ),
-    Imbuement(
-        category="Life Leech",
-        name="Powerful Vampirism",
-        materials=(
-            Material(50, "Vampire Teeth"),
-            Material(50, "Bloody Pincers"),
-            Material(20, "Piece of Dead Brain"),
-        ),
-    ),
-    Imbuement(
-        category="Critical",
-        name="Basic Strike",
-        materials=(
-            Material(20, "Protective Charm"),
-            Material(25, "Sabretooth"),
-            Material(5, "Vexclaw Talon"),
-        ),
-    ),
-    Imbuement(
-        category="Critical",
-        name="Intricate Strike",
-        materials=(
-            Material(25, "Protective Charm"),
-            Material(30, "Sabretooth"),
-            Material(10, "Vexclaw Talon"),
-        ),
-    ),
-    Imbuement(
-        category="Critical",
-        name="Powerful Strike",
-        materials=(
-            Material(50, "Protective Charm"),
-            Material(50, "Sabretooth"),
-            Material(20, "Vexclaw Talon"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Fire",
-        name="Basic Scorch",
-        materials=(
-            Material(25, "Fiery Heart"),
-            Material(10, "Fiery Tears"),
-            Material(5, "Green Dragon Scale"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Fire",
-        name="Intricate Scorch",
-        materials=(
-            Material(25, "Fiery Heart"),
-            Material(20, "Fiery Tears"),
-            Material(10, "Green Dragon Scale"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Fire",
-        name="Powerful Scorch",
-        materials=(
-            Material(50, "Fiery Heart"),
-            Material(30, "Fiery Tears"),
-            Material(20, "Green Dragon Scale"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Earth",
-        name="Basic Venom",
-        materials=(
-            Material(25, "Poisonous Slime"),
-            Material(10, "Slime Heart"),
-            Material(5, "Swamp Grass"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Earth",
-        name="Intricate Venom",
-        materials=(
-            Material(25, "Poisonous Slime"),
-            Material(20, "Slime Heart"),
-            Material(10, "Swamp Grass"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Earth",
-        name="Powerful Venom",
-        materials=(
-            Material(50, "Poisonous Slime"),
-            Material(30, "Slime Heart"),
-            Material(20, "Swamp Grass"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Ice",
-        name="Basic Frost",
-        materials=(
-            Material(25, "Frosty Heart"),
-            Material(10, "Seacrest Hair"),
-            Material(5, "Polar Bear Paw"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Ice",
-        name="Intricate Frost",
-        materials=(
-            Material(25, "Frosty Heart"),
-            Material(20, "Seacrest Hair"),
-            Material(10, "Polar Bear Paw"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Ice",
-        name="Powerful Frost",
-        materials=(
-            Material(50, "Frosty Heart"),
-            Material(30, "Seacrest Hair"),
-            Material(20, "Polar Bear Paw"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Energy",
-        name="Basic Electrify",
-        materials=(
-            Material(25, "Energy Vein"),
-            Material(10, "Roc Feather"),
-            Material(5, "Spark Sphere"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Energy",
-        name="Intricate Electrify",
-        materials=(
-            Material(25, "Energy Vein"),
-            Material(20, "Roc Feather"),
-            Material(10, "Spark Sphere"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Energy",
-        name="Powerful Electrify",
-        materials=(
-            Material(50, "Energy Vein"),
-            Material(30, "Roc Feather"),
-            Material(20, "Spark Sphere"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Death",
-        name="Basic Reap",
-        materials=(
-            Material(25, "Reaper's Hood"),
-            Material(10, "Petrified Scream"),
-            Material(5, "Pile of Grave Earth"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Death",
-        name="Intricate Reap",
-        materials=(
-            Material(25, "Reaper's Hood"),
-            Material(20, "Petrified Scream"),
-            Material(10, "Pile of Grave Earth"),
-        ),
-    ),
-    Imbuement(
-        category="Attack - Death",
-        name="Powerful Reap",
-        materials=(
-            Material(50, "Reaper's Hood"),
-            Material(30, "Petrified Scream"),
-            Material(20, "Pile of Grave Earth"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Death",
-        name="Basic Lich Shroud",
-        materials=(
-            Material(25, "Flask of Embalming Fluid"),
-            Material(10, "Lich Staff"),
-            Material(5, "Grave Flower"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Death",
-        name="Intricate Lich Shroud",
-        materials=(
-            Material(25, "Flask of Embalming Fluid"),
-            Material(20, "Lich Staff"),
-            Material(10, "Grave Flower"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Death",
-        name="Powerful Lich Shroud",
-        materials=(
-            Material(50, "Flask of Embalming Fluid"),
-            Material(30, "Lich Staff"),
-            Material(20, "Grave Flower"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Earth",
-        name="Basic Snake Skin",
-        materials=(
-            Material(25, "Snakeskin"),
-            Material(10, "Green Dragon Scale"),
-            Material(5, "Terra Mantle"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Earth",
-        name="Intricate Snake Skin",
-        materials=(
-            Material(25, "Snakeskin"),
-            Material(20, "Green Dragon Scale"),
-            Material(10, "Terra Mantle"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Earth",
-        name="Powerful Snake Skin",
-        materials=(
-            Material(50, "Snakeskin"),
-            Material(30, "Green Dragon Scale"),
-            Material(20, "Terra Mantle"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Fire",
-        name="Basic Dragon Hide",
-        materials=(
-            Material(25, "Red Dragon Scale"),
-            Material(10, "Demonic Skeletal Hand"),
-            Material(5, "Draken Sulphur"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Fire",
-        name="Intricate Dragon Hide",
-        materials=(
-            Material(25, "Red Dragon Scale"),
-            Material(20, "Demonic Skeletal Hand"),
-            Material(10, "Draken Sulphur"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Fire",
-        name="Powerful Dragon Hide",
-        materials=(
-            Material(50, "Red Dragon Scale"),
-            Material(30, "Demonic Skeletal Hand"),
-            Material(20, "Draken Sulphur"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Ice",
-        name="Basic Quara Scale",
-        materials=(
-            Material(25, "Quara Tentacle"),
-            Material(10, "Quara Eye"),
-            Material(5, "Quara Pincers"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Ice",
-        name="Intricate Quara Scale",
-        materials=(
-            Material(25, "Quara Tentacle"),
-            Material(20, "Quara Eye"),
-            Material(10, "Quara Pincers"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Ice",
-        name="Powerful Quara Scale",
-        materials=(
-            Material(50, "Quara Tentacle"),
-            Material(30, "Quara Eye"),
-            Material(20, "Quara Pincers"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Energy",
-        name="Basic Cloud Fabric",
-        materials=(
-            Material(25, "Cloud Fabric"),
-            Material(10, "Energy Vein"),
-            Material(5, "Wyvern Talisman"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Energy",
-        name="Intricate Cloud Fabric",
-        materials=(
-            Material(25, "Cloud Fabric"),
-            Material(20, "Energy Vein"),
-            Material(10, "Wyvern Talisman"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Energy",
-        name="Powerful Cloud Fabric",
-        materials=(
-            Material(50, "Cloud Fabric"),
-            Material(30, "Energy Vein"),
-            Material(20, "Wyvern Talisman"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Holy",
-        name="Basic Demon Presence",
-        materials=(
-            Material(25, "Demon Horn"),
-            Material(10, "Holy Orchid"),
-            Material(5, "Demon Dust"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Holy",
-        name="Intricate Demon Presence",
-        materials=(
-            Material(25, "Demon Horn"),
-            Material(20, "Holy Orchid"),
-            Material(10, "Demon Dust"),
-        ),
-    ),
-    Imbuement(
-        category="Protection - Holy",
-        name="Powerful Demon Presence",
-        materials=(
-            Material(50, "Demon Horn"),
-            Material(30, "Holy Orchid"),
-            Material(20, "Demon Dust"),
-        ),
-    ),
-    Imbuement(
-        category="Support",
-        name="Basic Swiftness",
-        materials=(
-            Material(25, "Tarantula Egg"),
-            Material(10, "Compendium"),
-            Material(5, "Crystallized Anger"),
-        ),
-    ),
-    Imbuement(
-        category="Support",
-        name="Intricate Swiftness",
-        materials=(
-            Material(25, "Tarantula Egg"),
-            Material(20, "Compendium"),
-            Material(10, "Crystallized Anger"),
-        ),
-    ),
-    Imbuement(
-        category="Support",
-        name="Powerful Swiftness",
-        materials=(
-            Material(50, "Tarantula Egg"),
-            Material(30, "Compendium"),
-            Material(20, "Crystallized Anger"),
-        ),
-    ),
-    Imbuement(
-        category="Support",
-        name="Basic Featherweight",
-        materials=(
-            Material(25, "Falcon Feather"),
-            Material(10, "Giant Shimmering Pearl"),
-            Material(5, "Minotaur Leather"),
-        ),
-    ),
-    Imbuement(
-        category="Support",
-        name="Intricate Featherweight",
-        materials=(
-            Material(25, "Falcon Feather"),
-            Material(20, "Giant Shimmering Pearl"),
-            Material(10, "Minotaur Leather"),
-        ),
-    ),
-    Imbuement(
-        category="Support",
-        name="Powerful Featherweight",
-        materials=(
-            Material(50, "Falcon Feather"),
-            Material(30, "Giant Shimmering Pearl"),
-            Material(20, "Minotaur Leather"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Magic Level",
-        name="Basic Epiphany",
-        materials=(
-            Material(25, "Frosty Heart"),
-            Material(10, "Ectoplasm"),
-            Material(5, "Seacrest Hair"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Magic Level",
-        name="Intricate Epiphany",
-        materials=(
-            Material(25, "Frosty Heart"),
-            Material(20, "Ectoplasm"),
-            Material(10, "Seacrest Hair"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Magic Level",
-        name="Powerful Epiphany",
-        materials=(
-            Material(50, "Frosty Heart"),
-            Material(30, "Ectoplasm"),
-            Material(20, "Seacrest Hair"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Fist",
-        name="Basic Punch",
-        materials=(
-            Material(25, "Battle Stone"),
-            Material(10, "Turtle Shell"),
-            Material(5, "Cyclops Toe"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Fist",
-        name="Intricate Punch",
-        materials=(
-            Material(25, "Battle Stone"),
-            Material(20, "Turtle Shell"),
-            Material(10, "Cyclops Toe"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Fist",
-        name="Powerful Punch",
-        materials=(
-            Material(50, "Battle Stone"),
-            Material(30, "Turtle Shell"),
-            Material(20, "Cyclops Toe"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Club",
-        name="Basic Bash",
-        materials=(
-            Material(25, "Rorc Feather"),
-            Material(10, "Lion's Mane"),
-            Material(5, "Ogre Ear Stud"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Club",
-        name="Intricate Bash",
-        materials=(
-            Material(25, "Rorc Feather"),
-            Material(20, "Lion's Mane"),
-            Material(10, "Ogre Ear Stud"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Club",
-        name="Powerful Bash",
-        materials=(
-            Material(50, "Rorc Feather"),
-            Material(30, "Lion's Mane"),
-            Material(20, "Ogre Ear Stud"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Sword",
-        name="Basic Slash",
-        materials=(
-            Material(25, "Hunting Spear"),
-            Material(10, "Lion's Mane"),
-            Material(5, "Broken Shamanic Staff"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Sword",
-        name="Intricate Slash",
-        materials=(
-            Material(25, "Hunting Spear"),
-            Material(20, "Lion's Mane"),
-            Material(10, "Broken Shamanic Staff"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Sword",
-        name="Powerful Slash",
-        materials=(
-            Material(50, "Hunting Spear"),
-            Material(30, "Lion's Mane"),
-            Material(20, "Broken Shamanic Staff"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Axe",
-        name="Basic Chop",
-        materials=(
-            Material(25, "Bronze Goblet"),
-            Material(10, "Orc Tooth"),
-            Material(5, "Vampire Teeth"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Axe",
-        name="Intricate Chop",
-        materials=(
-            Material(25, "Bronze Goblet"),
-            Material(20, "Orc Tooth"),
-            Material(10, "Vampire Teeth"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Axe",
-        name="Powerful Chop",
-        materials=(
-            Material(50, "Bronze Goblet"),
-            Material(30, "Orc Tooth"),
-            Material(20, "Vampire Teeth"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Distance",
-        name="Basic Precision",
-        materials=(
-            Material(25, "Elven Scouting Glass"),
-            Material(10, "Elven Hoof"),
-            Material(5, "Piece of Steel"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Distance",
-        name="Intricate Precision",
-        materials=(
-            Material(25, "Elven Scouting Glass"),
-            Material(20, "Elven Hoof"),
-            Material(10, "Piece of Steel"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Distance",
-        name="Powerful Precision",
-        materials=(
-            Material(50, "Elven Scouting Glass"),
-            Material(30, "Elven Hoof"),
-            Material(20, "Piece of Steel"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Shielding",
-        name="Basic Blockade",
-        materials=(
-            Material(25, "Griffin Feather"),
-            Material(10, "Striped Fur"),
-            Material(5, "Elven Bone"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Shielding",
-        name="Intricate Blockade",
-        materials=(
-            Material(25, "Griffin Feather"),
-            Material(20, "Striped Fur"),
-            Material(10, "Elven Bone"),
-        ),
-    ),
-    Imbuement(
-        category="Skill - Shielding",
-        name="Powerful Blockade",
-        materials=(
-            Material(50, "Griffin Feather"),
-            Material(30, "Striped Fur"),
-            Material(20, "Elven Bone"),
-        ),
-    ),
-)
+def build_imbuements(resource: dict[str, object]) -> tuple[Imbuement, ...]:
+    imbuements = []
+    for item in resource.get("imbuements", []):
+        category = str(item.get("category", ""))
+        for tier in item.get("tiers", []):
+            materials = tuple(
+                Material(int(source["qty"]), str(source["name"]))
+                for source in tier.get("sources", [])
+            )
+            imbuements.append(
+                Imbuement(
+                    category=category,
+                    name=str(tier.get("name", "")),
+                    materials=materials,
+                )
+            )
+    return tuple(imbuements)
+
+
+IMBUEMENTS = build_imbuements(IMBUEMENTS_RESOURCE)
 
 
 class ImbuementStore:
@@ -698,7 +102,6 @@ class ImbuementStore:
     def set_favorite(self, key: str, value: bool) -> None:
         self.favorites[key] = bool(value)
         self._save()
-
 
 class TibiaSearchApp:
     def __init__(self, root: tk.Tk) -> None:
@@ -955,7 +358,7 @@ class TibiaSearchApp:
         if not self.active_imbuement:
             return
         for material in self.active_imbuement.materials:
-            self.open_search(material.name)
+            webbrowser.open_new_tab(fandom_article_url(material.name))
 
     def _render_imbuement_details(self, imbuement: Imbuement) -> None:
         self.imbuement_title.config(text=imbuement.name)
@@ -977,7 +380,10 @@ class TibiaSearchApp:
 
             item_label = ttk.Label(self.materials_frame, text=material.name, foreground="#0a66cc", cursor="hand2")
             item_label.grid(row=row, column=1, sticky="w", pady=2)
-            item_label.bind("<Button-1>", lambda _event, name=material.name: self.open_search(name))
+            item_label.bind(
+                "<Button-1>",
+                lambda _event, name=material.name: webbrowser.open_new_tab(fandom_article_url(name)),
+            )
 
             var = tk.StringVar(value=str(self.store.get_price(material.name)))
             self.material_vars[material.name] = var
@@ -1031,12 +437,10 @@ class TibiaSearchApp:
     def exit_app(self) -> None:
         self.root.destroy()
 
-
 def main() -> None:
     root = tk.Tk()
     app = TibiaSearchApp(root)
     root.mainloop()
-
 
 if __name__ == "__main__":
     main()

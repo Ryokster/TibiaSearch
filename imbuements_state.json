@@ -1,0 +1,13 @@
+{
+  "prices": {
+    "Fiery Heart": 33
+  },
+  "favorites": {
+    "Mana Leech|Powerful Void": false,
+    "Mana Leech|Intricate Void": false,
+    "Critical|Basic Strike": false,
+    "Attack / Life Leech|Intricate Vampirism": true,
+    "Attack / Mana Leech|Intricate Void": true,
+    "Attack / Critical Hit|Intricate Strike": true
+  }
+}
