@@ -34,10 +34,7 @@ class TibiaSearchApp:
         self._bind_events()
         self._refresh_history_list()
 
-        if self.tray_icon.available:
-            self.root.protocol("WM_DELETE_WINDOW", self.hide_to_tray)
-        else:
-            self.root.protocol("WM_DELETE_WINDOW", self.exit_app)
+        self.root.protocol("WM_DELETE_WINDOW", self.hide_to_tray)
         self.show_window()
 
     def _build_ui(self) -> None:
@@ -144,9 +141,6 @@ class TibiaSearchApp:
         webbrowser.open(target_url)
 
     def hide_to_tray(self) -> None:
-        if not self.tray_icon.available:
-            self.exit_app()
-            return
         self.root.withdraw()
         self.tray_icon.show()
 
