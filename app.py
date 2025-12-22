@@ -69,32 +69,31 @@ class EquipmentItem:
     name: str
     slot: str
     imbue_slots: int
+    category: str
 
 
-ITEM_CATEGORY_SLOT_MAP = {
-    "Helmets": "head",
-    "Armors": "armor",
-    "Shields": "shield",
-    "Spellbooks": "shield",
-    "Wands": "weapon",
-    "Rods": "weapon",
-    "Axe Weapons": "weapon",
-    "Club Weapons": "weapon",
-    "Sword Weapons": "weapon",
-    "Fist Fighting Weapons": "weapon",
-    "Bows": "weapon",
-    "Crossbows": "weapon",
+SLOT_ALLOWED_CATEGORIES = {
+    "head": {"HELMET"},
+    "armor": {"ARMOR"},
+    "legs": {"LEGS"},
+    "shield": {"SHIELD"},
+    "weapon": {"WEAPON_1H", "WEAPON_2H"},
 }
+
+
+def _build_category_slot_map() -> dict[str, str]:
+    category_map: dict[str, str] = {}
+    for slot, categories in SLOT_ALLOWED_CATEGORIES.items():
+        for category in categories:
+            category_map[category] = slot
+    return category_map
 
 
 def build_items(resource: dict[str, object]) -> tuple[EquipmentItem, ...]:
     items: list[EquipmentItem] = []
+    category_slot_map = _build_category_slot_map()
     for category in resource.get("categories", []):
         if not isinstance(category, dict):
-            continue
-        category_name = str(category.get("name", ""))
-        slot = ITEM_CATEGORY_SLOT_MAP.get(category_name)
-        if not slot:
             continue
         for entry in category.get("items", []):
             if not isinstance(entry, dict):
@@ -107,7 +106,18 @@ def build_items(resource: dict[str, object]) -> tuple[EquipmentItem, ...]:
                 imbue_slots = int(imbue_slots)
             except (TypeError, ValueError):
                 imbue_slots = 0
-            items.append(EquipmentItem(name=name, slot=slot, imbue_slots=imbue_slots))
+            item_category = str(entry.get("category", "")).strip()
+            slot = category_slot_map.get(item_category)
+            if not slot:
+                continue
+            items.append(
+                EquipmentItem(
+                    name=name,
+                    slot=slot,
+                    imbue_slots=imbue_slots,
+                    category=item_category,
+                )
+            )
     items.sort(key=lambda item: (item.slot, item.name))
     return tuple(items)
 
@@ -673,6 +683,10 @@ class CharacterWindow:
         self.current_character_name: str = str(self.store.get_active()["name"])
 
         self.item_map = {item.name: item for item in ITEMS}
+        self.items_by_slot: dict[str, list[EquipmentItem]] = {slot: [] for slot in EQUIPMENT_SLOTS}
+        for item in ITEMS:
+            if item.slot in self.items_by_slot:
+                self.items_by_slot[item.slot].append(item)
         self.imbuement_map = {imbuement.key: imbuement for imbuement in IMBUEMENTS}
 
         self.character_var = tk.StringVar(value=self.current_character_name)
@@ -845,8 +859,7 @@ class CharacterWindow:
         items_scroll.grid(row=0, column=1, sticky="ns")
         self.items_tree.configure(yscrollcommand=items_scroll.set)
 
-        for item in ITEMS:
-            self.items_tree.insert("", tk.END, iid=item.name, values=(item.name, item.slot, item.imbue_slots))
+        self._populate_items_for_slot(self.active_slot)
 
         self.items_tree.bind("<Double-Button-1>", lambda _event: self._equip_selected_item())
         ttk.Button(items_frame, text="Equip", command=self._equip_selected_item).grid(row=1, column=0, sticky="e", padx=4, pady=(0, 4))
@@ -902,6 +915,12 @@ class CharacterWindow:
             for child in frame.winfo_children():
                 if isinstance(child, tk.Label):
                     child.configure(bg=frame.cget("bg"))
+        self._populate_items_for_slot(slot)
+
+    def _populate_items_for_slot(self, slot: str) -> None:
+        self.items_tree.delete(*self.items_tree.get_children())
+        for item in self.items_by_slot.get(slot, []):
+            self.items_tree.insert("", tk.END, iid=item.name, values=(item.name, item.slot, item.imbue_slots))
 
     def _refresh_character_list(self) -> None:
         self.character_combo.configure(values=self.store.names())
