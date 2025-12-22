@@ -72,6 +72,16 @@ class EquipmentItem:
     category: str
 
 
+@dataclass(frozen=True)
+class TibiaItem:
+    name: str
+    slug: str
+    url: str
+    weight: float
+    category: str
+    providers: tuple[str, ...]
+
+
 SLOT_ALLOWED_CATEGORIES = {
     "head": {"HELMET"},
     "armor": {"ARMOR"},
@@ -123,6 +133,48 @@ def build_items(resource: dict[str, object]) -> tuple[EquipmentItem, ...]:
 
 
 ITEMS = build_items(IMBUABLE_ITEMS_RESOURCE)
+
+
+def load_json_resource(path: Path) -> dict[str, object]:
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            return json.load(handle)
+    except Exception:
+        return {}
+
+
+def build_tibia_items(resource: dict[str, object]) -> tuple[TibiaItem, ...]:
+    items: list[TibiaItem] = []
+    for entry in resource.get("items", []):
+        if not isinstance(entry, dict):
+            continue
+        name = str(entry.get("name", "")).strip()
+        if not name:
+            continue
+        slug = str(entry.get("slug", "")).strip()
+        url = str(entry.get("url", "")).strip()
+        category = str(entry.get("category", "")).strip()
+        weight = entry.get("weight", 0)
+        try:
+            weight = float(weight)
+        except (TypeError, ValueError):
+            weight = 0.0
+        providers = entry.get("providers", [])
+        if not isinstance(providers, list):
+            providers = []
+        providers_tuple = tuple(str(provider).strip() for provider in providers if str(provider).strip())
+        items.append(
+            TibiaItem(
+                name=name,
+                slug=slug,
+                url=url,
+                weight=weight,
+                category=category,
+                providers=providers_tuple,
+            )
+        )
+    items.sort(key=lambda item: item.name.lower())
+    return tuple(items)
 
 
 DEFAULT_STATS = {
@@ -324,18 +376,26 @@ class TibiaSearchApp:
         self.root.minsize(620, 420)
 
         self.base_dir = Path(sys.executable).parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parent
+        self.tibia_resource_dir = self.base_dir / "resources" / "tibia"
         self.history_path = self.base_dir / "history.json"
         self.state_path = self.base_dir / "imbuements_state.json"
         self.character_path = self.base_dir / "characters_state.json"
         self.history = HistoryManager(self.history_path)
         self.store = ImbuementStore(self.state_path)
         self.character_store = CharacterStore(self.character_path)
+        self.creature_products = build_tibia_items(
+            load_json_resource(self.tibia_resource_dir / "creature_products.json")
+        )
+        self.delivery_items = build_tibia_items(
+            load_json_resource(self.tibia_resource_dir / "delivery_task_items.json")
+        )
 
         self.always_on_top = False
         self.active_imbuement: Imbuement | None = None
         self.material_vars: dict[str, tk.StringVar] = {}
         self.material_rows: list[tuple[Material, ttk.Label]] = []
         self.character_window: "CharacterWindow" | None = None
+        self.items_list_items: list[TibiaItem] = []
 
         self._build_ui()
         self._bind_events()
@@ -370,11 +430,14 @@ class TibiaSearchApp:
 
         self.history_tab = ttk.Frame(self.notebook)
         self.imbuements_tab = ttk.Frame(self.notebook)
+        self.items_tab = ttk.Frame(self.notebook)
         self.notebook.add(self.history_tab, text="History")
         self.notebook.add(self.imbuements_tab, text="Imbuements")
+        self.notebook.add(self.items_tab, text="Tibia Items")
 
         self._build_history_tab()
         self._build_imbuements_tab()
+        self._build_items_tab()
 
     def _build_history_tab(self) -> None:
         self.history_tab.columnconfigure(0, weight=1)
@@ -455,6 +518,50 @@ class TibiaSearchApp:
         self.total_label = ttk.Label(right_frame, text="Gesamt: 0 gp")
         self.total_label.grid(row=3, column=0, sticky="e", pady=(10, 0))
 
+    def _build_items_tab(self) -> None:
+        self.items_tab.columnconfigure(0, weight=1)
+        self.items_tab.rowconfigure(1, weight=1)
+
+        controls_frame = ttk.Frame(self.items_tab)
+        controls_frame.grid(row=0, column=0, sticky="ew", padx=8, pady=(8, 4))
+        controls_frame.columnconfigure(2, weight=1)
+
+        self.items_filter_var = tk.StringVar(value="creature")
+        creature_button = ttk.Radiobutton(
+            controls_frame,
+            text="Creature Products",
+            variable=self.items_filter_var,
+            value="creature",
+        )
+        delivery_button = ttk.Radiobutton(
+            controls_frame,
+            text="Delivery Items",
+            variable=self.items_filter_var,
+            value="delivery",
+        )
+        creature_button.grid(row=0, column=0, sticky="w")
+        delivery_button.grid(row=0, column=1, sticky="w", padx=(6, 0))
+
+        self.items_search_var = tk.StringVar()
+        search_entry = ttk.Entry(controls_frame, textvariable=self.items_search_var)
+        search_entry.grid(row=0, column=2, sticky="ew", padx=(12, 0))
+
+        list_frame = ttk.Frame(self.items_tab)
+        list_frame.grid(row=1, column=0, sticky="nsew", padx=8, pady=(0, 8))
+        list_frame.columnconfigure(0, weight=1)
+        list_frame.rowconfigure(0, weight=1)
+
+        self.items_list = tk.Listbox(list_frame)
+        self.items_list.grid(row=0, column=0, sticky="nsew")
+
+        list_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.items_list.yview)
+        list_scroll.grid(row=0, column=1, sticky="ns")
+        self.items_list.configure(yscrollcommand=list_scroll.set)
+
+        self.items_filter_var.trace_add("write", lambda *_args: self._refresh_items_list())
+        self.items_search_var.trace_add("write", lambda *_args: self._refresh_items_list())
+        self._refresh_items_list()
+
     def _bind_events(self) -> None:
         self.search_entry.bind("<Return>", lambda _event: self.perform_search())
         self.search_entry.bind("<Escape>", lambda _event: self.clear_entry())
@@ -468,8 +575,43 @@ class TibiaSearchApp:
         self.imbuement_tree.bind("<Return>", lambda _event: self.search_selected_imbuement())
         self.imbuement_tree.bind("<Button-1>", self.on_tree_click)
 
+        self.items_list.bind("<Double-Button-1>", self._open_selected_item)
+        self.items_list.bind("<Return>", self._open_selected_item)
+
     def clear_entry(self) -> None:
         self.search_entry.delete(0, tk.END)
+
+    def _active_items(self) -> tuple[TibiaItem, ...]:
+        if self.items_filter_var.get() == "delivery":
+            return self.delivery_items
+        return self.creature_products
+
+    def _refresh_items_list(self) -> None:
+        query = self.items_search_var.get().strip().casefold()
+        items = self._active_items()
+        self.items_list.delete(0, tk.END)
+        self.items_list_items = []
+        for item in items:
+            providers_text = ", ".join(item.providers)
+            search_text = f"{item.name} {providers_text}".casefold()
+            if query and query not in search_text:
+                continue
+            display = item.name
+            if providers_text:
+                display = f"{display} — {providers_text}"
+            if not item.url:
+                display = f"{display} (no link)"
+            self.items_list.insert(tk.END, display)
+            self.items_list_items.append(item)
+
+    def _open_selected_item(self, _event: tk.Event) -> None:
+        selection = self.items_list.curselection()
+        if not selection:
+            return
+        item = self.items_list_items[selection[0]]
+        if not item.url:
+            return
+        webbrowser.open_new_tab(item.url)
 
     def toggle_topmost(self) -> None:
         self.always_on_top = not self.always_on_top

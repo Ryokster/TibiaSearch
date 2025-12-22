@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "source": {
+    "name": "Tibiopedia (Delivery Items)",
+    "url": "https://tibiopedia.pl/items/others/delivery",
+    "fetched_at": "2025-12-22T08:37:22Z"
+  },
+  "items": [
+    {
+      "name": "Parcel",
+      "slug": "Parcel",
+      "url": "",
+      "weight": 2.0,
+      "category": "Delivery Task Item",
+      "providers": [
+        "Postman"
+      ]
+    },
+    {
+      "name": "Letter",
+      "slug": "Letter",
+      "url": "",
+      "weight": 0.1,
+      "category": "Delivery Task Item",
+      "providers": [
+        "Postman"
+      ]
+    },
+    {
+      "name": "Green Parcel",
+      "slug": "Green_Parcel",
+      "url": "",
+      "weight": 2.0,
+      "category": "Delivery Task Item",
+      "providers": [
+        "Postman"
+      ]
+    },
+    {
+      "name": "Present Box",
+      "slug": "Present_Box",
+      "url": "",
+      "weight": 1.0,
+      "category": "Delivery Task Item",
+      "providers": [
+        "Santa"
+      ]
+    },
+    {
+      "name": "Package",
+      "slug": "Package",
+      "url": "",
+      "weight": 2.0,
+      "category": "Delivery Task Item",
+      "providers": [
+        "Postman"
+      ]
+    }
+  ]
+}
