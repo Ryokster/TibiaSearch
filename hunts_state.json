@@ -7,7 +7,7 @@
       "equipment_tag": "Normal",
       "raw_log_text": "Session data: From 2025-12-22, 17:33:19 to 2025-12-22, 17:39:14 Session: 00:05h XP Gain: 2,013 XP/h: 12,147 Loot: 1,311 Supplies: 378 Balance: 933 Damage: 2,585 Damage/h: 2,585 Healing: 0 Healing/h: 0 Killed Monsters: 8x bat 8x bug 1x carniphila 1x cave rat 3x centipede 2x flamingo 3x poison spider 1x sibang 2x skunk 2x snake 3x spider 3x tarantula 3x tiger 6x wasp Looted Items: 49x a gold coin 3x meat 1x spider fangs 1x striped furso sieht ein log aus",
       "created_at": "2025-12-22T17:54:22",
-      "updated_at": "2025-12-22T18:11:29",
+      "updated_at": "2025-12-22T21:00:03",
       "start_dt": "2025-12-22T17:33:19",
       "end_dt": "2025-12-22T17:39:14",
       "duration_seconds": 355,
@@ -42,6 +42,45 @@
         "meat": 3,
         "spider fangs": 1,
         "striped furso sieht ein log aus": 1
+      }
+    },
+    {
+      "id": "a70f1f6a-414a-464d-be68-e16d9cc5aea8",
+      "name": "Tarantulas",
+      "character_id": "Strongsword",
+      "equipment_tag": "Normal",
+      "raw_log_text": "Session data: From 2025-12-22, 19:37:54 to 2025-12-22, 20:09:37\nSession: 00:31h\nXP Gain: 41,925\nXP/h: 104,605\nLoot: 8,676\nSupplies: 13,426\nBalance: -4,750\nDamage: 33,970\nDamage/h: 33,970\nHealing: 98\nHealing/h: 98\nKilled Monsters:\n  3x bug\n  20x centipede\n  55x poison spider\n  2x snake\n  1x spider\n  128x tarantula\n  14x toad\n  2x wasp\nLooted Items:\n  414x a gold coin\n  1x a fish\n  4x spider fangs\n  2x a tarantula egg\n  2x a centipede leg",
+      "created_at": "2025-12-22T20:09:49",
+      "updated_at": "2025-12-22T20:59:58",
+      "start_dt": "2025-12-22T19:37:54",
+      "end_dt": "2025-12-22T20:09:37",
+      "duration_seconds": 1903,
+      "xp_total": 41925,
+      "xp_per_hour": 104605.0,
+      "loot_total": 8676,
+      "supplies_total": 13426,
+      "balance_total": -4750,
+      "damage_total": 33970,
+      "damage_per_hour": 33970.0,
+      "healing_total": 98,
+      "healing_per_hour": 98.0,
+      "kills_breakdown": {
+        "bug": 3,
+        "centipede": 20,
+        "poison spider": 55,
+        "snake": 2,
+        "spider": 1,
+        "tarantula": 128,
+        "toad": 14,
+        "wasp": 2
+      },
+      "kills_count": 225,
+      "looted_items_breakdown": {
+        "a gold coin": 414,
+        "a fish": 1,
+        "spider fangs": 4,
+        "a tarantula egg": 2,
+        "a centipede leg": 2
       }
     }
   ]
