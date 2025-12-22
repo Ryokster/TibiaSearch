@@ -3,7 +3,7 @@
     {
       "name": "Strongsword",
       "vocation": "Elder Druid",
-      "level": 1,
+      "level": 160,
       "stats": {
         "magic_level": 0,
         "ml_percent": 0,
@@ -15,7 +15,7 @@
         "soul_points": 0,
         "stamina": 0,
         "shielding": 0,
-        "sword": 0,
+        "sword": 100,
         "axe": 0,
         "club": 0,
         "distance": 0
@@ -30,10 +30,8 @@
           "imbues": []
         },
         "weapon": {
-          "item": "Axe of Remedy",
-          "imbues": [
-            "Attack / Mana Leech|Powerful Void"
-          ]
+          "item": null,
+          "imbues": []
         },
         "shield": {
           "item": null,
