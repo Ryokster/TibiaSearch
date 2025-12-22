@@ -1,9 +1,12 @@
 import json
+import re
 import sys
+import uuid
 import tkinter as tk
 import tkinter.font as tkfont
 import webbrowser
 from dataclasses import dataclass
+from datetime import datetime, timedelta
 from pathlib import Path
 from tkinter import messagebox, ttk
 from typing import Callable
@@ -62,6 +65,15 @@ IMBUEMENTS = build_imbuements(IMBUEMENTS_RESOURCE)
 
 EQUIPMENT_SLOTS = ("head", "armor", "weapon", "shield", "legs")
 VOCATIONS = ("Druid", "Elder Druid")
+EQUIPMENT_TAGS = (
+    "Normal",
+    "Erdresi",
+    "Feuerresi",
+    "Eisresi",
+    "Energiresi",
+    "Todesresi",
+    "Physresi",
+)
 
 
 @dataclass(frozen=True)
@@ -89,6 +101,163 @@ SLOT_ALLOWED_CATEGORIES = {
     "shield": {"SHIELD"},
     "weapon": {"WEAPON_1H", "WEAPON_2H"},
 }
+
+
+def _parse_number(value: str) -> int:
+    cleaned = value.replace(",", "").strip()
+    return int(cleaned) if cleaned.isdigit() else 0
+
+
+def _format_number(value: float, decimals: int = 0) -> str:
+    formatted = f"{value:,.{decimals}f}"
+    return formatted.replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+def _parse_duration(value: str) -> int:
+    match = re.match(r"^(\d{1,2}):(\d{2})h$", value.strip())
+    if not match:
+        return 0
+    hours = int(match.group(1))
+    minutes = int(match.group(2))
+    return hours * 3600 + minutes * 60
+
+
+def _parse_session_log(raw_text: str) -> dict[str, object]:
+    result: dict[str, object] = {
+        "start_dt": None,
+        "end_dt": None,
+        "duration_seconds": 0,
+        "xp_total": 0,
+        "xp_per_hour": None,
+        "loot_total": 0,
+        "supplies_total": 0,
+        "balance_total": 0,
+        "damage_total": 0,
+        "damage_per_hour": None,
+        "healing_total": 0,
+        "healing_per_hour": None,
+        "kills_breakdown": {},
+        "kills_count": 0,
+        "looted_items_breakdown": {},
+    }
+
+    lines = [line.rstrip() for line in raw_text.splitlines()]
+    key_pattern = re.compile(r"^(XP Gain|XP/h|Loot|Supplies|Balance|Damage|Damage/h|Healing|Healing/h):\s*([0-9,]+)")
+
+    def is_header(line: str) -> bool:
+        stripped = line.strip()
+        return (
+            stripped.startswith("Session data:")
+            or stripped.startswith("Session:")
+            or stripped == "Killed Monsters:"
+            or stripped == "Looted Items:"
+            or key_pattern.match(stripped) is not None
+        )
+
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if not line:
+            i += 1
+            continue
+        if line.startswith("Session data:"):
+            match = re.search(
+                r"Session data:\s*From\s+([0-9-]+),\s*([0-9:]+)\s*to\s*([0-9-]+),\s*([0-9:]+)",
+                line,
+            )
+            if match:
+                start_str = f"{match.group(1)}, {match.group(2)}"
+                end_str = f"{match.group(3)}, {match.group(4)}"
+                try:
+                    start_dt = datetime.strptime(start_str, "%Y-%m-%d, %H:%M:%S")
+                    end_dt = datetime.strptime(end_str, "%Y-%m-%d, %H:%M:%S")
+                    if end_dt < start_dt:
+                        end_dt += timedelta(hours=24)
+                    result["start_dt"] = start_dt.isoformat()
+                    result["end_dt"] = end_dt.isoformat()
+                    result["duration_seconds"] = int((end_dt - start_dt).total_seconds())
+                except ValueError:
+                    pass
+            i += 1
+            continue
+        if line.startswith("Session:"):
+            duration = _parse_duration(line.replace("Session:", "", 1))
+            if duration and not result["duration_seconds"]:
+                result["duration_seconds"] = duration
+            i += 1
+            continue
+        if line == "Killed Monsters:":
+            i += 1
+            breakdown: dict[str, int] = {}
+            while i < len(lines):
+                entry = lines[i].strip()
+                if not entry:
+                    i += 1
+                    continue
+                if is_header(entry):
+                    break
+                match = re.match(r"^(\d+)x\s+(.+)$", entry)
+                if match:
+                    count = int(match.group(1))
+                    name = match.group(2).strip().lower()
+                    breakdown[name] = breakdown.get(name, 0) + count
+                i += 1
+            result["kills_breakdown"] = breakdown
+            result["kills_count"] = sum(breakdown.values())
+            continue
+        if line == "Looted Items:":
+            i += 1
+            breakdown = {}
+            while i < len(lines):
+                entry = lines[i].strip()
+                if not entry:
+                    i += 1
+                    continue
+                if is_header(entry):
+                    break
+                match = re.match(r"^(\d+)x\s+(.+)$", entry)
+                if match:
+                    count = int(match.group(1))
+                    name = match.group(2).strip().lower()
+                    breakdown[name] = breakdown.get(name, 0) + count
+                i += 1
+            result["looted_items_breakdown"] = breakdown
+            continue
+
+        match = key_pattern.match(line)
+        if match:
+            key = match.group(1)
+            value = _parse_number(match.group(2))
+            if key == "XP Gain":
+                result["xp_total"] = value
+            elif key == "XP/h":
+                result["xp_per_hour"] = value
+            elif key == "Loot":
+                result["loot_total"] = value
+            elif key == "Supplies":
+                result["supplies_total"] = value
+            elif key == "Balance":
+                result["balance_total"] = value
+            elif key == "Damage":
+                result["damage_total"] = value
+            elif key == "Damage/h":
+                result["damage_per_hour"] = value
+            elif key == "Healing":
+                result["healing_total"] = value
+            elif key == "Healing/h":
+                result["healing_per_hour"] = value
+        i += 1
+
+    duration_seconds = int(result.get("duration_seconds", 0) or 0)
+    duration_hours = duration_seconds / 3600 if duration_seconds else 0
+    if duration_hours:
+        if result["xp_per_hour"] is None:
+            result["xp_per_hour"] = result["xp_total"] / duration_hours
+        if result["damage_per_hour"] is None:
+            result["damage_per_hour"] = result["damage_total"] / duration_hours
+        if result["healing_per_hour"] is None:
+            result["healing_per_hour"] = result["healing_total"] / duration_hours
+    return result
 
 
 def _build_category_slot_map() -> dict[str, str]:
@@ -368,6 +537,94 @@ class ImbuementStore:
         self.favorites[key] = bool(value)
         self._save()
 
+
+class HuntStore:
+    def __init__(self, path: Path) -> None:
+        self.path = path
+        self.hunts: list[dict[str, object]] = []
+        self._load()
+
+    def _load(self) -> None:
+        if not self.path.exists():
+            return
+        try:
+            with self.path.open("r", encoding="utf-8") as handle:
+                data = json.load(handle)
+        except Exception:
+            data = {}
+        hunts = []
+        for entry in data.get("hunts", []):
+            if not isinstance(entry, dict):
+                continue
+            hunts.append(self._normalize_entry(entry))
+        self.hunts = hunts
+
+    def _normalize_entry(self, entry: dict[str, object]) -> dict[str, object]:
+        hunt_id = str(entry.get("id") or uuid.uuid4())
+        name = str(entry.get("name", "")).strip() or "Unnamed"
+        equipment_tag = str(entry.get("equipment_tag", "Normal"))
+        if equipment_tag not in EQUIPMENT_TAGS:
+            equipment_tag = "Normal"
+        raw_log_text = str(entry.get("raw_log_text", "")).strip()
+        created_at = str(entry.get("created_at") or datetime.now().isoformat(timespec="seconds"))
+        updated_at = str(entry.get("updated_at") or created_at)
+        parsed = _parse_session_log(raw_log_text)
+        normalized: dict[str, object] = {
+            "id": hunt_id,
+            "name": name,
+            "equipment_tag": equipment_tag,
+            "raw_log_text": raw_log_text,
+            "created_at": created_at,
+            "updated_at": updated_at,
+        }
+        normalized.update(parsed)
+        return normalized
+
+    def _save(self) -> None:
+        payload = {"hunts": self.hunts}
+        try:
+            with self.path.open("w", encoding="utf-8") as handle:
+                json.dump(payload, handle, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
+    def add_hunt(self, name: str, equipment_tag: str, raw_log_text: str) -> str:
+        now = datetime.now().isoformat(timespec="seconds")
+        hunt_id = str(uuid.uuid4())
+        parsed = _parse_session_log(raw_log_text)
+        entry: dict[str, object] = {
+            "id": hunt_id,
+            "name": name,
+            "equipment_tag": equipment_tag,
+            "raw_log_text": raw_log_text,
+            "created_at": now,
+            "updated_at": now,
+        }
+        entry.update(parsed)
+        self.hunts.append(entry)
+        self._save()
+        return hunt_id
+
+    def update_hunt(self, hunt_id: str, updates: dict[str, object]) -> None:
+        for entry in self.hunts:
+            if entry.get("id") == hunt_id:
+                entry.update(updates)
+                entry["updated_at"] = datetime.now().isoformat(timespec="seconds")
+                self._save()
+                return
+
+    def update_hunt_log(self, hunt_id: str, raw_log_text: str) -> None:
+        parsed = _parse_session_log(raw_log_text)
+        updates = {"raw_log_text": raw_log_text}
+        updates.update(parsed)
+        self.update_hunt(hunt_id, updates)
+
+    def get_hunt(self, hunt_id: str) -> dict[str, object] | None:
+        for entry in self.hunts:
+            if entry.get("id") == hunt_id:
+                return entry
+        return None
+
 class TibiaSearchApp:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
@@ -380,9 +637,11 @@ class TibiaSearchApp:
         self.history_path = self.base_dir / "history.json"
         self.state_path = self.base_dir / "imbuements_state.json"
         self.character_path = self.base_dir / "characters_state.json"
+        self.hunt_path = self.base_dir / "hunts_state.json"
         self.history = HistoryManager(self.history_path)
         self.store = ImbuementStore(self.state_path)
         self.character_store = CharacterStore(self.character_path)
+        self.hunt_store = HuntStore(self.hunt_path)
         self.creature_products = build_tibia_items(
             load_json_resource(self.tibia_resource_dir / "creature_products.json")
         )
@@ -396,6 +655,13 @@ class TibiaSearchApp:
         self.material_rows: list[tuple[Material, ttk.Label]] = []
         self.character_window: "CharacterWindow" | None = None
         self.items_list_items: list[TibiaItem] = []
+        self.active_hunt_id: str | None = None
+        self.hunt_log_update_after: str | None = None
+        self.hunt_detail_vars: dict[str, tk.StringVar] = {}
+        self.hunt_rate_vars: dict[str, tk.StringVar] = {}
+        self.hunt_equipment_var = tk.StringVar(value=EQUIPMENT_TAGS[0])
+        self._suppress_hunt_equipment_change = False
+        self._suppress_hunt_log_change = False
 
         self._build_ui()
         self._bind_events()
@@ -431,13 +697,16 @@ class TibiaSearchApp:
         self.history_tab = ttk.Frame(self.notebook)
         self.imbuements_tab = ttk.Frame(self.notebook)
         self.items_tab = ttk.Frame(self.notebook)
+        self.hunts_tab = ttk.Frame(self.notebook)
         self.notebook.add(self.history_tab, text="History")
         self.notebook.add(self.imbuements_tab, text="Imbuements")
         self.notebook.add(self.items_tab, text="Tibia Items")
+        self.notebook.add(self.hunts_tab, text="Hunts")
 
         self._build_history_tab()
         self._build_imbuements_tab()
         self._build_items_tab()
+        self._build_hunts_tab()
 
     def _build_history_tab(self) -> None:
         self.history_tab.columnconfigure(0, weight=1)
@@ -562,6 +831,176 @@ class TibiaSearchApp:
         self.items_search_var.trace_add("write", lambda *_args: self._refresh_items_list())
         self._refresh_items_list()
 
+    def _build_hunts_tab(self) -> None:
+        self.hunts_tab.columnconfigure(0, weight=1)
+        self.hunts_tab.rowconfigure(1, weight=1)
+
+        header_frame = ttk.Frame(self.hunts_tab)
+        header_frame.grid(row=0, column=0, sticky="ew", padx=8, pady=(8, 4))
+        header_frame.columnconfigure(0, weight=1)
+
+        ttk.Label(header_frame, text="Hunts").grid(row=0, column=0, sticky="w")
+        ttk.Button(header_frame, text="＋ Hunt hinzufügen", command=self._open_add_hunt_dialog).grid(
+            row=0, column=1, sticky="e"
+        )
+
+        list_frame = ttk.Frame(self.hunts_tab)
+        list_frame.grid(row=1, column=0, sticky="nsew", padx=8, pady=(0, 6))
+        list_frame.columnconfigure(0, weight=1)
+        list_frame.rowconfigure(0, weight=1)
+
+        self.hunts_tree = ttk.Treeview(
+            list_frame,
+            columns=("name", "equipment", "xp"),
+            show="headings",
+            height=6,
+        )
+        self.hunts_tree.heading("name", text="Hunt-Name")
+        self.hunts_tree.heading("equipment", text="Ausrüstung")
+        self.hunts_tree.heading("xp", text="XP Gain")
+        self.hunts_tree.column("name", width=260, anchor="w")
+        self.hunts_tree.column("equipment", width=120, anchor="center")
+        self.hunts_tree.column("xp", width=120, anchor="e")
+        self.hunts_tree.grid(row=0, column=0, sticky="nsew")
+
+        hunt_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.hunts_tree.yview)
+        hunt_scroll.grid(row=0, column=1, sticky="ns")
+        self.hunts_tree.configure(yscrollcommand=hunt_scroll.set)
+
+        self.hunts_notebook = ttk.Notebook(self.hunts_tab)
+        self.hunts_notebook.grid(row=2, column=0, sticky="nsew", padx=8, pady=(0, 8))
+
+        self.hunt_details_tab = ttk.Frame(self.hunts_notebook)
+        self.hunt_stats_tab = ttk.Frame(self.hunts_notebook)
+        self.hunts_notebook.add(self.hunt_details_tab, text="Hunt-Details")
+        self.hunts_notebook.add(self.hunt_stats_tab, text="Statistiken")
+
+        self._build_hunt_details_tab()
+        self._build_hunt_stats_tab()
+        self._refresh_hunts_list()
+
+    def _build_hunt_details_tab(self) -> None:
+        self.hunt_details_tab.columnconfigure(0, weight=1)
+        self.hunt_details_tab.rowconfigure(2, weight=1)
+
+        equipment_frame = ttk.Frame(self.hunt_details_tab)
+        equipment_frame.grid(row=0, column=0, sticky="ew", padx=6, pady=(6, 2))
+        equipment_frame.columnconfigure(1, weight=1)
+        ttk.Label(equipment_frame, text="Ausrüstung:").grid(row=0, column=0, sticky="w")
+        self.hunt_equipment_combo = ttk.Combobox(
+            equipment_frame,
+            textvariable=self.hunt_equipment_var,
+            values=EQUIPMENT_TAGS,
+            state="readonly",
+            width=18,
+        )
+        self.hunt_equipment_combo.grid(row=0, column=1, sticky="w", padx=(6, 0))
+
+        stats_frame = ttk.Frame(self.hunt_details_tab)
+        stats_frame.grid(row=1, column=0, sticky="ew", padx=6, pady=(4, 6))
+        stats_frame.columnconfigure(0, weight=1)
+        stats_frame.columnconfigure(1, weight=1)
+
+        left_frame = ttk.LabelFrame(stats_frame, text="Ist-Werte")
+        left_frame.grid(row=0, column=0, sticky="nsew", padx=(0, 6))
+        left_frame.columnconfigure(1, weight=1)
+
+        right_frame = ttk.LabelFrame(stats_frame, text="Pro Stunde")
+        right_frame.grid(row=0, column=1, sticky="nsew")
+        right_frame.columnconfigure(1, weight=1)
+
+        detail_fields = [
+            ("Dauer", "duration"),
+            ("Kills", "kills"),
+            ("XP Gain", "xp_total"),
+            ("Loot", "loot_total"),
+            ("Supplies", "supplies_total"),
+            ("Balance", "balance_total"),
+            ("Damage", "damage_total"),
+            ("Healing", "healing_total"),
+        ]
+        for row, (label, key) in enumerate(detail_fields):
+            ttk.Label(left_frame, text=f"{label}:").grid(row=row, column=0, sticky="w", padx=6, pady=2)
+            var = tk.StringVar(value="—")
+            self.hunt_detail_vars[key] = var
+            ttk.Label(left_frame, textvariable=var).grid(row=row, column=1, sticky="e", padx=6, pady=2)
+
+        rate_fields = [
+            ("XP/h", "xp_per_hour"),
+            ("Balance/h", "balance_per_hour"),
+            ("Kills/h", "kills_per_hour"),
+            ("Damage/h", "damage_per_hour"),
+            ("Healing/h", "healing_per_hour"),
+        ]
+        for row, (label, key) in enumerate(rate_fields):
+            ttk.Label(right_frame, text=f"{label}:").grid(row=row, column=0, sticky="w", padx=6, pady=2)
+            var = tk.StringVar(value="—")
+            self.hunt_rate_vars[key] = var
+            ttk.Label(right_frame, textvariable=var).grid(row=row, column=1, sticky="e", padx=6, pady=2)
+
+        log_frame = ttk.LabelFrame(self.hunt_details_tab, text="Session-Log")
+        log_frame.grid(row=2, column=0, sticky="nsew", padx=6, pady=(0, 6))
+        log_frame.columnconfigure(0, weight=1)
+        log_frame.rowconfigure(0, weight=1)
+
+        self.hunt_log_text = tk.Text(log_frame, height=10, wrap="word")
+        self.hunt_log_text.grid(row=0, column=0, sticky="nsew")
+        log_scroll = ttk.Scrollbar(log_frame, orient="vertical", command=self.hunt_log_text.yview)
+        log_scroll.grid(row=0, column=1, sticky="ns")
+        self.hunt_log_text.configure(yscrollcommand=log_scroll.set)
+        self.hunt_log_text.bind("<<Modified>>", self._on_hunt_log_modified)
+
+    def _build_hunt_stats_tab(self) -> None:
+        self.hunt_stats_tab.columnconfigure(0, weight=1)
+        self.hunt_stats_tab.columnconfigure(1, weight=1)
+        self.hunt_stats_tab.rowconfigure(0, weight=1)
+
+        profit_frame = ttk.LabelFrame(self.hunt_stats_tab, text="Top 5 nach Gold (Profit)")
+        profit_frame.grid(row=0, column=0, sticky="nsew", padx=(6, 3), pady=6)
+        profit_frame.columnconfigure(0, weight=1)
+        profit_frame.rowconfigure(0, weight=1)
+
+        self.hunt_profit_tree = ttk.Treeview(
+            profit_frame,
+            columns=("name", "equipment", "balance"),
+            show="headings",
+            height=5,
+        )
+        self.hunt_profit_tree.heading("name", text="Hunt-Name")
+        self.hunt_profit_tree.heading("equipment", text="Ausrüstung")
+        self.hunt_profit_tree.heading("balance", text="Balance")
+        self.hunt_profit_tree.column("name", width=220, anchor="w")
+        self.hunt_profit_tree.column("equipment", width=120, anchor="center")
+        self.hunt_profit_tree.column("balance", width=120, anchor="e")
+        self.hunt_profit_tree.grid(row=0, column=0, sticky="nsew")
+
+        profit_scroll = ttk.Scrollbar(profit_frame, orient="vertical", command=self.hunt_profit_tree.yview)
+        profit_scroll.grid(row=0, column=1, sticky="ns")
+        self.hunt_profit_tree.configure(yscrollcommand=profit_scroll.set)
+
+        xp_frame = ttk.LabelFrame(self.hunt_stats_tab, text="Top 5 nach XP")
+        xp_frame.grid(row=0, column=1, sticky="nsew", padx=(3, 6), pady=6)
+        xp_frame.columnconfigure(0, weight=1)
+        xp_frame.rowconfigure(0, weight=1)
+
+        self.hunt_xp_tree = ttk.Treeview(
+            xp_frame,
+            columns=("name", "equipment", "xp"),
+            show="headings",
+            height=5,
+        )
+        self.hunt_xp_tree.heading("name", text="Hunt-Name")
+        self.hunt_xp_tree.heading("equipment", text="Ausrüstung")
+        self.hunt_xp_tree.heading("xp", text="XP Gain")
+        self.hunt_xp_tree.column("name", width=220, anchor="w")
+        self.hunt_xp_tree.column("equipment", width=120, anchor="center")
+        self.hunt_xp_tree.column("xp", width=120, anchor="e")
+        self.hunt_xp_tree.grid(row=0, column=0, sticky="nsew")
+
+        xp_scroll = ttk.Scrollbar(xp_frame, orient="vertical", command=self.hunt_xp_tree.yview)
+        xp_scroll.grid(row=0, column=1, sticky="ns")
+        self.hunt_xp_tree.configure(yscrollcommand=xp_scroll.set)
+
     def _bind_events(self) -> None:
         self.search_entry.bind("<Return>", lambda _event: self.perform_search())
         self.search_entry.bind("<Escape>", lambda _event: self.clear_entry())
@@ -577,6 +1016,11 @@ class TibiaSearchApp:
 
         self.items_list.bind("<Double-Button-1>", self._open_selected_item)
         self.items_list.bind("<Return>", self._open_selected_item)
+
+        self.hunts_tree.bind("<<TreeviewSelect>>", self._on_hunt_select)
+        self.hunt_profit_tree.bind("<<TreeviewSelect>>", self._on_hunt_stats_select)
+        self.hunt_xp_tree.bind("<<TreeviewSelect>>", self._on_hunt_stats_select)
+        self.hunt_equipment_var.trace_add("write", self._on_hunt_equipment_change)
 
     def clear_entry(self) -> None:
         self.search_entry.delete(0, tk.END)
@@ -612,6 +1056,248 @@ class TibiaSearchApp:
         if not item.url:
             return
         webbrowser.open_new_tab(item.url)
+
+    def _open_add_hunt_dialog(self) -> None:
+        dialog = tk.Toplevel(self.root)
+        dialog.title("Hunt hinzufügen")
+        dialog.resizable(False, False)
+        dialog.transient(self.root)
+        dialog.grab_set()
+
+        name_var = tk.StringVar()
+        equipment_var = tk.StringVar(value=EQUIPMENT_TAGS[0])
+
+        form_frame = ttk.Frame(dialog, padding=10)
+        form_frame.grid(row=0, column=0, sticky="nsew")
+        form_frame.columnconfigure(1, weight=1)
+
+        ttk.Label(form_frame, text="Name:").grid(row=0, column=0, sticky="w", pady=4)
+        name_entry = ttk.Entry(form_frame, textvariable=name_var, width=40)
+        name_entry.grid(row=0, column=1, sticky="ew", pady=4)
+
+        ttk.Label(form_frame, text="Ausrüstung:").grid(row=1, column=0, sticky="w", pady=4)
+        equipment_combo = ttk.Combobox(
+            form_frame,
+            textvariable=equipment_var,
+            values=EQUIPMENT_TAGS,
+            state="readonly",
+            width=20,
+        )
+        equipment_combo.grid(row=1, column=1, sticky="w", pady=4)
+
+        ttk.Label(form_frame, text="Session-Log:").grid(row=2, column=0, sticky="nw", pady=4)
+        log_text = tk.Text(form_frame, height=10, width=50, wrap="word")
+        log_text.grid(row=2, column=1, sticky="ew", pady=4)
+
+        button_frame = ttk.Frame(form_frame)
+        button_frame.grid(row=3, column=1, sticky="e", pady=(6, 0))
+        ttk.Button(button_frame, text="Anlegen", command=lambda: on_submit()).grid(row=0, column=0, padx=(0, 6))
+        ttk.Button(button_frame, text="Abbrechen", command=dialog.destroy).grid(row=0, column=1)
+
+        def on_submit() -> None:
+            name = name_var.get().strip()
+            raw_log = log_text.get("1.0", tk.END).strip()
+            equipment_tag = equipment_var.get()
+            if not name:
+                messagebox.showwarning("Fehlender Name", "Bitte einen Hunt-Namen angeben.")
+                return
+            if not raw_log:
+                messagebox.showwarning("Fehlender Log", "Bitte den Session-Log einfügen.")
+                return
+            hunt_id = self.hunt_store.add_hunt(name, equipment_tag, raw_log)
+            self._refresh_hunts_list(select_id=hunt_id)
+            dialog.destroy()
+
+        name_entry.focus_set()
+
+    def _refresh_hunts_list(self, select_id: str | None = None) -> None:
+        self.hunts_tree.delete(*self.hunts_tree.get_children())
+        hunts = sorted(
+            self.hunt_store.hunts,
+            key=lambda entry: self._hunt_sort_key(entry.get("created_at")),
+            reverse=True,
+        )
+        for entry in hunts:
+            xp_total = int(entry.get("xp_total") or 0)
+            self.hunts_tree.insert(
+                "",
+                tk.END,
+                iid=str(entry.get("id")),
+                values=(entry.get("name"), entry.get("equipment_tag"), _format_number(xp_total)),
+            )
+        target_id = select_id or self.active_hunt_id
+        if target_id and self.hunts_tree.exists(target_id):
+            self.hunts_tree.selection_set(target_id)
+        elif hunts:
+            first_id = str(hunts[0].get("id"))
+            self.hunts_tree.selection_set(first_id)
+        else:
+            self.active_hunt_id = None
+            self._refresh_hunt_details()
+        if target_id and self.hunts_tree.exists(target_id):
+            self.active_hunt_id = target_id
+        elif hunts:
+            self.active_hunt_id = str(hunts[0].get("id"))
+        self._refresh_hunt_details()
+        self._refresh_hunt_stats()
+
+    def _hunt_sort_key(self, value: object) -> datetime:
+        if isinstance(value, str):
+            try:
+                return datetime.fromisoformat(value)
+            except ValueError:
+                return datetime.min
+        return datetime.min
+
+    def _on_hunt_select(self, _event: tk.Event) -> None:
+        selection = self.hunts_tree.selection()
+        if not selection:
+            return
+        self._select_hunt(selection[0])
+
+    def _select_hunt(self, hunt_id: str) -> None:
+        if self.active_hunt_id == hunt_id:
+            return
+        self.active_hunt_id = hunt_id
+        if self.hunts_tree.exists(hunt_id):
+            self.hunts_tree.selection_set(hunt_id)
+        self._refresh_hunt_details()
+
+    def _refresh_hunt_details(self) -> None:
+        entry = self.hunt_store.get_hunt(self.active_hunt_id) if self.active_hunt_id else None
+        if not entry:
+            for var in self.hunt_detail_vars.values():
+                var.set("—")
+            for var in self.hunt_rate_vars.values():
+                var.set("—")
+            self._suppress_hunt_equipment_change = True
+            self.hunt_equipment_var.set(EQUIPMENT_TAGS[0])
+            self._suppress_hunt_equipment_change = False
+            self.hunt_equipment_combo.configure(state="disabled")
+            self._set_hunt_log_text("")
+            return
+
+        self.hunt_equipment_combo.configure(state="readonly")
+        self._suppress_hunt_equipment_change = True
+        self.hunt_equipment_var.set(str(entry.get("equipment_tag", "Normal")))
+        self._suppress_hunt_equipment_change = False
+        self._set_hunt_log_text(str(entry.get("raw_log_text", "")))
+
+        duration_seconds = int(entry.get("duration_seconds") or 0)
+        duration_hours = duration_seconds / 3600 if duration_seconds else 0
+
+        self.hunt_detail_vars["duration"].set(self._format_duration(duration_seconds))
+        self.hunt_detail_vars["kills"].set(_format_number(int(entry.get("kills_count") or 0)))
+        self.hunt_detail_vars["xp_total"].set(_format_number(int(entry.get("xp_total") or 0)))
+        self.hunt_detail_vars["loot_total"].set(_format_number(int(entry.get("loot_total") or 0)))
+        self.hunt_detail_vars["supplies_total"].set(_format_number(int(entry.get("supplies_total") or 0)))
+        self.hunt_detail_vars["balance_total"].set(_format_number(int(entry.get("balance_total") or 0)))
+        self.hunt_detail_vars["damage_total"].set(_format_number(int(entry.get("damage_total") or 0)))
+        self.hunt_detail_vars["healing_total"].set(_format_number(int(entry.get("healing_total") or 0)))
+
+        if duration_hours:
+            xp_rate = entry.get("xp_per_hour")
+            damage_rate = entry.get("damage_per_hour")
+            healing_rate = entry.get("healing_per_hour")
+            balance_rate = int(entry.get("balance_total") or 0) / duration_hours
+            kills_rate = int(entry.get("kills_count") or 0) / duration_hours
+            self.hunt_rate_vars["xp_per_hour"].set(self._format_rate(xp_rate))
+            self.hunt_rate_vars["balance_per_hour"].set(self._format_rate(balance_rate))
+            self.hunt_rate_vars["kills_per_hour"].set(self._format_rate(kills_rate))
+            self.hunt_rate_vars["damage_per_hour"].set(self._format_rate(damage_rate))
+            self.hunt_rate_vars["healing_per_hour"].set(self._format_rate(healing_rate))
+        else:
+            for key in self.hunt_rate_vars:
+                self.hunt_rate_vars[key].set("—")
+
+    def _set_hunt_log_text(self, value: str) -> None:
+        self._suppress_hunt_log_change = True
+        self.hunt_log_text.delete("1.0", tk.END)
+        if value:
+            self.hunt_log_text.insert("1.0", value)
+        self.hunt_log_text.edit_modified(False)
+        self._suppress_hunt_log_change = False
+
+    def _on_hunt_log_modified(self, _event: tk.Event) -> None:
+        if self._suppress_hunt_log_change:
+            self.hunt_log_text.edit_modified(False)
+            return
+        if not self.hunt_log_text.edit_modified():
+            return
+        self.hunt_log_text.edit_modified(False)
+        if self.hunt_log_update_after:
+            self.root.after_cancel(self.hunt_log_update_after)
+        self.hunt_log_update_after = self.root.after(400, self._commit_hunt_log_update)
+
+    def _commit_hunt_log_update(self) -> None:
+        self.hunt_log_update_after = None
+        if not self.active_hunt_id:
+            return
+        raw_log = self.hunt_log_text.get("1.0", tk.END).strip()
+        self.hunt_store.update_hunt_log(self.active_hunt_id, raw_log)
+        self._refresh_hunts_list(select_id=self.active_hunt_id)
+        self._refresh_hunt_details()
+
+    def _on_hunt_equipment_change(self, *_args: object) -> None:
+        if self._suppress_hunt_equipment_change or not self.active_hunt_id:
+            return
+        equipment_tag = self.hunt_equipment_var.get()
+        self.hunt_store.update_hunt(self.active_hunt_id, {"equipment_tag": equipment_tag})
+        self._refresh_hunts_list(select_id=self.active_hunt_id)
+
+    def _refresh_hunt_stats(self) -> None:
+        self.hunt_profit_tree.delete(*self.hunt_profit_tree.get_children())
+        self.hunt_xp_tree.delete(*self.hunt_xp_tree.get_children())
+
+        hunts = self.hunt_store.hunts
+        top_profit = sorted(hunts, key=lambda entry: int(entry.get("balance_total") or 0), reverse=True)[:5]
+        top_xp = sorted(hunts, key=lambda entry: int(entry.get("xp_total") or 0), reverse=True)[:5]
+
+        for entry in top_profit:
+            balance = int(entry.get("balance_total") or 0)
+            self.hunt_profit_tree.insert(
+                "",
+                tk.END,
+                iid=str(entry.get("id")),
+                values=(entry.get("name"), entry.get("equipment_tag"), _format_number(balance)),
+            )
+
+        for entry in top_xp:
+            xp_total = int(entry.get("xp_total") or 0)
+            self.hunt_xp_tree.insert(
+                "",
+                tk.END,
+                iid=str(entry.get("id")),
+                values=(entry.get("name"), entry.get("equipment_tag"), _format_number(xp_total)),
+            )
+
+    def _on_hunt_stats_select(self, event: tk.Event) -> None:
+        tree = event.widget
+        selection = tree.selection()
+        if not selection:
+            return
+        hunt_id = selection[0]
+        self._select_hunt(hunt_id)
+        self.hunts_notebook.select(self.hunt_details_tab)
+
+    def _format_duration(self, seconds: int) -> str:
+        if seconds <= 0:
+            return "—"
+        hours = seconds // 3600
+        minutes = (seconds % 3600) // 60
+        secs = seconds % 60
+        return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+
+    def _format_rate(self, value: object) -> str:
+        if value is None:
+            return "—"
+        try:
+            numeric = float(value)
+        except (TypeError, ValueError):
+            return "—"
+        if abs(numeric - round(numeric)) < 0.01:
+            return _format_number(round(numeric))
+        return _format_number(numeric, decimals=2)
 
     def toggle_topmost(self) -> None:
         self.always_on_top = not self.always_on_top
