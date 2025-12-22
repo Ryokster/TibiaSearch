@@ -655,6 +655,8 @@ class TibiaSearchApp:
         self.hunt_rate_vars: dict[str, tk.StringVar] = {}
         self.hunt_equipment_var = tk.StringVar(value=EQUIPMENT_TAGS[0])
         self.hunt_character_var = tk.StringVar()
+        self.hunt_kills_list: tk.Listbox | None = None
+        self.hunt_loot_list: tk.Listbox | None = None
         self._suppress_hunt_equipment_change = False
         self._suppress_hunt_character_change = False
         self._suppress_hunt_log_change = False
@@ -918,7 +920,7 @@ class TibiaSearchApp:
 
         detail_fields = [
             ("Dauer", "duration"),
-            ("Kills", "kills"),
+            ("Kills (TOTAL)", "kills"),
             ("XP Gain", "xp_total"),
             ("Loot", "loot_total"),
             ("Supplies", "supplies_total"),
@@ -926,11 +928,36 @@ class TibiaSearchApp:
             ("Damage", "damage_total"),
             ("Healing", "healing_total"),
         ]
-        for row, (label, key) in enumerate(detail_fields):
+        row = 0
+        for label, key in detail_fields:
             ttk.Label(left_frame, text=f"{label}:").grid(row=row, column=0, sticky="w", padx=6, pady=2)
             var = tk.StringVar(value="—")
             self.hunt_detail_vars[key] = var
             ttk.Label(left_frame, textvariable=var).grid(row=row, column=1, sticky="e", padx=6, pady=2)
+            row += 1
+            if key == "kills":
+                kills_frame = ttk.LabelFrame(left_frame, text="Kills (pro Kreatur)")
+                kills_frame.grid(row=row, column=0, columnspan=2, sticky="nsew", padx=6, pady=(0, 6))
+                kills_frame.columnconfigure(0, weight=1)
+                kills_frame.rowconfigure(0, weight=1)
+                self.hunt_kills_list = tk.Listbox(kills_frame, height=5)
+                self.hunt_kills_list.grid(row=0, column=0, sticky="nsew")
+                kills_scroll = ttk.Scrollbar(kills_frame, orient="vertical", command=self.hunt_kills_list.yview)
+                kills_scroll.grid(row=0, column=1, sticky="ns")
+                self.hunt_kills_list.configure(yscrollcommand=kills_scroll.set)
+                left_frame.rowconfigure(row, weight=1)
+                row += 1
+
+        loot_frame = ttk.LabelFrame(left_frame, text="Looted Items")
+        loot_frame.grid(row=row, column=0, columnspan=2, sticky="nsew", padx=6, pady=(0, 6))
+        loot_frame.columnconfigure(0, weight=1)
+        loot_frame.rowconfigure(0, weight=1)
+        self.hunt_loot_list = tk.Listbox(loot_frame, height=5)
+        self.hunt_loot_list.grid(row=0, column=0, sticky="nsew")
+        loot_scroll = ttk.Scrollbar(loot_frame, orient="vertical", command=self.hunt_loot_list.yview)
+        loot_scroll.grid(row=0, column=1, sticky="ns")
+        self.hunt_loot_list.configure(yscrollcommand=loot_scroll.set)
+        left_frame.rowconfigure(row, weight=1)
 
         rate_fields = [
             ("XP/h", "xp_per_hour"),
@@ -1210,6 +1237,8 @@ class TibiaSearchApp:
                 var.set("—")
             for var in self.hunt_rate_vars.values():
                 var.set("—")
+            self._set_breakdown_list(self.hunt_kills_list, {})
+            self._set_breakdown_list(self.hunt_loot_list, {})
             self._suppress_hunt_equipment_change = True
             self.hunt_equipment_var.set(EQUIPMENT_TAGS[0])
             self._suppress_hunt_equipment_change = False
@@ -1251,6 +1280,8 @@ class TibiaSearchApp:
         self.hunt_detail_vars["balance_total"].set(_format_number(int(entry.get("balance_total") or 0)))
         self.hunt_detail_vars["damage_total"].set(_format_number(int(entry.get("damage_total") or 0)))
         self.hunt_detail_vars["healing_total"].set(_format_number(int(entry.get("healing_total") or 0)))
+        self._set_breakdown_list(self.hunt_kills_list, entry.get("kills_breakdown") or {})
+        self._set_breakdown_list(self.hunt_loot_list, entry.get("looted_items_breakdown") or {})
 
         if duration_hours:
             xp_rate = entry.get("xp_per_hour")
@@ -1266,6 +1297,17 @@ class TibiaSearchApp:
         else:
             for key in self.hunt_rate_vars:
                 self.hunt_rate_vars[key].set("—")
+
+    def _set_breakdown_list(self, listbox: tk.Listbox | None, breakdown: dict[str, int]) -> None:
+        if listbox is None:
+            return
+        listbox.delete(0, tk.END)
+        if not breakdown:
+            listbox.insert(tk.END, "—")
+            return
+        sorted_items = sorted(breakdown.items(), key=lambda item: (-item[1], item[0].lower()))
+        for name, count in sorted_items:
+            listbox.insert(tk.END, f"{_format_number(count)}x {name}")
 
     def _set_hunt_log_text(self, value: str) -> None:
         self._suppress_hunt_log_change = True
