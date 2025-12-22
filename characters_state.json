@@ -22,19 +22,18 @@
       },
       "equipment": {
         "head": {
-          "item": "Crown Helmet",
-          "imbues": [
-            "Attack / Fire Damage|Basic Scorch",
-            "Attack / Earth Damage|Powerful Venom"
-          ]
+          "item": null,
+          "imbues": []
         },
         "armor": {
           "item": null,
           "imbues": []
         },
         "weapon": {
-          "item": null,
-          "imbues": []
+          "item": "Axe of Remedy",
+          "imbues": [
+            "Attack / Mana Leech|Powerful Void"
+          ]
         },
         "shield": {
           "item": null,
