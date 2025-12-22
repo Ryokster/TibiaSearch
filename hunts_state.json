@@ -3,25 +3,46 @@
     {
       "id": "d488b2ba-2cc7-4610-bcef-8f9d80fe952c",
       "name": "First Hunt SUper NIce",
+      "character_id": "Strongsword",
       "equipment_tag": "Normal",
       "raw_log_text": "Session data: From 2025-12-22, 17:33:19 to 2025-12-22, 17:39:14 Session: 00:05h XP Gain: 2,013 XP/h: 12,147 Loot: 1,311 Supplies: 378 Balance: 933 Damage: 2,585 Damage/h: 2,585 Healing: 0 Healing/h: 0 Killed Monsters: 8x bat 8x bug 1x carniphila 1x cave rat 3x centipede 2x flamingo 3x poison spider 1x sibang 2x skunk 2x snake 3x spider 3x tarantula 3x tiger 6x wasp Looted Items: 49x a gold coin 3x meat 1x spider fangs 1x striped furso sieht ein log aus",
       "created_at": "2025-12-22T17:54:22",
-      "updated_at": "2025-12-22T17:54:22",
+      "updated_at": "2025-12-22T18:11:29",
       "start_dt": "2025-12-22T17:33:19",
       "end_dt": "2025-12-22T17:39:14",
       "duration_seconds": 355,
-      "xp_total": 0,
-      "xp_per_hour": 0.0,
-      "loot_total": 0,
-      "supplies_total": 0,
-      "balance_total": 0,
-      "damage_total": 0,
-      "damage_per_hour": 0.0,
+      "xp_total": 2013,
+      "xp_per_hour": 12147.0,
+      "loot_total": 1311,
+      "supplies_total": 378,
+      "balance_total": 933,
+      "damage_total": 2585,
+      "damage_per_hour": 2585.0,
       "healing_total": 0,
       "healing_per_hour": 0.0,
-      "kills_breakdown": {},
-      "kills_count": 0,
-      "looted_items_breakdown": {}
+      "kills_breakdown": {
+        "bat": 8,
+        "bug": 8,
+        "carniphila": 1,
+        "cave rat": 1,
+        "centipede": 3,
+        "flamingo": 2,
+        "poison spider": 3,
+        "sibang": 1,
+        "skunk": 2,
+        "snake": 2,
+        "spider": 3,
+        "tarantula": 3,
+        "tiger": 3,
+        "wasp": 6
+      },
+      "kills_count": 46,
+      "looted_items_breakdown": {
+        "a gold coin": 49,
+        "meat": 3,
+        "spider fangs": 1,
+        "striped furso sieht ein log aus": 1
+      }
     }
   ]
 }
