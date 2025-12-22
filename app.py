@@ -10,6 +10,7 @@ from typing import Callable
 from urllib.parse import quote, urlencode
 
 from history import HistoryManager
+from imbuable_items_data import IMBUABLE_ITEMS_RESOURCE
 from imbuements_data import IMBUEMENTS_RESOURCE
 
 SEARCH_PAGE_URL = "https://tibia.fandom.com/wiki/Special:Search"
@@ -70,18 +71,48 @@ class EquipmentItem:
     imbue_slots: int
 
 
-ITEMS = (
-    EquipmentItem(name="Mage Hat", slot="head", imbue_slots=2),
-    EquipmentItem(name="Crown Helmet", slot="head", imbue_slots=2),
-    EquipmentItem(name="Blue Robe", slot="armor", imbue_slots=2),
-    EquipmentItem(name="Magic Plate Armor", slot="armor", imbue_slots=2),
-    EquipmentItem(name="Royal Sword", slot="weapon", imbue_slots=3),
-    EquipmentItem(name="Crystal Wand", slot="weapon", imbue_slots=2),
-    EquipmentItem(name="Vampire Shield", slot="shield", imbue_slots=1),
-    EquipmentItem(name="Mastermind Shield", slot="shield", imbue_slots=2),
-    EquipmentItem(name="Crown Legs", slot="legs", imbue_slots=0),
-    EquipmentItem(name="Demon Legs", slot="legs", imbue_slots=0),
-)
+ITEM_CATEGORY_SLOT_MAP = {
+    "Helmets": "head",
+    "Armors": "armor",
+    "Shields": "shield",
+    "Spellbooks": "shield",
+    "Wands": "weapon",
+    "Rods": "weapon",
+    "Axe Weapons": "weapon",
+    "Club Weapons": "weapon",
+    "Sword Weapons": "weapon",
+    "Fist Fighting Weapons": "weapon",
+    "Bows": "weapon",
+    "Crossbows": "weapon",
+}
+
+
+def build_items(resource: dict[str, object]) -> tuple[EquipmentItem, ...]:
+    items: list[EquipmentItem] = []
+    for category in resource.get("categories", []):
+        if not isinstance(category, dict):
+            continue
+        category_name = str(category.get("name", ""))
+        slot = ITEM_CATEGORY_SLOT_MAP.get(category_name)
+        if not slot:
+            continue
+        for entry in category.get("items", []):
+            if not isinstance(entry, dict):
+                continue
+            name = str(entry.get("name", "")).strip()
+            if not name:
+                continue
+            imbue_slots = entry.get("slots", 0)
+            try:
+                imbue_slots = int(imbue_slots)
+            except (TypeError, ValueError):
+                imbue_slots = 0
+            items.append(EquipmentItem(name=name, slot=slot, imbue_slots=imbue_slots))
+    items.sort(key=lambda item: (item.slot, item.name))
+    return tuple(items)
+
+
+ITEMS = build_items(IMBUABLE_ITEMS_RESOURCE)
 
 
 DEFAULT_STATS = {
