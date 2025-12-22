@@ -673,10 +673,6 @@ class CharacterWindow:
         self.current_character_name: str = str(self.store.get_active()["name"])
 
         self.item_map = {item.name: item for item in ITEMS}
-        self.items_by_slot: dict[str, list[EquipmentItem]] = {slot: [] for slot in EQUIPMENT_SLOTS}
-        for item in ITEMS:
-            if item.slot in self.items_by_slot:
-                self.items_by_slot[item.slot].append(item)
         self.imbuement_map = {imbuement.key: imbuement for imbuement in IMBUEMENTS}
 
         self.character_var = tk.StringVar(value=self.current_character_name)
@@ -849,7 +845,8 @@ class CharacterWindow:
         items_scroll.grid(row=0, column=1, sticky="ns")
         self.items_tree.configure(yscrollcommand=items_scroll.set)
 
-        self._populate_items_for_slot(self.active_slot)
+        for item in ITEMS:
+            self.items_tree.insert("", tk.END, iid=item.name, values=(item.name, item.slot, item.imbue_slots))
 
         self.items_tree.bind("<Double-Button-1>", lambda _event: self._equip_selected_item())
         ttk.Button(items_frame, text="Equip", command=self._equip_selected_item).grid(row=1, column=0, sticky="e", padx=4, pady=(0, 4))
@@ -905,12 +902,6 @@ class CharacterWindow:
             for child in frame.winfo_children():
                 if isinstance(child, tk.Label):
                     child.configure(bg=frame.cget("bg"))
-        self._populate_items_for_slot(slot)
-
-    def _populate_items_for_slot(self, slot: str) -> None:
-        self.items_tree.delete(*self.items_tree.get_children())
-        for item in self.items_by_slot.get(slot, []):
-            self.items_tree.insert("", tk.END, iid=item.name, values=(item.name, item.slot, item.imbue_slots))
 
     def _refresh_character_list(self) -> None:
         self.character_combo.configure(values=self.store.names())
