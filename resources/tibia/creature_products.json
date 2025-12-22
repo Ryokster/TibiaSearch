@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "source": {
+    "name": "TibiaWiki (Creature Products)",
+    "url": "https://tibia.fandom.com/wiki/Creature_Products",
+    "fetched_at": "2025-12-22T08:37:22Z"
+  },
+  "items": [
+    {
+      "name": "Demon Horn",
+      "slug": "Demon_Horn",
+      "url": "https://tibia.fandom.com/wiki/Demon_Horn",
+      "weight": 2.0,
+      "category": "Creature Product",
+      "providers": [
+        "Demon"
+      ]
+    },
+    {
+      "name": "Frosty Heart",
+      "slug": "Frosty_Heart",
+      "url": "https://tibia.fandom.com/wiki/Frosty_Heart",
+      "weight": 0.8,
+      "category": "Creature Product",
+      "providers": [
+        "Frost Dragon",
+        "Ice Dragon"
+      ]
+    },
+    {
+      "name": "Green Dragon Scale",
+      "slug": "Green_Dragon_Scale",
+      "url": "https://tibia.fandom.com/wiki/Green_Dragon_Scale",
+      "weight": 1.0,
+      "category": "Creature Product",
+      "providers": [
+        "Green Dragon"
+      ]
+    },
+    {
+      "name": "Poisonous Slime",
+      "slug": "Poisonous_Slime",
+      "url": "https://tibia.fandom.com/wiki/Poisonous_Slime",
+      "weight": 1.0,
+      "category": "Creature Product",
+      "providers": [
+        "Slime",
+        "Poisonous Slime"
+      ]
+    },
+    {
+      "name": "Rope Belt",
+      "slug": "Rope_Belt",
+      "url": "https://tibia.fandom.com/wiki/Rope_Belt",
+      "weight": 0.8,
+      "category": "Creature Product",
+      "providers": [
+        "Rotworm",
+        "Carrion Worm"
+      ]
+    },
+    {
+      "name": "Rorc Feather",
+      "slug": "Rorc_Feather",
+      "url": "https://tibia.fandom.com/wiki/Rorc_Feather",
+      "weight": 0.3,
+      "category": "Creature Product",
+      "providers": [
+        "Rorc",
+        "Rorc Warrior"
+      ]
+    },
+    {
+      "name": "Silencer Claw",
+      "slug": "Silencer_Claw",
+      "url": "https://tibia.fandom.com/wiki/Silencer_Claw",
+      "weight": 0.6,
+      "category": "Creature Product",
+      "providers": [
+        "Silencer"
+      ]
+    },
+    {
+      "name": "Vampire Teeth",
+      "slug": "Vampire_Teeth",
+      "url": "https://tibia.fandom.com/wiki/Vampire_Teeth",
+      "weight": 0.1,
+      "category": "Creature Product",
+      "providers": [
+        "Vampire",
+        "Vampire Bride"
+      ]
+    }
+  ]
+}
