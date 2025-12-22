@@ -1,0 +1,51 @@
+{
+  "characters": [
+    {
+      "name": "Strongsword",
+      "vocation": "Elder Druid",
+      "level": 1,
+      "stats": {
+        "magic_level": 0,
+        "ml_percent": 0,
+        "mana_level": 0,
+        "hp": 0,
+        "mana": 0,
+        "capacity": 0,
+        "speed": 0,
+        "soul_points": 0,
+        "stamina": 0,
+        "shielding": 0,
+        "sword": 0,
+        "axe": 0,
+        "club": 0,
+        "distance": 0
+      },
+      "equipment": {
+        "head": {
+          "item": "Crown Helmet",
+          "imbues": [
+            "Attack / Fire Damage|Basic Scorch",
+            "Attack / Earth Damage|Powerful Venom"
+          ]
+        },
+        "armor": {
+          "item": null,
+          "imbues": []
+        },
+        "weapon": {
+          "item": null,
+          "imbues": []
+        },
+        "shield": {
+          "item": null,
+          "imbues": []
+        },
+        "legs": {
+          "item": null,
+          "imbues": []
+        }
+      }
+    }
+  ],
+  "active_character": "Strongsword"
+}
