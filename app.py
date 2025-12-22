@@ -103,9 +103,28 @@ SLOT_ALLOWED_CATEGORIES = {
 }
 
 
-def _parse_number(value: str) -> int:
-    cleaned = value.replace(",", "").strip()
-    return int(cleaned) if cleaned.isdigit() else 0
+def _normalize_number(value: str) -> str:
+    return value.replace(",", "").strip()
+
+
+def _parse_int_safe(value: str) -> int:
+    cleaned = _normalize_number(value)
+    if cleaned in {"", "-", "+"}:
+        return 0
+    try:
+        return int(cleaned)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _parse_float_safe(value: str) -> float | None:
+    cleaned = _normalize_number(value)
+    if cleaned in {"", "-", "+"}:
+        return None
+    try:
+        return float(cleaned)
+    except (TypeError, ValueError):
+        return None
 
 
 def _format_number(value: float, decimals: int = 0) -> str:
@@ -141,112 +160,84 @@ def _parse_session_log(raw_text: str) -> dict[str, object]:
         "looted_items_breakdown": {},
     }
 
-    lines = [line.rstrip() for line in raw_text.splitlines()]
-    key_pattern = re.compile(r"^(XP Gain|XP/h|Loot|Supplies|Balance|Damage|Damage/h|Healing|Healing/h):\s*([0-9,]+)")
+    text = raw_text.strip()
 
-    def is_header(line: str) -> bool:
-        stripped = line.strip()
-        return (
-            stripped.startswith("Session data:")
-            or stripped.startswith("Session:")
-            or stripped == "Killed Monsters:"
-            or stripped == "Looted Items:"
-            or key_pattern.match(stripped) is not None
-        )
+    session_match = re.search(
+        r"Session data:\s*From\s*(\d{4}-\d{2}-\d{2}),\s*(\d{2}:\d{2}:\d{2})\s*to\s*(\d{4}-\d{2}-\d{2}),\s*(\d{2}:\d{2}:\d{2})",
+        text,
+        re.DOTALL,
+    )
+    if session_match:
+        start_str = f"{session_match.group(1)}, {session_match.group(2)}"
+        end_str = f"{session_match.group(3)}, {session_match.group(4)}"
+        try:
+            start_dt = datetime.strptime(start_str, "%Y-%m-%d, %H:%M:%S")
+            end_dt = datetime.strptime(end_str, "%Y-%m-%d, %H:%M:%S")
+            if end_dt < start_dt:
+                end_dt += timedelta(hours=24)
+            result["start_dt"] = start_dt.isoformat()
+            result["end_dt"] = end_dt.isoformat()
+            result["duration_seconds"] = int((end_dt - start_dt).total_seconds())
+        except ValueError:
+            pass
+    else:
+        duration_match = re.search(r"Session:\s*(\d{1,2}):(\d{2})h", text, re.DOTALL)
+        if duration_match:
+            hours = int(duration_match.group(1))
+            minutes = int(duration_match.group(2))
+            result["duration_seconds"] = hours * 3600 + minutes * 60
 
-    i = 0
-    while i < len(lines):
-        line = lines[i].strip()
-        if not line:
-            i += 1
-            continue
-        if line.startswith("Session data:"):
-            match = re.search(
-                r"Session data:\s*From\s+([0-9-]+),\s*([0-9:]+)\s*to\s*([0-9-]+),\s*([0-9:]+)",
-                line,
-            )
-            if match:
-                start_str = f"{match.group(1)}, {match.group(2)}"
-                end_str = f"{match.group(3)}, {match.group(4)}"
-                try:
-                    start_dt = datetime.strptime(start_str, "%Y-%m-%d, %H:%M:%S")
-                    end_dt = datetime.strptime(end_str, "%Y-%m-%d, %H:%M:%S")
-                    if end_dt < start_dt:
-                        end_dt += timedelta(hours=24)
-                    result["start_dt"] = start_dt.isoformat()
-                    result["end_dt"] = end_dt.isoformat()
-                    result["duration_seconds"] = int((end_dt - start_dt).total_seconds())
-                except ValueError:
-                    pass
-            i += 1
-            continue
-        if line.startswith("Session:"):
-            duration = _parse_duration(line.replace("Session:", "", 1))
-            if duration and not result["duration_seconds"]:
-                result["duration_seconds"] = duration
-            i += 1
-            continue
-        if line == "Killed Monsters:":
-            i += 1
-            breakdown: dict[str, int] = {}
-            while i < len(lines):
-                entry = lines[i].strip()
-                if not entry:
-                    i += 1
-                    continue
-                if is_header(entry):
-                    break
-                match = re.match(r"^(\d+)x\s+(.+)$", entry)
-                if match:
-                    count = int(match.group(1))
-                    name = match.group(2).strip().lower()
-                    breakdown[name] = breakdown.get(name, 0) + count
-                i += 1
-            result["kills_breakdown"] = breakdown
-            result["kills_count"] = sum(breakdown.values())
-            continue
-        if line == "Looted Items:":
-            i += 1
-            breakdown = {}
-            while i < len(lines):
-                entry = lines[i].strip()
-                if not entry:
-                    i += 1
-                    continue
-                if is_header(entry):
-                    break
-                match = re.match(r"^(\d+)x\s+(.+)$", entry)
-                if match:
-                    count = int(match.group(1))
-                    name = match.group(2).strip().lower()
-                    breakdown[name] = breakdown.get(name, 0) + count
-                i += 1
-            result["looted_items_breakdown"] = breakdown
-            continue
+    def _find_number(label: str) -> str | None:
+        match = re.search(rf"{label}:\s*([-\d,]+)", text, re.DOTALL)
+        if not match:
+            return None
+        return match.group(1)
 
-        match = key_pattern.match(line)
-        if match:
-            key = match.group(1)
-            value = _parse_number(match.group(2))
-            if key == "XP Gain":
-                result["xp_total"] = value
-            elif key == "XP/h":
-                result["xp_per_hour"] = value
-            elif key == "Loot":
-                result["loot_total"] = value
-            elif key == "Supplies":
-                result["supplies_total"] = value
-            elif key == "Balance":
-                result["balance_total"] = value
-            elif key == "Damage":
-                result["damage_total"] = value
-            elif key == "Damage/h":
-                result["damage_per_hour"] = value
-            elif key == "Healing":
-                result["healing_total"] = value
-            elif key == "Healing/h":
-                result["healing_per_hour"] = value
-        i += 1
+    xp_total_raw = _find_number("XP Gain")
+    xp_per_hour_raw = _find_number("XP/h")
+    loot_raw = _find_number("Loot")
+    supplies_raw = _find_number("Supplies")
+    balance_raw = _find_number("Balance")
+    damage_raw = _find_number("Damage")
+    damage_per_hour_raw = _find_number("Damage/h")
+    healing_raw = _find_number("Healing")
+    healing_per_hour_raw = _find_number("Healing/h")
+
+    result["xp_total"] = _parse_int_safe(xp_total_raw or "0")
+    result["xp_per_hour"] = _parse_float_safe(xp_per_hour_raw) if xp_per_hour_raw else None
+    result["loot_total"] = _parse_int_safe(loot_raw or "0")
+    result["supplies_total"] = _parse_int_safe(supplies_raw or "0")
+    result["balance_total"] = _parse_int_safe(balance_raw or "0")
+    result["damage_total"] = _parse_int_safe(damage_raw or "0")
+    result["damage_per_hour"] = _parse_float_safe(damage_per_hour_raw) if damage_per_hour_raw else None
+    result["healing_total"] = _parse_int_safe(healing_raw or "0")
+    result["healing_per_hour"] = _parse_float_safe(healing_per_hour_raw) if healing_per_hour_raw else None
+
+    kills_breakdown: dict[str, int] = {}
+    kills_start = text.find("Killed Monsters:")
+    if kills_start != -1:
+        kills_end = text.find("Looted Items:", kills_start)
+        kills_segment = text[kills_start:kills_end if kills_end != -1 else len(text)]
+        for count_text, name in re.findall(r"(\d+)x\s+([A-Za-z][A-Za-z '\-]+)", kills_segment):
+            count = _parse_int_safe(count_text)
+            key = name.strip().lower()
+            if not key:
+                continue
+            kills_breakdown[key] = kills_breakdown.get(key, 0) + count
+    result["kills_breakdown"] = kills_breakdown
+    result["kills_count"] = sum(kills_breakdown.values())
+
+    loot_breakdown: dict[str, int] = {}
+    loot_start = text.find("Looted Items:")
+    if loot_start != -1:
+        loot_segment = text[loot_start:]
+        for count_text, name in re.findall(r"(\d+)x\s+([A-Za-z][A-Za-z '\-]+)", loot_segment):
+            count = _parse_int_safe(count_text)
+            key = name.strip()
+            if not key:
+                continue
+            loot_breakdown[key] = loot_breakdown.get(key, 0) + count
+    result["looted_items_breakdown"] = loot_breakdown
 
     duration_seconds = int(result.get("duration_seconds", 0) or 0)
     duration_hours = duration_seconds / 3600 if duration_seconds else 0
@@ -565,6 +556,7 @@ class HuntStore:
         equipment_tag = str(entry.get("equipment_tag", "Normal"))
         if equipment_tag not in EQUIPMENT_TAGS:
             equipment_tag = "Normal"
+        character_id = str(entry.get("character_id") or "Default").strip() or "Default"
         raw_log_text = str(entry.get("raw_log_text", "")).strip()
         created_at = str(entry.get("created_at") or datetime.now().isoformat(timespec="seconds"))
         updated_at = str(entry.get("updated_at") or created_at)
@@ -572,6 +564,7 @@ class HuntStore:
         normalized: dict[str, object] = {
             "id": hunt_id,
             "name": name,
+            "character_id": character_id,
             "equipment_tag": equipment_tag,
             "raw_log_text": raw_log_text,
             "created_at": created_at,
@@ -588,13 +581,14 @@ class HuntStore:
         except Exception:
             pass
 
-    def add_hunt(self, name: str, equipment_tag: str, raw_log_text: str) -> str:
+    def add_hunt(self, name: str, character_id: str, equipment_tag: str, raw_log_text: str) -> str:
         now = datetime.now().isoformat(timespec="seconds")
         hunt_id = str(uuid.uuid4())
         parsed = _parse_session_log(raw_log_text)
         entry: dict[str, object] = {
             "id": hunt_id,
             "name": name,
+            "character_id": character_id,
             "equipment_tag": equipment_tag,
             "raw_log_text": raw_log_text,
             "created_at": now,
@@ -660,7 +654,9 @@ class TibiaSearchApp:
         self.hunt_detail_vars: dict[str, tk.StringVar] = {}
         self.hunt_rate_vars: dict[str, tk.StringVar] = {}
         self.hunt_equipment_var = tk.StringVar(value=EQUIPMENT_TAGS[0])
+        self.hunt_character_var = tk.StringVar()
         self._suppress_hunt_equipment_change = False
+        self._suppress_hunt_character_change = False
         self._suppress_hunt_log_change = False
 
         self._build_ui()
@@ -851,14 +847,16 @@ class TibiaSearchApp:
 
         self.hunts_tree = ttk.Treeview(
             list_frame,
-            columns=("name", "equipment", "xp"),
+            columns=("name", "character", "equipment", "xp"),
             show="headings",
             height=6,
         )
         self.hunts_tree.heading("name", text="Hunt-Name")
+        self.hunts_tree.heading("character", text="Character")
         self.hunts_tree.heading("equipment", text="Ausrüstung")
         self.hunts_tree.heading("xp", text="XP Gain")
-        self.hunts_tree.column("name", width=260, anchor="w")
+        self.hunts_tree.column("name", width=220, anchor="w")
+        self.hunts_tree.column("character", width=140, anchor="center")
         self.hunts_tree.column("equipment", width=120, anchor="center")
         self.hunts_tree.column("xp", width=120, anchor="e")
         self.hunts_tree.grid(row=0, column=0, sticky="nsew")
@@ -886,7 +884,16 @@ class TibiaSearchApp:
         equipment_frame = ttk.Frame(self.hunt_details_tab)
         equipment_frame.grid(row=0, column=0, sticky="ew", padx=6, pady=(6, 2))
         equipment_frame.columnconfigure(1, weight=1)
-        ttk.Label(equipment_frame, text="Ausrüstung:").grid(row=0, column=0, sticky="w")
+        ttk.Label(equipment_frame, text="Character:").grid(row=0, column=0, sticky="w")
+        self.hunt_character_combo = ttk.Combobox(
+            equipment_frame,
+            textvariable=self.hunt_character_var,
+            state="readonly",
+            width=18,
+        )
+        self.hunt_character_combo.grid(row=0, column=1, sticky="w", padx=(6, 0))
+
+        ttk.Label(equipment_frame, text="Ausrüstung:").grid(row=1, column=0, sticky="w")
         self.hunt_equipment_combo = ttk.Combobox(
             equipment_frame,
             textvariable=self.hunt_equipment_var,
@@ -894,7 +901,7 @@ class TibiaSearchApp:
             state="readonly",
             width=18,
         )
-        self.hunt_equipment_combo.grid(row=0, column=1, sticky="w", padx=(6, 0))
+        self.hunt_equipment_combo.grid(row=1, column=1, sticky="w", padx=(6, 0))
 
         stats_frame = ttk.Frame(self.hunt_details_tab)
         stats_frame.grid(row=1, column=0, sticky="ew", padx=6, pady=(4, 6))
@@ -962,14 +969,16 @@ class TibiaSearchApp:
 
         self.hunt_profit_tree = ttk.Treeview(
             profit_frame,
-            columns=("name", "equipment", "balance"),
+            columns=("name", "character", "equipment", "balance"),
             show="headings",
             height=5,
         )
         self.hunt_profit_tree.heading("name", text="Hunt-Name")
+        self.hunt_profit_tree.heading("character", text="Character")
         self.hunt_profit_tree.heading("equipment", text="Ausrüstung")
         self.hunt_profit_tree.heading("balance", text="Balance")
-        self.hunt_profit_tree.column("name", width=220, anchor="w")
+        self.hunt_profit_tree.column("name", width=180, anchor="w")
+        self.hunt_profit_tree.column("character", width=140, anchor="center")
         self.hunt_profit_tree.column("equipment", width=120, anchor="center")
         self.hunt_profit_tree.column("balance", width=120, anchor="e")
         self.hunt_profit_tree.grid(row=0, column=0, sticky="nsew")
@@ -985,14 +994,16 @@ class TibiaSearchApp:
 
         self.hunt_xp_tree = ttk.Treeview(
             xp_frame,
-            columns=("name", "equipment", "xp"),
+            columns=("name", "character", "equipment", "xp"),
             show="headings",
             height=5,
         )
         self.hunt_xp_tree.heading("name", text="Hunt-Name")
+        self.hunt_xp_tree.heading("character", text="Character")
         self.hunt_xp_tree.heading("equipment", text="Ausrüstung")
         self.hunt_xp_tree.heading("xp", text="XP Gain")
-        self.hunt_xp_tree.column("name", width=220, anchor="w")
+        self.hunt_xp_tree.column("name", width=180, anchor="w")
+        self.hunt_xp_tree.column("character", width=140, anchor="center")
         self.hunt_xp_tree.column("equipment", width=120, anchor="center")
         self.hunt_xp_tree.column("xp", width=120, anchor="e")
         self.hunt_xp_tree.grid(row=0, column=0, sticky="nsew")
@@ -1021,6 +1032,7 @@ class TibiaSearchApp:
         self.hunt_profit_tree.bind("<<TreeviewSelect>>", self._on_hunt_stats_select)
         self.hunt_xp_tree.bind("<<TreeviewSelect>>", self._on_hunt_stats_select)
         self.hunt_equipment_var.trace_add("write", self._on_hunt_equipment_change)
+        self.hunt_character_var.trace_add("write", self._on_hunt_character_change)
 
     def clear_entry(self) -> None:
         self.search_entry.delete(0, tk.END)
@@ -1065,6 +1077,7 @@ class TibiaSearchApp:
         dialog.grab_set()
 
         name_var = tk.StringVar()
+        character_var = tk.StringVar(value=self.character_store.get_active().get("name", "Default"))
         equipment_var = tk.StringVar(value=EQUIPMENT_TAGS[0])
 
         form_frame = ttk.Frame(dialog, padding=10)
@@ -1075,7 +1088,17 @@ class TibiaSearchApp:
         name_entry = ttk.Entry(form_frame, textvariable=name_var, width=40)
         name_entry.grid(row=0, column=1, sticky="ew", pady=4)
 
-        ttk.Label(form_frame, text="Ausrüstung:").grid(row=1, column=0, sticky="w", pady=4)
+        ttk.Label(form_frame, text="Character:").grid(row=1, column=0, sticky="w", pady=4)
+        character_combo = ttk.Combobox(
+            form_frame,
+            textvariable=character_var,
+            values=self._character_choices(),
+            state="readonly",
+            width=20,
+        )
+        character_combo.grid(row=1, column=1, sticky="w", pady=4)
+
+        ttk.Label(form_frame, text="Ausrüstung:").grid(row=2, column=0, sticky="w", pady=4)
         equipment_combo = ttk.Combobox(
             form_frame,
             textvariable=equipment_var,
@@ -1083,14 +1106,14 @@ class TibiaSearchApp:
             state="readonly",
             width=20,
         )
-        equipment_combo.grid(row=1, column=1, sticky="w", pady=4)
+        equipment_combo.grid(row=2, column=1, sticky="w", pady=4)
 
-        ttk.Label(form_frame, text="Session-Log:").grid(row=2, column=0, sticky="nw", pady=4)
+        ttk.Label(form_frame, text="Session-Log:").grid(row=3, column=0, sticky="nw", pady=4)
         log_text = tk.Text(form_frame, height=10, width=50, wrap="word")
-        log_text.grid(row=2, column=1, sticky="ew", pady=4)
+        log_text.grid(row=3, column=1, sticky="ew", pady=4)
 
         button_frame = ttk.Frame(form_frame)
-        button_frame.grid(row=3, column=1, sticky="e", pady=(6, 0))
+        button_frame.grid(row=4, column=1, sticky="e", pady=(6, 0))
         ttk.Button(button_frame, text="Anlegen", command=lambda: on_submit()).grid(row=0, column=0, padx=(0, 6))
         ttk.Button(button_frame, text="Abbrechen", command=dialog.destroy).grid(row=0, column=1)
 
@@ -1098,13 +1121,17 @@ class TibiaSearchApp:
             name = name_var.get().strip()
             raw_log = log_text.get("1.0", tk.END).strip()
             equipment_tag = equipment_var.get()
+            character_id = character_var.get().strip()
             if not name:
                 messagebox.showwarning("Fehlender Name", "Bitte einen Hunt-Namen angeben.")
+                return
+            if not character_id:
+                messagebox.showwarning("Fehlender Character", "Bitte einen Character auswählen.")
                 return
             if not raw_log:
                 messagebox.showwarning("Fehlender Log", "Bitte den Session-Log einfügen.")
                 return
-            hunt_id = self.hunt_store.add_hunt(name, equipment_tag, raw_log)
+            hunt_id = self.hunt_store.add_hunt(name, character_id, equipment_tag, raw_log)
             self._refresh_hunts_list(select_id=hunt_id)
             dialog.destroy()
 
@@ -1119,11 +1146,12 @@ class TibiaSearchApp:
         )
         for entry in hunts:
             xp_total = int(entry.get("xp_total") or 0)
+            character_name = self._display_character_name(entry.get("character_id"))
             self.hunts_tree.insert(
                 "",
                 tk.END,
                 iid=str(entry.get("id")),
-                values=(entry.get("name"), entry.get("equipment_tag"), _format_number(xp_total)),
+                values=(entry.get("name"), character_name, entry.get("equipment_tag"), _format_number(xp_total)),
             )
         target_id = select_id or self.active_hunt_id
         if target_id and self.hunts_tree.exists(target_id):
@@ -1149,6 +1177,18 @@ class TibiaSearchApp:
                 return datetime.min
         return datetime.min
 
+    def _character_choices(self, current: str | None = None) -> list[str]:
+        names = self.character_store.names()
+        if not names:
+            names = ["Default"]
+        if current and current not in names:
+            return [current, *names]
+        return names
+
+    def _display_character_name(self, value: object) -> str:
+        name = str(value or "").strip()
+        return name or "—"
+
     def _on_hunt_select(self, _event: tk.Event) -> None:
         selection = self.hunts_tree.selection()
         if not selection:
@@ -1173,14 +1213,31 @@ class TibiaSearchApp:
             self._suppress_hunt_equipment_change = True
             self.hunt_equipment_var.set(EQUIPMENT_TAGS[0])
             self._suppress_hunt_equipment_change = False
+            self._suppress_hunt_character_change = True
+            self.hunt_character_var.set("")
+            self._suppress_hunt_character_change = False
             self.hunt_equipment_combo.configure(state="disabled")
+            self.hunt_character_combo.configure(state="disabled")
             self._set_hunt_log_text("")
             return
+
+        raw_log = str(entry.get("raw_log_text", ""))
+        if raw_log:
+            self.hunt_store.update_hunt_log(str(entry.get("id")), raw_log)
+            entry = self.hunt_store.get_hunt(self.active_hunt_id) or entry
 
         self.hunt_equipment_combo.configure(state="readonly")
         self._suppress_hunt_equipment_change = True
         self.hunt_equipment_var.set(str(entry.get("equipment_tag", "Normal")))
         self._suppress_hunt_equipment_change = False
+        character_id = str(entry.get("character_id", "")).strip()
+        self.hunt_character_combo.configure(values=self._character_choices(character_id), state="readonly")
+        self._suppress_hunt_character_change = True
+        if character_id:
+            self.hunt_character_var.set(character_id)
+        else:
+            self.hunt_character_var.set(self._character_choices()[0])
+        self._suppress_hunt_character_change = False
         self._set_hunt_log_text(str(entry.get("raw_log_text", "")))
 
         duration_seconds = int(entry.get("duration_seconds") or 0)
@@ -1245,6 +1302,13 @@ class TibiaSearchApp:
         self.hunt_store.update_hunt(self.active_hunt_id, {"equipment_tag": equipment_tag})
         self._refresh_hunts_list(select_id=self.active_hunt_id)
 
+    def _on_hunt_character_change(self, *_args: object) -> None:
+        if self._suppress_hunt_character_change or not self.active_hunt_id:
+            return
+        character_id = self.hunt_character_var.get()
+        self.hunt_store.update_hunt(self.active_hunt_id, {"character_id": character_id})
+        self._refresh_hunts_list(select_id=self.active_hunt_id)
+
     def _refresh_hunt_stats(self) -> None:
         self.hunt_profit_tree.delete(*self.hunt_profit_tree.get_children())
         self.hunt_xp_tree.delete(*self.hunt_xp_tree.get_children())
@@ -1255,20 +1319,22 @@ class TibiaSearchApp:
 
         for entry in top_profit:
             balance = int(entry.get("balance_total") or 0)
+            character_name = self._display_character_name(entry.get("character_id"))
             self.hunt_profit_tree.insert(
                 "",
                 tk.END,
                 iid=str(entry.get("id")),
-                values=(entry.get("name"), entry.get("equipment_tag"), _format_number(balance)),
+                values=(entry.get("name"), character_name, entry.get("equipment_tag"), _format_number(balance)),
             )
 
         for entry in top_xp:
             xp_total = int(entry.get("xp_total") or 0)
+            character_name = self._display_character_name(entry.get("character_id"))
             self.hunt_xp_tree.insert(
                 "",
                 tk.END,
                 iid=str(entry.get("id")),
-                values=(entry.get("name"), entry.get("equipment_tag"), _format_number(xp_total)),
+                values=(entry.get("name"), character_name, entry.get("equipment_tag"), _format_number(xp_total)),
             )
 
     def _on_hunt_stats_select(self, event: tk.Event) -> None:
