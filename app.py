@@ -768,6 +768,8 @@ class TibiaSearchApp:
         self.store.set_price(material.name, price)
         self._update_material_totals()
         self._refresh_imbuement_totals()
+        if self.character_window and self.character_window.window.winfo_exists():
+            self.character_window.refresh_summary()
 
     def _update_material_totals(self) -> None:
         for material, label in self.material_rows:
@@ -804,16 +806,28 @@ class TibiaSearchApp:
             self.character_window.window.lift()
             self.character_window.window.focus_force()
             return
-        self.character_window = CharacterWindow(self.root, self.character_store, self._on_character_window_closed)
+        self.character_window = CharacterWindow(
+            self.root,
+            self.character_store,
+            self.store,
+            self._on_character_window_closed,
+        )
 
     def _on_character_window_closed(self) -> None:
         self.character_window = None
 
 
 class CharacterWindow:
-    def __init__(self, root: tk.Tk, store: CharacterStore, on_close: Callable[[], None]) -> None:
+    def __init__(
+        self,
+        root: tk.Tk,
+        store: CharacterStore,
+        price_store: ImbuementStore,
+        on_close: Callable[[], None],
+    ) -> None:
         self.root = root
         self.store = store
+        self.price_store = price_store
         self.on_close = on_close
         self.window = tk.Toplevel(root)
         self.window.title("Character Window")
@@ -838,11 +852,12 @@ class CharacterWindow:
         self.equipment_frames: dict[str, tk.Frame] = {}
         self.equipment_labels: dict[str, dict[str, tk.Label]] = {}
         self.imbue_remove_buttons: dict[str, list[ttk.Button]] = {}
+        self._summary_refresh_after_id: str | None = None
 
         self._build_ui()
         self._bind_events()
         self._load_character(self.current_character_name)
-        self._refresh_summary()
+        self._queue_summary_refresh()
 
     def _build_ui(self) -> None:
         self.window.columnconfigure(0, weight=1)
@@ -1085,7 +1100,7 @@ class CharacterWindow:
 
         self._set_active_slot(self.active_slot)
         self._refresh_equipment()
-        self._refresh_summary()
+        self._queue_summary_refresh()
 
     def _save_stats(self, changed_key: str) -> None:
         character = self.store.get_active()
@@ -1240,7 +1255,7 @@ class CharacterWindow:
         character["equipment"] = equipment
         self.store.update_character(self.current_character_name, character)
         self._refresh_equipment()
-        self._refresh_summary()
+        self._queue_summary_refresh()
 
     def _apply_selected_imbue(self) -> None:
         selection = self.imbues_tree.selection()
@@ -1270,7 +1285,7 @@ class CharacterWindow:
         character["equipment"] = equipment
         self.store.update_character(self.current_character_name, character)
         self._refresh_equipment()
-        self._refresh_summary()
+        self._queue_summary_refresh()
 
     def _remove_imbue(self, slot: str, index: int) -> None:
         character = self.store.get_active()
@@ -1287,7 +1302,7 @@ class CharacterWindow:
         character["equipment"] = equipment
         self.store.update_character(self.current_character_name, character)
         self._refresh_equipment()
-        self._refresh_summary()
+        self._queue_summary_refresh()
 
     def _clear_item(self, slot: str) -> None:
         character = self.store.get_active()
@@ -1296,7 +1311,15 @@ class CharacterWindow:
         character["equipment"] = equipment
         self.store.update_character(self.current_character_name, character)
         self._refresh_equipment()
-        self._refresh_summary()
+        self._queue_summary_refresh()
+
+    def refresh_summary(self) -> None:
+        self._queue_summary_refresh()
+
+    def _queue_summary_refresh(self) -> None:
+        if self._summary_refresh_after_id is not None:
+            self.window.after_cancel(self._summary_refresh_after_id)
+        self._summary_refresh_after_id = self.window.after_idle(self._refresh_summary)
 
     def _refresh_equipment(self) -> None:
         character = self.store.get_active()
@@ -1333,7 +1356,11 @@ class CharacterWindow:
 
         self._set_active_slot(self.active_slot)
 
+    def _format_gp(self, value: int) -> str:
+        return f"{value:,}".replace(",", ".") + " gp"
+
     def _refresh_summary(self) -> None:
+        self._summary_refresh_after_id = None
         character = self.store.get_active()
         equipment = character.get("equipment", {})
         imbue_counts: dict[str, int] = {}
@@ -1347,15 +1374,28 @@ class CharacterWindow:
         if not imbue_counts:
             lines.append("No imbuements applied.")
         else:
-            for key in sorted(imbue_counts, key=lambda k: self.imbuement_map.get(k).name if self.imbuement_map.get(k) else k):
+            for key in sorted(
+                imbue_counts,
+                key=lambda k: self.imbuement_map.get(k).name if self.imbuement_map.get(k) else k,
+            ):
                 count = imbue_counts[key]
                 imbuement = self.imbuement_map.get(key)
                 name = imbuement.name if imbuement else key
-                lines.append(f"{name} (x{count})")
+                imbue_total = 0
                 if imbuement:
                     for material in imbuement.materials:
                         total_qty = material.qty * count
-                        lines.append(f"  {total_qty} × {material.name}")
+                        price = self.price_store.get_price(material.name)
+                        imbue_total += total_qty * price
+                lines.append(f"{name} (x{count}) – Total: {self._format_gp(imbue_total)}")
+                if imbuement:
+                    for material in imbuement.materials:
+                        total_qty = material.qty * count
+                        price = self.price_store.get_price(material.name)
+                        line_total = total_qty * price
+                        lines.append(
+                            f"  {total_qty} × {material.name} – {self._format_gp(price)}/Stk – {self._format_gp(line_total)}"
+                        )
                 lines.append("")
 
             totals: dict[str, int] = {}
@@ -1368,7 +1408,12 @@ class CharacterWindow:
             if totals:
                 lines.append("Grand Totals")
                 for name in sorted(totals):
-                    lines.append(f"  {totals[name]} × {name}")
+                    price = self.price_store.get_price(name)
+                    total_qty = totals[name]
+                    line_total = total_qty * price
+                    lines.append(
+                        f"  {name}: {total_qty} × {self._format_gp(price)}/Stk – {self._format_gp(line_total)}"
+                    )
 
         self.summary_text.configure(state="normal")
         self.summary_text.delete("1.0", tk.END)
