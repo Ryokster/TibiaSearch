@@ -1676,6 +1676,15 @@ class TibiaSearchApp:
             entry.grid(row=row, column=2, sticky="w", padx=(6, 6))
             var.trace_add("write", lambda _name, _index, _mode, m=material, v=var: self._on_price_change(m, v))
 
+            row_total = ttk.Label(
+                self.materials_frame,
+                text=self._format_gp(material.qty * self.store.get_price(material.name)),
+            )
+            row_total.grid(row=row, column=3, sticky="e", pady=2)
+            self.material_rows.append((material, row_total))
+
+        self._update_total_label(imbuement)
+
     def _open_url(self, url: str, label: str) -> None:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.request_log.append(f"[{timestamp}] {label} -> {url}")
@@ -1702,12 +1711,6 @@ class TibiaSearchApp:
         else:
             text.insert("1.0", "No outgoing requests logged yet.")
         text.configure(state="disabled")
-
-            row_total = ttk.Label(self.materials_frame, text=self._format_gp(material.qty * self.store.get_price(material.name)))
-            row_total.grid(row=row, column=3, sticky="e", pady=2)
-            self.material_rows.append((material, row_total))
-
-        self._update_total_label(imbuement)
 
     def _validate_price(self, proposed: str) -> bool:
         return proposed.isdigit() or proposed == ""
