@@ -871,15 +871,17 @@ class TibiaSearchApp:
 
         self.items_tree = ttk.Treeview(
             list_frame,
-            columns=("name", "providers", "price"),
+            columns=("name", "providers", "trader_price", "market_price"),
             show="headings",
         )
         self.items_tree.heading("name", text="Item")
         self.items_tree.heading("providers", text="Provider")
-        self.items_tree.heading("price", text="Verkaufspreis")
+        self.items_tree.heading("trader_price", text="Händler VK")
+        self.items_tree.heading("market_price", text="Auktionshaus VK")
         self.items_tree.column("name", width=220, anchor="w")
-        self.items_tree.column("providers", width=320, anchor="w")
-        self.items_tree.column("price", width=120, anchor="e")
+        self.items_tree.column("providers", width=300, anchor="w")
+        self.items_tree.column("trader_price", width=110, anchor="e")
+        self.items_tree.column("market_price", width=130, anchor="e")
         self.items_tree.grid(row=0, column=0, sticky="nsew")
 
         list_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.items_tree.yview)
@@ -1150,7 +1152,7 @@ class TibiaSearchApp:
                 "",
                 tk.END,
                 iid=row_id,
-                values=(name_display, providers_text, price_display),
+                values=(name_display, providers_text, trader_display, market_display),
             )
             self.items_list_items.append(item)
             self.items_tree_items[row_id] = item
@@ -1217,7 +1219,7 @@ class TibiaSearchApp:
         raw_value = editor.get().strip()
         price_value = self._parse_price_input(raw_value)
         self.item_price_store.set_price(item.name, price_value)
-        self.items_tree.set(row_id, "price", self._format_price(price_value))
+        self.items_tree.set(row_id, "trader_price", self._format_price(price_value))
         editor.destroy()
 
     def _parse_price_input(self, value: str) -> int:
