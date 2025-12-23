@@ -42,6 +42,49 @@
           "imbues": []
         }
       }
+    },
+    {
+      "name": "Tschuris",
+      "vocation": "Druid",
+      "level": 30,
+      "stats": {
+        "magic_level": 60,
+        "ml_percent": 0,
+        "mana_level": 0,
+        "hp": 0,
+        "mana": 0,
+        "capacity": 0,
+        "speed": 0,
+        "soul_points": 0,
+        "stamina": 0,
+        "shielding": 0,
+        "sword": 0,
+        "axe": 0,
+        "club": 0,
+        "distance": 0
+      },
+      "equipment": {
+        "head": {
+          "item": null,
+          "imbues": []
+        },
+        "armor": {
+          "item": null,
+          "imbues": []
+        },
+        "weapon": {
+          "item": null,
+          "imbues": []
+        },
+        "shield": {
+          "item": null,
+          "imbues": []
+        },
+        "legs": {
+          "item": null,
+          "imbues": []
+        }
+      }
     }
   ],
   "active_character": "Strongsword"
