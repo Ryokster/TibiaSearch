@@ -529,6 +529,39 @@ class ImbuementStore:
         self._save()
 
 
+class ItemPriceStore:
+    def __init__(self, path: Path) -> None:
+        self.path = path
+        self.prices: dict[str, int] = {}
+        self._load()
+
+    def _load(self) -> None:
+        if not self.path.exists():
+            return
+        try:
+            with self.path.open("r", encoding="utf-8") as handle:
+                data = json.load(handle)
+            prices = data.get("prices", {})
+            if isinstance(prices, dict):
+                self.prices = {str(k): int(v) for k, v in prices.items()}
+        except Exception:
+            self.prices = {}
+
+    def _save(self) -> None:
+        try:
+            with self.path.open("w", encoding="utf-8") as handle:
+                json.dump({"prices": self.prices}, handle, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
+    def get_price(self, item_name: str) -> int:
+        return int(self.prices.get(item_name, 0))
+
+    def set_price(self, item_name: str, price: int) -> None:
+        self.prices[item_name] = max(0, int(price))
+        self._save()
+
+
 class HuntStore:
     def __init__(self, path: Path) -> None:
         self.path = path
@@ -630,10 +663,12 @@ class TibiaSearchApp:
         self.tibia_resource_dir = self.base_dir / "resources" / "tibia"
         self.history_path = self.base_dir / "history.json"
         self.state_path = self.base_dir / "imbuements_state.json"
+        self.items_state_path = self.base_dir / "items_state.json"
         self.character_path = self.base_dir / "characters_state.json"
         self.hunt_path = self.base_dir / "hunts_state.json"
         self.history = HistoryManager(self.history_path)
         self.store = ImbuementStore(self.state_path)
+        self.item_price_store = ItemPriceStore(self.items_state_path)
         self.character_store = CharacterStore(self.character_path)
         self.hunt_store = HuntStore(self.hunt_path)
         self.creature_products = build_tibia_items(
@@ -649,6 +684,7 @@ class TibiaSearchApp:
         self.material_rows: list[tuple[Material, ttk.Label]] = []
         self.character_window: "CharacterWindow" | None = None
         self.items_list_items: list[TibiaItem] = []
+        self.items_tree_items: dict[str, TibiaItem] = {}
         self.active_hunt_id: str | None = None
         self.hunt_log_update_after: str | None = None
         self.hunt_detail_vars: dict[str, tk.StringVar] = {}
@@ -660,6 +696,7 @@ class TibiaSearchApp:
         self._suppress_hunt_equipment_change = False
         self._suppress_hunt_character_change = False
         self._suppress_hunt_log_change = False
+        self._price_editor: ttk.Entry | None = None
 
         self._build_ui()
         self._bind_events()
@@ -818,12 +855,22 @@ class TibiaSearchApp:
         list_frame.columnconfigure(0, weight=1)
         list_frame.rowconfigure(0, weight=1)
 
-        self.items_list = tk.Listbox(list_frame)
-        self.items_list.grid(row=0, column=0, sticky="nsew")
+        self.items_tree = ttk.Treeview(
+            list_frame,
+            columns=("name", "providers", "price"),
+            show="headings",
+        )
+        self.items_tree.heading("name", text="Item")
+        self.items_tree.heading("providers", text="Provider")
+        self.items_tree.heading("price", text="Verkaufspreis")
+        self.items_tree.column("name", width=220, anchor="w")
+        self.items_tree.column("providers", width=320, anchor="w")
+        self.items_tree.column("price", width=120, anchor="e")
+        self.items_tree.grid(row=0, column=0, sticky="nsew")
 
-        list_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.items_list.yview)
+        list_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.items_tree.yview)
         list_scroll.grid(row=0, column=1, sticky="ns")
-        self.items_list.configure(yscrollcommand=list_scroll.set)
+        self.items_tree.configure(yscrollcommand=list_scroll.set)
 
         self.items_filter_var.trace_add("write", lambda *_args: self._refresh_items_list())
         self.items_search_var.trace_add("write", lambda *_args: self._refresh_items_list())
@@ -1052,8 +1099,8 @@ class TibiaSearchApp:
         self.imbuement_tree.bind("<Return>", lambda _event: self.search_selected_imbuement())
         self.imbuement_tree.bind("<Button-1>", self.on_tree_click)
 
-        self.items_list.bind("<Double-Button-1>", self._open_selected_item)
-        self.items_list.bind("<Return>", self._open_selected_item)
+        self.items_tree.bind("<Double-Button-1>", self._on_items_tree_double_click)
+        self.items_tree.bind("<Return>", self._open_selected_item)
 
         self.hunts_tree.bind("<<TreeviewSelect>>", self._on_hunt_select)
         self.hunt_profit_tree.bind("<<TreeviewSelect>>", self._on_hunt_stats_select)
@@ -1072,29 +1119,104 @@ class TibiaSearchApp:
     def _refresh_items_list(self) -> None:
         query = self.items_search_var.get().strip().casefold()
         items = self._active_items()
-        self.items_list.delete(0, tk.END)
+        self.items_tree.delete(*self.items_tree.get_children())
         self.items_list_items = []
+        self.items_tree_items = {}
         for item in items:
             providers_text = ", ".join(item.providers)
             search_text = f"{item.name} {providers_text}".casefold()
             if query and query not in search_text:
                 continue
-            display = item.name
-            if providers_text:
-                display = f"{display} — {providers_text}"
+            name_display = item.name
             if not item.url:
-                display = f"{display} (no link)"
-            self.items_list.insert(tk.END, display)
+                name_display = f"{name_display} (no link)"
+            price_value = self.item_price_store.get_price(item.name)
+            price_display = self._format_price(price_value)
+            row_id = str(len(self.items_list_items))
+            self.items_tree.insert(
+                "",
+                tk.END,
+                iid=row_id,
+                values=(name_display, providers_text, price_display),
+            )
             self.items_list_items.append(item)
+            self.items_tree_items[row_id] = item
+
+    def _format_price(self, value: int) -> str:
+        if value <= 0:
+            return ""
+        return _format_number(value)
 
     def _open_selected_item(self, _event: tk.Event) -> None:
-        selection = self.items_list.curselection()
+        selection = self.items_tree.selection()
         if not selection:
             return
-        item = self.items_list_items[selection[0]]
+        item = self.items_tree_items.get(selection[0])
+        if not item:
+            return
         if not item.url:
             return
         webbrowser.open_new_tab(item.url)
+
+    def _on_items_tree_double_click(self, event: tk.Event) -> None:
+        column = self.items_tree.identify_column(event.x)
+        if column == "#3":
+            self._begin_price_edit(event)
+        else:
+            self._open_selected_item(event)
+
+    def _begin_price_edit(self, event: tk.Event) -> None:
+        row_id = self.items_tree.identify_row(event.y)
+        if not row_id:
+            return
+        column = self.items_tree.identify_column(event.x)
+        if column != "#3":
+            return
+        item = self.items_tree_items.get(row_id)
+        if not item:
+            return
+        bbox = self.items_tree.bbox(row_id, column)
+        if not bbox:
+            return
+        if self._price_editor is not None:
+            self._price_editor.destroy()
+            self._price_editor = None
+        x, y, width, height = bbox
+        editor = ttk.Entry(self.items_tree)
+        current_price = self.item_price_store.get_price(item.name)
+        editor.insert(0, str(current_price) if current_price else "")
+        editor.place(x=x, y=y, width=width, height=height)
+        editor.focus_set()
+        editor.select_range(0, tk.END)
+        editor.bind("<Return>", lambda _event: self._commit_price_edit(row_id))
+        editor.bind("<FocusOut>", lambda _event: self._commit_price_edit(row_id))
+        self._price_editor = editor
+
+    def _commit_price_edit(self, row_id: str) -> None:
+        if self._price_editor is None:
+            return
+        editor = self._price_editor
+        self._price_editor = None
+        item = self.items_tree_items.get(row_id)
+        if not item:
+            editor.destroy()
+            return
+        raw_value = editor.get().strip()
+        price_value = self._parse_price_input(raw_value)
+        self.item_price_store.set_price(item.name, price_value)
+        self.items_tree.set(row_id, "price", self._format_price(price_value))
+        editor.destroy()
+
+    def _parse_price_input(self, value: str) -> int:
+        if not value:
+            return 0
+        cleaned = value.replace(".", "").replace(",", "").strip()
+        if cleaned in {"", "-", "+"}:
+            return 0
+        try:
+            return int(cleaned)
+        except (TypeError, ValueError):
+            return 0
 
     def _open_add_hunt_dialog(self) -> None:
         dialog = tk.Toplevel(self.root)
