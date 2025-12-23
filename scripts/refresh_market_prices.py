@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 from pathlib import Path
-from typing import Iterable
+from typing import Callable, Iterable
 from urllib.error import URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -89,7 +89,9 @@ def normalize_name(value: str) -> str:
     return cleaned.lower()
 
 
-def fetch_html(url: str) -> str:
+def fetch_html(url: str, log: Callable[[str], None] | None = None) -> str:
+    if log:
+        log(f"GET {url}")
     request = Request(url, headers={"User-Agent": USER_AGENT})
     try:
         with urlopen(request, timeout=30) as response:
@@ -128,8 +130,8 @@ def find_column(headers: list[HtmlCell], candidates: Iterable[str]) -> int | Non
     return None
 
 
-def fetch_item_ids() -> dict[str, int]:
-    html = fetch_html(ITEM_IDS_URL)
+def fetch_item_ids(log: Callable[[str], None] | None = None) -> dict[str, int]:
+    html = fetch_html(ITEM_IDS_URL, log=log)
     tables = parse_tables(html)
     table = find_table(tables, {"item id", "name"})
     if not table:
@@ -225,7 +227,11 @@ def save_cache(server: str, items: dict[int, int]) -> None:
     CACHE_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def fetch_market_values(server: str, item_ids: list[int]) -> dict[int, int]:
+def fetch_market_values(
+    server: str,
+    item_ids: list[int],
+    log: Callable[[str], None] | None = None,
+) -> dict[int, int]:
     market_values: dict[int, int] = {}
     for offset in range(0, len(item_ids), 100):
         batch = item_ids[offset : offset + 100]
@@ -236,7 +242,10 @@ def fetch_market_values(server: str, item_ids: list[int]) -> dict[int, int]:
                 "limit": 100,
             }
         )
-        request = Request(f"{MARKET_VALUES_URL}?{params}", headers={"User-Agent": USER_AGENT})
+        url = f"{MARKET_VALUES_URL}?{params}"
+        if log:
+            log(f"GET {url}")
+        request = Request(url, headers={"User-Agent": USER_AGENT})
         with urlopen(request, timeout=30) as response:
             payload = json.loads(response.read().decode("utf-8"))
         items = payload.get("items") if isinstance(payload, dict) else None
@@ -309,10 +318,12 @@ def update_items_with_prices(
     return updated, without_price, missing_ids
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Refresh market prices for tibia items.")
-    parser.add_argument("--server", default="Antica", help="Tibia server name for market prices.")
-    args = parser.parse_args()
+def refresh_market_prices(
+    server: str,
+    log: Callable[[str], None] | None = None,
+) -> dict[str, int | str]:
+    if log:
+        log(f"Starting market refresh for server {server}")
 
     creature_path = RESOURCE_DIR / "creature_products.json"
     delivery_path = RESOURCE_DIR / "delivery_task_items.json"
@@ -328,10 +339,11 @@ def main() -> None:
             name_to_id = {str(key): int(value) for key, value in cached_items.items()}
     if name_to_id is None:
         try:
-            name_to_id = fetch_item_ids()
+            name_to_id = fetch_item_ids(log=log)
         except RuntimeError as exc:
-            print(f"Failed to fetch item ids: {exc}")
-            return
+            if log:
+                log(f"Failed to fetch item ids: {exc}")
+            return {"server": server, "error": "item_ids"}
         save_item_ids_cache(name_to_id)
     item_ids: list[int] = []
     item_ids.extend(apply_item_ids(creature_data.get("items", []), name_to_id))
@@ -345,12 +357,13 @@ def main() -> None:
         market_values = {int(key): int(value) for key, value in items_cache.items()}
     else:
         try:
-            market_values = fetch_market_values(args.server, item_ids)
+            market_values = fetch_market_values(server, item_ids, log=log)
         except (URLError, RuntimeError, json.JSONDecodeError) as exc:
-            print(f"Failed to fetch market values: {exc}")
+            if log:
+                log(f"Failed to fetch market values: {exc}")
             market_values = None
         else:
-            save_cache(args.server, market_values)
+            save_cache(server, market_values)
 
     updated = 0
     without_price = 0
@@ -379,7 +392,7 @@ def main() -> None:
     print(
         json.dumps(
             {
-                "server": args.server,
+                "server": server,
                 "timestamp": iso_timestamp(),
                 "updated_items": updated,
                 "items_without_market_price": without_price,
@@ -388,6 +401,27 @@ def main() -> None:
             indent=2,
         )
     )
+    if log:
+        log(
+            "Market refresh done: "
+            f"updated={updated}, "
+            f"without_price={without_price}, "
+            f"missing_ids={missing_ids}"
+        )
+    return {
+        "server": server,
+        "updated_items": updated,
+        "items_without_market_price": without_price,
+        "items_missing_ids": missing_ids,
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Refresh market prices for tibia items.")
+    parser.add_argument("--server", default="Antica", help="Tibia server name for market prices.")
+    args = parser.parse_args()
+
+    refresh_market_prices(args.server)
 
 
 if __name__ == "__main__":

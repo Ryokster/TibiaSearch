@@ -1,6 +1,7 @@
 import json
 import re
 import sys
+import threading
 import uuid
 import tkinter as tk
 import tkinter.font as tkfont
@@ -15,6 +16,7 @@ from urllib.parse import quote, urlencode
 from history import HistoryManager
 from imbuable_items_data import IMBUABLE_ITEMS_RESOURCE
 from imbuements_data import IMBUEMENTS_RESOURCE
+from scripts.refresh_market_prices import refresh_market_prices
 
 SEARCH_PAGE_URL = "https://tibia.fandom.com/wiki/Special:Search"
 FANDOM_BASE_URL = IMBUEMENTS_RESOURCE.get("wiki_base", "https://tibia.fandom.com/wiki/")
@@ -92,6 +94,7 @@ class TibiaItem:
     weight: float
     category: str
     providers: tuple[str, ...]
+    gold: int
 
 
 SLOT_ALLOWED_CATEGORIES = {
@@ -314,6 +317,11 @@ def build_tibia_items(resource: dict[str, object]) -> tuple[TibiaItem, ...]:
         slug = str(entry.get("slug", "")).strip()
         url = str(entry.get("url", "")).strip()
         category = str(entry.get("category", "")).strip()
+        gold = entry.get("gold", 0)
+        try:
+            gold_value = int(gold)
+        except (TypeError, ValueError):
+            gold_value = 0
         weight = entry.get("weight", 0)
         try:
             weight = float(weight)
@@ -331,6 +339,7 @@ def build_tibia_items(resource: dict[str, object]) -> tuple[TibiaItem, ...]:
                 weight=weight,
                 category=category,
                 providers=providers_tuple,
+                gold=gold_value,
             )
         )
     items.sort(key=lambda item: item.name.lower())
@@ -704,6 +713,7 @@ class TibiaSearchApp:
         self._refresh_history_list()
         self._populate_imbuements()
         self._select_first_imbuement()
+        self._start_market_refresh()
 
         self.root.protocol("WM_DELETE_WINDOW", self.exit_app)
 
@@ -1134,8 +1144,7 @@ class TibiaSearchApp:
             name_display = item.name
             if not item.url:
                 name_display = f"{name_display} (no link)"
-            price_value = self.item_price_store.get_price(item.name)
-            price_display = self._format_price(price_value)
+            price_display = self._format_price(item.gold)
             row_id = str(len(self.items_list_items))
             self.items_tree.insert(
                 "",
@@ -1686,9 +1695,33 @@ class TibiaSearchApp:
         self._update_total_label(imbuement)
 
     def _open_url(self, url: str, label: str) -> None:
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        self.request_log.append(f"[{timestamp}] {label} -> {url}")
+        self._append_request_log(f"{label} -> {url}")
         webbrowser.open_new_tab(url)
+
+    def _append_request_log(self, message: str) -> None:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.request_log.append(f"[{timestamp}] {message}")
+
+    def _log_market_request(self, message: str) -> None:
+        self.root.after(0, lambda: self._append_request_log(f"MarketRefresh: {message}"))
+
+    def _start_market_refresh(self) -> None:
+        def run() -> None:
+            result = refresh_market_prices("Antica", log=self._log_market_request)
+            if isinstance(result, dict) and "updated_items" in result:
+                self.root.after(0, self._reload_market_items)
+
+        thread = threading.Thread(target=run, daemon=True)
+        thread.start()
+
+    def _reload_market_items(self) -> None:
+        self.creature_products = build_tibia_items(
+            load_json_resource(self.tibia_resource_dir / "creature_products.json")
+        )
+        self.delivery_items = build_tibia_items(
+            load_json_resource(self.tibia_resource_dir / "delivery_task_items.json")
+        )
+        self._refresh_items_list()
 
     def open_request_log(self) -> None:
         log_window = tk.Toplevel(self.root)
