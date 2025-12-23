@@ -51,7 +51,7 @@
       "equipment_tag": "Normal",
       "raw_log_text": "Session data: From 2025-12-22, 19:37:54 to 2025-12-22, 20:09:37\nSession: 00:31h\nXP Gain: 41,925\nXP/h: 104,605\nLoot: 8,676\nSupplies: 13,426\nBalance: -4,750\nDamage: 33,970\nDamage/h: 33,970\nHealing: 98\nHealing/h: 98\nKilled Monsters:\n  3x bug\n  20x centipede\n  55x poison spider\n  2x snake\n  1x spider\n  128x tarantula\n  14x toad\n  2x wasp\nLooted Items:\n  414x a gold coin\n  1x a fish\n  4x spider fangs\n  2x a tarantula egg\n  2x a centipede leg",
       "created_at": "2025-12-22T20:09:49",
-      "updated_at": "2025-12-23T18:41:34",
+      "updated_at": "2025-12-23T18:49:35",
       "start_dt": "2025-12-22T19:37:54",
       "end_dt": "2025-12-22T20:09:37",
       "duration_seconds": 1903,
