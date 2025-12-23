@@ -1,6 +1,7 @@
 import json
 import re
 import sys
+import threading
 import uuid
 import tkinter as tk
 import tkinter.font as tkfont
@@ -15,6 +16,7 @@ from urllib.parse import quote, urlencode
 from history import HistoryManager
 from imbuable_items_data import IMBUABLE_ITEMS_RESOURCE
 from imbuements_data import IMBUEMENTS_RESOURCE
+from scripts.refresh_market_prices import refresh_market_prices
 
 SEARCH_PAGE_URL = "https://tibia.fandom.com/wiki/Special:Search"
 FANDOM_BASE_URL = IMBUEMENTS_RESOURCE.get("wiki_base", "https://tibia.fandom.com/wiki/")
@@ -92,6 +94,7 @@ class TibiaItem:
     weight: float
     category: str
     providers: tuple[str, ...]
+    gold: int
 
 
 SLOT_ALLOWED_CATEGORIES = {
@@ -314,6 +317,11 @@ def build_tibia_items(resource: dict[str, object]) -> tuple[TibiaItem, ...]:
         slug = str(entry.get("slug", "")).strip()
         url = str(entry.get("url", "")).strip()
         category = str(entry.get("category", "")).strip()
+        gold = entry.get("gold", 0)
+        try:
+            gold_value = int(gold)
+        except (TypeError, ValueError):
+            gold_value = 0
         weight = entry.get("weight", 0)
         try:
             weight = float(weight)
@@ -331,6 +339,7 @@ def build_tibia_items(resource: dict[str, object]) -> tuple[TibiaItem, ...]:
                 weight=weight,
                 category=category,
                 providers=providers_tuple,
+                gold=gold_value,
             )
         )
     items.sort(key=lambda item: item.name.lower())
@@ -697,12 +706,14 @@ class TibiaSearchApp:
         self._suppress_hunt_character_change = False
         self._suppress_hunt_log_change = False
         self._price_editor: ttk.Entry | None = None
+        self.request_log: list[str] = []
 
         self._build_ui()
         self._bind_events()
         self._refresh_history_list()
         self._populate_imbuements()
         self._select_first_imbuement()
+        self._start_market_refresh()
 
         self.root.protocol("WM_DELETE_WINDOW", self.exit_app)
 
@@ -725,6 +736,9 @@ class TibiaSearchApp:
 
         self.top_button = ttk.Button(top_frame, text="Top Off", width=8, command=self.toggle_topmost)
         self.top_button.grid(row=0, column=3, padx=(6, 0))
+
+        self.log_button = ttk.Button(top_frame, text="Log", width=6, command=self.open_request_log)
+        self.log_button.grid(row=0, column=4, padx=(6, 0))
 
         self.notebook = ttk.Notebook(self.root)
         self.notebook.grid(row=1, column=0, sticky="nsew", padx=8, pady=8)
@@ -857,15 +871,17 @@ class TibiaSearchApp:
 
         self.items_tree = ttk.Treeview(
             list_frame,
-            columns=("name", "providers", "price"),
+            columns=("name", "providers", "trader_price", "market_price"),
             show="headings",
         )
         self.items_tree.heading("name", text="Item")
         self.items_tree.heading("providers", text="Provider")
-        self.items_tree.heading("price", text="Verkaufspreis")
+        self.items_tree.heading("trader_price", text="Händler VK")
+        self.items_tree.heading("market_price", text="Auktionshaus VK")
         self.items_tree.column("name", width=220, anchor="w")
-        self.items_tree.column("providers", width=320, anchor="w")
-        self.items_tree.column("price", width=120, anchor="e")
+        self.items_tree.column("providers", width=300, anchor="w")
+        self.items_tree.column("trader_price", width=110, anchor="e")
+        self.items_tree.column("market_price", width=130, anchor="e")
         self.items_tree.grid(row=0, column=0, sticky="nsew")
 
         list_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.items_tree.yview)
@@ -1130,14 +1146,14 @@ class TibiaSearchApp:
             name_display = item.name
             if not item.url:
                 name_display = f"{name_display} (no link)"
-            price_value = self.item_price_store.get_price(item.name)
-            price_display = self._format_price(price_value)
+            trader_display = self._format_price(self.item_price_store.get_price(item.name))
+            market_display = self._format_price(item.gold)
             row_id = str(len(self.items_list_items))
             self.items_tree.insert(
                 "",
                 tk.END,
                 iid=row_id,
-                values=(name_display, providers_text, price_display),
+                values=(name_display, providers_text, trader_display, market_display),
             )
             self.items_list_items.append(item)
             self.items_tree_items[row_id] = item
@@ -1156,7 +1172,7 @@ class TibiaSearchApp:
             return
         if not item.url:
             return
-        webbrowser.open_new_tab(item.url)
+        self._open_url(item.url, f"Item: {item.name}")
 
     def _on_items_tree_double_click(self, event: tk.Event) -> None:
         column = self.items_tree.identify_column(event.x)
@@ -1204,7 +1220,7 @@ class TibiaSearchApp:
         raw_value = editor.get().strip()
         price_value = self._parse_price_input(raw_value)
         self.item_price_store.set_price(item.name, price_value)
-        self.items_tree.set(row_id, "price", self._format_price(price_value))
+        self.items_tree.set(row_id, "trader_price", self._format_price(price_value))
         editor.destroy()
 
     def _parse_price_input(self, value: str) -> int:
@@ -1567,7 +1583,7 @@ class TibiaSearchApp:
         self.history.add(query)
         self._refresh_history_list()
         target_url = f"{SEARCH_PAGE_URL}?{urlencode({'query': query})}"
-        webbrowser.open_new_tab(target_url)
+        self._open_url(target_url, "Search")
 
     def _populate_imbuements(self) -> None:
         self.imbuement_tree.delete(*self.imbuement_tree.get_children())
@@ -1635,7 +1651,7 @@ class TibiaSearchApp:
         if not self.active_imbuement:
             return
         for material in self.active_imbuement.materials:
-            webbrowser.open_new_tab(fandom_article_url(material.name))
+            self._open_url(fandom_article_url(material.name), f"Material: {material.name}")
 
     def _render_imbuement_details(self, imbuement: Imbuement) -> None:
         self.imbuement_title.config(text=imbuement.name)
@@ -1659,7 +1675,10 @@ class TibiaSearchApp:
             item_label.grid(row=row, column=1, sticky="w", pady=2)
             item_label.bind(
                 "<Button-1>",
-                lambda _event, name=material.name: webbrowser.open_new_tab(fandom_article_url(name)),
+                lambda _event, name=material.name: self._open_url(
+                    fandom_article_url(name),
+                    f"Material: {name}",
+                ),
             )
 
             var = tk.StringVar(value=str(self.store.get_price(material.name)))
@@ -1669,11 +1688,65 @@ class TibiaSearchApp:
             entry.grid(row=row, column=2, sticky="w", padx=(6, 6))
             var.trace_add("write", lambda _name, _index, _mode, m=material, v=var: self._on_price_change(m, v))
 
-            row_total = ttk.Label(self.materials_frame, text=self._format_gp(material.qty * self.store.get_price(material.name)))
+            row_total = ttk.Label(
+                self.materials_frame,
+                text=self._format_gp(material.qty * self.store.get_price(material.name)),
+            )
             row_total.grid(row=row, column=3, sticky="e", pady=2)
             self.material_rows.append((material, row_total))
 
         self._update_total_label(imbuement)
+
+    def _open_url(self, url: str, label: str) -> None:
+        self._append_request_log(f"{label} -> {url}")
+        webbrowser.open_new_tab(url)
+
+    def _append_request_log(self, message: str) -> None:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.request_log.append(f"[{timestamp}] {message}")
+
+    def _log_market_request(self, message: str) -> None:
+        self.root.after(0, lambda: self._append_request_log(f"MarketRefresh: {message}"))
+
+    def _start_market_refresh(self) -> None:
+        def run() -> None:
+            result = refresh_market_prices("Antica", log=self._log_market_request)
+            if isinstance(result, dict) and "updated_items" in result:
+                self.root.after(0, self._reload_market_items)
+
+        thread = threading.Thread(target=run, daemon=True)
+        thread.start()
+
+    def _reload_market_items(self) -> None:
+        self.creature_products = build_tibia_items(
+            load_json_resource(self.tibia_resource_dir / "creature_products.json")
+        )
+        self.delivery_items = build_tibia_items(
+            load_json_resource(self.tibia_resource_dir / "delivery_task_items.json")
+        )
+        self._refresh_items_list()
+
+    def open_request_log(self) -> None:
+        log_window = tk.Toplevel(self.root)
+        log_window.title("Request Log")
+        log_window.geometry("700x400")
+        log_window.minsize(500, 300)
+
+        log_frame = ttk.Frame(log_window, padding=8)
+        log_frame.pack(fill="both", expand=True)
+
+        text = tk.Text(log_frame, wrap="word", state="normal")
+        text.pack(side="left", fill="both", expand=True)
+
+        scrollbar = ttk.Scrollbar(log_frame, orient="vertical", command=text.yview)
+        scrollbar.pack(side="right", fill="y")
+        text.configure(yscrollcommand=scrollbar.set)
+
+        if self.request_log:
+            text.insert("1.0", "\n".join(self.request_log))
+        else:
+            text.insert("1.0", "No outgoing requests logged yet.")
+        text.configure(state="disabled")
 
     def _validate_price(self, proposed: str) -> bool:
         return proposed.isdigit() or proposed == ""
