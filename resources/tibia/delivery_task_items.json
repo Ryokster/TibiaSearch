@@ -3,27 +3,2874 @@
   "source": {
     "name": "Tibiopedia (Delivery Items)",
     "url": "https://tibiopedia.pl/items/others/delivery",
-    "fetched_at": "2025-12-22T08:37:22Z"
+    "fetched_at": "2025-12-22T21:14:17Z"
   },
   "items": [
     {
-      "name": "Parcel",
-      "slug": "Parcel",
+      "name": "Afflicted Strider Head",
+      "slug": "Afflicted_Strider_Head",
       "url": "",
-      "weight": 2.0,
-      "category": "Delivery Task Item",
+      "weight": 1.7,
+      "category": "Creature's parts",
       "providers": [
-        "Postman"
+        "Afflicted Strider"
       ]
     },
     {
-      "name": "Letter",
-      "slug": "Letter",
+      "name": "Afflicted Strider Worms",
+      "slug": "Afflicted_Strider_Worms",
+      "url": "",
+      "weight": 1.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Afflicted Strider"
+      ]
+    },
+    {
+      "name": "Alloy Legs",
+      "slug": "Alloy_Legs",
+      "url": "",
+      "weight": 45.0,
+      "category": "Legs",
+      "providers": [
+        "Brachiodemon",
+        "Bulltaur Alchemist",
+        "Control Tower",
+        "Glooth Battery",
+        "Metal Gargoyle",
+        "Sorcerer's Apparition",
+        "Ghulosh",
+        "Katex Blood Tongue",
+        "Yirkas Blue Scales"
+      ]
+    },
+    {
+      "name": "Amber Souvenir",
+      "slug": "Amber_Souvenir",
+      "url": "",
+      "weight": 0.25,
+      "category": "Creature's parts",
+      "providers": [
+        "Quara Looter",
+        "Quara Plunderer",
+        "Quara Raider"
+      ]
+    },
+    {
+      "name": "Ancient Belt Buckle",
+      "slug": "Ancient_Belt_Buckle",
+      "url": "",
+      "weight": 2.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Broken Shaper",
+        "Twisted Shaper"
+      ]
+    },
+    {
+      "name": "Ancient Stone",
+      "slug": "Ancient_Stone",
+      "url": "",
+      "weight": 1.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Animated Ogre Brute",
+        "Eternal Guardian",
+        "Museum Stone Golem",
+        "Ogre Brute",
+        "Stone Devourer",
+        "Stone Golem",
+        "Ancient Spawn of Morgathla",
+        "The Last Lore Keeper",
+        "The Source of Corruption"
+      ]
+    },
+    {
+      "name": "Angelic Axe",
+      "slug": "Angelic_Axe",
+      "url": "",
+      "weight": 56.0,
+      "category": "Axe",
+      "providers": [
+        "Humongous Fungus",
+        "Lucifuga Aranea",
+        "Mutated Tiger",
+        "Weretiger",
+        "Feroxa",
+        "Weakened Shlorg"
+      ]
+    },
+    {
+      "name": "Badger Boots",
+      "slug": "Badger_Boots",
+      "url": "",
+      "weight": 12.0,
+      "category": "Boots",
+      "providers": [
+        "Werebadger",
+        "Feroxa",
+        "Sharpclaw",
+        "The Baron from Below"
+      ]
+    },
+    {
+      "name": "Banana Sash",
+      "slug": "Banana_Sash",
+      "url": "",
+      "weight": 0.68,
+      "category": "Creature's parts",
+      "providers": [
+        "Merlkin",
+        "Sibang"
+      ]
+    },
+    {
+      "name": "Basalt Crumbs",
+      "slug": "Basalt_Crumbs",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Darklight Emitter",
+        "Wandering Pillar"
+      ]
+    },
+    {
+      "name": "Basalt Fetish",
+      "slug": "Basalt_Fetish",
+      "url": "",
+      "weight": 2.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Lost Basher",
+        "Lost Exile",
+        "Lost Husher",
+        "Lost Thrower"
+      ]
+    },
+    {
+      "name": "Basalt Figurine",
+      "slug": "Basalt_Figurine",
+      "url": "",
+      "weight": 2.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Lost Basher",
+        "Lost Exile",
+        "Lost Husher",
+        "Lost Thrower"
+      ]
+    },
+    {
+      "name": "Bashmu Fang",
+      "slug": "Bashmu_Fang",
+      "url": "",
+      "weight": 1.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Bashmu",
+        "Juvenile Bashmu"
+      ]
+    },
+    {
+      "name": "Bashmu Feather",
+      "slug": "Bashmu_Feather",
+      "url": "",
+      "weight": 2.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Bashmu",
+        "Juvenile Bashmu"
+      ]
+    },
+    {
+      "name": "Bashmu Tongue",
+      "slug": "Bashmu_Tongue",
+      "url": "",
+      "weight": 2.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Bashmu",
+        "Juvenile Bashmu"
+      ]
+    },
+    {
+      "name": "Battle Shield",
+      "slug": "Battle_Shield",
+      "url": "",
+      "weight": 62.0,
+      "category": "Shields",
+      "providers": [
+        "Animated Cyclops",
+        "Assassin",
+        "Cyclops",
+        "Cyclops Drone",
+        "Cyclops Smith",
+        "Demon Skeleton",
+        "Dwarf Guard",
+        "Elf Overseer",
+        "Frost Giant",
+        "Frost Giantess",
+        "Gargoyle",
+        "Hellspawn",
+        "Memory of a Dwarf",
+        "Memory of a Pirate",
+        "Minotaur Guard",
+        "Mutated Bat",
+        "Orc Rider",
+        "Pirate Buccaneer",
+        "Undead Minion",
+        "War Golem",
+        "Foreman Kneebiter",
+        "General Murius",
+        "The Horned Fox"
+      ]
+    },
+    {
+      "name": "Black Shield",
+      "slug": "Black_Shield",
+      "url": "",
+      "weight": 42.0,
+      "category": "Shields",
+      "providers": [
+        "Animated Mummy",
+        "Candy Horror",
+        "Furious Scorpion",
+        "Gloom Maw",
+        "Lost Basher",
+        "Lost Berserker",
+        "Magma Crawler",
+        "Mummy",
+        "Mutated Bat",
+        "Priestess",
+        "Sandstone Scorpion",
+        "Thanatursus",
+        "Werehyaena Shaman",
+        "Wiggler",
+        "Bruise Payne"
+      ]
+    },
+    {
+      "name": "Blemished Spawn Abdomen",
+      "slug": "Blemished_Spawn_Abdomen",
+      "url": "",
+      "weight": 2.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Blemished Spawn"
+      ]
+    },
+    {
+      "name": "Blemished Spawn Head",
+      "slug": "Blemished_Spawn_Head",
+      "url": "",
+      "weight": 1.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Blemished Spawn"
+      ]
+    },
+    {
+      "name": "Blemished Spawn Tail",
+      "slug": "Blemished_Spawn_Tail",
+      "url": "",
+      "weight": 1.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Blemished Spawn"
+      ]
+    },
+    {
+      "name": "Bloated Maggot",
+      "slug": "Bloated_Maggot",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Bloated Man-Maggot"
+      ]
+    },
+    {
+      "name": "Blood Amulet",
+      "slug": "Blood_Amulet",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Dworc Shadowstalker"
+      ]
+    },
+    {
+      "name": "Blood Hood",
+      "slug": "Blood_Hood",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Norcferatu Nightweaver"
+      ]
+    },
+    {
+      "name": "Blood Preservation",
+      "slug": "Blood_Preservation",
+      "url": "",
+      "weight": 0.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Nightfiend",
+        "Vampire",
+        "Vampire Bride",
+        "Vampire Viscount",
+        "Vicious Manbat",
+        "Arachir The Ancient One",
+        "Arthei",
+        "Boreth",
+        "Diblis The Fair",
+        "Lersatio",
+        "The Pale Count",
+        "Vladrukh"
+      ]
+    },
+    {
+      "name": "Blood Tincture in a Vial",
+      "slug": "Blood_Tincture_in_a_Vial",
+      "url": "",
+      "weight": 6.3,
+      "category": "Creature's parts",
+      "providers": [
+        "Blood Hand",
+        "Blood Priest"
+      ]
+    },
+    {
+      "name": "Bloodshot Giant Eye",
+      "slug": "Bloodshot_Giant_Eye",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Orclops Bloodbreaker"
+      ]
+    },
+    {
+      "name": "Blue Goanna Scale",
+      "slug": "Blue_Goanna_Scale",
+      "url": "",
+      "weight": 0.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Young Goanna",
+        "Yirkas Blue Scales"
+      ]
+    },
+    {
+      "name": "Boar Man Hoof",
+      "slug": "Boar_Man_Hoof",
+      "url": "",
+      "weight": 2.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Boar Man"
+      ]
+    },
+    {
+      "name": "Boggy Dreads",
+      "slug": "Boggy_Dreads",
+      "url": "",
+      "weight": 1.69,
+      "category": "Creature's parts",
+      "providers": [
+        "Bog Raider",
+        "Weakened Shlorg"
+      ]
+    },
+    {
+      "name": "Bola",
+      "slug": "Bola",
+      "url": "",
+      "weight": 5.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Corym Charlatan",
+        "Corym Skirmisher",
+        "Corym Vanguard"
+      ]
+    },
+    {
+      "name": "Bone Club",
+      "slug": "Bone_Club",
+      "url": "",
+      "weight": 39.0,
+      "category": "Club",
+      "providers": [
+        "Bonebeast",
+        "Corrupted Skeleton",
+        "Demon (Goblin)",
+        "Dreadbeast",
+        "Goblin",
+        "Goblin Assassin",
+        "Goblin Leader",
+        "Goblin Scavenger",
+        "Muglex Clan Scavenger",
+        "Orger",
+        "Pirate Skeleton",
+        "Troll-Trained Salamander",
+        "Munster",
+        "Necropharus",
+        "Salamander Trainer"
+      ]
+    },
+    {
+      "name": "Bone Fetish",
+      "slug": "Bone_Fetish",
+      "url": "",
+      "weight": 1.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Animated Ogre Shaman",
+        "Lost Basher",
+        "Lost Exile",
+        "Lost Husher",
+        "Ogre Sage",
+        "Ogre Shaman"
+      ]
+    },
+    {
+      "name": "Bone Fibula",
+      "slug": "Bone_Fibula",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Orclops Bloodbreaker"
+      ]
+    },
+    {
+      "name": "Bone Rattle",
+      "slug": "Bone_Rattle",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Dworc Shadowstalker"
+      ]
+    },
+    {
+      "name": "Bone Shoulderplate",
+      "slug": "Bone_Shoulderplate",
+      "url": "",
+      "weight": 2.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Draken Warmaster"
+      ]
+    },
+    {
+      "name": "Bone Toothpick",
+      "slug": "Bone_Toothpick",
+      "url": "",
+      "weight": 20.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Orclops Bloodbreaker",
+        "Orclops Doomhauler",
+        "Orclops Ravager",
+        "Skeleton Elite Warrior"
+      ]
+    },
+    {
+      "name": "Bonebreaker",
+      "slug": "Bonebreaker",
+      "url": "",
+      "weight": 120.0,
+      "category": "Club",
+      "providers": [
+        "Animated Ogre Brute",
+        "Armadile",
+        "Diamond Servant",
+        "Diamond Servant Replica",
+        "Memory of an Ogre",
+        "Ogre Brute",
+        "War Golem",
+        "Werecrocodile",
+        "Werewolf",
+        "Worker Golem",
+        "Ancient Spawn of Morgathla",
+        "Darkfang",
+        "Feroxa",
+        "Ghazbaran",
+        "Hemming",
+        "Leviathan",
+        "Outburst",
+        "Ragiaz",
+        "The Shatterer",
+        "The Unarmored Voidborn",
+        "World Devourer",
+        "Zavarash"
+      ]
+    },
+    {
+      "name": "Bonecarving Knife",
+      "slug": "Bonecarving_Knife",
+      "url": "",
+      "weight": 1.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Lost Basher",
+        "Lost Exile",
+        "Lost Husher"
+      ]
+    },
+    {
+      "name": "Bony Tail",
+      "slug": "Bony_Tail",
+      "url": "",
+      "weight": 0.92,
+      "category": "Creature's parts",
+      "providers": [
+        "Bonebeast",
+        "Ribstride"
+      ]
+    },
+    {
+      "name": "Book of Necromantic Rituals",
+      "slug": "Book_of_Necromantic_Rituals",
+      "url": "",
+      "weight": 3.58,
+      "category": "Creature's parts",
+      "providers": [
+        "Blood Hand",
+        "Blood Priest",
+        "Floating Savant",
+        "Necromancer",
+        "Necromancer Servant",
+        "Shadow Pupil",
+        "Necropharus"
+      ]
+    },
+    {
+      "name": "Book Page",
+      "slug": "Book_Page",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Biting Book",
+        "Burning Book",
+        "Cursed Book",
+        "Energetic Book",
+        "Energuardian of Tales",
+        "Guardian of Tales",
+        "Icecold Book",
+        "Knowledge Elemental"
+      ]
+    },
+    {
+      "name": "Book with a Dragon",
+      "slug": "Book_with_a_Dragon",
+      "url": "",
+      "weight": 8.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Bramble Wyrmling",
+        "Cinder Wyrmling",
+        "Inkwing"
+      ]
+    },
+    {
+      "name": "Book with an Hourglass",
+      "slug": "Book_with_an_Hourglass",
+      "url": "",
+      "weight": 8.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Headwalker"
+      ]
+    },
+    {
+      "name": "Bowl of Terror Sweat",
+      "slug": "Bowl_of_Terror_Sweat",
+      "url": "",
+      "weight": 3.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Feversleep",
+        "Shiversleep",
+        "Terrorsleep"
+      ]
+    },
+    {
+      "name": "Brigadeiro",
+      "slug": "Brigadeiro",
       "url": "",
       "weight": 0.1,
-      "category": "Delivery Task Item",
+      "category": "Creature's parts",
       "providers": [
-        "Postman"
+        "Candy Horror",
+        "Sugar Daddy"
+      ]
+    },
+    {
+      "name": "Brinebrute Claw",
+      "slug": "Brinebrute_Claw",
+      "url": "",
+      "weight": 2.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Brinebrute Inferniarch",
+        "Malvaroth"
+      ]
+    },
+    {
+      "name": "Broadsword",
+      "slug": "Broadsword",
+      "url": "",
+      "weight": 52.5,
+      "category": "Sword",
+      "providers": [
+        "Afflicted Strider",
+        "Dragon",
+        "Orc Leader",
+        "Renegade Orc",
+        "Demodras",
+        "Dragon Hoard",
+        "Grand Mother Foulscale"
+      ]
+    },
+    {
+      "name": "Broken Draken Mail",
+      "slug": "Broken_Draken_Mail",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Draken Elite",
+        "Paiz the Pauperizer"
+      ]
+    },
+    {
+      "name": "Broken Gladiator Shield",
+      "slug": "Broken_Gladiator_Shield",
+      "url": "",
+      "weight": 6.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Undead Elite Gladiator",
+        "Undead Gladiator"
+      ]
+    },
+    {
+      "name": "Broken Halberd",
+      "slug": "Broken_Halberd",
+      "url": "",
+      "weight": 2.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Lizard Legionnaire"
+      ]
+    },
+    {
+      "name": "Broken Mitmah Necklace",
+      "slug": "Broken_Mitmah_Necklace",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Atab",
+        "Mitmah Scout",
+        "Mitmah Vanguard"
+      ]
+    },
+    {
+      "name": "Broken Slicer",
+      "slug": "Broken_Slicer",
+      "url": "",
+      "weight": 1.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Draken Elite",
+        "Paiz the Pauperizer"
+      ]
+    },
+    {
+      "name": "Broken Throwing Axe",
+      "slug": "Broken_Throwing_Axe",
+      "url": "",
+      "weight": 11.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Lost Thrower"
+      ]
+    },
+    {
+      "name": "Broodrider Saddle",
+      "slug": "Broodrider_Saddle",
+      "url": "",
+      "weight": 3.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Broodrider Inferniarch"
+      ]
+    },
+    {
+      "name": "Buckle",
+      "slug": "Buckle",
+      "url": "",
+      "weight": 75.0,
+      "category": "Armors",
+      "providers": [
+        "Lost Basher",
+        "Lost Exile",
+        "Lost Husher",
+        "Lost Thrower",
+        "Mycobiontic Beetle",
+        "Spiky Carnivor"
+      ]
+    },
+    {
+      "name": "Bulltaur Armor Scrap",
+      "slug": "Bulltaur_Armor_Scrap",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Bulltaur Brute"
+      ]
+    },
+    {
+      "name": "Bulltaur Hoof",
+      "slug": "Bulltaur_Hoof",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Bulltaur Brute"
+      ]
+    },
+    {
+      "name": "Bulltaur Horn",
+      "slug": "Bulltaur_Horn",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Bulltaur Alchemist",
+        "Bulltaur Brute",
+        "Bulltaur Forgepriest"
+      ]
+    },
+    {
+      "name": "Bundle of Cursed Straw",
+      "slug": "Bundle_of_Cursed_Straw",
+      "url": "",
+      "weight": 2.27,
+      "category": "Creature's parts",
+      "providers": [
+        "Blightwalker"
+      ]
+    },
+    {
+      "name": "Carnisylvan Bark",
+      "slug": "Carnisylvan_Bark",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Dark Carnisylvan",
+        "Hulking Carnisylvan",
+        "Poisonous Carnisylvan"
+      ]
+    },
+    {
+      "name": "Carnisylvan Finger",
+      "slug": "Carnisylvan_Finger",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Dark Carnisylvan",
+        "Hulking Carnisylvan",
+        "Poisonous Carnisylvan"
+      ]
+    },
+    {
+      "name": "Carnivostrich Feather",
+      "slug": "Carnivostrich_Feather",
+      "url": "",
+      "weight": 1.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Carnivostrich"
+      ]
+    },
+    {
+      "name": "Cat's Paw",
+      "slug": "Cat%27s_Paw",
+      "url": "",
+      "weight": 10.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Dark Torturer",
+        "Hemming",
+        "Mr. Punish",
+        "The Scourge of Oblivion"
+      ]
+    },
+    {
+      "name": "Cave Devourer Eyes",
+      "slug": "Cave_Devourer_Eyes",
+      "url": "",
+      "weight": 0.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Cave Devourer"
+      ]
+    },
+    {
+      "name": "Cave Devourer Legs",
+      "slug": "Cave_Devourer_Legs",
+      "url": "",
+      "weight": 2.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Cave Devourer"
+      ]
+    },
+    {
+      "name": "Cave Devourer Maw",
+      "slug": "Cave_Devourer_Maw",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Cave Devourer"
+      ]
+    },
+    {
+      "name": "Centipede Leg",
+      "slug": "Centipede_Leg",
+      "url": "",
+      "weight": 0.68,
+      "category": "Creature's parts",
+      "providers": [
+        "Centipede"
+      ]
+    },
+    {
+      "name": "Chain Leash",
+      "slug": "Chain_Leash",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Gloom Maw"
+      ]
+    },
+    {
+      "name": "Chaos Mace",
+      "slug": "Chaos_Mace",
+      "url": "",
+      "weight": 63.0,
+      "category": "Club",
+      "providers": [
+        "Animated Moohtant",
+        "Destroyer",
+        "Infernal Phantom",
+        "Juvenile Bashmu",
+        "Lost Basher",
+        "Lost Berserker",
+        "Moohtant",
+        "Nightstalker",
+        "Norcferatu Heartless",
+        "Alptramun",
+        "Anomaly",
+        "Bretzecutioner",
+        "Duke Krule",
+        "Ferumbras",
+        "Ferumbras Mortal Shell",
+        "Gorzindel",
+        "Izcandar Champion of Summer",
+        "Izcandar Champion of Winter",
+        "Izcandar the Banished",
+        "Malofur Mangrinder",
+        "Maxxenius",
+        "Outburst",
+        "Plagueroot",
+        "Rupture",
+        "Shulgrax",
+        "Sir Valorcrest",
+        "Tarbaz",
+        "The Nightmare Beast",
+        "The Pale Count",
+        "The Percht Queen",
+        "The Scourge of Oblivion",
+        "The Shatterer",
+        "Utua Stone Sting",
+        "Weakened Shlorg"
+      ]
+    },
+    {
+      "name": "Chasm Spawn Abdomen",
+      "slug": "Chasm_Spawn_Abdomen",
+      "url": "",
+      "weight": 2.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Chasm Spawn"
+      ]
+    },
+    {
+      "name": "Chasm Spawn Head",
+      "slug": "Chasm_Spawn_Head",
+      "url": "",
+      "weight": 1.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Chasm Spawn"
+      ]
+    },
+    {
+      "name": "Chasm Spawn Tail",
+      "slug": "Chasm_Spawn_Tail",
+      "url": "",
+      "weight": 1.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Chasm Spawn"
+      ]
+    },
+    {
+      "name": "Cheese Cutter",
+      "slug": "Cheese_Cutter",
+      "url": "",
+      "weight": 0.45,
+      "category": "Creature's parts",
+      "providers": [
+        "Corym Charlatan",
+        "Corym Skirmisher",
+        "Corym Vanguard"
+      ]
+    },
+    {
+      "name": "Cheesy Figurine",
+      "slug": "Cheesy_Figurine",
+      "url": "",
+      "weight": 0.75,
+      "category": "Creature's parts",
+      "providers": [
+        "Cobra Scout",
+        "Corym Charlatan",
+        "Corym Skirmisher",
+        "Corym Vanguard"
+      ]
+    },
+    {
+      "name": "Cluster of Crystallized Death",
+      "slug": "Cluster_of_Crystallized_Death",
+      "url": "",
+      "weight": 10.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Creepy Crawler",
+        "Crypt Construct",
+        "Crypt Fiend"
+      ]
+    },
+    {
+      "name": "Cobra Crest",
+      "slug": "Cobra_Crest",
+      "url": "",
+      "weight": 1.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Cobra Assassin",
+        "Cobra Scout",
+        "Cobra Vizier",
+        "Custodian",
+        "Gaffir",
+        "Guard Captain Quaid"
+      ]
+    },
+    {
+      "name": "Colourful Feather",
+      "slug": "Colourful_Feather",
+      "url": "",
+      "weight": 0.36,
+      "category": "Creature's parts",
+      "providers": [
+        "Iks Yapunac",
+        "Terror Bird"
+      ]
+    },
+    {
+      "name": "Colourful Snail Shell",
+      "slug": "Colourful_Snail_Shell",
+      "url": "",
+      "weight": 1.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Nymph",
+        "Pixie",
+        "Swan Maiden"
+      ]
+    },
+    {
+      "name": "Combat Knife",
+      "slug": "Combat_Knife",
+      "url": "",
+      "weight": 8.7,
+      "category": "Sword",
+      "providers": [
+        "Assassin",
+        "Enraged Soul",
+        "Foam Stalker",
+        "Ghost",
+        "Goggle Cake",
+        "Orger",
+        "Smuggler",
+        "Tarnished Spirit",
+        "Venerable Foam Stalker",
+        "Werehyaena",
+        "White Lion",
+        "Ancient Lion Knight",
+        "General Murius",
+        "The Horned Fox"
+      ]
+    },
+    {
+      "name": "Compound Eye",
+      "slug": "Compound_Eye",
+      "url": "",
+      "weight": 1.65,
+      "category": "Creature's parts",
+      "providers": [
+        "Crawler",
+        "Hive Overseer",
+        "Insectoid Worker",
+        "Kollos",
+        "Spidris",
+        "Spidris Elite",
+        "Spitter",
+        "Swarmer",
+        "Waspoid",
+        "Chopper",
+        "Fleshslicer",
+        "Maw",
+        "Mindmasher",
+        "Rotspit",
+        "Shadowstalker",
+        "The Hungerer",
+        "The Mean Masher"
+      ]
+    },
+    {
+      "name": "Cookbook",
+      "slug": "Cookbook",
+      "url": "",
+      "weight": 8.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Crusader"
+      ]
+    },
+    {
+      "name": "Coral Branch",
+      "slug": "Coral_Branch",
+      "url": "",
+      "weight": 1.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Foam Stalker",
+        "Venerable Foam Stalker"
+      ]
+    },
+    {
+      "name": "Cowbell",
+      "slug": "Cowbell",
+      "url": "",
+      "weight": 4.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Minotaur Amazon",
+        "Minotaur Cult Follower",
+        "Minotaur Cult Prophet"
+      ]
+    },
+    {
+      "name": "Crab Man Claws",
+      "slug": "Crab_Man_Claws",
+      "url": "",
+      "weight": 2.3,
+      "category": "Creature's parts",
+      "providers": [
+        "Crape Man"
+      ]
+    },
+    {
+      "name": "Cracked Alabaster Vase",
+      "slug": "Cracked_Alabaster_Vase",
+      "url": "",
+      "weight": 4.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Broken Shaper",
+        "Shaper Matriarch",
+        "Twisted Shaper"
+      ]
+    },
+    {
+      "name": "Crawler's Essence",
+      "slug": "Crawler%27s_Essence",
+      "url": "",
+      "weight": 0.45,
+      "category": "Creature's parts",
+      "providers": [
+        "Branchy Crawler"
+      ]
+    },
+    {
+      "name": "Cry-Stal",
+      "slug": "Cry-Stal",
+      "url": "",
+      "weight": 9.7,
+      "category": "Valuable",
+      "providers": [
+        "Shrieking Cry-Stal"
+      ]
+    },
+    {
+      "name": "Crystal Bone",
+      "slug": "Crystal_Bone",
+      "url": "",
+      "weight": 12.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Instable Breach Brood"
+      ]
+    },
+    {
+      "name": "Crystal Crossbow",
+      "slug": "Crystal_Crossbow",
+      "url": "",
+      "weight": 84.0,
+      "category": "Crossbows",
+      "providers": [
+        "Branchy Crawler",
+        "Cave Chimera",
+        "Cliff Strider",
+        "Crazed Summer Rearguard",
+        "Freakish Lost Soul",
+        "Haunted Hunter",
+        "Mould Phantom",
+        "Naga Archer",
+        "Orewalker",
+        "Quara Looter",
+        "Sulphur Spouter",
+        "Abyssador",
+        "Deathstrike",
+        "Gnomevil",
+        "Guard Captain Quaid",
+        "Mazzinor"
+      ]
+    },
+    {
+      "name": "Crystal Mace",
+      "slug": "Crystal_Mace",
+      "url": "",
+      "weight": 80.0,
+      "category": "Club",
+      "providers": [
+        "Animated Feather",
+        "Boar Man",
+        "Brachiodemon",
+        "Darklight Striker",
+        "Eyeless Devourer",
+        "Icecold Book",
+        "Infernal Phantom",
+        "Ironblight",
+        "Juvenile Bashmu",
+        "Knight's Apparition",
+        "Lavafungus",
+        "Roaming Dread",
+        "Sight of Surrender",
+        "Squid Warden",
+        "Stone Devourer",
+        "Streaked Devourer",
+        "Tunnel Tyrant",
+        "Walker",
+        "White Weretiger",
+        "Eradicator",
+        "Ice Horror",
+        "Melting Frozen Horror",
+        "Realityquake",
+        "Tamru The Black",
+        "The Baron from Below",
+        "Utua Stone Sting",
+        "Vashresamun",
+        "Yakchal",
+        "Zamulosh",
+        "Zushuka"
+      ]
+    },
+    {
+      "name": "Crystal of the Mitmah",
+      "slug": "Crystal_of_the_Mitmah",
+      "url": "",
+      "weight": 1.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Mitmah Seer",
+        "Atab",
+        "Mitmah Vanguard"
+      ]
+    },
+    {
+      "name": "Crystal Sword",
+      "slug": "Crystal_Sword",
+      "url": "",
+      "weight": 69.0,
+      "category": "Sword",
+      "providers": [
+        "Afflicted Strider",
+        "Barbarian Skullhunter",
+        "Boar Man",
+        "Crystal Spider",
+        "Elf Overseer",
+        "Energy Elemental",
+        "Enraged Crystal Golem",
+        "High Voltage Elemental",
+        "Ice Golem",
+        "Ice Witch",
+        "Knowledge Elemental",
+        "Menacing Carnivor",
+        "Nighthunter",
+        "Pirat Cutthroat",
+        "Spitter",
+        "Squid Warden",
+        "Werelion",
+        "Werelioness",
+        "Hirintror",
+        "Madareth",
+        "Melting Frozen Horror",
+        "Rotspit",
+        "Shardhead",
+        "Yakchal",
+        "Zushuka"
+      ]
+    },
+    {
+      "name": "Crystalline Armor",
+      "slug": "Crystalline_Armor",
+      "url": "",
+      "weight": 84.5,
+      "category": "Armors",
+      "providers": [
+        "Animated Feather",
+        "Armadile",
+        "Crystal Wolf",
+        "Diamond Servant",
+        "Diamond Servant Replica",
+        "Haunted Hunter",
+        "Icecold Book",
+        "Orewalker",
+        "Quara Raider",
+        "Roaming Dread",
+        "Sea Serpent",
+        "Squid Warden",
+        "Tunnel Tyrant",
+        "Turbulent Elemental",
+        "Blight Mariner",
+        "Eradicator",
+        "Ghazbaran",
+        "Ice Overlord",
+        "Mazzinor",
+        "Melting Frozen Horror",
+        "Michael the Stalwart",
+        "Omrafir",
+        "Prince Drazzak",
+        "Ravenous Hunger",
+        "Realityquake",
+        "Rupture",
+        "The Count of the Core",
+        "The Duke of the Depths",
+        "The Winter Bloom",
+        "Zamulosh"
+      ]
+    },
+    {
+      "name": "Crystalline Spikes",
+      "slug": "Crystalline_Spikes",
+      "url": "",
+      "weight": 3.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Armadile",
+        "Crystalcrusher",
+        "Enraged Crystal Golem",
+        "Ironblight",
+        "Stone Devourer"
+      ]
+    },
+    {
+      "name": "Crystalline Sword",
+      "slug": "Crystalline_Sword",
+      "url": "",
+      "weight": 48.0,
+      "category": "Sword",
+      "providers": [
+        "Brachiodemon",
+        "Branchy Crawler",
+        "Cliff Strider",
+        "Harpy",
+        "Abyssador",
+        "Anomaly",
+        "Deathstrike",
+        "Deep Terror",
+        "Gnomevil",
+        "Gorzindel",
+        "Melting Frozen Horror",
+        "Outburst"
+      ]
+    },
+    {
+      "name": "Crystallized Death",
+      "slug": "Crystallized_Death",
+      "url": "",
+      "weight": 10.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Creepy Crawler",
+        "Crypt Construct",
+        "Crypt Fiend",
+        "Crypt Mage",
+        "Cyclursus",
+        "Haunted Hunter",
+        "Roaming Dread",
+        "Walking Dread"
+      ]
+    },
+    {
+      "name": "Cuirass Plate",
+      "slug": "Cuirass_Plate",
+      "url": "",
+      "weight": 7.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Raubritter Marksman",
+        "Raubritter Skirmisher",
+        "Adlerauge",
+        "Michael the Stalwart"
+      ]
+    },
+    {
+      "name": "Curious Matter",
+      "slug": "Curious_Matter",
+      "url": "",
+      "weight": 4.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Breach Brood",
+        "Anomaly",
+        "Burster",
+        "Gorzindel",
+        "Rupture",
+        "The Souldespoiler"
+      ]
+    },
+    {
+      "name": "Cursed Shoulder Spikes",
+      "slug": "Cursed_Shoulder_Spikes",
+      "url": "",
+      "weight": 0.97,
+      "category": "Creature's parts",
+      "providers": [
+        "Lizard Chosen",
+        "The Voice of Ruin"
+      ]
+    },
+    {
+      "name": "Damaged Armor Plates",
+      "slug": "Damaged_Armor_Plates",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Falcon Knight",
+        "Falcon Paladin",
+        "Grand Canon Dominus",
+        "Grand Chaplain Gaunder",
+        "Grand Commander Soeren"
+      ]
+    },
+    {
+      "name": "Damselfly Eye",
+      "slug": "Damselfly_Eye",
+      "url": "",
+      "weight": 1.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Dawnfly",
+        "Emerald Damselfly"
+      ]
+    },
+    {
+      "name": "Dandelion Seeds",
+      "slug": "Dandelion_Seeds",
+      "url": "",
+      "weight": 1.3,
+      "category": "Creature's parts",
+      "providers": [
+        "Arctic Faun",
+        "Faun",
+        "Nymph",
+        "Pixie"
+      ]
+    },
+    {
+      "name": "Dangerous Proto Matter",
+      "slug": "Dangerous_Proto_Matter",
+      "url": "",
+      "weight": 6.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Dreadful Disruptor",
+        "Reality Reaver"
+      ]
+    },
+    {
+      "name": "Dark Obsidian Splinter",
+      "slug": "Dark_Obsidian_Splinter",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Darklight Construct",
+        "Darklight Source",
+        "Darklight Striker"
+      ]
+    },
+    {
+      "name": "Dark Rosary",
+      "slug": "Dark_Rosary",
+      "url": "",
+      "weight": 0.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Dark Monk",
+        "Priestess"
+      ]
+    },
+    {
+      "name": "Dark Shield",
+      "slug": "Dark_Shield",
+      "url": "",
+      "weight": 52.0,
+      "category": "Shields",
+      "providers": [
+        "Bellicose Orger",
+        "Grim Reaper",
+        "Haunted Dragon",
+        "Pirate Corsair",
+        "Silencer",
+        "Thanatursus",
+        "Werelion",
+        "Ancient Lion Knight",
+        "Bretzecutioner",
+        "Michael the Stalwart",
+        "The Handmaiden"
+      ]
+    },
+    {
+      "name": "Darklight Basalt Chunk",
+      "slug": "Darklight_Basalt_Chunk",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Walking Pillar"
+      ]
+    },
+    {
+      "name": "Darklight Core",
+      "slug": "Darklight_Core",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Converter",
+        "Darklight Construct",
+        "Darklight Emitter",
+        "Darklight Matter",
+        "Darklight Source",
+        "Darklight Striker",
+        "Walking Pillar",
+        "Wandering Pillar"
+      ]
+    },
+    {
+      "name": "Darklight Matter",
+      "slug": "Darklight_Matter",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Converter",
+        "Darklight Matter"
+      ]
+    },
+    {
+      "name": "Dead Weight",
+      "slug": "Dead_Weight",
+      "url": "",
+      "weight": 7.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Choking Fear"
+      ]
+    },
+    {
+      "name": "Deadly Fangs",
+      "slug": "Deadly_Fangs",
+      "url": "",
+      "weight": 10.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Cyclursus",
+        "Haunted Hunter"
+      ]
+    },
+    {
+      "name": "Decayed Finger Bone",
+      "slug": "Decayed_Finger_Bone",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Oozing Carcass",
+        "Sopping Carcass"
+      ]
+    },
+    {
+      "name": "Deepling Breaktime Snack",
+      "slug": "Deepling_Breaktime_Snack",
+      "url": "",
+      "weight": 2.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Deepling Guard",
+        "Deepling Tyrant"
+      ]
+    },
+    {
+      "name": "Deepling Claw",
+      "slug": "Deepling_Claw",
+      "url": "",
+      "weight": 1.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Deepling Guard",
+        "Deepling Tyrant"
+      ]
+    },
+    {
+      "name": "Deepling Guard Belt Buckle",
+      "slug": "Deepling_Guard_Belt_Buckle",
+      "url": "",
+      "weight": 2.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Deepling Guard",
+        "Deepling Tyrant"
+      ]
+    },
+    {
+      "name": "Deepling Ridge",
+      "slug": "Deepling_Ridge",
+      "url": "",
+      "weight": 1.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Deathling Scout",
+        "Deathling Spellsinger",
+        "Deepling Elite",
+        "Deepling Warrior",
+        "Neutral Deepling Warrior"
+      ]
+    },
+    {
+      "name": "Deepling Scales",
+      "slug": "Deepling_Scales",
+      "url": "",
+      "weight": 4.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Deepling Brawler",
+        "Deepling Worker",
+        "Shark"
+      ]
+    },
+    {
+      "name": "Deeptags",
+      "slug": "Deeptags",
+      "url": "",
+      "weight": 2.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Deathling Scout",
+        "Deathling Spellsinger",
+        "Deepling Elite",
+        "Deepling Warrior",
+        "Neutral Deepling Warrior"
+      ]
+    },
+    {
+      "name": "Deepworm Jaws",
+      "slug": "Deepworm_Jaws",
+      "url": "",
+      "weight": 1.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Deepworm"
+      ]
+    },
+    {
+      "name": "Deepworm Spike Roots",
+      "slug": "Deepworm_Spike_Roots",
+      "url": "",
+      "weight": 0.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Deepworm"
+      ]
+    },
+    {
+      "name": "Deepworm Spikes",
+      "slug": "Deepworm_Spikes",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Deepworm"
+      ]
+    },
+    {
+      "name": "Demon Root",
+      "slug": "Demon_Root",
+      "url": "",
+      "weight": 0.25,
+      "category": "Creature's parts",
+      "providers": [
+        "Rootthing Amber Shaper",
+        "Rootthing Bug Tracker",
+        "Rootthing Nutshell"
+      ]
+    },
+    {
+      "name": "Demonic Matter",
+      "slug": "Demonic_Matter",
+      "url": "",
+      "weight": 0.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Brinebrute Inferniarch",
+        "Broodrider Inferniarch",
+        "Gorger Inferniarch",
+        "Hellhunter Inferniarch",
+        "Sineater Inferniarch",
+        "Spellreaper Inferniarch",
+        "Gralvalon",
+        "Malvaroth",
+        "Twisterror"
+      ]
+    },
+    {
+      "name": "Diamond Sceptre",
+      "slug": "Diamond_Sceptre",
+      "url": "",
+      "weight": 15.0,
+      "category": "Club",
+      "providers": [
+        "Animated Feather",
+        "Blemished Spawn",
+        "Cursed Book",
+        "Enfeebled Silencer",
+        "Girtablilu Warrior",
+        "Gore Horn",
+        "Hulking Carnisylvan",
+        "Ice Witch",
+        "Icecold Book",
+        "Juvenile Bashmu",
+        "Massive Earth Elemental",
+        "Nightmare Scion",
+        "Ogre Ruffian",
+        "Poisonous Carnisylvan",
+        "Silencer",
+        "Squid Warden",
+        "Swan Maiden",
+        "Varnished Diremaw",
+        "Annihilon",
+        "The Blazing Time Guardian",
+        "The Freezing Time Guardian",
+        "The Time Guardian",
+        "Zavarash"
+      ]
+    },
+    {
+      "name": "Diremaw Brainpan",
+      "slug": "Diremaw_Brainpan",
+      "url": "",
+      "weight": 1.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Diremaw"
+      ]
+    },
+    {
+      "name": "Diremaw Legs",
+      "slug": "Diremaw_Legs",
+      "url": "",
+      "weight": 2.3,
+      "category": "Creature's parts",
+      "providers": [
+        "Diremaw"
+      ]
+    },
+    {
+      "name": "Dirty Turban",
+      "slug": "Dirty_Turban",
+      "url": "",
+      "weight": 1.34,
+      "category": "Creature's parts",
+      "providers": [
+        "Blue Djinn",
+        "Crypt Defiler",
+        "Grave Robber",
+        "Green Djinn",
+        "Nomad",
+        "Nomad (Blue)",
+        "Nomad (Female)"
+      ]
+    },
+    {
+      "name": "Double Axe",
+      "slug": "Double_Axe",
+      "url": "",
+      "weight": 70.0,
+      "category": "Axe",
+      "providers": [
+        "Behemoth",
+        "Cyclops Smith",
+        "Diabolic Imp",
+        "Dragon",
+        "Dwarf Guard",
+        "Fire Devil",
+        "Memory of a Dwarf",
+        "Minotaur Guard",
+        "Orger",
+        "Quara Predator",
+        "Quara Predator Scout",
+        "Valkyrie",
+        "Brutus Bloodbeard",
+        "Demodras",
+        "Ferumbras",
+        "General Murius",
+        "Ghazbaran",
+        "Golgordan",
+        "Grand Mother Foulscale",
+        "Latrivan",
+        "Lethal Lissy",
+        "Morgaroth",
+        "Mr. Punish",
+        "Orshabaal",
+        "Ron The Ripper",
+        "Stonecracker",
+        "Tazhadur",
+        "The Horned Fox"
+      ]
+    },
+    {
+      "name": "Dowser",
+      "slug": "Dowser",
+      "url": "",
+      "weight": 3.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Leaf Golem",
+        "Wilting Leaf Golem",
+        "Dazed Leaf Golem"
+      ]
+    },
+    {
+      "name": "Dragolisk Eye",
+      "slug": "Dragolisk_Eye",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Dragolisk"
+      ]
+    },
+    {
+      "name": "Dragolisk Poison Gland",
+      "slug": "Dragolisk_Poison_Gland",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Dragolisk"
+      ]
+    },
+    {
+      "name": "Dragon Hammer",
+      "slug": "Dragon_Hammer",
+      "url": "",
+      "weight": 97.0,
+      "category": "Club",
+      "providers": [
+        "Bulltaur Brute",
+        "Dragon",
+        "Orc Warlord",
+        "Demodras",
+        "Dire Penguin",
+        "Grand Mother Foulscale",
+        "Orshabaal",
+        "Tazhadur"
+      ]
+    },
+    {
+      "name": "Dragon Priest's Wandtip",
+      "slug": "Dragon_Priest%27s_Wandtip",
+      "url": "",
+      "weight": 1.55,
+      "category": "Creature's parts",
+      "providers": [
+        "Lizard Dragon Priest",
+        "Flamecaller Zazrak"
+      ]
+    },
+    {
+      "name": "Dragon Slayer",
+      "slug": "Dragon_Slayer",
+      "url": "",
+      "weight": 82.0,
+      "category": "Sword",
+      "providers": [
+        "Dragon Lord",
+        "Frost Dragon",
+        "Haunted Dragon",
+        "Undead Dragon",
+        "Dragon Hoard",
+        "Eldritch Dragon Lord",
+        "Inkwing",
+        "Ushuriel"
+      ]
+    },
+    {
+      "name": "Dragon Tongue",
+      "slug": "Dragon_Tongue",
+      "url": "",
+      "weight": 5.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Ice Dragon",
+        "Wardragon",
+        "Eldritch Dragon Lord",
+        "Gelidrazah the Frozen",
+        "Kalyassa",
+        "Tazhadur",
+        "Zorvorax"
+      ]
+    },
+    {
+      "name": "Dragon's Tail",
+      "slug": "Dragon%27s_Tail",
+      "url": "",
+      "weight": 2.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Dragolisk",
+        "Dragon",
+        "Dragon Hatchling"
+      ]
+    },
+    {
+      "name": "Draken Wristbands",
+      "slug": "Draken_Wristbands",
+      "url": "",
+      "weight": 0.78,
+      "category": "Creature's parts",
+      "providers": [
+        "Draken Elite",
+        "Paiz the Pauperizer"
+      ]
+    },
+    {
+      "name": "Dream Essence Egg",
+      "slug": "Dream_Essence_Egg",
+      "url": "",
+      "weight": 2.8,
+      "category": "Quest",
+      "providers": [
+        "Crazed Summer Rearguard",
+        "Crazed Summer Vanguard",
+        "Crazed Winter Rearguard",
+        "Crazed Winter Vanguard",
+        "Insane Siren",
+        "Soul-broken Harbinger"
+      ]
+    },
+    {
+      "name": "Dung Ball",
+      "slug": "Dung_Ball",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Insectoid Worker",
+        "Mindmasher"
+      ]
+    },
+    {
+      "name": "Earflap",
+      "slug": "Earflap",
+      "url": "",
+      "weight": 0.75,
+      "category": "Creature's parts",
+      "providers": [
+        "Corym Charlatan",
+        "Corym Skirmisher",
+        "Corym Vanguard"
+      ]
+    },
+    {
+      "name": "Elder Bonelord Tentacle",
+      "slug": "Elder_Bonelord_Tentacle",
+      "url": "",
+      "weight": 0.75,
+      "category": "Creature's parts",
+      "providers": [
+        "Elder Bonelord"
+      ]
+    },
+    {
+      "name": "Elven Astral Observer",
+      "slug": "Elven_Astral_Observer",
+      "url": "",
+      "weight": 1.12,
+      "category": "Creature's parts",
+      "providers": [
+        "Crazed Summer Vanguard",
+        "Crazed Winter Rearguard",
+        "Elf Arcanist",
+        "Dharalion"
+      ]
+    },
+    {
+      "name": "Emerald Tortoise Shell",
+      "slug": "Emerald_Tortoise_Shell",
+      "url": "",
+      "weight": 6.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Emerald Tortoise"
+      ]
+    },
+    {
+      "name": "Empty Honey Glass",
+      "slug": "Empty_Honey_Glass",
+      "url": "",
+      "weight": 1.5,
+      "category": "Containers for fluids",
+      "providers": [
+        "Black Sphinx Acolyte",
+        "Burning Gladiator",
+        "Priestess of the Wild Sun"
+      ]
+    },
+    {
+      "name": "Encrypted Notes",
+      "slug": "Encrypted_Notes",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Bulltaur Alchemist"
+      ]
+    },
+    {
+      "name": "Energy Ball",
+      "slug": "Energy_Ball",
+      "url": "",
+      "weight": 3.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Brain Squid",
+        "Dread Intruder",
+        "Energetic Book",
+        "Outburst"
+      ]
+    },
+    {
+      "name": "Ensouled Essence",
+      "slug": "Ensouled_Essence",
+      "url": "",
+      "weight": 1.35,
+      "category": "Creature's parts",
+      "providers": [
+        "Flimsy Lost Soul",
+        "Freakish Lost Soul",
+        "Mean Lost Soul"
+      ]
+    },
+    {
+      "name": "Essence of a Bad Dream",
+      "slug": "Essence_of_a_Bad_Dream",
+      "url": "",
+      "weight": 0.95,
+      "category": "Creature's parts",
+      "providers": [
+        "Arachnophobica",
+        "Nightmare",
+        "Nightmare Scion",
+        "Thanatursus",
+        "Tormentor"
+      ]
+    },
+    {
+      "name": "Exalted Core",
+      "slug": "Exalted_Core",
+      "url": "",
+      "weight": 2.6,
+      "category": "Others",
+      "providers": [
+        "This item cannot be obtained from monsters."
+      ]
+    },
+    {
+      "name": "Execowtioner Mask",
+      "slug": "Execowtioner_Mask",
+      "url": "",
+      "weight": 3.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Execowtioner"
+      ]
+    },
+    {
+      "name": "Eye of a Deepling",
+      "slug": "Eye_of_a_Deepling",
+      "url": "",
+      "weight": 2.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Deathling Scout",
+        "Deathling Spellsinger",
+        "Deepling Brawler",
+        "Deepling Elite",
+        "Deepling Guard",
+        "Deepling Master Librarian",
+        "Deepling Scout",
+        "Deepling Spellsinger",
+        "Deepling Tyrant",
+        "Deepling Warrior",
+        "Deepling Worker",
+        "Shark",
+        "Reflection of Obujos"
+      ]
+    },
+    {
+      "name": "Eye of a Weeper",
+      "slug": "Eye_of_a_Weeper",
+      "url": "",
+      "weight": 0.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Weeper"
+      ]
+    },
+    {
+      "name": "Eye of Corruption",
+      "slug": "Eye_of_Corruption",
+      "url": "",
+      "weight": 0.93,
+      "category": "Creature's parts",
+      "providers": [
+        "Draken Abomination"
+      ]
+    },
+    {
+      "name": "Eyeless Devourer Legs",
+      "slug": "Eyeless_Devourer_Legs",
+      "url": "",
+      "weight": 2.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Eyeless Devourer"
+      ]
+    },
+    {
+      "name": "Eyeless Devourer Maw",
+      "slug": "Eyeless_Devourer_Maw",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Eyeless Devourer"
+      ]
+    },
+    {
+      "name": "Eyeless Devourer Tongue",
+      "slug": "Eyeless_Devourer_Tongue",
+      "url": "",
+      "weight": 0.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Eyeless Devourer"
+      ]
+    },
+    {
+      "name": "Fafnar Symbol",
+      "slug": "Fafnar_Symbol",
+      "url": "",
+      "weight": 1.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Burning Gladiator",
+        "Priestess of the Wild Sun"
+      ]
+    },
+    {
+      "name": "Falcon Crest",
+      "slug": "Falcon_Crest",
+      "url": "",
+      "weight": 0.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Falcon Knight",
+        "Falcon Paladin",
+        "Grand Canon Dominus",
+        "Grand Chaplain Gaunder",
+        "Grand Commander Soeren"
+      ]
+    },
+    {
+      "name": "Fig Leaf",
+      "slug": "Fig_Leaf",
+      "url": "",
+      "weight": 0.6,
+      "category": "Plants",
+      "providers": [
+        "Barkless Devotee",
+        "Barkless Fanatic",
+        "Ravenous Hunger"
+      ]
+    },
+    {
+      "name": "Fir Cone",
+      "slug": "Fir_Cone",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Grove Guardian",
+        "Leaf Golem",
+        "Wilting Leaf Golem",
+        "Dazed Leaf Golem"
+      ]
+    },
+    {
+      "name": "Fire Axe",
+      "slug": "Fire_Axe",
+      "url": "",
+      "weight": 40.0,
+      "category": "Axe",
+      "providers": [
+        "Angry Demon",
+        "Brachiodemon",
+        "Demon",
+        "Feral Sphinx",
+        "Guardian of Tales",
+        "Hellfire Fighter",
+        "Infernal Phantom",
+        "Insane Siren",
+        "Lava Golem",
+        "Lost Basher",
+        "Lost Berserker",
+        "Lost Exile",
+        "Lost Husher",
+        "Mean Lost Soul",
+        "Rage Squid",
+        "Sulphider",
+        "Vexclaw",
+        "Weeper",
+        "Arbaziloth",
+        "Arbaziloth (Hard)",
+        "Essence of Malice",
+        "Ferumbras",
+        "Furyosa",
+        "Golgordan",
+        "Latrivan",
+        "Mahrdis",
+        "Mazoran",
+        "Minishabaal",
+        "Morgaroth",
+        "Orshabaal",
+        "The Duke of the Depths",
+        "The Imperor",
+        "Xogixath"
+      ]
+    },
+    {
+      "name": "Flask of Demonic Blood",
+      "slug": "Flask_of_Demonic_Blood",
+      "url": "",
+      "weight": 2.0,
+      "category": "Liquids",
+      "providers": [
+        "Betrayed Wraith",
+        "Burning Book",
+        "Dark Torturer",
+        "Dawnfire Asura",
+        "Diabolic Imp",
+        "Falcon Knight",
+        "Floating Savant",
+        "Frost Flower Asura",
+        "Fury",
+        "Grim Reaper",
+        "Grimeleech",
+        "Hand of Cursed Fate",
+        "Hellflayer",
+        "Hellhound",
+        "Juggernaut",
+        "Midnight Asura",
+        "Nightmare",
+        "True Dawnfire Asura",
+        "True Frost Flower Asura",
+        "True Midnight Asura",
+        "Fluffy",
+        "Furyosa",
+        "Grand Chaplain Gaunder",
+        "Kerberos",
+        "Kusuma",
+        "Mazoran",
+        "Plagirath",
+        "Preceptor Lazare",
+        "Ragiaz",
+        "Razzagorn",
+        "Shulgrax",
+        "Tarbaz",
+        "The Blazing Rose",
+        "The Diamond Blossom",
+        "The Flaming Orchid",
+        "The Lily of Night",
+        "The Moonlight Aster",
+        "The Winter Bloom",
+        "Tormentor",
+        "Zamulosh"
+      ]
+    },
+    {
+      "name": "Flotsam",
+      "slug": "Flotsam",
+      "url": "",
+      "weight": 2.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Foam Stalker",
+        "Venerable Foam Stalker"
+      ]
+    },
+    {
+      "name": "Focus Cape",
+      "slug": "Focus_Cape",
+      "url": "",
+      "weight": 21.0,
+      "category": "Armors",
+      "providers": [
+        "Afflicted Strider",
+        "Converter",
+        "Dawnfire Asura",
+        "Draken Spellweaver",
+        "Girtablilu Warrior",
+        "Harpy",
+        "Lavafungus",
+        "Lizard Dragon Priest",
+        "Lumbering Carnivor",
+        "Nightmare Scion",
+        "Pirat Cutthroat",
+        "Reality Reaver",
+        "Sea Serpent",
+        "Stabilizing Reality Reaver",
+        "Tremendous Tyrant",
+        "True Dawnfire Asura",
+        "Wyrm",
+        "Amenef the Burning",
+        "Captain Jones",
+        "Hellgorak",
+        "Raging Mage",
+        "Reflection of a Mage",
+        "Sister Hetai"
+      ]
+    },
+    {
+      "name": "Fox Paw",
+      "slug": "Fox_Paw",
+      "url": "",
+      "weight": 1.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Fox",
+        "Werefox",
+        "Black Vixen"
+      ]
+    },
+    {
+      "name": "Frazzle Tongue",
+      "slug": "Frazzle_Tongue",
+      "url": "",
+      "weight": 6.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Animated Guzzlemaw",
+        "Frazzlemaw",
+        "Guzzlemaw",
+        "Nibblemaw",
+        "Weakened Frazzlemaw",
+        "Mawhawk",
+        "Reflection of Mawhawk"
+      ]
+    },
+    {
+      "name": "Frozen Lightning",
+      "slug": "Frozen_Lightning",
+      "url": "",
+      "weight": 7.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Brain Squid",
+        "Dread Intruder",
+        "Anomaly",
+        "Rupture",
+        "Mazzinor"
+      ]
+    },
+    {
+      "name": "Fur Armor",
+      "slug": "Fur_Armor",
+      "url": "",
+      "weight": 49.0,
+      "category": "Armors",
+      "providers": [
+        "Adult Goanna",
+        "Blemished Spawn",
+        "Capricious Phantom",
+        "Cave Chimera",
+        "Cunning Werepanther",
+        "Girtablilu Warrior",
+        "Lumbering Carnivor",
+        "Raubritter Skirmisher",
+        "Rotten Golem",
+        "Sun-marked Goanna",
+        "Turbulent Elemental",
+        "Varnished Diremaw",
+        "Werebear",
+        "Wereboar",
+        "Werecrocodile",
+        "Werepanther",
+        "Young Goanna",
+        "Bloodback",
+        "Feroxa",
+        "Michael the Stalwart",
+        "Owin",
+        "Shadowpelt"
+      ]
+    },
+    {
+      "name": "Gauze Bandage",
+      "slug": "Gauze_Bandage",
+      "url": "",
+      "weight": 0.97,
+      "category": "Creature's parts",
+      "providers": [
+        "Animated Mummy",
+        "Elder Mummy",
+        "Mummy",
+        "Mahatheb"
+      ]
+    },
+    {
+      "name": "Ghastly Dragon Head",
+      "slug": "Ghastly_Dragon_Head",
+      "url": "",
+      "weight": 12.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Ghastly Dragon",
+        "Ethershreck",
+        "Hatebreeder"
+      ]
+    },
+    {
+      "name": "Giant Pacifier",
+      "slug": "Giant_Pacifier",
+      "url": "",
+      "weight": 9.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Animated Moohtant",
+        "Moohtant",
+        "Bullwark",
+        "Moohtant Wallbreaker"
+      ]
+    },
+    {
+      "name": "Giant Tusk",
+      "slug": "Giant_Tusk",
+      "url": "",
+      "weight": 10.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Creepy Crawler",
+        "Crypt Fiend"
+      ]
+    },
+    {
+      "name": "Girlish Hair Decoration",
+      "slug": "Girlish_Hair_Decoration",
+      "url": "",
+      "weight": 0.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Amazon",
+        "Valkyrie"
+      ]
+    },
+    {
+      "name": "Girtablilu Warrior Carapace",
+      "slug": "Girtablilu_Warrior_Carapace",
+      "url": "",
+      "weight": 2.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Girtablilu Warrior"
+      ]
+    },
+    {
+      "name": "Glacier Mask",
+      "slug": "Glacier_Mask",
+      "url": "",
+      "weight": 10.0,
+      "category": "Helmets",
+      "providers": [
+        "Animated Feather",
+        "Animated Snowman",
+        "Crazed Winter Rearguard",
+        "Crystal Spider",
+        "Ice Dragon",
+        "Ice Golem",
+        "Icecold Book",
+        "Memory of a Dwarf",
+        "Monk's Apparition",
+        "Mycobiontic Beetle",
+        "Paladin's Apparition",
+        "Seacrest Serpent",
+        "Squid Warden",
+        "Earl Osam",
+        "Gelidrazah the Frozen",
+        "Hirintror",
+        "Ice Horror",
+        "Neferi the Spy",
+        "Shardhead",
+        "The Bloodweb",
+        "Zushuka"
+      ]
+    },
+    {
+      "name": "Glacier Robe",
+      "slug": "Glacier_Robe",
+      "url": "",
+      "weight": 22.5,
+      "category": "Armors",
+      "providers": [
+        "Crazed Winter Rearguard",
+        "Crazed Winter Vanguard",
+        "Druid's Apparition",
+        "Girtablilu Warrior",
+        "Goggle Cake",
+        "Hazardous Phantom",
+        "Icecold Book",
+        "Many Faces",
+        "Quara Pincher",
+        "Quara Predator",
+        "Quara Raider",
+        "Renegade Quara Pincher",
+        "Renegade Quara Predator",
+        "Schiach",
+        "Squid Warden",
+        "Tremendous Tyrant",
+        "Turbulent Elemental",
+        "Court Warlock",
+        "King Zelos",
+        "Srezz Yellow Eyes",
+        "Tarbaz",
+        "The Time Guardian",
+        "The Winter Bloom",
+        "Utua Stone Sting",
+        "Yakchal",
+        "Zushuka"
+      ]
+    },
+    {
+      "name": "Glacier Shoes",
+      "slug": "Glacier_Shoes",
+      "url": "",
+      "weight": 7.5,
+      "category": "Boots",
+      "providers": [
+        "Bluebeak",
+        "Foam Stalker",
+        "Ice Witch",
+        "Icecold Book",
+        "Many Faces",
+        "Seacrest Serpent",
+        "Soul-broken Harbinger",
+        "Two-Headed Turtle",
+        "Usurper Archer",
+        "Varnished Diremaw",
+        "Venerable Foam Stalker",
+        "Hirintror",
+        "Neferi the Spy",
+        "Zushuka"
+      ]
+    },
+    {
+      "name": "Glob of Acid Slime",
+      "slug": "Glob_of_Acid_Slime",
+      "url": "",
+      "weight": 0.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Acid Blob",
+        "Defiler",
+        "Stonerefiner"
+      ]
+    },
+    {
+      "name": "Glob of Glooth",
+      "slug": "Glob_of_Glooth",
+      "url": "",
+      "weight": 0.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Devourer",
+        "Glooth Blob",
+        "Rot Elemental"
+      ]
+    },
+    {
+      "name": "Glob of Tar",
+      "slug": "Glob_of_Tar",
+      "url": "",
+      "weight": 0.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Death Blob",
+        "Defiler"
+      ]
+    },
+    {
+      "name": "Glooth Axe",
+      "slug": "Glooth_Axe",
+      "url": "",
+      "weight": 19.0,
+      "category": "Axe",
+      "providers": [
+        "Blood Beast",
+        "Devourer",
+        "Glooth Anemone",
+        "Glooth Bandit",
+        "Glooth Blob",
+        "Glooth Brigand",
+        "Glooth Golem",
+        "Rot Elemental",
+        "Glooth Fairy",
+        "Lisa"
+      ]
+    },
+    {
+      "name": "Glooth Blade",
+      "slug": "Glooth_Blade",
+      "url": "",
+      "weight": 19.0,
+      "category": "Sword",
+      "providers": [
+        "Blood Beast",
+        "Devourer",
+        "Glooth Anemone",
+        "Glooth Bandit",
+        "Glooth Blob",
+        "Glooth Brigand",
+        "Glooth Golem",
+        "Rot Elemental",
+        "Glooth Fairy",
+        "Lisa"
+      ]
+    },
+    {
+      "name": "Glooth Cape",
+      "slug": "Glooth_Cape",
+      "url": "",
+      "weight": 29.0,
+      "category": "Armors",
+      "providers": [
+        "Devourer",
+        "Glooth Anemone",
+        "Glooth Bandit",
+        "Glooth Fairy",
+        "Lisa",
+        "Tremor Worm"
+      ]
+    },
+    {
+      "name": "Glooth Club",
+      "slug": "Glooth_Club",
+      "url": "",
+      "weight": 19.0,
+      "category": "Club",
+      "providers": [
+        "Blood Beast",
+        "Devourer",
+        "Glooth Anemone",
+        "Glooth Bandit",
+        "Glooth Blob",
+        "Glooth Brigand",
+        "Glooth Golem",
+        "Rot Elemental",
+        "Glooth Fairy",
+        "Lisa"
+      ]
+    },
+    {
+      "name": "Glooth Injection Tube",
+      "slug": "Glooth_Injection_Tube",
+      "url": "",
+      "weight": 14.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Glooth Golem",
+        "Glooth Fairy"
+      ]
+    },
+    {
+      "name": "Glorious Axe",
+      "slug": "Glorious_Axe",
+      "url": "",
+      "weight": 95.0,
+      "category": "Axe",
+      "providers": [
+        "Bashmu",
+        "Bellicose Orger",
+        "Enfeebled Silencer",
+        "Enraged Crystal Golem",
+        "Enslaved Dwarf",
+        "Infernal Phantom",
+        "Lumbering Carnivor",
+        "Mutated Tiger",
+        "Orewalker",
+        "Silencer",
+        "Stone Devourer",
+        "Werecrocodile",
+        "Werelion",
+        "Feroxa",
+        "Ghazbaran",
+        "Weakened Shlorg"
+      ]
+    },
+    {
+      "name": "Glowing Rune",
+      "slug": "Glowing_Rune",
+      "url": "",
+      "weight": 0.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Animated Feather",
+        "Biting Book",
+        "Brain Squid",
+        "Energetic Book",
+        "Energuardian of Tales",
+        "Guardian of Tales",
+        "Knowledge Elemental",
+        "Rage Squid",
+        "Squid Warden"
+      ]
+    },
+    {
+      "name": "Goanna Claw",
+      "slug": "Goanna_Claw",
+      "url": "",
+      "weight": 0.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Adult Goanna",
+        "Young Goanna"
+      ]
+    },
+    {
+      "name": "Goanna Meat",
+      "slug": "Goanna_Meat",
+      "url": "",
+      "weight": 0.9,
+      "category": "Edible food",
+      "providers": [
+        "Adult Goanna",
+        "Sun-marked Goanna",
+        "Young Goanna"
+      ]
+    },
+    {
+      "name": "Golden Legs",
+      "slug": "Golden_Legs",
+      "url": "",
+      "weight": 56.0,
+      "category": "Legs",
+      "providers": [
+        "Angry Demon",
+        "Dark Torturer",
+        "Demon",
+        "Fury",
+        "Rootthing Bug Tracker",
+        "Vexclaw",
+        "Arbaziloth",
+        "Ferumbras",
+        "Ferumbras Mortal Shell",
+        "Gaz'Haragoth",
+        "Ghazbaran",
+        "Golgordan",
+        "Hellgorak",
+        "Horadron",
+        "Latrivan",
+        "Minishabaal",
+        "Morgaroth",
+        "Orshabaal",
+        "Ragiaz",
+        "Realityquake",
+        "Rotrender Scourge of Azzilon",
+        "World Devourer"
+      ]
+    },
+    {
+      "name": "Golden Lotus Brooch",
+      "slug": "Golden_Lotus_Brooch",
+      "url": "",
+      "weight": 1.0,
+      "category": "Valuable",
+      "providers": [
+        "Dawnfire Asura",
+        "Frost Flower Asura",
+        "Midnight Asura",
+        "True Dawnfire Asura",
+        "True Frost Flower Asura",
+        "True Midnight Asura",
+        "Kusuma",
+        "The Blazing Rose",
+        "The Diamond Blossom",
+        "The Flaming Orchid",
+        "The Lily of Night",
+        "The Moonlight Aster",
+        "The Winter Bloom"
+      ]
+    },
+    {
+      "name": "Golden Sickle",
+      "slug": "Golden_Sickle",
+      "url": "",
+      "weight": 19.5,
+      "category": "Axe",
+      "providers": [
+        "Angry Demon",
+        "Blightwalker",
+        "Boogy",
+        "Cunning Werepanther",
+        "Demon",
+        "Priestess of the Wild Sun",
+        "Werepanther",
+        "Arbaziloth",
+        "Arbaziloth (Hard)",
+        "Latrivan",
+        "Orshabaal",
+        "Rotrender Scourge of Azzilon"
+      ]
+    },
+    {
+      "name": "Golden Sun Coin",
+      "slug": "Golden_Sun_Coin",
+      "url": "",
+      "weight": 2.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Feral Werecrocodile",
+        "Werecrocodile",
+        "Ayana The Crimson Curse"
+      ]
+    },
+    {
+      "name": "Gore Horn",
+      "slug": "Gore_Horn",
+      "url": "",
+      "weight": 2.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Gore Horn"
+      ]
+    },
+    {
+      "name": "Gorerilla Mane",
+      "slug": "Gorerilla_Mane",
+      "url": "",
+      "weight": 2.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Gorerilla"
+      ]
+    },
+    {
+      "name": "Gorerilla Tail",
+      "slug": "Gorerilla_Tail",
+      "url": "",
+      "weight": 2.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Gorerilla"
+      ]
+    },
+    {
+      "name": "Gorger Antlers",
+      "slug": "Gorger_Antlers",
+      "url": "",
+      "weight": 6.3,
+      "category": "Creature's parts",
+      "providers": [
+        "Gorger Inferniarch"
+      ]
+    },
+    {
+      "name": "Grappling Hook",
+      "slug": "Grappling_Hook",
+      "url": "",
+      "weight": 6.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Pirat Scoundrel"
+      ]
+    },
+    {
+      "name": "Green Bandage",
+      "slug": "Green_Bandage",
+      "url": "",
+      "weight": 0.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Putrid Mummy"
       ]
     },
     {
@@ -37,13 +2884,1462 @@
       ]
     },
     {
-      "name": "Present Box",
-      "slug": "Present_Box",
+      "name": "Guardian Shield",
+      "slug": "Guardian_Shield",
+      "url": "",
+      "weight": 55.0,
+      "category": "Shields",
+      "providers": [
+        "Burning Book",
+        "Choking Fear",
+        "Cult Enforcer",
+        "Demon Skeleton",
+        "Diabolic Imp",
+        "Energy Elemental",
+        "Enslaved Dwarf",
+        "Fire Devil",
+        "Knowledge Elemental",
+        "Lost Berserker",
+        "Lost Exile",
+        "Lost Husher",
+        "Minotaur Invader",
+        "Mooh'Tah Warrior",
+        "Mutated Tiger",
+        "Spiky Carnivor",
+        "Undead Minion",
+        "Vicious Squire",
+        "Annihilon",
+        "Minishabaal",
+        "Terofar",
+        "The Imperor",
+        "Tyrn",
+        "Zavarash",
+        "Zomba",
+        "Zulazza the Corruptor"
+      ]
+    },
+    {
+      "name": "Halberd",
+      "slug": "Halberd",
+      "url": "",
+      "weight": 90.0,
+      "category": "Axe",
+      "providers": [
+        "Animated Cyclops",
+        "Barbarian Bloodwalker",
+        "Cult Enforcer",
+        "Cyclops",
+        "Cyclops Drone",
+        "Foam Stalker",
+        "Frost Giant",
+        "Golden Servant",
+        "Golden Servant Replica",
+        "Hacker",
+        "Iron Servant",
+        "Iron Servant Replica",
+        "Lizard Sentinel",
+        "Mutated Rat",
+        "Orc Berserker",
+        "Orc Cult Inquisitor",
+        "Quara Mantassin",
+        "Quara Pincher",
+        "Quara Pincher Scout",
+        "Renegade Quara Pincher",
+        "Thanatursus",
+        "Venerable Foam Stalker",
+        "Vicious Squire",
+        "Wailing Widow",
+        "Werehyaena",
+        "Werewolf",
+        "Zombie",
+        "Annihilon",
+        "Black Knight",
+        "Esmeralda"
+      ]
+    },
+    {
+      "name": "Half-Digested Stones",
+      "slug": "Half-Digested_Stones",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Stonerefiner"
+      ]
+    },
+    {
+      "name": "Half-Eaten Brain",
+      "slug": "Half-Eaten_Brain",
+      "url": "",
+      "weight": 0.64,
+      "category": "Creature's parts",
+      "providers": [
+        "Zombie"
+      ]
+    },
+    {
+      "name": "Harpy Feathers",
+      "slug": "Harpy_Feathers",
+      "url": "",
+      "weight": 3.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Harpy"
+      ]
+    },
+    {
+      "name": "Headpecker Beak",
+      "slug": "Headpecker_Beak",
+      "url": "",
+      "weight": 3.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Headpecker"
+      ]
+    },
+    {
+      "name": "Headpecker Feather",
+      "slug": "Headpecker_Feather",
+      "url": "",
+      "weight": 0.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Headpecker"
+      ]
+    },
+    {
+      "name": "Heart Amphora",
+      "slug": "Heart_Amphora",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Norcferatu Heartless"
+      ]
+    },
+    {
+      "name": "Heavy Machete",
+      "slug": "Heavy_Machete",
+      "url": "",
+      "weight": 18.4,
+      "category": "Sword",
+      "providers": [
+        "Cobra Assassin",
+        "Cyclops Smith",
+        "Efreet",
+        "Marid",
+        "Menacing Carnivor",
+        "Fahim The Wise",
+        "Merikh the Slaughterer"
+      ]
+    },
+    {
+      "name": "Heavy Trident",
+      "slug": "Heavy_Trident",
+      "url": "",
+      "weight": 90.0,
+      "category": "Axe",
+      "providers": [
+        "Deathling Scout",
+        "Deathling Spellsinger",
+        "Deepling Brawler",
+        "Deepling Elite",
+        "Deepling Guard",
+        "Deepling Scout",
+        "Deepling Tyrant",
+        "Deepling Warrior",
+        "Deepling Worker",
+        "Neutral Deepling Warrior"
+      ]
+    },
+    {
+      "name": "Hellhound Slobber",
+      "slug": "Hellhound_Slobber",
+      "url": "",
+      "weight": 0.75,
+      "category": "Creature's parts",
+      "providers": [
+        "Hellhound",
+        "Kerberos"
+      ]
+    },
+    {
+      "name": "Hemp Rope",
+      "slug": "Hemp_Rope",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Choking Fear"
+      ]
+    },
+    {
+      "name": "Hibiscus Dress",
+      "slug": "Hibiscus_Dress",
+      "url": "",
+      "weight": 19.0,
+      "category": "Armors",
+      "providers": [
+        "Angry Sugar Fairy",
+        "Nymph",
+        "Vampire Bride",
+        "Wyrm",
+        "Boreth"
+      ]
+    },
+    {
+      "name": "Hideous Chunk",
+      "slug": "Hideous_Chunk",
+      "url": "",
+      "weight": 1.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Hideous Fungus"
+      ]
+    },
+    {
+      "name": "High Guard Flag",
+      "slug": "High_Guard_Flag",
+      "url": "",
+      "weight": 1.12,
+      "category": "Creature's parts",
+      "providers": [
+        "Lizard High Guard"
+      ]
+    },
+    {
+      "name": "High Guard Shoulderplates",
+      "slug": "High_Guard_Shoulderplates",
+      "url": "",
+      "weight": 1.03,
+      "category": "Creature's parts",
+      "providers": [
+        "Lizard High Guard"
+      ]
+    },
+    {
+      "name": "Holy Ash",
+      "slug": "Holy_Ash",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Flickering Spirit Elemental",
+        "Lost Exile",
+        "Lost Husher",
+        "Psychic Spirit Elemental",
+        "Spirit Overlord"
+      ]
+    },
+    {
+      "name": "Horoscope",
+      "slug": "Horoscope",
+      "url": "",
+      "weight": 2.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Blood Hand",
+        "Blood Priest",
+        "Shadow Pupil"
+      ]
+    },
+    {
+      "name": "Human Teeth",
+      "slug": "Human_Teeth",
       "url": "",
       "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Dark Carnisylvan",
+        "Hulking Carnisylvan",
+        "Poisonous Carnisylvan"
+      ]
+    },
+    {
+      "name": "Humongous Chunk",
+      "slug": "Humongous_Chunk",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Humongous Fungus"
+      ]
+    },
+    {
+      "name": "Hydra Head",
+      "slug": "Hydra_Head",
+      "url": "",
+      "weight": 13.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Hydra",
+        "Lion Hydra"
+      ]
+    },
+    {
+      "name": "Hydrophytes",
+      "slug": "Hydrophytes",
+      "url": "",
+      "weight": 0.45,
+      "category": "Plants",
+      "providers": [
+        "Two-Headed Turtle"
+      ]
+    },
+    {
+      "name": "Ice Flower",
+      "slug": "Ice_Flower",
+      "url": "",
+      "weight": 0.1,
+      "category": "Plants",
+      "providers": [
+        "Crazed Winter Rearguard",
+        "Crazed Winter Vanguard",
+        "Soul-broken Harbinger"
+      ]
+    },
+    {
+      "name": "Idol of the Forge",
+      "slug": "Idol_of_the_Forge",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Bulltaur Forgepriest"
+      ]
+    },
+    {
+      "name": "Inkwell",
+      "slug": "Inkwell",
+      "url": "",
+      "weight": 1.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Brain Squid",
+        "Ink Blob",
+        "Ink Splash",
+        "Rage Squid",
+        "Squid Warden"
+      ]
+    },
+    {
+      "name": "Instable Proto Matter",
+      "slug": "Instable_Proto_Matter",
+      "url": "",
+      "weight": 6.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Brain Squid",
+        "Dread Intruder",
+        "Outburst"
+      ]
+    },
+    {
+      "name": "Ivory Carving",
+      "slug": "Ivory_Carving",
+      "url": "",
+      "weight": 1.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Werelion",
+        "Werelioness"
+      ]
+    },
+    {
+      "name": "Key to the Drowned Library",
+      "slug": "Key_to_the_Drowned_Library",
+      "url": "",
+      "weight": 1.2,
+      "category": "Quest",
+      "providers": [
+        "Deepling Master Librarian",
+        "Deepling Spellsinger"
+      ]
+    },
+    {
+      "name": "Knife",
+      "slug": "Knife",
+      "url": "",
+      "weight": 4.2,
+      "category": "Sword",
+      "providers": [
+        "Assassin",
+        "Barbarian Headsplitter",
+        "Barbarian Skullhunter",
+        "Cobra Assassin",
+        "Crazed Summer Vanguard",
+        "Headpecker",
+        "Smuggler",
+        "Undead Prospector",
+        "Usurper Archer",
+        "Werehyaena",
+        "Ancient Lion Knight",
+        "Apprentice Sheng",
+        "Faceless Bane"
+      ]
+    },
+    {
+      "name": "Knight Axe",
+      "slug": "Knight_Axe",
+      "url": "",
+      "weight": 59.0,
+      "category": "Axe",
+      "providers": [
+        "Afflicted Strider",
+        "Blemished Spawn",
+        "Crusader",
+        "Execowtioner",
+        "Girtablilu Warrior",
+        "Hellhound",
+        "Hulking Carnisylvan",
+        "Lost Basher",
+        "Lost Berserker",
+        "Lost Exile",
+        "Lost Husher",
+        "Minotaur Invader",
+        "Pirat Cutthroat",
+        "Poisonous Carnisylvan",
+        "Skeleton Elite Warrior",
+        "Thanatursus",
+        "Tremendous Tyrant",
+        "Undead Elite Gladiator",
+        "Undead Gladiator",
+        "Amenef the Burning",
+        "Black Knight",
+        "Fluffy",
+        "Kerberos",
+        "Morguthis",
+        "Neferi the Spy",
+        "Sir Leonard",
+        "Sir Leopold",
+        "The Enraged Thorn Knight"
+      ]
+    },
+    {
+      "name": "Knight Legs",
+      "slug": "Knight_Legs",
+      "url": "",
+      "weight": 70.0,
+      "category": "Legs",
+      "providers": [
+        "Cliff Strider",
+        "Crystal Spider",
+        "Cult Enforcer",
+        "Foam Stalker",
+        "Giant Spider",
+        "Gore Horn",
+        "Hellspawn",
+        "Lost Basher",
+        "Menacing Carnivor",
+        "Mooh'Tah Warrior",
+        "Nightmare",
+        "Orewalker",
+        "Plaguesmith",
+        "Soul-broken Harbinger",
+        "Sulphur Spouter",
+        "Two-Headed Turtle",
+        "Usurper Knight",
+        "Usurper Warlock",
+        "Venerable Foam Stalker",
+        "Vicious Squire",
+        "Black Knight",
+        "Count Vlarkorth",
+        "Flameborn",
+        "Hellgorak",
+        "Hide",
+        "Horadron",
+        "Mamma Longlegs",
+        "Sir Baeloc",
+        "Sir Leonard",
+        "Sir Leopold",
+        "The Bloodweb",
+        "The Old Widow",
+        "Tormentor"
+      ]
+    },
+    {
+      "name": "Kongra's Shoulderpad",
+      "slug": "Kongra%27s_Shoulderpad",
+      "url": "",
+      "weight": 1.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Cursed Ape",
+        "Kongra"
+      ]
+    },
+    {
+      "name": "Lamassu Hoof",
+      "slug": "Lamassu_Hoof",
+      "url": "",
+      "weight": 1.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Crypt Warden",
+        "Lamassu"
+      ]
+    },
+    {
+      "name": "Lamassu Horn",
+      "slug": "Lamassu_Horn",
+      "url": "",
+      "weight": 2.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Crypt Warden",
+        "Lamassu"
+      ]
+    },
+    {
+      "name": "Lancer Beetle Shell",
+      "slug": "Lancer_Beetle_Shell",
+      "url": "",
+      "weight": 1.07,
+      "category": "Creature's parts",
+      "providers": [
+        "Lancer Beetle",
+        "The Blightfather"
+      ]
+    },
+    {
+      "name": "Lancet",
+      "slug": "Lancet",
+      "url": "",
+      "weight": 4.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Blood Hand",
+        "Blood Priest"
+      ]
+    },
+    {
+      "name": "Lavafungus Head",
+      "slug": "Lavafungus_Head",
+      "url": "",
+      "weight": 1.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Lavafungus"
+      ]
+    },
+    {
+      "name": "Lavafungus Ring",
+      "slug": "Lavafungus_Ring",
+      "url": "",
+      "weight": 0.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Lavafungus"
+      ]
+    },
+    {
+      "name": "Lavaworm Jaws",
+      "slug": "Lavaworm_Jaws",
+      "url": "",
+      "weight": 1.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Lavaworm"
+      ]
+    },
+    {
+      "name": "Lavaworm Spike Roots",
+      "slug": "Lavaworm_Spike_Roots",
+      "url": "",
+      "weight": 0.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Lavaworm"
+      ]
+    },
+    {
+      "name": "Lavaworm Spikes",
+      "slug": "Lavaworm_Spikes",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Lavaworm"
+      ]
+    },
+    {
+      "name": "Letter",
+      "slug": "Letter",
+      "url": "",
+      "weight": 0.1,
       "category": "Delivery Task Item",
       "providers": [
-        "Santa"
+        "Postman"
+      ]
+    },
+    {
+      "name": "Lightning Boots",
+      "slug": "Lightning_Boots",
+      "url": "",
+      "weight": 7.5,
+      "category": "Boots",
+      "providers": [
+        "Burning Gladiator",
+        "Cursed Prospector",
+        "Elder Wyrm",
+        "Energetic Book",
+        "Juvenile Bashmu",
+        "Lich",
+        "Mercurial Menace",
+        "Pirat Bombardier",
+        "War Golem",
+        "Gravelord Oshuran",
+        "Mazzinor",
+        "Omrafir",
+        "Prince Drazzak"
+      ]
+    },
+    {
+      "name": "Lightning Headband",
+      "slug": "Lightning_Headband",
+      "url": "",
+      "weight": 10.0,
+      "category": "Helmets",
+      "providers": [
+        "Brain Squid",
+        "Burning Gladiator",
+        "Cloak of Terror",
+        "Courage Leech",
+        "Cunning Werepanther",
+        "Energetic Book",
+        "Evil Prospector",
+        "Giant Spider",
+        "High Voltage Elemental",
+        "Hulking Carnisylvan",
+        "Reality Reaver",
+        "Stabilizing Reality Reaver",
+        "Two-Headed Turtle",
+        "Usurper Warlock",
+        "Werelioness",
+        "Anomaly",
+        "Burster",
+        "Court Warlock",
+        "Lord Azaram",
+        "Neferi the Spy",
+        "Outburst",
+        "Realityquake",
+        "Rupture",
+        "Sister Hetai",
+        "Tyrn",
+        "World Devourer"
+      ]
+    },
+    {
+      "name": "Lightning Robe",
+      "slug": "Lightning_Robe",
+      "url": "",
+      "weight": 22.5,
+      "category": "Armors",
+      "providers": [
+        "Bulltaur Forgepriest",
+        "Cursed Prospector",
+        "Elder Wyrm",
+        "High Voltage Elemental",
+        "Raubritter Chastener",
+        "Warlock",
+        "Anomaly",
+        "Court Warlock",
+        "King Zelos",
+        "Mad Mage",
+        "Omrafir",
+        "Outburst",
+        "Overseer Osverger",
+        "Prince Drazzak",
+        "Realityquake",
+        "Tyrn",
+        "Zarabustor"
+      ]
+    },
+    {
+      "name": "Lime Tart",
+      "slug": "Lime_Tart",
+      "url": "",
+      "weight": 0.25,
+      "category": "Edible food",
+      "providers": [
+        "Nibblemaw",
+        "Sugar Daddy"
+      ]
+    },
+    {
+      "name": "Liodile Fang",
+      "slug": "Liodile_Fang",
+      "url": "",
+      "weight": 1.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Liodile"
+      ]
+    },
+    {
+      "name": "Lion Cloak Patch",
+      "slug": "Lion_Cloak_Patch",
+      "url": "",
+      "weight": 5.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Usurper Archer",
+        "Usurper Commander",
+        "Usurper Knight",
+        "Usurper Warlock"
+      ]
+    },
+    {
+      "name": "Lion Crest",
+      "slug": "Lion_Crest",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Usurper Archer",
+        "Usurper Commander",
+        "Usurper Knight",
+        "Usurper Warlock"
+      ]
+    },
+    {
+      "name": "Lost Basher's Spike",
+      "slug": "Lost_Basher%27s_Spike",
+      "url": "",
+      "weight": 2.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Lost Basher"
+      ]
+    },
+    {
+      "name": "Lost Bracers",
+      "slug": "Lost_Bracers",
+      "url": "",
+      "weight": 2.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Lost Thrower"
+      ]
+    },
+    {
+      "name": "Luminous Orb",
+      "slug": "Luminous_Orb",
+      "url": "",
+      "weight": 0.94,
+      "category": "Creature's parts",
+      "providers": [
+        "Draken Spellweaver",
+        "Raging Mage",
+        "Warlock",
+        "Ancient Spawn of Morgathla",
+        "Lloyd",
+        "Mad Mage",
+        "Ravenous Hunger",
+        "Reflection of a Mage",
+        "The Baron from Below",
+        "The Blazing Time Guardian",
+        "The Count of the Core",
+        "The Duke of the Depths",
+        "The Freezing Time Guardian",
+        "The Sandking",
+        "The Time Guardian"
+      ]
+    },
+    {
+      "name": "Lump of Earth",
+      "slug": "Lump_of_Earth",
+      "url": "",
+      "weight": 1.16,
+      "category": "Creature's parts",
+      "providers": [
+        "Brimstone Bug",
+        "Clay Guardian",
+        "Drillworm",
+        "Earth Elemental",
+        "Jagged Earth Elemental",
+        "Massive Earth Elemental",
+        "Muddy Earth Elemental",
+        "Earth Overlord",
+        "Sulphur Scuttler",
+        "The Shatterer"
+      ]
+    },
+    {
+      "name": "Mad Froth",
+      "slug": "Mad_Froth",
+      "url": "",
+      "weight": 1.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Lost Thrower"
+      ]
+    },
+    {
+      "name": "Magma Boots",
+      "slug": "Magma_Boots",
+      "url": "",
+      "weight": 7.5,
+      "category": "Boots",
+      "providers": [
+        "Burning Gladiator",
+        "Crazed Summer Vanguard",
+        "Dragon Lord Hatchling",
+        "Feral Sphinx",
+        "Hellflayer",
+        "Hellhound",
+        "Honey Elemental",
+        "Infernal Demon",
+        "Infernalist",
+        "Lava Golem",
+        "Magma Crawler",
+        "Manticore",
+        "Massive Fire Elemental",
+        "Orc Warlord",
+        "Pirat Bombardier",
+        "Sphinx",
+        "Sulphider",
+        "Wandering Pillar",
+        "Bibby Bloodbath",
+        "Count Vlarkorth",
+        "Sister Hetai",
+        "The Souldespoiler",
+        "Warlord Ruzad"
+      ]
+    },
+    {
+      "name": "Magma Clump",
+      "slug": "Magma_Clump",
+      "url": "",
+      "weight": 3.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Lava Golem",
+        "Magma Crawler",
+        "Vulcongra",
+        "Walking Pillar",
+        "Wandering Pillar",
+        "Weeper"
+      ]
+    },
+    {
+      "name": "Magma Coat",
+      "slug": "Magma_Coat",
+      "url": "",
+      "weight": 22.5,
+      "category": "Armors",
+      "providers": [
+        "Afflicted Strider",
+        "Burning Book",
+        "Cinder Wyrmling",
+        "Crape Man",
+        "Dawnfire Asura",
+        "Diabolic Imp",
+        "Gazer Spectre",
+        "Girtablilu Warrior",
+        "Gorerilla",
+        "Guardian of Tales",
+        "Hellfire Fighter",
+        "Hellhound",
+        "Insane Siren",
+        "Lava Golem",
+        "Manticore",
+        "Percht",
+        "Sabretooth",
+        "Shaburak Lord",
+        "Shaburak Prince",
+        "Stalking Stalk",
+        "True Dawnfire Asura",
+        "Vulcongra",
+        "Wandering Pillar",
+        "Weeper",
+        "Court Warlock",
+        "Fire Overlord",
+        "Furyosa",
+        "Gaz'Haragoth",
+        "King Zelos",
+        "Mazoran",
+        "Morgaroth",
+        "Scarlett Etzel",
+        "Sister Hetai",
+        "The Baron from Below",
+        "The Blazing Rose",
+        "The Count of the Core",
+        "The Flaming Orchid",
+        "The Imperor",
+        "The Sandking",
+        "The Time Guardian",
+        "Urmahlullu the Weakened"
+      ]
+    },
+    {
+      "name": "Magma Legs",
+      "slug": "Magma_Legs",
+      "url": "",
+      "weight": 19.0,
+      "category": "Legs",
+      "providers": [
+        "Broodrider Inferniarch",
+        "Feral Sphinx",
+        "Grimeleech",
+        "Guardian of Tales",
+        "Hellfire Fighter",
+        "Hellflayer",
+        "Hellhound",
+        "Honey Elemental",
+        "Insane Siren",
+        "Manticore",
+        "Massive Fire Elemental",
+        "Percht",
+        "Shaburak Demon",
+        "Sphinx",
+        "Usurper Knight",
+        "Walking Pillar",
+        "Weeper",
+        "Werelioness",
+        "Arbaziloth",
+        "Arbaziloth (Hard)",
+        "Ferumbras",
+        "Ferumbras Mortal Shell",
+        "Furyosa",
+        "Hellgorak",
+        "Mazoran",
+        "The Blazing Time Guardian",
+        "The Flaming Orchid",
+        "The Freezing Time Guardian",
+        "The Time Guardian",
+        "Utua Stone Sting",
+        "Yirkas Blue Scales"
+      ]
+    },
+    {
+      "name": "Magma Monocle",
+      "slug": "Magma_Monocle",
+      "url": "",
+      "weight": 10.0,
+      "category": "Helmets",
+      "providers": [
+        "Burning Book",
+        "Cinder Wyrmling",
+        "Diabolic Imp",
+        "Efreet",
+        "Feral Sphinx",
+        "Hellhound",
+        "Insane Siren",
+        "Manticore",
+        "Marid",
+        "Percht",
+        "Raubritter Chastener",
+        "Sphinx",
+        "Usurper Warlock",
+        "Werepanther",
+        "Clavius",
+        "Court Warlock",
+        "Essence of Malice",
+        "Fahim The Wise",
+        "Merikh the Slaughterer",
+        "Overseer Osverger",
+        "Scarlett Etzel",
+        "Sir Baeloc",
+        "Urmahlullu the Weakened"
+      ]
+    },
+    {
+      "name": "Makara Fin",
+      "slug": "Makara_Fin",
+      "url": "",
+      "weight": 2.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Makara"
+      ]
+    },
+    {
+      "name": "Makara Tongue",
+      "slug": "Makara_Tongue",
+      "url": "",
+      "weight": 1.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Makara"
+      ]
+    },
+    {
+      "name": "Mammoth Tusk",
+      "slug": "Mammoth_Tusk",
+      "url": "",
+      "weight": 6.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Mammoth",
+        "The Bloodtusk"
+      ]
+    },
+    {
+      "name": "Mammoth Whopper",
+      "slug": "Mammoth_Whopper",
+      "url": "",
+      "weight": 45.0,
+      "category": "Club",
+      "providers": [
+        "Chakoya Toolshaper",
+        "Chakoya Tribewarden",
+        "Crypt Warrior",
+        "Mammoth",
+        "Memory of a Mammoth",
+        "Skeleton Elite Warrior",
+        "Ocyakao"
+      ]
+    },
+    {
+      "name": "Manticore Ear",
+      "slug": "Manticore_Ear",
+      "url": "",
+      "weight": 0.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Manticore",
+        "Enusat the Onyx Wing"
+      ]
+    },
+    {
+      "name": "Manticore Tail",
+      "slug": "Manticore_Tail",
+      "url": "",
+      "weight": 7.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Manticore",
+        "Enusat the Onyx Wing"
+      ]
+    },
+    {
+      "name": "Mantosaurus Jaw",
+      "slug": "Mantosaurus_Jaw",
+      "url": "",
+      "weight": 4.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Mantosaurus"
+      ]
+    },
+    {
+      "name": "Mega Dragon Heart",
+      "slug": "Mega_Dragon_Heart",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Mega Dragon"
+      ]
+    },
+    {
+      "name": "Mercenary Sword",
+      "slug": "Mercenary_Sword",
+      "url": "",
+      "weight": 68.0,
+      "category": "Sword",
+      "providers": [
+        "Afflicted Strider",
+        "Betrayed Wraith",
+        "Eyeless Devourer",
+        "Foam Stalker",
+        "Glooth Brigand",
+        "Infernal Demon",
+        "Mean Lost Soul",
+        "Mutated Bat",
+        "Raubritter Skirmisher",
+        "Retching Horror",
+        "Rotten Golem",
+        "Serpent Spawn",
+        "Streaked Devourer",
+        "Venerable Foam Stalker",
+        "Amenef the Burning",
+        "Blight Mariner",
+        "Bruise Payne",
+        "Ghulosh",
+        "Madareth",
+        "Man in the Cave",
+        "Michael the Stalwart",
+        "Plagirath",
+        "The Noxious Spawn",
+        "Unaz the Mean",
+        "Utua Stone Sting"
+      ]
+    },
+    {
+      "name": "Mercurial Wing",
+      "slug": "Mercurial_Wing",
+      "url": "",
+      "weight": 4.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Mercurial Menace"
+      ]
+    },
+    {
+      "name": "Metal Bat",
+      "slug": "Metal_Bat",
+      "url": "",
+      "weight": 51.0,
+      "category": "Club",
+      "providers": [
+        "Brachiodemon",
+        "Eyeless Devourer",
+        "Metal Gargoyle",
+        "Rustheap Golem",
+        "The Unarmored Voidborn"
+      ]
+    },
+    {
+      "name": "Metal Jaw",
+      "slug": "Metal_Jaw",
+      "url": "",
+      "weight": 1.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Metal Gargoyle"
+      ]
+    },
+    {
+      "name": "Metal Spats",
+      "slug": "Metal_Spats",
+      "url": "",
+      "weight": 18.0,
+      "category": "Boots",
+      "providers": [
+        "Bellicose Orger",
+        "Control Tower",
+        "Glooth Battery",
+        "Gore Horn",
+        "Lavafungus",
+        "Metal Gargoyle",
+        "Ogre Ruffian",
+        "Sabretooth",
+        "Walker",
+        "Sister Hetai"
+      ]
+    },
+    {
+      "name": "Mino Lance",
+      "slug": "Mino_Lance",
+      "url": "",
+      "weight": 65.0,
+      "category": "Axe",
+      "providers": [
+        "Minotaur Amazon",
+        "Minotaur Cult Follower"
+      ]
+    },
+    {
+      "name": "Mino Shield",
+      "slug": "Mino_Shield",
+      "url": "",
+      "weight": 65.0,
+      "category": "Shields",
+      "providers": [
+        "Bulltaur Brute",
+        "Minotaur Amazon",
+        "Minotaur Cult Follower",
+        "Minotaur Hunter",
+        "Thanatursus",
+        "Usurper Archer",
+        "The False God"
+      ]
+    },
+    {
+      "name": "Molten Dragon Essence",
+      "slug": "Molten_Dragon_Essence",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Mega Dragon"
+      ]
+    },
+    {
+      "name": "Mould Heart",
+      "slug": "Mould_Heart",
+      "url": "",
+      "weight": 0.75,
+      "category": "Creature's parts",
+      "providers": [
+        "Mould Phantom"
+      ]
+    },
+    {
+      "name": "Mouldy Powder",
+      "slug": "Mouldy_Powder",
+      "url": "",
+      "weight": 1.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Pirat Bombardier",
+        "Pirat Mate"
+      ]
+    },
+    {
+      "name": "Mummified Demon Finger",
+      "slug": "Mummified_Demon_Finger",
+      "url": "",
+      "weight": 1.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Brinebrute Inferniarch",
+        "Broodrider Inferniarch",
+        "Gorger Inferniarch",
+        "Hellhunter Inferniarch",
+        "Sineater Inferniarch",
+        "Spellreaper Inferniarch"
+      ]
+    },
+    {
+      "name": "Mutated Bat Ear",
+      "slug": "Mutated_Bat_Ear",
+      "url": "",
+      "weight": 1.75,
+      "category": "Creature's parts",
+      "providers": [
+        "Mutated Bat",
+        "Bruise Payne"
+      ]
+    },
+    {
+      "name": "Mutated Flesh",
+      "slug": "Mutated_Flesh",
+      "url": "",
+      "weight": 2.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Mutated Human"
+      ]
+    },
+    {
+      "name": "Mutated Rat Tail",
+      "slug": "Mutated_Rat_Tail",
+      "url": "",
+      "weight": 1.43,
+      "category": "Creature's parts",
+      "providers": [
+        "Mutated Rat",
+        "Esmeralda"
+      ]
+    },
+    {
+      "name": "Naga Archer Scales",
+      "slug": "Naga_Archer_Scales",
+      "url": "",
+      "weight": 0.3,
+      "category": "Creature's parts",
+      "providers": [
+        "Naga Archer"
+      ]
+    },
+    {
+      "name": "Naga Armring",
+      "slug": "Naga_Armring",
+      "url": "",
+      "weight": 3.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Naga Archer",
+        "Naga Warrior"
+      ]
+    },
+    {
+      "name": "Naga Earring",
+      "slug": "Naga_Earring",
+      "url": "",
+      "weight": 2.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Naga Archer",
+        "Naga Warrior"
+      ]
+    },
+    {
+      "name": "Naga Warrior Scales",
+      "slug": "Naga_Warrior_Scales",
+      "url": "",
+      "weight": 0.3,
+      "category": "Creature's parts",
+      "providers": [
+        "Naga Warrior"
+      ]
+    },
+    {
+      "name": "Necromantic Core",
+      "slug": "Necromantic_Core",
+      "url": "",
+      "weight": 10.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Creepy Crawler",
+        "Crypt Fiend",
+        "Crypt Mage",
+        "Cyclursus",
+        "Roaming Dread",
+        "Walking Dread"
+      ]
+    },
+    {
+      "name": "Necromantic Rust",
+      "slug": "Necromantic_Rust",
+      "url": "",
+      "weight": 1.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Rustheap Golem",
+        "The False God"
+      ]
+    },
+    {
+      "name": "Night Harpy Feathers",
+      "slug": "Night_Harpy_Feathers",
+      "url": "",
+      "weight": 7.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Night Harpy"
+      ]
+    },
+    {
+      "name": "Nighthunter Wing",
+      "slug": "Nighthunter_Wing",
+      "url": "",
+      "weight": 1.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Nighthunter"
+      ]
+    },
+    {
+      "name": "Nimmersatt's Seal",
+      "slug": "Nimmersatt%27s_Seal",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Dragolisk",
+        "Mega Dragon",
+        "Wardragon"
+      ]
+    },
+    {
+      "name": "Odd Organ",
+      "slug": "Odd_Organ",
+      "url": "",
+      "weight": 4.5,
+      "category": "Quest",
+      "providers": [
+        "Brain Squid",
+        "Dread Intruder",
+        "Essence of Malice",
+        "Rupture",
+        "The Souldespoiler"
+      ]
+    },
+    {
+      "name": "Ogre Ear Stud",
+      "slug": "Ogre_Ear_Stud",
+      "url": "",
+      "weight": 16.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Animated Ogre Brute",
+        "Animated Ogre Savage",
+        "Animated Ogre Shaman",
+        "Ogre Brute",
+        "Ogre Rowdy",
+        "Ogre Ruffian",
+        "Ogre Sage",
+        "Ogre Savage",
+        "Ogre Shaman"
+      ]
+    },
+    {
+      "name": "Old Girtablilu Carapace",
+      "slug": "Old_Girtablilu_Carapace",
+      "url": "",
+      "weight": 2.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Venerable Girtablilu"
+      ]
+    },
+    {
+      "name": "Orcish Axe",
+      "slug": "Orcish_Axe",
+      "url": "",
+      "weight": 45.0,
+      "category": "Axe",
+      "providers": [
+        "Orc Cult Fanatic",
+        "Orc Cult Inquisitor",
+        "Orc Cult Minion",
+        "Orc Cultist",
+        "Orc Marauder",
+        "Orc Rider",
+        "Orc Warlord",
+        "Orclops Bloodbreaker",
+        "Orclops Doomhauler",
+        "Orclops Ravager",
+        "Rorc",
+        "Bibby Bloodbath",
+        "Cublarc the Plunderer",
+        "Vladrukh",
+        "Warlord Ruzad"
+      ]
+    },
+    {
+      "name": "Orcish Gear",
+      "slug": "Orcish_Gear",
+      "url": "",
+      "weight": 1.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Orc Berserker",
+        "Orc Cult Inquisitor"
+      ]
+    },
+    {
+      "name": "Orcish Toothbrush",
+      "slug": "Orcish_Toothbrush",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Orclops Bloodbreaker"
+      ]
+    },
+    {
+      "name": "Ornate Crossbow",
+      "slug": "Ornate_Crossbow",
+      "url": "",
+      "weight": 91.0,
+      "category": "Crossbows",
+      "providers": [
+        "Capricious Phantom",
+        "Cave Chimera",
+        "Deepling Guard",
+        "Deepling Master Librarian",
+        "Deepling Spellsinger",
+        "Deepling Tyrant",
+        "Eyeless Devourer",
+        "Feral Werecrocodile",
+        "Freakish Lost Soul",
+        "Harpy",
+        "Mitmah Scout",
+        "Mould Phantom",
+        "Naga Archer",
+        "Streaked Devourer",
+        "Usurper Archer",
+        "Adlerauge",
+        "Ayana The Crimson Curse",
+        "Katex Blood Tongue",
+        "Melting Frozen Horror",
+        "Vok the Freakish",
+        "Yirkas Blue Scales"
       ]
     },
     {
@@ -54,6 +4350,2196 @@
       "category": "Delivery Task Item",
       "providers": [
         "Postman"
+      ]
+    },
+    {
+      "name": "Pair of Hellflayer Horns",
+      "slug": "Pair_of_Hellflayer_Horns",
+      "url": "",
+      "weight": 12.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Hellflayer"
+      ]
+    },
+    {
+      "name": "Paper Boat",
+      "slug": "Paper_Boat",
+      "url": "",
+      "weight": 0.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Bluebeak"
+      ]
+    },
+    {
+      "name": "Paper Plane",
+      "slug": "Paper_Plane",
+      "url": "",
+      "weight": 0.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Shell Drake"
+      ]
+    },
+    {
+      "name": "Parcel",
+      "slug": "Parcel",
+      "url": "",
+      "weight": 2.0,
+      "category": "Delivery Task Item",
+      "providers": [
+        "Postman"
+      ]
+    },
+    {
+      "name": "Piece of Draconian Steel",
+      "slug": "Piece_of_Draconian_Steel",
+      "url": "",
+      "weight": 5.0,
+      "category": "Metals",
+      "providers": [
+        "Plaguesmith",
+        "Earl Osam",
+        "Soul of Dragonking Zyrtarch",
+        "The False God"
+      ]
+    },
+    {
+      "name": "Piece of Frozen Night",
+      "slug": "Piece_of_Frozen_Night",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Gloom Maw",
+        "Norcferatu Nightweaver"
+      ]
+    },
+    {
+      "name": "Piece of Hell Steel",
+      "slug": "Piece_of_Hell_Steel",
+      "url": "",
+      "weight": 5.0,
+      "category": "Metals",
+      "providers": [
+        "Plaguesmith",
+        "Duke Krule",
+        "Earl Osam",
+        "Lloyd",
+        "Lord Azaram",
+        "Sir Baeloc",
+        "The False God",
+        "The Source of Corruption"
+      ]
+    },
+    {
+      "name": "Piece of Warrior Armor",
+      "slug": "Piece_of_Warrior_Armor",
+      "url": "",
+      "weight": 1.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Minotaur Guard",
+        "Minotaur Invader",
+        "The Horned Fox"
+      ]
+    },
+    {
+      "name": "Pirat's Tail",
+      "slug": "Pirat%27s_Tail",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Pirat Bombardier",
+        "Pirat Cutthroat",
+        "Pirat Mate",
+        "Pirat Scoundrel"
+      ]
+    },
+    {
+      "name": "Pirate Coin",
+      "slug": "Pirate_Coin",
+      "url": "",
+      "weight": 0.4,
+      "category": "Valuable",
+      "providers": [
+        "Pirat Bombardier",
+        "Pirat Cutthroat",
+        "Pirat Mate",
+        "Pirat Scoundrel",
+        "Ratmiral Blackwhiskers",
+        "Tentugly's Head"
+      ]
+    },
+    {
+      "name": "Plasma Pearls",
+      "slug": "Plasma_Pearls",
+      "url": "",
+      "weight": 3.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Breach Brood",
+        "Dreadful Disruptor",
+        "Instable Breach Brood",
+        "Reality Reaver",
+        "Stabilizing Reality Reaver",
+        "Burster",
+        "Essence of Malice",
+        "Rupture",
+        "The Souldespoiler"
+      ]
+    },
+    {
+      "name": "Plasmatic Lightning",
+      "slug": "Plasmatic_Lightning",
+      "url": "",
+      "weight": 7.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Dreadful Disruptor",
+        "Reality Reaver",
+        "Eradicator",
+        "The Scourge of Oblivion"
+      ]
+    },
+    {
+      "name": "Plate Legs",
+      "slug": "Plate_Legs",
+      "url": "",
+      "weight": 50.0,
+      "category": "Legs",
+      "providers": [
+        "Bog Raider",
+        "Dragon",
+        "Ghastly Dragon",
+        "Giant Spider",
+        "Orc Cult Fanatic",
+        "Orc Leader",
+        "Orc Warlord",
+        "Renegade Orc",
+        "Sea Serpent",
+        "Undead Elite Gladiator",
+        "Undead Gladiator",
+        "Bibby Bloodbath",
+        "Countess Sorrow",
+        "Demodras",
+        "Grand Mother Foulscale",
+        "The Snapper",
+        "Warlord Ruzad"
+      ]
+    },
+    {
+      "name": "Poisoned Fang",
+      "slug": "Poisoned_Fang",
+      "url": "",
+      "weight": 1.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Blood Beast"
+      ]
+    },
+    {
+      "name": "Pool of Chitinous Glue",
+      "slug": "Pool_of_Chitinous_Glue",
+      "url": "",
+      "weight": 2.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Retching Horror"
+      ]
+    },
+    {
+      "name": "Pot of Orcish Warpaint",
+      "slug": "Pot_of_Orcish_Warpaint",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Norcferatu Heartless"
+      ]
+    },
+    {
+      "name": "Prehemoth Claw",
+      "slug": "Prehemoth_Claw",
+      "url": "",
+      "weight": 8.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Hulking Prehemoth"
+      ]
+    },
+    {
+      "name": "Prehemoth Horns",
+      "slug": "Prehemoth_Horns",
+      "url": "",
+      "weight": 11.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Hulking Prehemoth"
+      ]
+    },
+    {
+      "name": "Present Box",
+      "slug": "Present_Box",
+      "url": "",
+      "weight": 1.0,
+      "category": "Delivery Task Item",
+      "providers": [
+        "Santa"
+      ]
+    },
+    {
+      "name": "Pressed Flower",
+      "slug": "Pressed_Flower",
+      "url": "",
+      "weight": 0.05,
+      "category": "Creature's parts",
+      "providers": [
+        "Hawk Hopper"
+      ]
+    },
+    {
+      "name": "Pulverized Ore",
+      "slug": "Pulverized_Ore",
+      "url": "",
+      "weight": 1.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Cliff Strider",
+        "Drillworm",
+        "Orewalker"
+      ]
+    },
+    {
+      "name": "Quara Bone",
+      "slug": "Quara_Bone",
+      "url": "",
+      "weight": 1.44,
+      "category": "Creature's parts",
+      "providers": [
+        "Quara Predator",
+        "Quara Predator Scout",
+        "Renegade Quara Predator"
+      ]
+    },
+    {
+      "name": "Quara Eye",
+      "slug": "Quara_Eye",
+      "url": "",
+      "weight": 0.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Quara Hydromancer",
+        "Quara Hydromancer Scout",
+        "Renegade Quara Hydromancer"
+      ]
+    },
+    {
+      "name": "Quara Pincers",
+      "slug": "Quara_Pincers",
+      "url": "",
+      "weight": 1.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Quara Pincher",
+        "Quara Pincher Scout",
+        "Quara Raider",
+        "Renegade Quara Pincher"
+      ]
+    },
+    {
+      "name": "Quara Tentacle",
+      "slug": "Quara_Tentacle",
+      "url": "",
+      "weight": 1.07,
+      "category": "Creature's parts",
+      "providers": [
+        "Quara Constrictor",
+        "Quara Constrictor Scout",
+        "Renegade Quara Constrictor"
+      ]
+    },
+    {
+      "name": "Ratana",
+      "slug": "Ratana",
+      "url": "",
+      "weight": 33.0,
+      "category": "Sword",
+      "providers": [
+        "Corym Charlatan",
+        "Corym Skirmisher",
+        "Corym Vanguard",
+        "Werehyaena"
+      ]
+    },
+    {
+      "name": "Raw Meat",
+      "slug": "Raw_Meat",
+      "url": "",
+      "weight": 28.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Animated Clomp",
+        "Clomp",
+        "Museum Stone Rhino",
+        "Stone Rhino"
+      ]
+    },
+    {
+      "name": "Red Goanna Scale",
+      "slug": "Red_Goanna_Scale",
+      "url": "",
+      "weight": 0.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Adult Goanna",
+        "Sun-marked Goanna"
+      ]
+    },
+    {
+      "name": "Red Hair Dye",
+      "slug": "Red_Hair_Dye",
+      "url": "",
+      "weight": 2.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Lost Basher",
+        "Lost Exile",
+        "Lost Husher",
+        "Lost Thrower"
+      ]
+    },
+    {
+      "name": "Relic Sword",
+      "slug": "Relic_Sword",
+      "url": "",
+      "weight": 48.0,
+      "category": "Sword",
+      "providers": [
+        "Eyeless Devourer",
+        "Naga Warrior",
+        "Priestess of the Wild Sun",
+        "Quara Predator",
+        "Renegade Quara Predator",
+        "Spectre",
+        "Streaked Devourer",
+        "Undead Elite Gladiator",
+        "Undertaker",
+        "Werebear",
+        "Werewolf",
+        "Feroxa",
+        "Madareth",
+        "Shadowpelt",
+        "Thul"
+      ]
+    },
+    {
+      "name": "Resin Parasite",
+      "slug": "Resin_Parasite",
+      "url": "",
+      "weight": 0.25,
+      "category": "Creature's parts",
+      "providers": [
+        "Rootthing Amber Shaper",
+        "Rootthing Bug Tracker",
+        "Rootthing Nutshell"
+      ]
+    },
+    {
+      "name": "Resinous Fish Fin",
+      "slug": "Resinous_Fish_Fin",
+      "url": "",
+      "weight": 0.25,
+      "category": "Creature's parts",
+      "providers": [
+        "Quara Looter",
+        "Quara Plunderer",
+        "Quara Raider"
+      ]
+    },
+    {
+      "name": "Rhindeer Antlers",
+      "slug": "Rhindeer_Antlers",
+      "url": "",
+      "weight": 5.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Rhindeer"
+      ]
+    },
+    {
+      "name": "Ripper Lance",
+      "slug": "Ripper_Lance",
+      "url": "",
+      "weight": 80.0,
+      "category": "Axe",
+      "providers": [
+        "Cunning Werepanther",
+        "Dworc Fleshhunter",
+        "Dworc Shadowstalker",
+        "Insectoid Scout",
+        "Sopping Carcass",
+        "Werepanther",
+        "Fleshslicer",
+        "Mindmasher"
+      ]
+    },
+    {
+      "name": "Ripptor Claw",
+      "slug": "Ripptor_Claw",
+      "url": "",
+      "weight": 2.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Noxious Ripptor"
+      ]
+    },
+    {
+      "name": "Ripptor Scales",
+      "slug": "Ripptor_Scales",
+      "url": "",
+      "weight": 0.3,
+      "category": "Creature's parts",
+      "providers": [
+        "Noxious Ripptor"
+      ]
+    },
+    {
+      "name": "Ritual Bone Knife",
+      "slug": "Ritual_Bone_Knife",
+      "url": "",
+      "weight": 0.2,
+      "category": "Sword",
+      "providers": [
+        "Varg"
+      ]
+    },
+    {
+      "name": "Ritual Tooth",
+      "slug": "Ritual_Tooth",
+      "url": "",
+      "weight": 0.55,
+      "category": "Creature's parts",
+      "providers": [
+        "Iks Ahpututu",
+        "Iks Aucar",
+        "Iks Chuka",
+        "Iks Pututu",
+        "Iks Yapunac",
+        "Ahau"
+      ]
+    },
+    {
+      "name": "Roots",
+      "slug": "Roots",
+      "url": "",
+      "weight": 0.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Branchy Crawler"
+      ]
+    },
+    {
+      "name": "Rotten Feather",
+      "slug": "Rotten_Feather",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Iks Ahpututu",
+        "Iks Aucar",
+        "Iks Chuka",
+        "Iks Pututu",
+        "Ahau"
+      ]
+    },
+    {
+      "name": "Rotten Piece of Cloth",
+      "slug": "Rotten_Piece_of_Cloth",
+      "url": "",
+      "weight": 0.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Ghoul"
+      ]
+    },
+    {
+      "name": "Rotten Roots",
+      "slug": "Rotten_Roots",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Bloated Man-Maggot",
+        "Meandering Mushroom",
+        "Mycobiontic Beetle",
+        "Oozing Carcass",
+        "Oozing Corpus",
+        "Rotten Man-Maggot",
+        "Sopping Carcass",
+        "Sopping Corpus"
+      ]
+    },
+    {
+      "name": "Rubber Cap",
+      "slug": "Rubber_Cap",
+      "url": "",
+      "weight": 8.0,
+      "category": "Helmets",
+      "providers": [
+        "Darklight Matter",
+        "Glooth Bandit",
+        "Glooth Brigand",
+        "Glooth Golem",
+        "Rotten Golem",
+        "Turbulent Elemental",
+        "Glooth Fairy"
+      ]
+    },
+    {
+      "name": "Sabretooth Fur",
+      "slug": "Sabretooth_Fur",
+      "url": "",
+      "weight": 1.35,
+      "category": "Creature's parts",
+      "providers": [
+        "Sabretooth"
+      ]
+    },
+    {
+      "name": "Sandcrawler Shell",
+      "slug": "Sandcrawler_Shell",
+      "url": "",
+      "weight": 0.75,
+      "category": "Creature's parts",
+      "providers": [
+        "Sandcrawler"
+      ]
+    },
+    {
+      "name": "Scale of Corruption",
+      "slug": "Scale_of_Corruption",
+      "url": "",
+      "weight": 0.93,
+      "category": "Creature's parts",
+      "providers": [
+        "Draken Abomination",
+        "Lizard Chosen"
+      ]
+    },
+    {
+      "name": "Scarab Pincers",
+      "slug": "Scarab_Pincers",
+      "url": "",
+      "weight": 2.3,
+      "category": "Creature's parts",
+      "providers": [
+        "Ancient Scarab",
+        "Ancient Spawn of Morgathla",
+        "Fleshcrawler"
+      ]
+    },
+    {
+      "name": "Scimitar",
+      "slug": "Scimitar",
+      "url": "",
+      "weight": 29.0,
+      "category": "Sword",
+      "providers": [
+        "Burning Book",
+        "Cobra Assassin",
+        "Crazed Summer Vanguard",
+        "Diabolic Imp",
+        "Fire Devil",
+        "Honour Guard",
+        "Naga Warrior",
+        "Orc Leader",
+        "Orc Warlord",
+        "Renegade Orc",
+        "Salamander",
+        "Undead Elite Gladiator",
+        "Undead Gladiator",
+        "Ushuriel",
+        "Warlord Ruzad"
+      ]
+    },
+    {
+      "name": "Scorpion Charm",
+      "slug": "Scorpion_Charm",
+      "url": "",
+      "weight": 2.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Venerable Girtablilu",
+        "Girtablilu Warrior"
+      ]
+    },
+    {
+      "name": "Scroll of Heroic Deeds",
+      "slug": "Scroll_of_Heroic_Deeds",
+      "url": "",
+      "weight": 0.79,
+      "category": "Creature's parts",
+      "providers": [
+        "Hero",
+        "Renegade Knight",
+        "Vile Grandmaster"
+      ]
+    },
+    {
+      "name": "Scythe Leg",
+      "slug": "Scythe_Leg",
+      "url": "",
+      "weight": 1.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Nightmare",
+        "Nightmare Scion",
+        "Tormentor"
+      ]
+    },
+    {
+      "name": "Sealing Wax",
+      "slug": "Sealing_Wax",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Lion Hydra"
+      ]
+    },
+    {
+      "name": "Shaggy Tail",
+      "slug": "Shaggy_Tail",
+      "url": "",
+      "weight": 1.12,
+      "category": "Creature's parts",
+      "providers": [
+        "Gnarlhound",
+        "Orc Marauder",
+        "Cublarc the Plunderer",
+        "Fleabringer"
+      ]
+    },
+    {
+      "name": "Shamanic Talisman",
+      "slug": "Shamanic_Talisman",
+      "url": "",
+      "weight": 1.28,
+      "category": "Creature's parts",
+      "providers": [
+        "Animated Ogre Shaman",
+        "Ogre Sage",
+        "Ogre Shaman"
+      ]
+    },
+    {
+      "name": "Shark Fins",
+      "slug": "Shark_Fins",
+      "url": "",
+      "weight": 6.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Pirat Cutthroat",
+        "Pirat Mate"
+      ]
+    },
+    {
+      "name": "Shimmering Beetles",
+      "slug": "Shimmering_Beetles",
+      "url": "",
+      "weight": 1.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Arctic Faun",
+        "Boogy",
+        "Dark Faun",
+        "Faun",
+        "Pooka",
+        "Twisted Pooka",
+        "Raxias"
+      ]
+    },
+    {
+      "name": "Shiny Stone",
+      "slug": "Shiny_Stone",
+      "url": "",
+      "weight": 1.56,
+      "category": "Creature's parts",
+      "providers": [
+        "Cliff Strider",
+        "Crystal Wolf",
+        "Enslaved Dwarf",
+        "Eternal Guardian",
+        "Gargoyle",
+        "Ghastly Dragon",
+        "Ironblight",
+        "Metal Gargoyle",
+        "Museum Stone Golem",
+        "Orewalker",
+        "Spectre",
+        "Stone Golem",
+        "Earth Overlord",
+        "Ethershreck",
+        "Fahim The Wise",
+        "Grorlam",
+        "Merikh the Slaughterer",
+        "Stonecracker",
+        "The Shatterer"
+      ]
+    },
+    {
+      "name": "Silencer Resonating Chamber",
+      "slug": "Silencer_Resonating_Chamber",
+      "url": "",
+      "weight": 3.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Silencer"
+      ]
+    },
+    {
+      "name": "Silken Bookmark",
+      "slug": "Silken_Bookmark",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Biting Book",
+        "Burning Book",
+        "Cursed Book",
+        "Energetic Book",
+        "Icecold Book",
+        "Knowledge Elemental"
+      ]
+    },
+    {
+      "name": "Silver Moon Coin",
+      "slug": "Silver_Moon_Coin",
+      "url": "",
+      "weight": 2.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Weretiger",
+        "White Weretiger",
+        "Tamru The Black"
+      ]
+    },
+    {
+      "name": "Silver Poniard",
+      "slug": "Silver_Poniard",
+      "url": "",
+      "weight": 7.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Raubritter Chastener",
+        "Raubritter Skirmisher",
+        "Clavius",
+        "Michael the Stalwart",
+        "Overseer Osverger"
+      ]
+    },
+    {
+      "name": "Sineater Wing",
+      "slug": "Sineater_Wing",
+      "url": "",
+      "weight": 4.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Sineater Inferniarch"
+      ]
+    },
+    {
+      "name": "Single Human Eye",
+      "slug": "Single_Human_Eye",
+      "url": "",
+      "weight": 0.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Putrid Mummy"
+      ]
+    },
+    {
+      "name": "Skull Fetish",
+      "slug": "Skull_Fetish",
+      "url": "",
+      "weight": 4.4,
+      "category": "Quest",
+      "providers": [
+        "Animated Ogre Brute",
+        "Animated Ogre Savage",
+        "Animated Ogre Shaman",
+        "Ogre Brute",
+        "Ogre Rowdy",
+        "Ogre Ruffian",
+        "Ogre Sage",
+        "Ogre Savage",
+        "Ogre Shaman",
+        "The Unarmored Voidborn"
+      ]
+    },
+    {
+      "name": "Skullcracker Armor",
+      "slug": "Skullcracker_Armor",
+      "url": "",
+      "weight": 110.0,
+      "category": "Armors",
+      "providers": [
+        "Bony Sea Devil",
+        "Frost Flower Asura",
+        "Grim Reaper",
+        "Haunted Dragon",
+        "Midnight Asura",
+        "Sopping Corpus",
+        "True Frost Flower Asura",
+        "True Midnight Asura",
+        "Undead Dragon",
+        "Annihilon",
+        "Feroxa",
+        "The Moonlight Aster",
+        "The Scourge of Oblivion",
+        "Zavarash"
+      ]
+    },
+    {
+      "name": "Slimy Leaf Tentacle",
+      "slug": "Slimy_Leaf_Tentacle",
+      "url": "",
+      "weight": 3.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Glooth Anemone",
+        "Lisa"
+      ]
+    },
+    {
+      "name": "Sliver",
+      "slug": "Sliver",
+      "url": "",
+      "weight": 0.1,
+      "category": "Others",
+      "providers": [
+        "This item cannot be obtained from monsters."
+      ]
+    },
+    {
+      "name": "Small Flask of Eyedrops",
+      "slug": "Small_Flask_of_Eyedrops",
+      "url": "",
+      "weight": 0.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Bonelord",
+        "Elder Bonelord",
+        "Gazer",
+        "Bonelord's Phylactery",
+        "The Evil Eye",
+        "The Gravedigger"
+      ]
+    },
+    {
+      "name": "Small Notebook",
+      "slug": "Small_Notebook",
+      "url": "",
+      "weight": 0.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Hero",
+        "Renegade Knight",
+        "Vile Grandmaster"
+      ]
+    },
+    {
+      "name": "Small Treasure Chest",
+      "slug": "Small_Treasure_Chest",
+      "url": "",
+      "weight": 8.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Pirat Mate",
+        "Ratmiral Blackwhiskers",
+        "Tentugly's Head"
+      ]
+    },
+    {
+      "name": "Small Tropical Fish",
+      "slug": "Small_Tropical_Fish",
+      "url": "",
+      "weight": 2.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Two-Headed Turtle"
+      ]
+    },
+    {
+      "name": "Spark Sphere",
+      "slug": "Spark_Sphere",
+      "url": "",
+      "weight": 5.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Breach Brood",
+        "Burster",
+        "Eradicator",
+        "Melting Frozen Horror",
+        "The Scourge of Oblivion",
+        "The Souldespoiler"
+      ]
+    },
+    {
+      "name": "Sparkion Claw",
+      "slug": "Sparkion_Claw",
+      "url": "",
+      "weight": 8.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Instable Sparkion",
+        "Sparkion"
+      ]
+    },
+    {
+      "name": "Sparkion Legs",
+      "slug": "Sparkion_Legs",
+      "url": "",
+      "weight": 7.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Instable Sparkion",
+        "Sparkion"
+      ]
+    },
+    {
+      "name": "Sparkion Stings",
+      "slug": "Sparkion_Stings",
+      "url": "",
+      "weight": 3.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Instable Sparkion",
+        "Sparkion"
+      ]
+    },
+    {
+      "name": "Sparkion Tail",
+      "slug": "Sparkion_Tail",
+      "url": "",
+      "weight": 7.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Instable Sparkion",
+        "Sparkion"
+      ]
+    },
+    {
+      "name": "Spellbook of Mind Control",
+      "slug": "Spellbook_of_Mind_Control",
+      "url": "",
+      "weight": 24.5,
+      "category": "Shields",
+      "providers": [
+        "Blood Priest",
+        "Brachiodemon",
+        "Bulltaur Forgepriest",
+        "Carnivostrich",
+        "Choking Fear",
+        "Crypt Mage",
+        "Dawnfire Asura",
+        "Frost Flower Asura",
+        "Hellflayer",
+        "Infernalist",
+        "Lava Golem",
+        "Midnight Asura",
+        "Nighthunter",
+        "Quara Plunderer",
+        "Serpent Spawn",
+        "Soul-broken Harbinger",
+        "Spellreaper Inferniarch",
+        "True Dawnfire Asura",
+        "True Frost Flower Asura",
+        "True Midnight Asura",
+        "Ferumbras",
+        "Ferumbras Mortal Shell",
+        "Ghazbaran",
+        "Gorzindel",
+        "Hellgorak",
+        "Horadron",
+        "Raging Mage",
+        "Reflection of a Mage",
+        "Soul of Dragonking Zyrtarch",
+        "The Moonlight Aster",
+        "The Noxious Spawn",
+        "Wrathful Archivist",
+        "Yaga the Crone",
+        "Yirkas Blue Scales",
+        "Zarabustor"
+      ]
+    },
+    {
+      "name": "Spellsinger's Seal",
+      "slug": "Spellsinger%27s_Seal",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Deepling Master Librarian",
+        "Deepling Spellsinger"
+      ]
+    },
+    {
+      "name": "Spellweaver's Robe",
+      "slug": "Spellweaver%27s_Robe",
+      "url": "",
+      "weight": 23.5,
+      "category": "Armors",
+      "providers": [
+        "Brain Squid",
+        "Bulltaur Alchemist",
+        "Burning Gladiator",
+        "Draken Spellweaver",
+        "Energetic Book",
+        "Energuardian of Tales",
+        "Ghastly Dragon",
+        "Haunted Dragon",
+        "Juvenile Bashmu",
+        "Knowledge Elemental",
+        "Undead Dragon",
+        "Arbaziloth (Hard)",
+        "Dragon Hoard",
+        "Ethershreck",
+        "Hatebreeder",
+        "Lady Tenebris",
+        "Lloyd",
+        "The Duke of the Depths",
+        "Utua Stone Sting",
+        "Wrathful Archivist",
+        "Yirkas Blue Scales",
+        "Zamulosh"
+      ]
+    },
+    {
+      "name": "Sphinx Tiara",
+      "slug": "Sphinx_Tiara",
+      "url": "",
+      "weight": 3.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Feral Sphinx",
+        "Sphinx"
+      ]
+    },
+    {
+      "name": "Spiked Bracers",
+      "slug": "Spiked_Bracers",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Norcferatu Nightweaver"
+      ]
+    },
+    {
+      "name": "Spiked Gorget",
+      "slug": "Spiked_Gorget",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Norcferatu Heartless"
+      ]
+    },
+    {
+      "name": "Spiked Iron Ball",
+      "slug": "Spiked_Iron_Ball",
+      "url": "",
+      "weight": 1.25,
+      "category": "Creature's parts",
+      "providers": [
+        "Eternal Guardian",
+        "Lizard Chosen",
+        "Lizard High Guard",
+        "The Voice of Ruin"
+      ]
+    },
+    {
+      "name": "Spiky Club",
+      "slug": "Spiky_Club",
+      "url": "",
+      "weight": 39.0,
+      "category": "Club",
+      "providers": [
+        "Corym Skirmisher",
+        "Corym Vanguard",
+        "Orger",
+        "Naga Warrior"
+      ]
+    },
+    {
+      "name": "Spitter Nose",
+      "slug": "Spitter_Nose",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Spitter",
+        "Rotspit",
+        "The Hungerer"
+      ]
+    },
+    {
+      "name": "Staff Piece",
+      "slug": "Staff_Piece",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Bulltaur Forgepriest"
+      ]
+    },
+    {
+      "name": "Stag Parchment",
+      "slug": "Stag_Parchment",
+      "url": "",
+      "weight": 7.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Raubritter Chastener",
+        "Raubritter Marksman",
+        "Adlerauge",
+        "Clavius",
+        "Overseer Osverger"
+      ]
+    },
+    {
+      "name": "Stalking Seeds",
+      "slug": "Stalking_Seeds",
+      "url": "",
+      "weight": 0.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Stalking Stalk"
+      ]
+    },
+    {
+      "name": "Stampor Talons",
+      "slug": "Stampor_Talons",
+      "url": "",
+      "weight": 1.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Stampor",
+        "Tromphonyte"
+      ]
+    },
+    {
+      "name": "Star Ink",
+      "slug": "Star_Ink",
+      "url": "",
+      "weight": 0.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Bluebeak",
+        "Ink Splash"
+      ]
+    },
+    {
+      "name": "Stone Wing",
+      "slug": "Stone_Wing",
+      "url": "",
+      "weight": 1.53,
+      "category": "Creature's parts",
+      "providers": [
+        "Gargoyle"
+      ]
+    },
+    {
+      "name": "Stonerefiner's Skull",
+      "slug": "Stonerefiner%27s_Skull",
+      "url": "",
+      "weight": 3.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Stonerefiner"
+      ]
+    },
+    {
+      "name": "Strange Helmet",
+      "slug": "Strange_Helmet",
+      "url": "",
+      "weight": 46.0,
+      "category": "Helmets",
+      "providers": [
+        "Albino Dragon",
+        "Dragon Lord",
+        "Frost Dragon",
+        "Ice Golem",
+        "Icecold Book",
+        "Lavaworm",
+        "Lich",
+        "Quara Mantassin",
+        "Renegade Quara Mantassin",
+        "Serpent Spawn",
+        "Vampire",
+        "Walking Pillar",
+        "Adlerauge",
+        "Arbaziloth",
+        "Arbaziloth (Hard)",
+        "Blight Mariner",
+        "Clavius",
+        "Demodras",
+        "Dragon Hoard",
+        "Gravelord Oshuran",
+        "Hirintror",
+        "Michael the Stalwart",
+        "Overseer Osverger",
+        "Ushuriel"
+      ]
+    },
+    {
+      "name": "Strange Substance",
+      "slug": "Strange_Substance",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Bulltaur Alchemist"
+      ]
+    },
+    {
+      "name": "Streaked Devourer Eyes",
+      "slug": "Streaked_Devourer_Eyes",
+      "url": "",
+      "weight": 0.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Streaked Devourer"
+      ]
+    },
+    {
+      "name": "Streaked Devourer Legs",
+      "slug": "Streaked_Devourer_Legs",
+      "url": "",
+      "weight": 2.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Streaked Devourer"
+      ]
+    },
+    {
+      "name": "Streaked Devourer Maw",
+      "slug": "Streaked_Devourer_Maw",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Streaked Devourer"
+      ]
+    },
+    {
+      "name": "Striped Fur",
+      "slug": "Striped_Fur",
+      "url": "",
+      "weight": 1.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Mutated Tiger",
+        "Tiger",
+        "White Tiger"
+      ]
+    },
+    {
+      "name": "Sulphider Shell",
+      "slug": "Sulphider_Shell",
+      "url": "",
+      "weight": 1.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Sulphider"
+      ]
+    },
+    {
+      "name": "Sulphur Powder",
+      "slug": "Sulphur_Powder",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Sulphider",
+        "Sulphur Spouter"
+      ]
+    },
+    {
+      "name": "Sulphurous Stone",
+      "slug": "Sulphurous_Stone",
+      "url": "",
+      "weight": 1.42,
+      "category": "Creature's parts",
+      "providers": [
+        "Brimstone Bug",
+        "Museum Stone Golem",
+        "Orewalker",
+        "Stone Golem",
+        "Wandering Pillar",
+        "Grorlam",
+        "Sulphur Scuttler"
+      ]
+    },
+    {
+      "name": "Swampling Club",
+      "slug": "Swampling_Club",
+      "url": "",
+      "weight": 31.0,
+      "category": "Club",
+      "providers": [
+        "Leaf Golem",
+        "Minotaur Occultist",
+        "Swampling",
+        "Wilting Leaf Golem"
+      ]
+    },
+    {
+      "name": "Swarmer Antenna",
+      "slug": "Swarmer_Antenna",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Swarmer"
+      ]
+    },
+    {
+      "name": "Tail of Corruption",
+      "slug": "Tail_of_Corruption",
+      "url": "",
+      "weight": 0.93,
+      "category": "Creature's parts",
+      "providers": [
+        "Draken Abomination"
+      ]
+    },
+    {
+      "name": "Taurus Mace",
+      "slug": "Taurus_Mace",
+      "url": "",
+      "weight": 51.0,
+      "category": "Club",
+      "providers": [
+        "Minotaur Cult Zealot",
+        "Minotaur Mage",
+        "Worm Priestess"
+      ]
+    },
+    {
+      "name": "Telescope Eye",
+      "slug": "Telescope_Eye",
+      "url": "",
+      "weight": 0.3,
+      "category": "Creature's parts",
+      "providers": [
+        "Cloak of Terror"
+      ]
+    },
+    {
+      "name": "Terra Boots",
+      "slug": "Terra_Boots",
+      "url": "",
+      "weight": 7.5,
+      "category": "Boots",
+      "providers": [
+        "Armadile",
+        "Choking Fear",
+        "Cobra Vizier",
+        "Cursed Book",
+        "Dwarf Geomancer",
+        "Enfeebled Silencer",
+        "Exotic Cave Spider",
+        "Foam Stalker",
+        "Ghastly Dragon",
+        "Glooth Bandit",
+        "Glooth Brigand",
+        "Hideous Fungus",
+        "Hulking Carnisylvan",
+        "Humongous Fungus",
+        "Ink Blob",
+        "Ink Splash",
+        "Lost Basher",
+        "Lost Berserker",
+        "Lost Exile",
+        "Lost Husher",
+        "Mercurial Menace",
+        "Ogre Sage",
+        "Omnivora",
+        "Oozing Corpus",
+        "Pirat Bombardier",
+        "Shrieking Cry-Stal",
+        "Silencer",
+        "Thanatursus",
+        "Undertaker",
+        "Venerable Foam Stalker",
+        "White Lion",
+        "Blight Mariner",
+        "Deathbine",
+        "Neferi the Spy",
+        "Ravenous Hunger",
+        "Sister Hetai",
+        "Terofar"
+      ]
+    },
+    {
+      "name": "Terra Hood",
+      "slug": "Terra_Hood",
+      "url": "",
+      "weight": 10.0,
+      "category": "Helmets",
+      "providers": [
+        "Adult Goanna",
+        "Ancient Scarab",
+        "Bramble Wyrmling",
+        "Cobra Vizier",
+        "Cursed Book",
+        "Draken Abomination",
+        "Earworm",
+        "Glooth Bandit",
+        "Glooth Brigand",
+        "Hulking Carnisylvan",
+        "Ink Blob",
+        "Ink Splash",
+        "Lamassu",
+        "Rootthing Nutshell",
+        "Sun-marked Goanna",
+        "Thanatursus",
+        "Usurper Warlock",
+        "Young Goanna",
+        "Ancient Spawn of Morgathla",
+        "Arthom the Hunter",
+        "Clavius",
+        "Court Warlock",
+        "Drume",
+        "Duke Krule",
+        "Guard Captain Quaid",
+        "Hide",
+        "Kusuma",
+        "Megasylvan Yselda",
+        "Neferi the Spy",
+        "Overseer Osverger",
+        "Scarlett Etzel",
+        "Sister Hetai",
+        "The Unarmored Voidborn"
+      ]
+    },
+    {
+      "name": "Terra Mantle",
+      "slug": "Terra_Mantle",
+      "url": "",
+      "weight": 22.5,
+      "category": "Armors",
+      "providers": [
+        "Askarak Lord",
+        "Askarak Prince",
+        "Banshee",
+        "Blightwalker",
+        "Bramble Wyrmling",
+        "Choking Fear",
+        "Cursed Book",
+        "Exotic Cave Spider",
+        "Feral Werecrocodile",
+        "Glooth Bandit",
+        "Glooth Brigand",
+        "Hideous Fungus",
+        "Humongous Fungus",
+        "Ink Blob",
+        "Ink Splash",
+        "Medusa",
+        "Raubritter Marksman",
+        "Rotten Golem",
+        "Spiky Carnivor",
+        "Adlerauge",
+        "Ancient Spawn of Morgathla",
+        "Ayana The Crimson Curse",
+        "Court Warlock",
+        "Drume",
+        "Earth Overlord",
+        "Esmeralda",
+        "Fleshcrawler",
+        "Gorga",
+        "Gorgo",
+        "King Zelos",
+        "Megasylvan Yselda",
+        "Plagirath",
+        "Ravenous Hunger",
+        "Scarlett Etzel",
+        "The Duke of the Depths",
+        "The Evil Eye",
+        "The Lord of the Lice"
+      ]
+    },
+    {
+      "name": "Terramite Legs",
+      "slug": "Terramite_Legs",
+      "url": "",
+      "weight": 1.15,
+      "category": "Creature's parts",
+      "providers": [
+        "Terramite"
+      ]
+    },
+    {
+      "name": "Thorn",
+      "slug": "Thorn",
+      "url": "",
+      "weight": 1.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Thornback Tortoise"
+      ]
+    },
+    {
+      "name": "Titan Axe",
+      "slug": "Titan_Axe",
+      "url": "",
+      "weight": 81.0,
+      "category": "Axe",
+      "providers": [
+        "Afflicted Strider",
+        "Armadile",
+        "Behemoth",
+        "Enslaved Dwarf",
+        "Execowtioner",
+        "Falcon Knight",
+        "Headpecker",
+        "Hellflayer",
+        "Infernal Phantom",
+        "Juggernaut",
+        "Lion Hydra",
+        "Lost Soul",
+        "Medusa",
+        "Minotaur Invader",
+        "Orewalker",
+        "Rhindeer",
+        "Rotten Golem",
+        "Silencer",
+        "Spidris",
+        "Spidris Elite",
+        "Thanatursus",
+        "Werelion",
+        "Fleshslicer",
+        "Gorga",
+        "Gorgo",
+        "Grand Chaplain Gaunder",
+        "Preceptor Lazare"
+      ]
+    },
+    {
+      "name": "Toe Nails",
+      "slug": "Toe_Nails",
+      "url": "",
+      "weight": 10.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Crypt Construct",
+        "Crypt Mage",
+        "Haunted Hunter",
+        "Roaming Dread",
+        "Walking Dread"
+      ]
+    },
+    {
+      "name": "Tooth File",
+      "slug": "Tooth_File",
+      "url": "",
+      "weight": 5.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Nightfiend",
+        "Vampire Viscount",
+        "Vicious Manbat"
+      ]
+    },
+    {
+      "name": "Torn Page",
+      "slug": "Torn_Page",
+      "url": "",
+      "weight": 0.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Crusader",
+        "Headwalker"
+      ]
+    },
+    {
+      "name": "Trapped Bad Dream Monster",
+      "slug": "Trapped_Bad_Dream_Monster",
+      "url": "",
+      "weight": 12.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Feversleep",
+        "Shiversleep",
+        "Terrorsleep",
+        "The Enraged Thorn Knight"
+      ]
+    },
+    {
+      "name": "Tunnel Tyrant Head",
+      "slug": "Tunnel_Tyrant_Head",
+      "url": "",
+      "weight": 1.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Tunnel Tyrant"
+      ]
+    },
+    {
+      "name": "Tunnel Tyrant Shell",
+      "slug": "Tunnel_Tyrant_Shell",
+      "url": "",
+      "weight": 2.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Tunnel Tyrant"
+      ]
+    },
+    {
+      "name": "Two-Headed Turtle Heads",
+      "slug": "Two-Headed_Turtle_Heads",
+      "url": "",
+      "weight": 7.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Two-Headed Turtle"
+      ]
+    },
+    {
+      "name": "Undertaker Fangs",
+      "slug": "Undertaker_Fangs",
+      "url": "",
+      "weight": 0.75,
+      "category": "Creature's parts",
+      "providers": [
+        "Undertaker"
+      ]
+    },
+    {
+      "name": "Unholy Bone",
+      "slug": "Unholy_Bone",
+      "url": "",
+      "weight": 1.25,
+      "category": "Creature's parts",
+      "providers": [
+        "Betrayed Wraith",
+        "Crypt Warrior",
+        "Gravedigger",
+        "Haunted Dragon",
+        "Lost Soul",
+        "Skeleton Elite Warrior",
+        "Undead Dragon",
+        "Zanakeph",
+        "Zorvorax"
+      ]
+    },
+    {
+      "name": "Vampire's Cape Chain",
+      "slug": "Vampire%27s_Cape_Chain",
+      "url": "",
+      "weight": 6.2,
+      "category": "Creature's parts",
+      "providers": [
+        "Vampire Viscount",
+        "The Pale Count"
+      ]
+    },
+    {
+      "name": "Vein of Ore",
+      "slug": "Vein_of_Ore",
+      "url": "",
+      "weight": 3.6,
+      "category": "Creature's parts",
+      "providers": [
+        "Cliff Strider",
+        "Drillworm",
+        "Orewalker"
+      ]
+    },
+    {
+      "name": "Venison",
+      "slug": "Venison",
+      "url": "",
+      "weight": 3.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Elder Forest Fury",
+        "Forest Fury"
+      ]
+    },
+    {
+      "name": "Vile Axe",
+      "slug": "Vile_Axe",
+      "url": "",
+      "weight": 52.0,
+      "category": "Axe",
+      "providers": [
+        "Dark Torturer",
+        "Grimeleech",
+        "Eradicator",
+        "Ferumbras",
+        "Ferumbras Mortal Shell",
+        "Hellgorak",
+        "Horadron",
+        "Mazzinor",
+        "Realityquake"
+      ]
+    },
+    {
+      "name": "Volatile Proto Matter",
+      "slug": "Volatile_Proto_Matter",
+      "url": "",
+      "weight": 6.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Breach Brood",
+        "Burster"
+      ]
+    },
+    {
+      "name": "War Axe",
+      "slug": "War_Axe",
+      "url": "",
+      "weight": 61.5,
+      "category": "Axe",
+      "providers": [
+        "Behemoth",
+        "Eyeless Devourer",
+        "Falcon Knight",
+        "Glooth Bandit",
+        "Hulking Prehemoth",
+        "Infernal Demon",
+        "Infernal Phantom",
+        "Juggernaut",
+        "Lost Basher",
+        "Nightmare",
+        "Norcferatu Heartless",
+        "Priestess of the Wild Sun",
+        "Rotten Golem",
+        "Stone Devourer",
+        "Streaked Devourer",
+        "Undead Dragon",
+        "Katex Blood Tongue",
+        "Outburst",
+        "Preceptor Lazare",
+        "Srezz Yellow Eyes",
+        "Stonecracker",
+        "The False God",
+        "Tormentor",
+        "Yirkas Blue Scales"
+      ]
+    },
+    {
+      "name": "Wardragon Claw",
+      "slug": "Wardragon_Claw",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Wardragon"
+      ]
+    },
+    {
+      "name": "Wardragon Tooth",
+      "slug": "Wardragon_Tooth",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Wardragon"
+      ]
+    },
+    {
+      "name": "Waspoid Claw",
+      "slug": "Waspoid_Claw",
+      "url": "",
+      "weight": 2.15,
+      "category": "Creature's parts",
+      "providers": [
+        "Waspoid",
+        "Chopper"
+      ]
+    },
+    {
+      "name": "Weaver's Wandtip",
+      "slug": "Weaver%27s_Wandtip",
+      "url": "",
+      "weight": 1.7,
+      "category": "Creature's parts",
+      "providers": [
+        "Draken Spellweaver"
+      ]
+    },
+    {
+      "name": "Werebadger Claws",
+      "slug": "Werebadger_Claws",
+      "url": "",
+      "weight": 1.1,
+      "category": "Creature's parts",
+      "providers": [
+        "Werebadger",
+        "Sharpclaw"
+      ]
+    },
+    {
+      "name": "Werebadger Skull",
+      "slug": "Werebadger_Skull",
+      "url": "",
+      "weight": 3.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Werebadger",
+        "Sharpclaw"
+      ]
+    },
+    {
+      "name": "Werebear Fur",
+      "slug": "Werebear_Fur",
+      "url": "",
+      "weight": 5.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Werebear",
+        "Shadowpelt"
+      ]
+    },
+    {
+      "name": "Werebear Skull",
+      "slug": "Werebear_Skull",
+      "url": "",
+      "weight": 5.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Werebear",
+        "Shadowpelt"
+      ]
+    },
+    {
+      "name": "Wereboar Loincloth",
+      "slug": "Wereboar_Loincloth",
+      "url": "",
+      "weight": 13.0,
+      "category": "Legs",
+      "providers": [
+        "Wereboar",
+        "Bloodback",
+        "Feroxa",
+        "Owin"
+      ]
+    },
+    {
+      "name": "Wereboar Tusks",
+      "slug": "Wereboar_Tusks",
+      "url": "",
+      "weight": 1.9,
+      "category": "Creature's parts",
+      "providers": [
+        "Wereboar",
+        "Bloodback",
+        "Owin"
+      ]
+    },
+    {
+      "name": "Werecrocodile Tongue",
+      "slug": "Werecrocodile_Tongue",
+      "url": "",
+      "weight": 2.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Ayana The Crimson Curse",
+        "Feral Werecrocodile",
+        "Werecrocodile"
+      ]
+    },
+    {
+      "name": "Werefox Tail",
+      "slug": "Werefox_Tail",
+      "url": "",
+      "weight": 1.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Werefox",
+        "Black Vixen"
+      ]
+    },
+    {
+      "name": "Werehyaena Nose",
+      "slug": "Werehyaena_Nose",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Werehyaena",
+        "Werehyaena Shaman",
+        "Katex Blood Tongue"
+      ]
+    },
+    {
+      "name": "Werehyaena Talisman",
+      "slug": "Werehyaena_Talisman",
+      "url": "",
+      "weight": 0.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Werehyaena",
+        "Werehyaena Shaman",
+        "Katex Blood Tongue"
+      ]
+    },
+    {
+      "name": "Werepanther Claw",
+      "slug": "Werepanther_Claw",
+      "url": "",
+      "weight": 2.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Cunning Werepanther",
+        "Werepanther"
+      ]
+    },
+    {
+      "name": "Weretiger Tooth",
+      "slug": "Weretiger_Tooth",
+      "url": "",
+      "weight": 2.8,
+      "category": "Creature's parts",
+      "providers": [
+        "Weretiger",
+        "White Weretiger",
+        "Tamru The Black"
+      ]
+    },
+    {
+      "name": "Werewolf Fur",
+      "slug": "Werewolf_Fur",
+      "url": "",
+      "weight": 1.13,
+      "category": "Creature's parts",
+      "providers": [
+        "Werewolf",
+        "Darkfang",
+        "Hemming"
+      ]
+    },
+    {
+      "name": "Widow's Mandibles",
+      "slug": "Widow%27s_Mandibles",
+      "url": "",
+      "weight": 1.05,
+      "category": "Creature's parts",
+      "providers": [
+        "Wailing Widow"
+      ]
+    },
+    {
+      "name": "Wild Flowers",
+      "slug": "Wild_Flowers",
+      "url": "",
+      "weight": 1.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Angry Sugar Fairy",
+        "Nymph",
+        "Pixie",
+        "Swan Maiden"
+      ]
+    },
+    {
+      "name": "Wimp Tooth Chain",
+      "slug": "Wimp_Tooth_Chain",
+      "url": "",
+      "weight": 2.4,
+      "category": "Creature's parts",
+      "providers": [
+        "Lost Basher",
+        "Lost Exile",
+        "Lost Husher"
+      ]
+    },
+    {
+      "name": "Winged Tail",
+      "slug": "Winged_Tail",
+      "url": "",
+      "weight": 4.5,
+      "category": "Creature's parts",
+      "providers": [
+        "Serpent Spawn",
+        "Srezz Yellow Eyes",
+        "The Noxious Spawn"
+      ]
+    },
+    {
+      "name": "Witch Broom",
+      "slug": "Witch_Broom",
+      "url": "",
+      "weight": 3.33,
+      "category": "Creature's parts",
+      "providers": [
+        "Witch",
+        "Ekatrix"
+      ]
+    },
+    {
+      "name": "Wood Cape",
+      "slug": "Wood_Cape",
+      "url": "",
+      "weight": 11.0,
+      "category": "Helmets",
+      "providers": [
+        "Adult Goanna",
+        "Arctic Faun",
+        "Capricious Phantom",
+        "Crazed Summer Rearguard",
+        "Dark Faun",
+        "Faun",
+        "Monk's Apparition",
+        "Paladin's Apparition",
+        "Pirat Bombardier",
+        "Rootthing Bug Tracker",
+        "Rotten Golem",
+        "Rotten Man-Maggot",
+        "Soul-broken Harbinger",
+        "Turbulent Elemental",
+        "Usurper Archer",
+        "Varnished Diremaw",
+        "Venerable Girtablilu",
+        "Guard Captain Quaid",
+        "Ravenous Hunger",
+        "Raxias"
+      ]
+    },
+    {
+      "name": "Wooden Spellbook",
+      "slug": "Wooden_Spellbook",
+      "url": "",
+      "weight": 12.0,
+      "category": "Shields",
+      "providers": [
+        "Arctic Faun",
+        "Boogy",
+        "Dark Faun",
+        "Faun",
+        "Mitmah Seer",
+        "Noxious Ripptor",
+        "Pixie",
+        "Raubritter Chastener",
+        "Rootthing Amber Shaper",
+        "Sineater Inferniarch",
+        "Young Goanna",
+        "Clavius",
+        "Court Warlock",
+        "Ravenous Hunger"
+      ]
+    },
+    {
+      "name": "Worm Sponge",
+      "slug": "Worm_Sponge",
+      "url": "",
+      "weight": 1.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Meandering Mushroom",
+        "Oozing Corpus"
+      ]
+    },
+    {
+      "name": "Yapunac Dagger",
+      "slug": "Yapunac_Dagger",
+      "url": "",
+      "weight": 2.0,
+      "category": "Creature's parts",
+      "providers": [
+        "Atab",
+        "Iks Yapunac"
+      ]
+    },
+    {
+      "name": "Zaoan Armor",
+      "slug": "Zaoan_Armor",
+      "url": "",
+      "weight": 95.5,
+      "category": "Armors",
+      "providers": [
+        "Darklight Emitter",
+        "Draken Abomination",
+        "Draken Elite",
+        "Draken Warmaster",
+        "Ghastly Dragon",
+        "Lizard Chosen",
+        "Lizard High Guard",
+        "Lizard Legionnaire",
+        "Lizard Zaogun",
+        "Battlemaster Zunzu",
+        "Ethershreck",
+        "Fazzrah",
+        "Lizard Gate Guardian",
+        "Paiz the Pauperizer"
+      ]
+    },
+    {
+      "name": "Zaoan Robe",
+      "slug": "Zaoan_Robe",
+      "url": "",
+      "weight": 24.5,
+      "category": "Armors",
+      "providers": [
+        "Draken Spellweaver",
+        "Lizard Dragon Priest",
+        "Flamecaller Zazrak"
+      ]
+    },
+    {
+      "name": "Zaoan Shoes",
+      "slug": "Zaoan_Shoes",
+      "url": "",
+      "weight": 7.0,
+      "category": "Boots",
+      "providers": [
+        "Darklight Construct",
+        "Draken Spellweaver",
+        "Draken Warmaster",
+        "Ghastly Dragon",
+        "Lizard Chosen",
+        "Lizard Dragon Priest",
+        "Lizard High Guard",
+        "Lizard Legionnaire",
+        "Lizard Zaogun",
+        "Battlemaster Zunzu",
+        "Ethershreck",
+        "Fazzrah",
+        "Flamecaller Zazrak",
+        "Hatebreeder",
+        "Lizard Gate Guardian",
+        "The Voice of Ruin"
+      ]
+    },
+    {
+      "name": "Zaogun Flag",
+      "slug": "Zaogun_Flag",
+      "url": "",
+      "weight": 0.98,
+      "category": "Creature's parts",
+      "providers": [
+        "Lizard Zaogun",
+        "Battlemaster Zunzu",
+        "Fazzrah"
+      ]
+    },
+    {
+      "name": "Zaogun Shoulderplates",
+      "slug": "Zaogun_Shoulderplates",
+      "url": "",
+      "weight": 1.03,
+      "category": "Creature's parts",
+      "providers": [
+        "Lizard Zaogun",
+        "Battlemaster Zunzu",
+        "Fazzrah"
       ]
     }
   ]
