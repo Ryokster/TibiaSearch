@@ -1793,7 +1793,7 @@ class TibiaSearchApp:
 
     def _start_market_refresh(self) -> None:
         def run() -> None:
-            result = refresh_market_prices("Antica", log=self._log_market_request)
+            result = refresh_market_prices("Xyla", log=self._log_market_request)
             if isinstance(result, dict) and "updated_items" in result:
                 self.root.after(0, self._reload_market_items)
 
