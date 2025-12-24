@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import html
 import re
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
@@ -12,7 +13,6 @@ from urllib.error import URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
-ITEM_IDS_URL = "https://tibia.fandom.com/wiki/Item_IDs"
 MARKET_VALUES_URL = "https://api.tibiamarket.top/market_values"
 USER_AGENT = "Mozilla/5.0 (compatible; TibiaSearchBot/1.0)"
 
@@ -20,6 +20,7 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 RESOURCE_DIR = ROOT_DIR / "resources" / "tibia"
 CACHE_FILE = RESOURCE_DIR / "market_cache.json"
 ITEM_IDS_CACHE_FILE = RESOURCE_DIR / "item_ids_cache.json"
+ITEM_IDS_DUMP_PATH = ROOT_DIR / "https___tibia.fandom.com_wiki_Item_IDs.htm"
 
 CACHE_TTL = timedelta(hours=6)
 
@@ -89,6 +90,13 @@ def normalize_name(value: str) -> str:
     return cleaned.lower()
 
 
+def strip_highlight_wrappers(raw_html: str) -> str:
+    """Remove view-source highlighting wrappers and unescape HTML entities."""
+
+    without_spans = re.sub(r"</?(?:span|a)[^>]*>", "", raw_html)
+    return html.unescape(without_spans)
+
+
 def fetch_html(url: str, log: Callable[[str], None] | None = None) -> str:
     if log:
         log(f"GET {url}")
@@ -131,13 +139,15 @@ def find_column(headers: list[HtmlCell], candidates: Iterable[str]) -> int | Non
 
 
 def fetch_item_ids(log: Callable[[str], None] | None = None) -> dict[str, int]:
-    html = fetch_html(ITEM_IDS_URL, log=log)
-    tables = parse_tables(html)
-    table = find_table(tables, {"item id", "name"})
+    del log  # no-op to align with existing signature
+    if not ITEM_IDS_DUMP_PATH.exists():
+        raise RuntimeError(f"Item IDs dump not found: {ITEM_IDS_DUMP_PATH}")
+    raw_html = ITEM_IDS_DUMP_PATH.read_text(encoding="utf-8")
+    decoded_html = strip_highlight_wrappers(raw_html)
+    tables = parse_tables(decoded_html)
+    table = find_table(tables, {"item", "id"})
     if not table:
-        table = find_table(tables, {"item id", "item"})
-    if not table:
-        raise RuntimeError("Item IDs table not found on fandom page")
+        raise RuntimeError("Item IDs table not found in saved dump")
     headers, rows = table
     name_idx = find_column(headers, ["name", "item"]) or 0
     id_idx = find_column(headers, ["item id", "id"]) or 1
@@ -155,6 +165,22 @@ def fetch_item_ids(log: Callable[[str], None] | None = None) -> dict[str, int]:
             continue
         mapping[normalize_name(name)] = int(match.group(0))
     return mapping
+
+
+def build_alias_mapping(mapping: dict[str, int]) -> dict[str, int]:
+    aliases: dict[str, int] = {}
+    alias_pairs = {
+        "Frozen Claw (Ice Horror)": "Frozen Claw",
+        "Darklight Core": "Darklight Core (Object)",
+        "Darklight Matter": "Darklight Matter (Object)",
+        "Gore Horn": "Gore Horn (Item)",
+        "Silencer Claw": "Silencer Claws",
+    }
+    for target, source in alias_pairs.items():
+        source_id = mapping.get(normalize_name(source))
+        if source_id is not None:
+            aliases[normalize_name(target)] = source_id
+    return aliases
 
 
 def load_json(path: Path) -> dict:
@@ -345,6 +371,8 @@ def refresh_market_prices(
                 log(f"Failed to fetch item ids: {exc}")
             return {"server": server, "error": "item_ids"}
         save_item_ids_cache(name_to_id)
+    aliases = build_alias_mapping(name_to_id)
+    name_to_id = {**name_to_id, **aliases}
     item_ids: list[int] = []
     item_ids.extend(apply_item_ids(creature_data.get("items", []), name_to_id))
     item_ids.extend(apply_item_ids(delivery_data.get("items", []), name_to_id))
