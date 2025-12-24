@@ -14,7 +14,8 @@
       "category": "Creature's parts",
       "providers": [
         "Afflicted Strider"
-      ]
+      ],
+      "id": 36789
     },
     {
       "name": "Afflicted Strider Worms",
@@ -24,7 +25,8 @@
       "category": "Creature's parts",
       "providers": [
         "Afflicted Strider"
-      ]
+      ],
+      "id": 36790
     },
     {
       "name": "Alloy Legs",
@@ -42,7 +44,8 @@
         "Ghulosh",
         "Katex Blood Tongue",
         "Yirkas Blue Scales"
-      ]
+      ],
+      "id": 21168
     },
     {
       "name": "Amber Souvenir",
@@ -54,7 +57,8 @@
         "Quara Looter",
         "Quara Plunderer",
         "Quara Raider"
-      ]
+      ],
+      "id": 48508
     },
     {
       "name": "Ancient Belt Buckle",
@@ -65,7 +69,8 @@
       "providers": [
         "Broken Shaper",
         "Twisted Shaper"
-      ]
+      ],
+      "id": 24384
     },
     {
       "name": "Ancient Stone",
@@ -83,7 +88,8 @@
         "Ancient Spawn of Morgathla",
         "The Last Lore Keeper",
         "The Source of Corruption"
-      ]
+      ],
+      "id": 9632
     },
     {
       "name": "Angelic Axe",
@@ -98,7 +104,8 @@
         "Weretiger",
         "Feroxa",
         "Weakened Shlorg"
-      ]
+      ],
+      "id": 7436
     },
     {
       "name": "Badger Boots",
@@ -111,7 +118,8 @@
         "Feroxa",
         "Sharpclaw",
         "The Baron from Below"
-      ]
+      ],
+      "id": 22086
     },
     {
       "name": "Banana Sash",
@@ -122,7 +130,8 @@
       "providers": [
         "Merlkin",
         "Sibang"
-      ]
+      ],
+      "id": 11511
     },
     {
       "name": "Basalt Crumbs",
@@ -133,7 +142,8 @@
       "providers": [
         "Darklight Emitter",
         "Wandering Pillar"
-      ]
+      ],
+      "id": 43858
     },
     {
       "name": "Basalt Fetish",
@@ -146,7 +156,8 @@
         "Lost Exile",
         "Lost Husher",
         "Lost Thrower"
-      ]
+      ],
+      "id": 17856
     },
     {
       "name": "Basalt Figurine",
@@ -159,7 +170,8 @@
         "Lost Exile",
         "Lost Husher",
         "Lost Thrower"
-      ]
+      ],
+      "id": 17857
     },
     {
       "name": "Bashmu Fang",
@@ -170,7 +182,8 @@
       "providers": [
         "Bashmu",
         "Juvenile Bashmu"
-      ]
+      ],
+      "id": 36820
     },
     {
       "name": "Bashmu Feather",
@@ -181,7 +194,8 @@
       "providers": [
         "Bashmu",
         "Juvenile Bashmu"
-      ]
+      ],
+      "id": 36823
     },
     {
       "name": "Bashmu Tongue",
@@ -192,7 +206,8 @@
       "providers": [
         "Bashmu",
         "Juvenile Bashmu"
-      ]
+      ],
+      "id": 36821
     },
     {
       "name": "Battle Shield",
@@ -224,7 +239,8 @@
         "Foreman Kneebiter",
         "General Murius",
         "The Horned Fox"
-      ]
+      ],
+      "id": 3413
     },
     {
       "name": "Black Shield",
@@ -248,7 +264,8 @@
         "Werehyaena Shaman",
         "Wiggler",
         "Bruise Payne"
-      ]
+      ],
+      "id": 3429
     },
     {
       "name": "Blemished Spawn Abdomen",
@@ -258,7 +275,8 @@
       "category": "Creature's parts",
       "providers": [
         "Blemished Spawn"
-      ]
+      ],
+      "id": 36779
     },
     {
       "name": "Blemished Spawn Head",
@@ -268,7 +286,8 @@
       "category": "Creature's parts",
       "providers": [
         "Blemished Spawn"
-      ]
+      ],
+      "id": 36778
     },
     {
       "name": "Blemished Spawn Tail",
@@ -278,7 +297,8 @@
       "category": "Creature's parts",
       "providers": [
         "Blemished Spawn"
-      ]
+      ],
+      "id": 36780
     },
     {
       "name": "Bloated Maggot",
@@ -288,7 +308,8 @@
       "category": "Creature's parts",
       "providers": [
         "Bloated Man-Maggot"
-      ]
+      ],
+      "id": 43856
     },
     {
       "name": "Blood Amulet",
@@ -298,7 +319,8 @@
       "category": "Creature's parts",
       "providers": [
         "Dworc Shadowstalker"
-      ]
+      ],
+      "id": 51473
     },
     {
       "name": "Blood Hood",
@@ -308,7 +330,8 @@
       "category": "Creature's parts",
       "providers": [
         "Norcferatu Nightweaver"
-      ]
+      ],
+      "id": 51480
     },
     {
       "name": "Blood Preservation",
@@ -329,7 +352,8 @@
         "Lersatio",
         "The Pale Count",
         "Vladrukh"
-      ]
+      ],
+      "id": 11449
     },
     {
       "name": "Blood Tincture in a Vial",
@@ -340,7 +364,8 @@
       "providers": [
         "Blood Hand",
         "Blood Priest"
-      ]
+      ],
+      "id": 18928
     },
     {
       "name": "Bloodshot Giant Eye",
@@ -350,7 +375,8 @@
       "category": "Creature's parts",
       "providers": [
         "Orclops Bloodbreaker"
-      ]
+      ],
+      "id": 51482
     },
     {
       "name": "Blue Goanna Scale",
@@ -361,7 +387,8 @@
       "providers": [
         "Young Goanna",
         "Yirkas Blue Scales"
-      ]
+      ],
+      "id": 31559
     },
     {
       "name": "Boar Man Hoof",
@@ -371,7 +398,8 @@
       "category": "Creature's parts",
       "providers": [
         "Boar Man"
-      ]
+      ],
+      "id": 40584
     },
     {
       "name": "Boggy Dreads",
@@ -382,7 +410,8 @@
       "providers": [
         "Bog Raider",
         "Weakened Shlorg"
-      ]
+      ],
+      "id": 9667
     },
     {
       "name": "Bola",
@@ -394,7 +423,8 @@
         "Corym Charlatan",
         "Corym Skirmisher",
         "Corym Vanguard"
-      ]
+      ],
+      "id": 17809
     },
     {
       "name": "Bone Club",
@@ -418,7 +448,8 @@
         "Munster",
         "Necropharus",
         "Salamander Trainer"
-      ]
+      ],
+      "id": 3337
     },
     {
       "name": "Bone Fetish",
@@ -433,7 +464,8 @@
         "Lost Husher",
         "Ogre Sage",
         "Ogre Shaman"
-      ]
+      ],
+      "id": 17831
     },
     {
       "name": "Bone Fibula",
@@ -443,7 +475,8 @@
       "category": "Creature's parts",
       "providers": [
         "Orclops Bloodbreaker"
-      ]
+      ],
+      "id": 51485
     },
     {
       "name": "Bone Rattle",
@@ -453,7 +486,8 @@
       "category": "Creature's parts",
       "providers": [
         "Dworc Shadowstalker"
-      ]
+      ],
+      "id": 51478
     },
     {
       "name": "Bone Shoulderplate",
@@ -463,7 +497,8 @@
       "category": "Creature's parts",
       "providers": [
         "Draken Warmaster"
-      ]
+      ],
+      "id": 10404
     },
     {
       "name": "Bone Toothpick",
@@ -476,7 +511,8 @@
         "Orclops Doomhauler",
         "Orclops Ravager",
         "Skeleton Elite Warrior"
-      ]
+      ],
+      "id": 24380
     },
     {
       "name": "Bonebreaker",
@@ -507,7 +543,8 @@
         "The Unarmored Voidborn",
         "World Devourer",
         "Zavarash"
-      ]
+      ],
+      "id": 7428
     },
     {
       "name": "Bonecarving Knife",
@@ -519,7 +556,8 @@
         "Lost Basher",
         "Lost Exile",
         "Lost Husher"
-      ]
+      ],
+      "id": 17830
     },
     {
       "name": "Bony Tail",
@@ -530,7 +568,8 @@
       "providers": [
         "Bonebeast",
         "Ribstride"
-      ]
+      ],
+      "id": 10277
     },
     {
       "name": "Book of Necromantic Rituals",
@@ -546,7 +585,8 @@
         "Necromancer Servant",
         "Shadow Pupil",
         "Necropharus"
-      ]
+      ],
+      "id": 10320
     },
     {
       "name": "Book Page",
@@ -563,7 +603,8 @@
         "Guardian of Tales",
         "Icecold Book",
         "Knowledge Elemental"
-      ]
+      ],
+      "id": 28569
     },
     {
       "name": "Book with a Dragon",
@@ -575,7 +616,8 @@
         "Bramble Wyrmling",
         "Cinder Wyrmling",
         "Inkwing"
-      ]
+      ],
+      "id": 51423
     },
     {
       "name": "Book with an Hourglass",
@@ -585,7 +627,8 @@
       "category": "Creature's parts",
       "providers": [
         "Headwalker"
-      ]
+      ],
+      "id": 51425
     },
     {
       "name": "Bowl of Terror Sweat",
@@ -597,7 +640,8 @@
         "Feversleep",
         "Shiversleep",
         "Terrorsleep"
-      ]
+      ],
+      "id": 20204
     },
     {
       "name": "Brigadeiro",
@@ -608,7 +652,8 @@
       "providers": [
         "Candy Horror",
         "Sugar Daddy"
-      ]
+      ],
+      "id": 48252
     },
     {
       "name": "Brinebrute Claw",
@@ -619,7 +664,8 @@
       "providers": [
         "Brinebrute Inferniarch",
         "Malvaroth"
-      ]
+      ],
+      "id": 50056
     },
     {
       "name": "Broadsword",
@@ -635,7 +681,8 @@
         "Demodras",
         "Dragon Hoard",
         "Grand Mother Foulscale"
-      ]
+      ],
+      "id": 3301
     },
     {
       "name": "Broken Draken Mail",
@@ -646,7 +693,8 @@
       "providers": [
         "Draken Elite",
         "Paiz the Pauperizer"
-      ]
+      ],
+      "id": 11660
     },
     {
       "name": "Broken Gladiator Shield",
@@ -657,7 +705,8 @@
       "providers": [
         "Undead Elite Gladiator",
         "Undead Gladiator"
-      ]
+      ],
+      "id": 9656
     },
     {
       "name": "Broken Halberd",
@@ -667,7 +716,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lizard Legionnaire"
-      ]
+      ],
+      "id": 10418
     },
     {
       "name": "Broken Mitmah Necklace",
@@ -679,7 +729,8 @@
         "Atab",
         "Mitmah Scout",
         "Mitmah Vanguard"
-      ]
+      ],
+      "id": 44438
     },
     {
       "name": "Broken Slicer",
@@ -690,7 +741,8 @@
       "providers": [
         "Draken Elite",
         "Paiz the Pauperizer"
-      ]
+      ],
+      "id": 11661
     },
     {
       "name": "Broken Throwing Axe",
@@ -700,7 +752,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lost Thrower"
-      ]
+      ],
+      "id": 17851
     },
     {
       "name": "Broodrider Saddle",
@@ -710,7 +763,8 @@
       "category": "Creature's parts",
       "providers": [
         "Broodrider Inferniarch"
-      ]
+      ],
+      "id": 50058
     },
     {
       "name": "Buckle",
@@ -725,7 +779,8 @@
         "Lost Thrower",
         "Mycobiontic Beetle",
         "Spiky Carnivor"
-      ]
+      ],
+      "id": 17829
     },
     {
       "name": "Bulltaur Armor Scrap",
@@ -735,7 +790,8 @@
       "category": "Creature's parts",
       "providers": [
         "Bulltaur Brute"
-      ]
+      ],
+      "id": 44738
     },
     {
       "name": "Bulltaur Hoof",
@@ -745,7 +801,8 @@
       "category": "Creature's parts",
       "providers": [
         "Bulltaur Brute"
-      ]
+      ],
+      "id": 44737
     },
     {
       "name": "Bulltaur Horn",
@@ -757,7 +814,8 @@
         "Bulltaur Alchemist",
         "Bulltaur Brute",
         "Bulltaur Forgepriest"
-      ]
+      ],
+      "id": 44736
     },
     {
       "name": "Bundle of Cursed Straw",
@@ -767,7 +825,8 @@
       "category": "Creature's parts",
       "providers": [
         "Blightwalker"
-      ]
+      ],
+      "id": 9688
     },
     {
       "name": "Carnisylvan Bark",
@@ -779,7 +838,8 @@
         "Dark Carnisylvan",
         "Hulking Carnisylvan",
         "Poisonous Carnisylvan"
-      ]
+      ],
+      "id": 36806
     },
     {
       "name": "Carnisylvan Finger",
@@ -791,7 +851,8 @@
         "Dark Carnisylvan",
         "Hulking Carnisylvan",
         "Poisonous Carnisylvan"
-      ]
+      ],
+      "id": 36805
     },
     {
       "name": "Carnivostrich Feather",
@@ -801,7 +862,8 @@
       "category": "Creature's parts",
       "providers": [
         "Carnivostrich"
-      ]
+      ],
+      "id": 40586
     },
     {
       "name": "Cat's Paw",
@@ -814,7 +876,8 @@
         "Hemming",
         "Mr. Punish",
         "The Scourge of Oblivion"
-      ]
+      ],
+      "id": 5479
     },
     {
       "name": "Cave Devourer Eyes",
@@ -824,7 +887,8 @@
       "category": "Creature's parts",
       "providers": [
         "Cave Devourer"
-      ]
+      ],
+      "id": 27599
     },
     {
       "name": "Cave Devourer Legs",
@@ -834,7 +898,8 @@
       "category": "Creature's parts",
       "providers": [
         "Cave Devourer"
-      ]
+      ],
+      "id": 27601
     },
     {
       "name": "Cave Devourer Maw",
@@ -844,7 +909,8 @@
       "category": "Creature's parts",
       "providers": [
         "Cave Devourer"
-      ]
+      ],
+      "id": 27600
     },
     {
       "name": "Centipede Leg",
@@ -854,7 +920,8 @@
       "category": "Creature's parts",
       "providers": [
         "Centipede"
-      ]
+      ],
+      "id": 10301
     },
     {
       "name": "Chain Leash",
@@ -864,7 +931,8 @@
       "category": "Creature's parts",
       "providers": [
         "Gloom Maw"
-      ]
+      ],
+      "id": 51472
     },
     {
       "name": "Chaos Mace",
@@ -907,7 +975,8 @@
         "The Shatterer",
         "Utua Stone Sting",
         "Weakened Shlorg"
-      ]
+      ],
+      "id": 7427
     },
     {
       "name": "Chasm Spawn Abdomen",
@@ -917,7 +986,8 @@
       "category": "Creature's parts",
       "providers": [
         "Chasm Spawn"
-      ]
+      ],
+      "id": 27603
     },
     {
       "name": "Chasm Spawn Head",
@@ -927,7 +997,8 @@
       "category": "Creature's parts",
       "providers": [
         "Chasm Spawn"
-      ]
+      ],
+      "id": 27602
     },
     {
       "name": "Chasm Spawn Tail",
@@ -937,7 +1008,8 @@
       "category": "Creature's parts",
       "providers": [
         "Chasm Spawn"
-      ]
+      ],
+      "id": 27604
     },
     {
       "name": "Cheese Cutter",
@@ -949,7 +1021,8 @@
         "Corym Charlatan",
         "Corym Skirmisher",
         "Corym Vanguard"
-      ]
+      ],
+      "id": 17817
     },
     {
       "name": "Cheesy Figurine",
@@ -962,7 +1035,8 @@
         "Corym Charlatan",
         "Corym Skirmisher",
         "Corym Vanguard"
-      ]
+      ],
+      "id": 17818
     },
     {
       "name": "Cluster of Crystallized Death",
@@ -974,7 +1048,8 @@
         "Creepy Crawler",
         "Crypt Construct",
         "Crypt Fiend"
-      ]
+      ],
+      "id": 52720
     },
     {
       "name": "Cobra Crest",
@@ -989,7 +1064,8 @@
         "Custodian",
         "Gaffir",
         "Guard Captain Quaid"
-      ]
+      ],
+      "id": 31678
     },
     {
       "name": "Colourful Feather",
@@ -1000,7 +1076,8 @@
       "providers": [
         "Iks Yapunac",
         "Terror Bird"
-      ]
+      ],
+      "id": 11514
     },
     {
       "name": "Colourful Snail Shell",
@@ -1012,7 +1089,8 @@
         "Nymph",
         "Pixie",
         "Swan Maiden"
-      ]
+      ],
+      "id": 25696
     },
     {
       "name": "Combat Knife",
@@ -1035,7 +1113,8 @@
         "Ancient Lion Knight",
         "General Murius",
         "The Horned Fox"
-      ]
+      ],
+      "id": 3292
     },
     {
       "name": "Compound Eye",
@@ -1061,7 +1140,8 @@
         "Shadowstalker",
         "The Hungerer",
         "The Mean Masher"
-      ]
+      ],
+      "id": 14083
     },
     {
       "name": "Cookbook",
@@ -1071,7 +1151,8 @@
       "category": "Creature's parts",
       "providers": [
         "Crusader"
-      ]
+      ],
+      "id": 3234
     },
     {
       "name": "Coral Branch",
@@ -1082,7 +1163,8 @@
       "providers": [
         "Foam Stalker",
         "Venerable Foam Stalker"
-      ]
+      ],
+      "id": 39406
     },
     {
       "name": "Cowbell",
@@ -1094,7 +1176,8 @@
         "Minotaur Amazon",
         "Minotaur Cult Follower",
         "Minotaur Cult Prophet"
-      ]
+      ],
+      "id": 21204
     },
     {
       "name": "Crab Man Claws",
@@ -1104,7 +1187,8 @@
       "category": "Creature's parts",
       "providers": [
         "Crape Man"
-      ]
+      ],
+      "id": 40582
     },
     {
       "name": "Cracked Alabaster Vase",
@@ -1116,7 +1200,8 @@
         "Broken Shaper",
         "Shaper Matriarch",
         "Twisted Shaper"
-      ]
+      ],
+      "id": 24385
     },
     {
       "name": "Crawler's Essence",
@@ -1126,7 +1211,8 @@
       "category": "Creature's parts",
       "providers": [
         "Branchy Crawler"
-      ]
+      ],
+      "id": 33982
     },
     {
       "name": "Cry-Stal",
@@ -1136,7 +1222,8 @@
       "category": "Valuable",
       "providers": [
         "Shrieking Cry-Stal"
-      ]
+      ],
+      "id": 39394
     },
     {
       "name": "Crystal Bone",
@@ -1146,7 +1233,8 @@
       "category": "Creature's parts",
       "providers": [
         "Instable Breach Brood"
-      ]
+      ],
+      "id": 23521
     },
     {
       "name": "Crystal Crossbow",
@@ -1171,7 +1259,8 @@
         "Gnomevil",
         "Guard Captain Quaid",
         "Mazzinor"
-      ]
+      ],
+      "id": 16163
     },
     {
       "name": "Crystal Mace",
@@ -1210,7 +1299,8 @@
         "Yakchal",
         "Zamulosh",
         "Zushuka"
-      ]
+      ],
+      "id": 3333
     },
     {
       "name": "Crystal of the Mitmah",
@@ -1222,7 +1312,8 @@
         "Mitmah Seer",
         "Atab",
         "Mitmah Vanguard"
-      ]
+      ],
+      "id": 44439
     },
     {
       "name": "Crystal Sword",
@@ -1256,7 +1347,8 @@
         "Shardhead",
         "Yakchal",
         "Zushuka"
-      ]
+      ],
+      "id": 7449
     },
     {
       "name": "Crystalline Armor",
@@ -1295,7 +1387,8 @@
         "The Duke of the Depths",
         "The Winter Bloom",
         "Zamulosh"
-      ]
+      ],
+      "id": 8050
     },
     {
       "name": "Crystalline Spikes",
@@ -1309,7 +1402,8 @@
         "Enraged Crystal Golem",
         "Ironblight",
         "Stone Devourer"
-      ]
+      ],
+      "id": 16138
     },
     {
       "name": "Crystalline Sword",
@@ -1330,7 +1424,8 @@
         "Gorzindel",
         "Melting Frozen Horror",
         "Outburst"
-      ]
+      ],
+      "id": 16160
     },
     {
       "name": "Crystallized Death",
@@ -1347,7 +1442,8 @@
         "Haunted Hunter",
         "Roaming Dread",
         "Walking Dread"
-      ]
+      ],
+      "id": 52719
     },
     {
       "name": "Cuirass Plate",
@@ -1360,7 +1456,8 @@
         "Raubritter Skirmisher",
         "Adlerauge",
         "Michael the Stalwart"
-      ]
+      ],
+      "id": 52663
     },
     {
       "name": "Curious Matter",
@@ -1375,7 +1472,8 @@
         "Gorzindel",
         "Rupture",
         "The Souldespoiler"
-      ]
+      ],
+      "id": 23511
     },
     {
       "name": "Cursed Shoulder Spikes",
@@ -1386,7 +1484,8 @@
       "providers": [
         "Lizard Chosen",
         "The Voice of Ruin"
-      ]
+      ],
+      "id": 10410
     },
     {
       "name": "Damaged Armor Plates",
@@ -1400,7 +1499,8 @@
         "Grand Canon Dominus",
         "Grand Chaplain Gaunder",
         "Grand Commander Soeren"
-      ]
+      ],
+      "id": 28822
     },
     {
       "name": "Damselfly Eye",
@@ -1411,7 +1511,8 @@
       "providers": [
         "Dawnfly",
         "Emerald Damselfly"
-      ]
+      ],
+      "id": 17463
     },
     {
       "name": "Dandelion Seeds",
@@ -1424,7 +1525,8 @@
         "Faun",
         "Nymph",
         "Pixie"
-      ]
+      ],
+      "id": 25695
     },
     {
       "name": "Dangerous Proto Matter",
@@ -1435,7 +1537,8 @@
       "providers": [
         "Dreadful Disruptor",
         "Reality Reaver"
-      ]
+      ],
+      "id": 23515
     },
     {
       "name": "Dark Obsidian Splinter",
@@ -1447,7 +1550,8 @@
         "Darklight Construct",
         "Darklight Source",
         "Darklight Striker"
-      ]
+      ],
+      "id": 43850
     },
     {
       "name": "Dark Rosary",
@@ -1458,7 +1562,8 @@
       "providers": [
         "Dark Monk",
         "Priestess"
-      ]
+      ],
+      "id": 10303
     },
     {
       "name": "Dark Shield",
@@ -1478,7 +1583,8 @@
         "Bretzecutioner",
         "Michael the Stalwart",
         "The Handmaiden"
-      ]
+      ],
+      "id": 3421
     },
     {
       "name": "Darklight Basalt Chunk",
@@ -1488,7 +1594,8 @@
       "category": "Creature's parts",
       "providers": [
         "Walking Pillar"
-      ]
+      ],
+      "id": 43852
     },
     {
       "name": "Darklight Core",
@@ -1505,7 +1612,8 @@
         "Darklight Striker",
         "Walking Pillar",
         "Wandering Pillar"
-      ]
+      ],
+      "id": 43853
     },
     {
       "name": "Darklight Matter",
@@ -1516,7 +1624,8 @@
       "providers": [
         "Converter",
         "Darklight Matter"
-      ]
+      ],
+      "id": 43851
     },
     {
       "name": "Dead Weight",
@@ -1526,7 +1635,8 @@
       "category": "Creature's parts",
       "providers": [
         "Choking Fear"
-      ]
+      ],
+      "id": 20202
     },
     {
       "name": "Deadly Fangs",
@@ -1537,7 +1647,8 @@
       "providers": [
         "Cyclursus",
         "Haunted Hunter"
-      ]
+      ],
+      "id": 52718
     },
     {
       "name": "Decayed Finger Bone",
@@ -1548,7 +1659,8 @@
       "providers": [
         "Oozing Carcass",
         "Sopping Carcass"
-      ]
+      ],
+      "id": 43846
     },
     {
       "name": "Deepling Breaktime Snack",
@@ -1559,7 +1671,8 @@
       "providers": [
         "Deepling Guard",
         "Deepling Tyrant"
-      ]
+      ],
+      "id": 14011
     },
     {
       "name": "Deepling Claw",
@@ -1570,7 +1683,8 @@
       "providers": [
         "Deepling Guard",
         "Deepling Tyrant"
-      ]
+      ],
+      "id": 14044
     },
     {
       "name": "Deepling Guard Belt Buckle",
@@ -1581,7 +1695,8 @@
       "providers": [
         "Deepling Guard",
         "Deepling Tyrant"
-      ]
+      ],
+      "id": 14010
     },
     {
       "name": "Deepling Ridge",
@@ -1595,7 +1710,8 @@
         "Deepling Elite",
         "Deepling Warrior",
         "Neutral Deepling Warrior"
-      ]
+      ],
+      "id": 14041
     },
     {
       "name": "Deepling Scales",
@@ -1607,7 +1723,8 @@
         "Deepling Brawler",
         "Deepling Worker",
         "Shark"
-      ]
+      ],
+      "id": 14017
     },
     {
       "name": "Deeptags",
@@ -1621,7 +1738,8 @@
         "Deepling Elite",
         "Deepling Warrior",
         "Neutral Deepling Warrior"
-      ]
+      ],
+      "id": 14013
     },
     {
       "name": "Deepworm Jaws",
@@ -1631,7 +1749,8 @@
       "category": "Creature's parts",
       "providers": [
         "Deepworm"
-      ]
+      ],
+      "id": 27594
     },
     {
       "name": "Deepworm Spike Roots",
@@ -1641,7 +1760,8 @@
       "category": "Creature's parts",
       "providers": [
         "Deepworm"
-      ]
+      ],
+      "id": 27593
     },
     {
       "name": "Deepworm Spikes",
@@ -1651,7 +1771,8 @@
       "category": "Creature's parts",
       "providers": [
         "Deepworm"
-      ]
+      ],
+      "id": 27592
     },
     {
       "name": "Demon Root",
@@ -1663,7 +1784,8 @@
         "Rootthing Amber Shaper",
         "Rootthing Bug Tracker",
         "Rootthing Nutshell"
-      ]
+      ],
+      "id": 48510
     },
     {
       "name": "Demonic Matter",
@@ -1681,7 +1803,8 @@
         "Gralvalon",
         "Malvaroth",
         "Twisterror"
-      ]
+      ],
+      "id": 49894
     },
     {
       "name": "Diamond Sceptre",
@@ -1713,7 +1836,8 @@
         "The Freezing Time Guardian",
         "The Time Guardian",
         "Zavarash"
-      ]
+      ],
+      "id": 7387
     },
     {
       "name": "Diremaw Brainpan",
@@ -1723,7 +1847,8 @@
       "category": "Creature's parts",
       "providers": [
         "Diremaw"
-      ]
+      ],
+      "id": 27597
     },
     {
       "name": "Diremaw Legs",
@@ -1733,7 +1858,8 @@
       "category": "Creature's parts",
       "providers": [
         "Diremaw"
-      ]
+      ],
+      "id": 27598
     },
     {
       "name": "Dirty Turban",
@@ -1749,7 +1875,8 @@
         "Nomad",
         "Nomad (Blue)",
         "Nomad (Female)"
-      ]
+      ],
+      "id": 11456
     },
     {
       "name": "Double Axe",
@@ -1786,7 +1913,8 @@
         "Stonecracker",
         "Tazhadur",
         "The Horned Fox"
-      ]
+      ],
+      "id": 3275
     },
     {
       "name": "Dowser",
@@ -1798,7 +1926,8 @@
         "Leaf Golem",
         "Wilting Leaf Golem",
         "Dazed Leaf Golem"
-      ]
+      ],
+      "id": 19110
     },
     {
       "name": "Dragolisk Eye",
@@ -1808,7 +1937,8 @@
       "category": "Creature's parts",
       "providers": [
         "Dragolisk"
-      ]
+      ],
+      "id": 44746
     },
     {
       "name": "Dragolisk Poison Gland",
@@ -1818,7 +1948,8 @@
       "category": "Creature's parts",
       "providers": [
         "Dragolisk"
-      ]
+      ],
+      "id": 44747
     },
     {
       "name": "Dragon Hammer",
@@ -1835,7 +1966,8 @@
         "Grand Mother Foulscale",
         "Orshabaal",
         "Tazhadur"
-      ]
+      ],
+      "id": 3322
     },
     {
       "name": "Dragon Priest's Wandtip",
@@ -1846,7 +1978,8 @@
       "providers": [
         "Lizard Dragon Priest",
         "Flamecaller Zazrak"
-      ]
+      ],
+      "id": 10444
     },
     {
       "name": "Dragon Slayer",
@@ -1863,7 +1996,8 @@
         "Eldritch Dragon Lord",
         "Inkwing",
         "Ushuriel"
-      ]
+      ],
+      "id": 7402
     },
     {
       "name": "Dragon Tongue",
@@ -1879,7 +2013,8 @@
         "Kalyassa",
         "Tazhadur",
         "Zorvorax"
-      ]
+      ],
+      "id": 24938
     },
     {
       "name": "Dragon's Tail",
@@ -1891,7 +2026,8 @@
         "Dragolisk",
         "Dragon",
         "Dragon Hatchling"
-      ]
+      ],
+      "id": 11457
     },
     {
       "name": "Draken Wristbands",
@@ -1902,7 +2038,8 @@
       "providers": [
         "Draken Elite",
         "Paiz the Pauperizer"
-      ]
+      ],
+      "id": 11659
     },
     {
       "name": "Dream Essence Egg",
@@ -1917,7 +2054,8 @@
         "Crazed Winter Vanguard",
         "Insane Siren",
         "Soul-broken Harbinger"
-      ]
+      ],
+      "id": 30005
     },
     {
       "name": "Dung Ball",
@@ -1928,7 +2066,8 @@
       "providers": [
         "Insectoid Worker",
         "Mindmasher"
-      ]
+      ],
+      "id": 14225
     },
     {
       "name": "Earflap",
@@ -1940,7 +2079,8 @@
         "Corym Charlatan",
         "Corym Skirmisher",
         "Corym Vanguard"
-      ]
+      ],
+      "id": 17819
     },
     {
       "name": "Elder Bonelord Tentacle",
@@ -1950,7 +2090,8 @@
       "category": "Creature's parts",
       "providers": [
         "Elder Bonelord"
-      ]
+      ],
+      "id": 10276
     },
     {
       "name": "Elven Astral Observer",
@@ -1963,7 +2104,8 @@
         "Crazed Winter Rearguard",
         "Elf Arcanist",
         "Dharalion"
-      ]
+      ],
+      "id": 11465
     },
     {
       "name": "Emerald Tortoise Shell",
@@ -1973,7 +2115,8 @@
       "category": "Creature's parts",
       "providers": [
         "Emerald Tortoise"
-      ]
+      ],
+      "id": 39379
     },
     {
       "name": "Empty Honey Glass",
@@ -1985,7 +2128,8 @@
         "Black Sphinx Acolyte",
         "Burning Gladiator",
         "Priestess of the Wild Sun"
-      ]
+      ],
+      "id": 31331
     },
     {
       "name": "Encrypted Notes",
@@ -1995,7 +2139,8 @@
       "category": "Creature's parts",
       "providers": [
         "Bulltaur Alchemist"
-      ]
+      ],
+      "id": 44739
     },
     {
       "name": "Energy Ball",
@@ -2008,7 +2153,8 @@
         "Dread Intruder",
         "Energetic Book",
         "Outburst"
-      ]
+      ],
+      "id": 23523
     },
     {
       "name": "Ensouled Essence",
@@ -2020,7 +2166,8 @@
         "Flimsy Lost Soul",
         "Freakish Lost Soul",
         "Mean Lost Soul"
-      ]
+      ],
+      "id": 32698
     },
     {
       "name": "Essence of a Bad Dream",
@@ -2034,7 +2181,8 @@
         "Nightmare Scion",
         "Thanatursus",
         "Tormentor"
-      ]
+      ],
+      "id": 10306
     },
     {
       "name": "Exalted Core",
@@ -2044,7 +2192,8 @@
       "category": "Others",
       "providers": [
         "This item cannot be obtained from monsters."
-      ]
+      ],
+      "id": 37110
     },
     {
       "name": "Execowtioner Mask",
@@ -2054,7 +2203,8 @@
       "category": "Creature's parts",
       "providers": [
         "Execowtioner"
-      ]
+      ],
+      "id": 21201
     },
     {
       "name": "Eye of a Deepling",
@@ -2076,7 +2226,8 @@
         "Deepling Worker",
         "Shark",
         "Reflection of Obujos"
-      ]
+      ],
+      "id": 12730
     },
     {
       "name": "Eye of a Weeper",
@@ -2086,7 +2237,8 @@
       "category": "Creature's parts",
       "providers": [
         "Weeper"
-      ]
+      ],
+      "id": 16132
     },
     {
       "name": "Eye of Corruption",
@@ -2096,7 +2248,8 @@
       "category": "Creature's parts",
       "providers": [
         "Draken Abomination"
-      ]
+      ],
+      "id": 11671
     },
     {
       "name": "Eyeless Devourer Legs",
@@ -2106,7 +2259,8 @@
       "category": "Creature's parts",
       "providers": [
         "Eyeless Devourer"
-      ]
+      ],
+      "id": 36776
     },
     {
       "name": "Eyeless Devourer Maw",
@@ -2116,7 +2270,8 @@
       "category": "Creature's parts",
       "providers": [
         "Eyeless Devourer"
-      ]
+      ],
+      "id": 36775
     },
     {
       "name": "Eyeless Devourer Tongue",
@@ -2126,7 +2281,8 @@
       "category": "Creature's parts",
       "providers": [
         "Eyeless Devourer"
-      ]
+      ],
+      "id": 36777
     },
     {
       "name": "Fafnar Symbol",
@@ -2137,7 +2293,8 @@
       "providers": [
         "Burning Gladiator",
         "Priestess of the Wild Sun"
-      ]
+      ],
+      "id": 31443
     },
     {
       "name": "Falcon Crest",
@@ -2151,7 +2308,8 @@
         "Grand Canon Dominus",
         "Grand Chaplain Gaunder",
         "Grand Commander Soeren"
-      ]
+      ],
+      "id": 28823
     },
     {
       "name": "Fig Leaf",
@@ -2163,7 +2321,8 @@
         "Barkless Devotee",
         "Barkless Fanatic",
         "Ravenous Hunger"
-      ]
+      ],
+      "id": 25742
     },
     {
       "name": "Fir Cone",
@@ -2176,7 +2335,8 @@
         "Leaf Golem",
         "Wilting Leaf Golem",
         "Dazed Leaf Golem"
-      ]
+      ],
+      "id": 19111
     },
     {
       "name": "Fire Axe",
@@ -2218,7 +2378,8 @@
         "The Duke of the Depths",
         "The Imperor",
         "Xogixath"
-      ]
+      ],
+      "id": 3320
     },
     {
       "name": "Flask of Demonic Blood",
@@ -2267,7 +2428,8 @@
         "The Winter Bloom",
         "Tormentor",
         "Zamulosh"
-      ]
+      ],
+      "id": 6558
     },
     {
       "name": "Flotsam",
@@ -2278,7 +2440,8 @@
       "providers": [
         "Foam Stalker",
         "Venerable Foam Stalker"
-      ]
+      ],
+      "id": 39407
     },
     {
       "name": "Focus Cape",
@@ -2310,7 +2473,8 @@
         "Raging Mage",
         "Reflection of a Mage",
         "Sister Hetai"
-      ]
+      ],
+      "id": 8043
     },
     {
       "name": "Fox Paw",
@@ -2322,7 +2486,8 @@
         "Fox",
         "Werefox",
         "Black Vixen"
-      ]
+      ],
+      "id": 27462
     },
     {
       "name": "Frazzle Tongue",
@@ -2338,7 +2503,8 @@
         "Weakened Frazzlemaw",
         "Mawhawk",
         "Reflection of Mawhawk"
-      ]
+      ],
+      "id": 20198
     },
     {
       "name": "Frozen Lightning",
@@ -2352,7 +2518,8 @@
         "Anomaly",
         "Rupture",
         "Mazzinor"
-      ]
+      ],
+      "id": 23519
     },
     {
       "name": "Fur Armor",
@@ -2383,7 +2550,8 @@
         "Michael the Stalwart",
         "Owin",
         "Shadowpelt"
-      ]
+      ],
+      "id": 22085
     },
     {
       "name": "Gauze Bandage",
@@ -2396,7 +2564,8 @@
         "Elder Mummy",
         "Mummy",
         "Mahatheb"
-      ]
+      ],
+      "id": 9649
     },
     {
       "name": "Ghastly Dragon Head",
@@ -2408,7 +2577,8 @@
         "Ghastly Dragon",
         "Ethershreck",
         "Hatebreeder"
-      ]
+      ],
+      "id": 10449
     },
     {
       "name": "Giant Pacifier",
@@ -2421,7 +2591,8 @@
         "Moohtant",
         "Bullwark",
         "Moohtant Wallbreaker"
-      ]
+      ],
+      "id": 21199
     },
     {
       "name": "Giant Tusk",
@@ -2432,7 +2603,8 @@
       "providers": [
         "Creepy Crawler",
         "Crypt Fiend"
-      ]
+      ],
+      "id": 52707
     },
     {
       "name": "Girlish Hair Decoration",
@@ -2443,7 +2615,8 @@
       "providers": [
         "Amazon",
         "Valkyrie"
-      ]
+      ],
+      "id": 11443
     },
     {
       "name": "Girtablilu Warrior Carapace",
@@ -2453,7 +2626,8 @@
       "category": "Creature's parts",
       "providers": [
         "Girtablilu Warrior"
-      ]
+      ],
+      "id": 36971
     },
     {
       "name": "Glacier Mask",
@@ -2483,7 +2657,8 @@
         "Shardhead",
         "The Bloodweb",
         "Zushuka"
-      ]
+      ],
+      "id": 829
     },
     {
       "name": "Glacier Robe",
@@ -2518,7 +2693,8 @@
         "Utua Stone Sting",
         "Yakchal",
         "Zushuka"
-      ]
+      ],
+      "id": 824
     },
     {
       "name": "Glacier Shoes",
@@ -2541,7 +2717,8 @@
         "Hirintror",
         "Neferi the Spy",
         "Zushuka"
-      ]
+      ],
+      "id": 819
     },
     {
       "name": "Glob of Acid Slime",
@@ -2553,7 +2730,8 @@
         "Acid Blob",
         "Defiler",
         "Stonerefiner"
-      ]
+      ],
+      "id": 9054
     },
     {
       "name": "Glob of Glooth",
@@ -2565,7 +2743,8 @@
         "Devourer",
         "Glooth Blob",
         "Rot Elemental"
-      ]
+      ],
+      "id": 21182
     },
     {
       "name": "Glob of Tar",
@@ -2576,7 +2755,8 @@
       "providers": [
         "Death Blob",
         "Defiler"
-      ]
+      ],
+      "id": 9055
     },
     {
       "name": "Glooth Axe",
@@ -2595,7 +2775,8 @@
         "Rot Elemental",
         "Glooth Fairy",
         "Lisa"
-      ]
+      ],
+      "id": 21180
     },
     {
       "name": "Glooth Blade",
@@ -2614,7 +2795,8 @@
         "Rot Elemental",
         "Glooth Fairy",
         "Lisa"
-      ]
+      ],
+      "id": 21179
     },
     {
       "name": "Glooth Cape",
@@ -2629,7 +2811,8 @@
         "Glooth Fairy",
         "Lisa",
         "Tremor Worm"
-      ]
+      ],
+      "id": 21164
     },
     {
       "name": "Glooth Club",
@@ -2648,7 +2831,8 @@
         "Rot Elemental",
         "Glooth Fairy",
         "Lisa"
-      ]
+      ],
+      "id": 21178
     },
     {
       "name": "Glooth Injection Tube",
@@ -2659,7 +2843,8 @@
       "providers": [
         "Glooth Golem",
         "Glooth Fairy"
-      ]
+      ],
+      "id": 21103
     },
     {
       "name": "Glorious Axe",
@@ -2684,7 +2869,8 @@
         "Feroxa",
         "Ghazbaran",
         "Weakened Shlorg"
-      ]
+      ],
+      "id": 7454
     },
     {
       "name": "Glowing Rune",
@@ -2702,7 +2888,8 @@
         "Knowledge Elemental",
         "Rage Squid",
         "Squid Warden"
-      ]
+      ],
+      "id": 28570
     },
     {
       "name": "Goanna Claw",
@@ -2713,7 +2900,8 @@
       "providers": [
         "Adult Goanna",
         "Young Goanna"
-      ]
+      ],
+      "id": 31561
     },
     {
       "name": "Goanna Meat",
@@ -2725,7 +2913,8 @@
         "Adult Goanna",
         "Sun-marked Goanna",
         "Young Goanna"
-      ]
+      ],
+      "id": 31560
     },
     {
       "name": "Golden Legs",
@@ -2756,7 +2945,8 @@
         "Realityquake",
         "Rotrender Scourge of Azzilon",
         "World Devourer"
-      ]
+      ],
+      "id": 3364
     },
     {
       "name": "Golden Lotus Brooch",
@@ -2778,7 +2968,8 @@
         "The Lily of Night",
         "The Moonlight Aster",
         "The Winter Bloom"
-      ]
+      ],
+      "id": 21974
     },
     {
       "name": "Golden Sickle",
@@ -2799,7 +2990,8 @@
         "Latrivan",
         "Orshabaal",
         "Rotrender Scourge of Azzilon"
-      ]
+      ],
+      "id": 3306
     },
     {
       "name": "Golden Sun Coin",
@@ -2811,7 +3003,8 @@
         "Feral Werecrocodile",
         "Werecrocodile",
         "Ayana The Crimson Curse"
-      ]
+      ],
+      "id": 43734
     },
     {
       "name": "Gore Horn",
@@ -2821,7 +3014,8 @@
       "category": "Creature's parts",
       "providers": [
         "Gore Horn"
-      ]
+      ],
+      "id": 39377
     },
     {
       "name": "Gorerilla Mane",
@@ -2831,7 +3025,8 @@
       "category": "Creature's parts",
       "providers": [
         "Gorerilla"
-      ]
+      ],
+      "id": 39392
     },
     {
       "name": "Gorerilla Tail",
@@ -2841,7 +3036,8 @@
       "category": "Creature's parts",
       "providers": [
         "Gorerilla"
-      ]
+      ],
+      "id": 39393
     },
     {
       "name": "Gorger Antlers",
@@ -2851,7 +3047,8 @@
       "category": "Creature's parts",
       "providers": [
         "Gorger Inferniarch"
-      ]
+      ],
+      "id": 50059
     },
     {
       "name": "Grappling Hook",
@@ -2861,7 +3058,8 @@
       "category": "Creature's parts",
       "providers": [
         "Pirat Scoundrel"
-      ]
+      ],
+      "id": 35588
     },
     {
       "name": "Green Bandage",
@@ -2871,7 +3069,8 @@
       "category": "Creature's parts",
       "providers": [
         "Putrid Mummy"
-      ]
+      ],
+      "id": 25697
     },
     {
       "name": "Green Parcel",
@@ -2916,7 +3115,8 @@
         "Zavarash",
         "Zomba",
         "Zulazza the Corruptor"
-      ]
+      ],
+      "id": 3415
     },
     {
       "name": "Halberd",
@@ -2955,7 +3155,8 @@
         "Annihilon",
         "Black Knight",
         "Esmeralda"
-      ]
+      ],
+      "id": 3269
     },
     {
       "name": "Half-Digested Stones",
@@ -2965,7 +3166,8 @@
       "category": "Creature's parts",
       "providers": [
         "Stonerefiner"
-      ]
+      ],
+      "id": 27369
     },
     {
       "name": "Half-Eaten Brain",
@@ -2975,7 +3177,8 @@
       "category": "Creature's parts",
       "providers": [
         "Zombie"
-      ]
+      ],
+      "id": 9659
     },
     {
       "name": "Harpy Feathers",
@@ -2985,7 +3188,8 @@
       "category": "Creature's parts",
       "providers": [
         "Harpy"
-      ]
+      ],
+      "id": 40585
     },
     {
       "name": "Headpecker Beak",
@@ -2995,7 +3199,8 @@
       "category": "Creature's parts",
       "providers": [
         "Headpecker"
-      ]
+      ],
+      "id": 39387
     },
     {
       "name": "Headpecker Feather",
@@ -3005,7 +3210,8 @@
       "category": "Creature's parts",
       "providers": [
         "Headpecker"
-      ]
+      ],
+      "id": 39388
     },
     {
       "name": "Heart Amphora",
@@ -3015,7 +3221,8 @@
       "category": "Creature's parts",
       "providers": [
         "Norcferatu Heartless"
-      ]
+      ],
+      "id": 51484
     },
     {
       "name": "Heavy Machete",
@@ -3031,7 +3238,8 @@
         "Menacing Carnivor",
         "Fahim The Wise",
         "Merikh the Slaughterer"
-      ]
+      ],
+      "id": 3330
     },
     {
       "name": "Heavy Trident",
@@ -3050,7 +3258,8 @@
         "Deepling Warrior",
         "Deepling Worker",
         "Neutral Deepling Warrior"
-      ]
+      ],
+      "id": 12683
     },
     {
       "name": "Hellhound Slobber",
@@ -3061,7 +3270,8 @@
       "providers": [
         "Hellhound",
         "Kerberos"
-      ]
+      ],
+      "id": 9637
     },
     {
       "name": "Hemp Rope",
@@ -3071,7 +3281,8 @@
       "category": "Creature's parts",
       "providers": [
         "Choking Fear"
-      ]
+      ],
+      "id": 20206
     },
     {
       "name": "Hibiscus Dress",
@@ -3085,7 +3296,8 @@
         "Vampire Bride",
         "Wyrm",
         "Boreth"
-      ]
+      ],
+      "id": 8045
     },
     {
       "name": "Hideous Chunk",
@@ -3095,7 +3307,8 @@
       "category": "Creature's parts",
       "providers": [
         "Hideous Fungus"
-      ]
+      ],
+      "id": 16140
     },
     {
       "name": "High Guard Flag",
@@ -3105,7 +3318,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lizard High Guard"
-      ]
+      ],
+      "id": 10415
     },
     {
       "name": "High Guard Shoulderplates",
@@ -3115,7 +3329,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lizard High Guard"
-      ]
+      ],
+      "id": 10416
     },
     {
       "name": "Holy Ash",
@@ -3129,7 +3344,8 @@
         "Lost Husher",
         "Psychic Spirit Elemental",
         "Spirit Overlord"
-      ]
+      ],
+      "id": 17850
     },
     {
       "name": "Horoscope",
@@ -3141,7 +3357,8 @@
         "Blood Hand",
         "Blood Priest",
         "Shadow Pupil"
-      ]
+      ],
+      "id": 18926
     },
     {
       "name": "Human Teeth",
@@ -3153,7 +3370,8 @@
         "Dark Carnisylvan",
         "Hulking Carnisylvan",
         "Poisonous Carnisylvan"
-      ]
+      ],
+      "id": 36807
     },
     {
       "name": "Humongous Chunk",
@@ -3163,7 +3381,8 @@
       "category": "Creature's parts",
       "providers": [
         "Humongous Fungus"
-      ]
+      ],
+      "id": 16139
     },
     {
       "name": "Hydra Head",
@@ -3174,7 +3393,8 @@
       "providers": [
         "Hydra",
         "Lion Hydra"
-      ]
+      ],
+      "id": 10282
     },
     {
       "name": "Hydrophytes",
@@ -3184,7 +3404,8 @@
       "category": "Plants",
       "providers": [
         "Two-Headed Turtle"
-      ]
+      ],
+      "id": 39410
     },
     {
       "name": "Ice Flower",
@@ -3196,7 +3417,8 @@
         "Crazed Winter Rearguard",
         "Crazed Winter Vanguard",
         "Soul-broken Harbinger"
-      ]
+      ],
+      "id": 13842
     },
     {
       "name": "Idol of the Forge",
@@ -3206,7 +3428,8 @@
       "category": "Creature's parts",
       "providers": [
         "Bulltaur Forgepriest"
-      ]
+      ],
+      "id": 44742
     },
     {
       "name": "Inkwell",
@@ -3220,7 +3443,8 @@
         "Ink Splash",
         "Rage Squid",
         "Squid Warden"
-      ]
+      ],
+      "id": 3509
     },
     {
       "name": "Instable Proto Matter",
@@ -3232,7 +3456,8 @@
         "Brain Squid",
         "Dread Intruder",
         "Outburst"
-      ]
+      ],
+      "id": 23516
     },
     {
       "name": "Ivory Carving",
@@ -3243,7 +3468,8 @@
       "providers": [
         "Werelion",
         "Werelioness"
-      ]
+      ],
+      "id": 33945
     },
     {
       "name": "Key to the Drowned Library",
@@ -3254,7 +3480,8 @@
       "providers": [
         "Deepling Master Librarian",
         "Deepling Spellsinger"
-      ]
+      ],
+      "id": 14009
     },
     {
       "name": "Knife",
@@ -3276,7 +3503,8 @@
         "Ancient Lion Knight",
         "Apprentice Sheng",
         "Faceless Bane"
-      ]
+      ],
+      "id": 3291
     },
     {
       "name": "Knight Axe",
@@ -3313,7 +3541,8 @@
         "Sir Leonard",
         "Sir Leopold",
         "The Enraged Thorn Knight"
-      ]
+      ],
+      "id": 3318
     },
     {
       "name": "Knight Legs",
@@ -3355,7 +3584,8 @@
         "The Bloodweb",
         "The Old Widow",
         "Tormentor"
-      ]
+      ],
+      "id": 3371
     },
     {
       "name": "Kongra's Shoulderpad",
@@ -3366,7 +3596,8 @@
       "providers": [
         "Cursed Ape",
         "Kongra"
-      ]
+      ],
+      "id": 11471
     },
     {
       "name": "Lamassu Hoof",
@@ -3377,7 +3608,8 @@
       "providers": [
         "Crypt Warden",
         "Lamassu"
-      ]
+      ],
+      "id": 31441
     },
     {
       "name": "Lamassu Horn",
@@ -3388,7 +3620,8 @@
       "providers": [
         "Crypt Warden",
         "Lamassu"
-      ]
+      ],
+      "id": 31442
     },
     {
       "name": "Lancer Beetle Shell",
@@ -3399,7 +3632,8 @@
       "providers": [
         "Lancer Beetle",
         "The Blightfather"
-      ]
+      ],
+      "id": 10455
     },
     {
       "name": "Lancet",
@@ -3410,7 +3644,8 @@
       "providers": [
         "Blood Hand",
         "Blood Priest"
-      ]
+      ],
+      "id": 18925
     },
     {
       "name": "Lavafungus Head",
@@ -3420,7 +3655,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lavafungus"
-      ]
+      ],
+      "id": 36785
     },
     {
       "name": "Lavafungus Ring",
@@ -3430,7 +3666,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lavafungus"
-      ]
+      ],
+      "id": 36786
     },
     {
       "name": "Lavaworm Jaws",
@@ -3440,7 +3677,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lavaworm"
-      ]
+      ],
+      "id": 36771
     },
     {
       "name": "Lavaworm Spike Roots",
@@ -3450,7 +3688,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lavaworm"
-      ]
+      ],
+      "id": 36769
     },
     {
       "name": "Lavaworm Spikes",
@@ -3460,7 +3699,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lavaworm"
-      ]
+      ],
+      "id": 36770
     },
     {
       "name": "Letter",
@@ -3470,7 +3710,8 @@
       "category": "Delivery Task Item",
       "providers": [
         "Postman"
-      ]
+      ],
+      "id": 3505
     },
     {
       "name": "Lightning Boots",
@@ -3492,7 +3733,8 @@
         "Mazzinor",
         "Omrafir",
         "Prince Drazzak"
-      ]
+      ],
+      "id": 820
     },
     {
       "name": "Lightning Headband",
@@ -3527,7 +3769,8 @@
         "Sister Hetai",
         "Tyrn",
         "World Devourer"
-      ]
+      ],
+      "id": 828
     },
     {
       "name": "Lightning Robe",
@@ -3553,7 +3796,8 @@
         "Realityquake",
         "Tyrn",
         "Zarabustor"
-      ]
+      ],
+      "id": 825
     },
     {
       "name": "Lime Tart",
@@ -3564,7 +3808,8 @@
       "providers": [
         "Nibblemaw",
         "Sugar Daddy"
-      ]
+      ],
+      "id": 48255
     },
     {
       "name": "Liodile Fang",
@@ -3574,7 +3819,8 @@
       "category": "Creature's parts",
       "providers": [
         "Liodile"
-      ]
+      ],
+      "id": 40583
     },
     {
       "name": "Lion Cloak Patch",
@@ -3587,7 +3833,8 @@
         "Usurper Commander",
         "Usurper Knight",
         "Usurper Warlock"
-      ]
+      ],
+      "id": 34162
     },
     {
       "name": "Lion Crest",
@@ -3600,7 +3847,8 @@
         "Usurper Commander",
         "Usurper Knight",
         "Usurper Warlock"
-      ]
+      ],
+      "id": 34160
     },
     {
       "name": "Lost Basher's Spike",
@@ -3610,7 +3858,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lost Basher"
-      ]
+      ],
+      "id": 17826
     },
     {
       "name": "Lost Bracers",
@@ -3620,7 +3869,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lost Thrower"
-      ]
+      ],
+      "id": 17853
     },
     {
       "name": "Luminous Orb",
@@ -3644,7 +3894,8 @@
         "The Freezing Time Guardian",
         "The Sandking",
         "The Time Guardian"
-      ]
+      ],
+      "id": 11454
     },
     {
       "name": "Lump of Earth",
@@ -3663,7 +3914,8 @@
         "Earth Overlord",
         "Sulphur Scuttler",
         "The Shatterer"
-      ]
+      ],
+      "id": 10305
     },
     {
       "name": "Mad Froth",
@@ -3673,7 +3925,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lost Thrower"
-      ]
+      ],
+      "id": 17854
     },
     {
       "name": "Magma Boots",
@@ -3705,7 +3958,8 @@
         "Sister Hetai",
         "The Souldespoiler",
         "Warlord Ruzad"
-      ]
+      ],
+      "id": 818
     },
     {
       "name": "Magma Clump",
@@ -3720,7 +3974,8 @@
         "Walking Pillar",
         "Wandering Pillar",
         "Weeper"
-      ]
+      ],
+      "id": 16130
     },
     {
       "name": "Magma Coat",
@@ -3770,7 +4025,8 @@
         "The Sandking",
         "The Time Guardian",
         "Urmahlullu the Weakened"
-      ]
+      ],
+      "id": 826
     },
     {
       "name": "Magma Legs",
@@ -3810,7 +4066,8 @@
         "The Time Guardian",
         "Utua Stone Sting",
         "Yirkas Blue Scales"
-      ]
+      ],
+      "id": 821
     },
     {
       "name": "Magma Monocle",
@@ -3842,7 +4099,8 @@
         "Scarlett Etzel",
         "Sir Baeloc",
         "Urmahlullu the Weakened"
-      ]
+      ],
+      "id": 827
     },
     {
       "name": "Makara Fin",
@@ -3852,7 +4110,8 @@
       "category": "Creature's parts",
       "providers": [
         "Makara"
-      ]
+      ],
+      "id": 39401
     },
     {
       "name": "Makara Tongue",
@@ -3862,7 +4121,8 @@
       "category": "Creature's parts",
       "providers": [
         "Makara"
-      ]
+      ],
+      "id": 39402
     },
     {
       "name": "Mammoth Tusk",
@@ -3873,7 +4133,8 @@
       "providers": [
         "Mammoth",
         "The Bloodtusk"
-      ]
+      ],
+      "id": 10321
     },
     {
       "name": "Mammoth Whopper",
@@ -3889,7 +4150,8 @@
         "Memory of a Mammoth",
         "Skeleton Elite Warrior",
         "Ocyakao"
-      ]
+      ],
+      "id": 7381
     },
     {
       "name": "Manticore Ear",
@@ -3900,7 +4162,8 @@
       "providers": [
         "Manticore",
         "Enusat the Onyx Wing"
-      ]
+      ],
+      "id": 31440
     },
     {
       "name": "Manticore Tail",
@@ -3911,7 +4174,8 @@
       "providers": [
         "Manticore",
         "Enusat the Onyx Wing"
-      ]
+      ],
+      "id": 31439
     },
     {
       "name": "Mantosaurus Jaw",
@@ -3921,7 +4185,8 @@
       "category": "Creature's parts",
       "providers": [
         "Mantosaurus"
-      ]
+      ],
+      "id": 39386
     },
     {
       "name": "Mega Dragon Heart",
@@ -3931,7 +4196,8 @@
       "category": "Creature's parts",
       "providers": [
         "Mega Dragon"
-      ]
+      ],
+      "id": 44745
     },
     {
       "name": "Mercenary Sword",
@@ -3965,7 +4231,8 @@
         "The Noxious Spawn",
         "Unaz the Mean",
         "Utua Stone Sting"
-      ]
+      ],
+      "id": 7386
     },
     {
       "name": "Mercurial Wing",
@@ -3975,7 +4242,8 @@
       "category": "Creature's parts",
       "providers": [
         "Mercurial Menace"
-      ]
+      ],
+      "id": 39395
     },
     {
       "name": "Metal Bat",
@@ -3989,7 +4257,8 @@
         "Metal Gargoyle",
         "Rustheap Golem",
         "The Unarmored Voidborn"
-      ]
+      ],
+      "id": 21171
     },
     {
       "name": "Metal Jaw",
@@ -3999,7 +4268,8 @@
       "category": "Creature's parts",
       "providers": [
         "Metal Gargoyle"
-      ]
+      ],
+      "id": 21193
     },
     {
       "name": "Metal Spats",
@@ -4018,7 +4288,8 @@
         "Sabretooth",
         "Walker",
         "Sister Hetai"
-      ]
+      ],
+      "id": 21169
     },
     {
       "name": "Mino Lance",
@@ -4029,7 +4300,8 @@
       "providers": [
         "Minotaur Amazon",
         "Minotaur Cult Follower"
-      ]
+      ],
+      "id": 21174
     },
     {
       "name": "Mino Shield",
@@ -4045,7 +4317,8 @@
         "Thanatursus",
         "Usurper Archer",
         "The False God"
-      ]
+      ],
+      "id": 21175
     },
     {
       "name": "Molten Dragon Essence",
@@ -4055,7 +4328,8 @@
       "category": "Creature's parts",
       "providers": [
         "Mega Dragon"
-      ]
+      ],
+      "id": 44744
     },
     {
       "name": "Mould Heart",
@@ -4065,7 +4339,8 @@
       "category": "Creature's parts",
       "providers": [
         "Mould Phantom"
-      ]
+      ],
+      "id": 34141
     },
     {
       "name": "Mouldy Powder",
@@ -4076,7 +4351,8 @@
       "providers": [
         "Pirat Bombardier",
         "Pirat Mate"
-      ]
+      ],
+      "id": 35596
     },
     {
       "name": "Mummified Demon Finger",
@@ -4091,7 +4367,8 @@
         "Hellhunter Inferniarch",
         "Sineater Inferniarch",
         "Spellreaper Inferniarch"
-      ]
+      ],
+      "id": 49908
     },
     {
       "name": "Mutated Bat Ear",
@@ -4102,7 +4379,8 @@
       "providers": [
         "Mutated Bat",
         "Bruise Payne"
-      ]
+      ],
+      "id": 9662
     },
     {
       "name": "Mutated Flesh",
@@ -4112,7 +4390,8 @@
       "category": "Creature's parts",
       "providers": [
         "Mutated Human"
-      ]
+      ],
+      "id": 10308
     },
     {
       "name": "Mutated Rat Tail",
@@ -4123,7 +4402,8 @@
       "providers": [
         "Mutated Rat",
         "Esmeralda"
-      ]
+      ],
+      "id": 9668
     },
     {
       "name": "Naga Archer Scales",
@@ -4133,7 +4413,8 @@
       "category": "Creature's parts",
       "providers": [
         "Naga Archer"
-      ]
+      ],
+      "id": 39413
     },
     {
       "name": "Naga Armring",
@@ -4144,7 +4425,8 @@
       "providers": [
         "Naga Archer",
         "Naga Warrior"
-      ]
+      ],
+      "id": 39411
     },
     {
       "name": "Naga Earring",
@@ -4155,7 +4437,8 @@
       "providers": [
         "Naga Archer",
         "Naga Warrior"
-      ]
+      ],
+      "id": 39412
     },
     {
       "name": "Naga Warrior Scales",
@@ -4165,7 +4448,8 @@
       "category": "Creature's parts",
       "providers": [
         "Naga Warrior"
-      ]
+      ],
+      "id": 39414
     },
     {
       "name": "Necromantic Core",
@@ -4180,7 +4464,8 @@
         "Cyclursus",
         "Roaming Dread",
         "Walking Dread"
-      ]
+      ],
+      "id": 52705
     },
     {
       "name": "Necromantic Rust",
@@ -4191,7 +4476,8 @@
       "providers": [
         "Rustheap Golem",
         "The False God"
-      ]
+      ],
+      "id": 21196
     },
     {
       "name": "Night Harpy Feathers",
@@ -4201,7 +4487,8 @@
       "category": "Creature's parts",
       "providers": [
         "Night Harpy"
-      ]
+      ],
+      "id": 52633
     },
     {
       "name": "Nighthunter Wing",
@@ -4211,7 +4498,8 @@
       "category": "Creature's parts",
       "providers": [
         "Nighthunter"
-      ]
+      ],
+      "id": 39381
     },
     {
       "name": "Nimmersatt's Seal",
@@ -4223,7 +4511,8 @@
         "Dragolisk",
         "Mega Dragon",
         "Wardragon"
-      ]
+      ],
+      "id": 44743
     },
     {
       "name": "Odd Organ",
@@ -4237,7 +4526,8 @@
         "Essence of Malice",
         "Rupture",
         "The Souldespoiler"
-      ]
+      ],
+      "id": 23510
     },
     {
       "name": "Ogre Ear Stud",
@@ -4255,7 +4545,8 @@
         "Ogre Sage",
         "Ogre Savage",
         "Ogre Shaman"
-      ]
+      ],
+      "id": 22188
     },
     {
       "name": "Old Girtablilu Carapace",
@@ -4265,7 +4556,8 @@
       "category": "Creature's parts",
       "providers": [
         "Venerable Girtablilu"
-      ]
+      ],
+      "id": 36972
     },
     {
       "name": "Orcish Axe",
@@ -4289,7 +4581,8 @@
         "Cublarc the Plunderer",
         "Vladrukh",
         "Warlord Ruzad"
-      ]
+      ],
+      "id": 3316
     },
     {
       "name": "Orcish Gear",
@@ -4300,7 +4593,8 @@
       "providers": [
         "Orc Berserker",
         "Orc Cult Inquisitor"
-      ]
+      ],
+      "id": 11477
     },
     {
       "name": "Orcish Toothbrush",
@@ -4310,7 +4604,8 @@
       "category": "Creature's parts",
       "providers": [
         "Orclops Bloodbreaker"
-      ]
+      ],
+      "id": 51477
     },
     {
       "name": "Ornate Crossbow",
@@ -4340,7 +4635,8 @@
         "Melting Frozen Horror",
         "Vok the Freakish",
         "Yirkas Blue Scales"
-      ]
+      ],
+      "id": 14247
     },
     {
       "name": "Package",
@@ -4360,7 +4656,8 @@
       "category": "Creature's parts",
       "providers": [
         "Hellflayer"
-      ]
+      ],
+      "id": 22729
     },
     {
       "name": "Paper Boat",
@@ -4370,7 +4667,8 @@
       "category": "Creature's parts",
       "providers": [
         "Bluebeak"
-      ]
+      ],
+      "id": 51420
     },
     {
       "name": "Paper Plane",
@@ -4380,7 +4678,8 @@
       "category": "Creature's parts",
       "providers": [
         "Shell Drake"
-      ]
+      ],
+      "id": 51419
     },
     {
       "name": "Parcel",
@@ -4390,7 +4689,8 @@
       "category": "Delivery Task Item",
       "providers": [
         "Postman"
-      ]
+      ],
+      "id": 3503
     },
     {
       "name": "Piece of Draconian Steel",
@@ -4403,7 +4703,8 @@
         "Earl Osam",
         "Soul of Dragonking Zyrtarch",
         "The False God"
-      ]
+      ],
+      "id": 5889
     },
     {
       "name": "Piece of Frozen Night",
@@ -4414,7 +4715,8 @@
       "providers": [
         "Gloom Maw",
         "Norcferatu Nightweaver"
-      ]
+      ],
+      "id": 51474
     },
     {
       "name": "Piece of Hell Steel",
@@ -4431,7 +4733,8 @@
         "Sir Baeloc",
         "The False God",
         "The Source of Corruption"
-      ]
+      ],
+      "id": 5888
     },
     {
       "name": "Piece of Warrior Armor",
@@ -4443,7 +4746,8 @@
         "Minotaur Guard",
         "Minotaur Invader",
         "The Horned Fox"
-      ]
+      ],
+      "id": 11482
     },
     {
       "name": "Pirat's Tail",
@@ -4456,7 +4760,8 @@
         "Pirat Cutthroat",
         "Pirat Mate",
         "Pirat Scoundrel"
-      ]
+      ],
+      "id": 35573
     },
     {
       "name": "Pirate Coin",
@@ -4471,7 +4776,8 @@
         "Pirat Scoundrel",
         "Ratmiral Blackwhiskers",
         "Tentugly's Head"
-      ]
+      ],
+      "id": 35572
     },
     {
       "name": "Plasma Pearls",
@@ -4489,7 +4795,8 @@
         "Essence of Malice",
         "Rupture",
         "The Souldespoiler"
-      ]
+      ],
+      "id": 23506
     },
     {
       "name": "Plasmatic Lightning",
@@ -4502,7 +4809,8 @@
         "Reality Reaver",
         "Eradicator",
         "The Scourge of Oblivion"
-      ]
+      ],
+      "id": 23520
     },
     {
       "name": "Plate Legs",
@@ -4528,7 +4836,8 @@
         "Grand Mother Foulscale",
         "The Snapper",
         "Warlord Ruzad"
-      ]
+      ],
+      "id": 3557
     },
     {
       "name": "Poisoned Fang",
@@ -4538,7 +4847,8 @@
       "category": "Creature's parts",
       "providers": [
         "Blood Beast"
-      ]
+      ],
+      "id": 21195
     },
     {
       "name": "Pool of Chitinous Glue",
@@ -4548,7 +4858,8 @@
       "category": "Creature's parts",
       "providers": [
         "Retching Horror"
-      ]
+      ],
+      "id": 20207
     },
     {
       "name": "Pot of Orcish Warpaint",
@@ -4558,7 +4869,8 @@
       "category": "Creature's parts",
       "providers": [
         "Norcferatu Heartless"
-      ]
+      ],
+      "id": 51476
     },
     {
       "name": "Prehemoth Claw",
@@ -4568,7 +4880,8 @@
       "category": "Creature's parts",
       "providers": [
         "Hulking Prehemoth"
-      ]
+      ],
+      "id": 39383
     },
     {
       "name": "Prehemoth Horns",
@@ -4578,7 +4891,8 @@
       "category": "Creature's parts",
       "providers": [
         "Hulking Prehemoth"
-      ]
+      ],
+      "id": 39382
     },
     {
       "name": "Present Box",
@@ -4598,7 +4912,8 @@
       "category": "Creature's parts",
       "providers": [
         "Hawk Hopper"
-      ]
+      ],
+      "id": 51428
     },
     {
       "name": "Pulverized Ore",
@@ -4610,7 +4925,8 @@
         "Cliff Strider",
         "Drillworm",
         "Orewalker"
-      ]
+      ],
+      "id": 16133
     },
     {
       "name": "Quara Bone",
@@ -4622,7 +4938,8 @@
         "Quara Predator",
         "Quara Predator Scout",
         "Renegade Quara Predator"
-      ]
+      ],
+      "id": 11491
     },
     {
       "name": "Quara Eye",
@@ -4634,7 +4951,8 @@
         "Quara Hydromancer",
         "Quara Hydromancer Scout",
         "Renegade Quara Hydromancer"
-      ]
+      ],
+      "id": 11488
     },
     {
       "name": "Quara Pincers",
@@ -4647,7 +4965,8 @@
         "Quara Pincher Scout",
         "Quara Raider",
         "Renegade Quara Pincher"
-      ]
+      ],
+      "id": 11490
     },
     {
       "name": "Quara Tentacle",
@@ -4659,7 +4978,8 @@
         "Quara Constrictor",
         "Quara Constrictor Scout",
         "Renegade Quara Constrictor"
-      ]
+      ],
+      "id": 11487
     },
     {
       "name": "Ratana",
@@ -4672,7 +4992,8 @@
         "Corym Skirmisher",
         "Corym Vanguard",
         "Werehyaena"
-      ]
+      ],
+      "id": 17812
     },
     {
       "name": "Raw Meat",
@@ -4685,7 +5006,8 @@
         "Clomp",
         "Museum Stone Rhino",
         "Stone Rhino"
-      ]
+      ],
+      "id": 22186
     },
     {
       "name": "Red Goanna Scale",
@@ -4696,7 +5018,8 @@
       "providers": [
         "Adult Goanna",
         "Sun-marked Goanna"
-      ]
+      ],
+      "id": 31558
     },
     {
       "name": "Red Hair Dye",
@@ -4709,7 +5032,8 @@
         "Lost Exile",
         "Lost Husher",
         "Lost Thrower"
-      ]
+      ],
+      "id": 17855
     },
     {
       "name": "Relic Sword",
@@ -4733,7 +5057,8 @@
         "Madareth",
         "Shadowpelt",
         "Thul"
-      ]
+      ],
+      "id": 7383
     },
     {
       "name": "Resin Parasite",
@@ -4745,7 +5070,8 @@
         "Rootthing Amber Shaper",
         "Rootthing Bug Tracker",
         "Rootthing Nutshell"
-      ]
+      ],
+      "id": 48511
     },
     {
       "name": "Resinous Fish Fin",
@@ -4757,7 +5083,8 @@
         "Quara Looter",
         "Quara Plunderer",
         "Quara Raider"
-      ]
+      ],
+      "id": 48509
     },
     {
       "name": "Rhindeer Antlers",
@@ -4767,7 +5094,8 @@
       "category": "Creature's parts",
       "providers": [
         "Rhindeer"
-      ]
+      ],
+      "id": 40587
     },
     {
       "name": "Ripper Lance",
@@ -4784,7 +5112,8 @@
         "Werepanther",
         "Fleshslicer",
         "Mindmasher"
-      ]
+      ],
+      "id": 3346
     },
     {
       "name": "Ripptor Claw",
@@ -4794,7 +5123,8 @@
       "category": "Creature's parts",
       "providers": [
         "Noxious Ripptor"
-      ]
+      ],
+      "id": 39389
     },
     {
       "name": "Ripptor Scales",
@@ -4804,7 +5134,8 @@
       "category": "Creature's parts",
       "providers": [
         "Noxious Ripptor"
-      ]
+      ],
+      "id": 39391
     },
     {
       "name": "Ritual Bone Knife",
@@ -4814,7 +5145,8 @@
       "category": "Sword",
       "providers": [
         "Varg"
-      ]
+      ],
+      "id": 51475
     },
     {
       "name": "Ritual Tooth",
@@ -4829,7 +5161,8 @@
         "Iks Pututu",
         "Iks Yapunac",
         "Ahau"
-      ]
+      ],
+      "id": 40528
     },
     {
       "name": "Roots",
@@ -4839,7 +5172,8 @@
       "category": "Creature's parts",
       "providers": [
         "Branchy Crawler"
-      ]
+      ],
+      "id": 33938
     },
     {
       "name": "Rotten Feather",
@@ -4853,7 +5187,8 @@
         "Iks Chuka",
         "Iks Pututu",
         "Ahau"
-      ]
+      ],
+      "id": 40527
     },
     {
       "name": "Rotten Piece of Cloth",
@@ -4863,7 +5198,8 @@
       "category": "Creature's parts",
       "providers": [
         "Ghoul"
-      ]
+      ],
+      "id": 10291
     },
     {
       "name": "Rotten Roots",
@@ -4880,7 +5216,8 @@
         "Rotten Man-Maggot",
         "Sopping Carcass",
         "Sopping Corpus"
-      ]
+      ],
+      "id": 43849
     },
     {
       "name": "Rubber Cap",
@@ -4896,7 +5233,8 @@
         "Rotten Golem",
         "Turbulent Elemental",
         "Glooth Fairy"
-      ]
+      ],
+      "id": 21165
     },
     {
       "name": "Sabretooth Fur",
@@ -4906,7 +5244,8 @@
       "category": "Creature's parts",
       "providers": [
         "Sabretooth"
-      ]
+      ],
+      "id": 39378
     },
     {
       "name": "Sandcrawler Shell",
@@ -4916,7 +5255,8 @@
       "category": "Creature's parts",
       "providers": [
         "Sandcrawler"
-      ]
+      ],
+      "id": 10456
     },
     {
       "name": "Scale of Corruption",
@@ -4927,7 +5267,8 @@
       "providers": [
         "Draken Abomination",
         "Lizard Chosen"
-      ]
+      ],
+      "id": 11673
     },
     {
       "name": "Scarab Pincers",
@@ -4939,7 +5280,8 @@
         "Ancient Scarab",
         "Ancient Spawn of Morgathla",
         "Fleshcrawler"
-      ]
+      ],
+      "id": 9631
     },
     {
       "name": "Scimitar",
@@ -4963,7 +5305,8 @@
         "Undead Gladiator",
         "Ushuriel",
         "Warlord Ruzad"
-      ]
+      ],
+      "id": 3307
     },
     {
       "name": "Scorpion Charm",
@@ -4974,7 +5317,8 @@
       "providers": [
         "Venerable Girtablilu",
         "Girtablilu Warrior"
-      ]
+      ],
+      "id": 36822
     },
     {
       "name": "Scroll of Heroic Deeds",
@@ -4986,7 +5330,8 @@
         "Hero",
         "Renegade Knight",
         "Vile Grandmaster"
-      ]
+      ],
+      "id": 11510
     },
     {
       "name": "Scythe Leg",
@@ -4998,7 +5343,8 @@
         "Nightmare",
         "Nightmare Scion",
         "Tormentor"
-      ]
+      ],
+      "id": 10312
     },
     {
       "name": "Sealing Wax",
@@ -5008,7 +5354,8 @@
       "category": "Creature's parts",
       "providers": [
         "Lion Hydra"
-      ]
+      ],
+      "id": 51426
     },
     {
       "name": "Shaggy Tail",
@@ -5021,7 +5368,8 @@
         "Orc Marauder",
         "Cublarc the Plunderer",
         "Fleabringer"
-      ]
+      ],
+      "id": 10407
     },
     {
       "name": "Shamanic Talisman",
@@ -5033,7 +5381,8 @@
         "Animated Ogre Shaman",
         "Ogre Sage",
         "Ogre Shaman"
-      ]
+      ],
+      "id": 22184
     },
     {
       "name": "Shark Fins",
@@ -5044,7 +5393,8 @@
       "providers": [
         "Pirat Cutthroat",
         "Pirat Mate"
-      ]
+      ],
+      "id": 35574
     },
     {
       "name": "Shimmering Beetles",
@@ -5060,7 +5410,8 @@
         "Pooka",
         "Twisted Pooka",
         "Raxias"
-      ]
+      ],
+      "id": 25693
     },
     {
       "name": "Shiny Stone",
@@ -5088,7 +5439,8 @@
         "Merikh the Slaughterer",
         "Stonecracker",
         "The Shatterer"
-      ]
+      ],
+      "id": 10310
     },
     {
       "name": "Silencer Resonating Chamber",
@@ -5098,7 +5450,8 @@
       "category": "Creature's parts",
       "providers": [
         "Silencer"
-      ]
+      ],
+      "id": 20201
     },
     {
       "name": "Silken Bookmark",
@@ -5113,7 +5466,8 @@
         "Energetic Book",
         "Icecold Book",
         "Knowledge Elemental"
-      ]
+      ],
+      "id": 28566
     },
     {
       "name": "Silver Moon Coin",
@@ -5125,7 +5479,8 @@
         "Weretiger",
         "White Weretiger",
         "Tamru The Black"
-      ]
+      ],
+      "id": 43732
     },
     {
       "name": "Silver Poniard",
@@ -5139,7 +5494,8 @@
         "Clavius",
         "Michael the Stalwart",
         "Overseer Osverger"
-      ]
+      ],
+      "id": 52662
     },
     {
       "name": "Sineater Wing",
@@ -5149,7 +5505,8 @@
       "category": "Creature's parts",
       "providers": [
         "Sineater Inferniarch"
-      ]
+      ],
+      "id": 50057
     },
     {
       "name": "Single Human Eye",
@@ -5159,7 +5516,8 @@
       "category": "Creature's parts",
       "providers": [
         "Putrid Mummy"
-      ]
+      ],
+      "id": 25701
     },
     {
       "name": "Skull Fetish",
@@ -5178,7 +5536,8 @@
         "Ogre Savage",
         "Ogre Shaman",
         "The Unarmored Voidborn"
-      ]
+      ],
+      "id": 22191
     },
     {
       "name": "Skullcracker Armor",
@@ -5201,7 +5560,8 @@
         "The Moonlight Aster",
         "The Scourge of Oblivion",
         "Zavarash"
-      ]
+      ],
+      "id": 8061
     },
     {
       "name": "Slimy Leaf Tentacle",
@@ -5212,7 +5572,8 @@
       "providers": [
         "Glooth Anemone",
         "Lisa"
-      ]
+      ],
+      "id": 21197
     },
     {
       "name": "Sliver",
@@ -5222,7 +5583,8 @@
       "category": "Others",
       "providers": [
         "This item cannot be obtained from monsters."
-      ]
+      ],
+      "id": 37109
     },
     {
       "name": "Small Flask of Eyedrops",
@@ -5237,7 +5599,8 @@
         "Bonelord's Phylactery",
         "The Evil Eye",
         "The Gravedigger"
-      ]
+      ],
+      "id": 11512
     },
     {
       "name": "Small Notebook",
@@ -5249,7 +5612,8 @@
         "Hero",
         "Renegade Knight",
         "Vile Grandmaster"
-      ]
+      ],
+      "id": 11450
     },
     {
       "name": "Small Treasure Chest",
@@ -5261,7 +5625,8 @@
         "Pirat Mate",
         "Ratmiral Blackwhiskers",
         "Tentugly's Head"
-      ]
+      ],
+      "id": 35571
     },
     {
       "name": "Small Tropical Fish",
@@ -5271,7 +5636,8 @@
       "category": "Creature's parts",
       "providers": [
         "Two-Headed Turtle"
-      ]
+      ],
+      "id": 39408
     },
     {
       "name": "Spark Sphere",
@@ -5286,7 +5652,8 @@
         "Melting Frozen Horror",
         "The Scourge of Oblivion",
         "The Souldespoiler"
-      ]
+      ],
+      "id": 23518
     },
     {
       "name": "Sparkion Claw",
@@ -5297,7 +5664,8 @@
       "providers": [
         "Instable Sparkion",
         "Sparkion"
-      ]
+      ],
+      "id": 23502
     },
     {
       "name": "Sparkion Legs",
@@ -5308,7 +5676,8 @@
       "providers": [
         "Instable Sparkion",
         "Sparkion"
-      ]
+      ],
+      "id": 23504
     },
     {
       "name": "Sparkion Stings",
@@ -5319,7 +5688,8 @@
       "providers": [
         "Instable Sparkion",
         "Sparkion"
-      ]
+      ],
+      "id": 23505
     },
     {
       "name": "Sparkion Tail",
@@ -5330,7 +5700,8 @@
       "providers": [
         "Instable Sparkion",
         "Sparkion"
-      ]
+      ],
+      "id": 23503
     },
     {
       "name": "Spellbook of Mind Control",
@@ -5374,7 +5745,8 @@
         "Yaga the Crone",
         "Yirkas Blue Scales",
         "Zarabustor"
-      ]
+      ],
+      "id": 8074
     },
     {
       "name": "Spellsinger's Seal",
@@ -5385,7 +5757,8 @@
       "providers": [
         "Deepling Master Librarian",
         "Deepling Spellsinger"
-      ]
+      ],
+      "id": 14008
     },
     {
       "name": "Spellweaver's Robe",
@@ -5416,7 +5789,8 @@
         "Wrathful Archivist",
         "Yirkas Blue Scales",
         "Zamulosh"
-      ]
+      ],
+      "id": 10438
     },
     {
       "name": "Sphinx Tiara",
@@ -5427,7 +5801,8 @@
       "providers": [
         "Feral Sphinx",
         "Sphinx"
-      ]
+      ],
+      "id": 31438
     },
     {
       "name": "Spiked Bracers",
@@ -5437,7 +5812,8 @@
       "category": "Creature's parts",
       "providers": [
         "Norcferatu Nightweaver"
-      ]
+      ],
+      "id": 51479
     },
     {
       "name": "Spiked Gorget",
@@ -5447,7 +5823,8 @@
       "category": "Creature's parts",
       "providers": [
         "Norcferatu Heartless"
-      ]
+      ],
+      "id": 51486
     },
     {
       "name": "Spiked Iron Ball",
@@ -5460,7 +5837,8 @@
         "Lizard Chosen",
         "Lizard High Guard",
         "The Voice of Ruin"
-      ]
+      ],
+      "id": 10408
     },
     {
       "name": "Spiky Club",
@@ -5473,7 +5851,8 @@
         "Corym Vanguard",
         "Orger",
         "Naga Warrior"
-      ]
+      ],
+      "id": 17859
     },
     {
       "name": "Spitter Nose",
@@ -5485,7 +5864,8 @@
         "Spitter",
         "Rotspit",
         "The Hungerer"
-      ]
+      ],
+      "id": 14078
     },
     {
       "name": "Staff Piece",
@@ -5495,7 +5875,8 @@
       "category": "Creature's parts",
       "providers": [
         "Bulltaur Forgepriest"
-      ]
+      ],
+      "id": 44741
     },
     {
       "name": "Stag Parchment",
@@ -5509,7 +5890,8 @@
         "Adlerauge",
         "Clavius",
         "Overseer Osverger"
-      ]
+      ],
+      "id": 52664
     },
     {
       "name": "Stalking Seeds",
@@ -5519,7 +5901,8 @@
       "category": "Creature's parts",
       "providers": [
         "Stalking Stalk"
-      ]
+      ],
+      "id": 39384
     },
     {
       "name": "Stampor Talons",
@@ -5530,7 +5913,8 @@
       "providers": [
         "Stampor",
         "Tromphonyte"
-      ]
+      ],
+      "id": 12313
     },
     {
       "name": "Star Ink",
@@ -5541,7 +5925,8 @@
       "providers": [
         "Bluebeak",
         "Ink Splash"
-      ]
+      ],
+      "id": 51422
     },
     {
       "name": "Stone Wing",
@@ -5551,7 +5936,8 @@
       "category": "Creature's parts",
       "providers": [
         "Gargoyle"
-      ]
+      ],
+      "id": 10278
     },
     {
       "name": "Stonerefiner's Skull",
@@ -5561,7 +5947,8 @@
       "category": "Creature's parts",
       "providers": [
         "Stonerefiner"
-      ]
+      ],
+      "id": 27606
     },
     {
       "name": "Strange Helmet",
@@ -5594,7 +5981,8 @@
         "Michael the Stalwart",
         "Overseer Osverger",
         "Ushuriel"
-      ]
+      ],
+      "id": 3373
     },
     {
       "name": "Strange Substance",
@@ -5604,7 +5992,8 @@
       "category": "Creature's parts",
       "providers": [
         "Bulltaur Alchemist"
-      ]
+      ],
+      "id": 44740
     },
     {
       "name": "Streaked Devourer Eyes",
@@ -5614,7 +6003,8 @@
       "category": "Creature's parts",
       "providers": [
         "Streaked Devourer"
-      ]
+      ],
+      "id": 36772
     },
     {
       "name": "Streaked Devourer Legs",
@@ -5624,7 +6014,8 @@
       "category": "Creature's parts",
       "providers": [
         "Streaked Devourer"
-      ]
+      ],
+      "id": 36774
     },
     {
       "name": "Streaked Devourer Maw",
@@ -5634,7 +6025,8 @@
       "category": "Creature's parts",
       "providers": [
         "Streaked Devourer"
-      ]
+      ],
+      "id": 36773
     },
     {
       "name": "Striped Fur",
@@ -5646,7 +6038,8 @@
         "Mutated Tiger",
         "Tiger",
         "White Tiger"
-      ]
+      ],
+      "id": 10293
     },
     {
       "name": "Sulphider Shell",
@@ -5656,7 +6049,8 @@
       "category": "Creature's parts",
       "providers": [
         "Sulphider"
-      ]
+      ],
+      "id": 39375
     },
     {
       "name": "Sulphur Powder",
@@ -5667,7 +6061,8 @@
       "providers": [
         "Sulphider",
         "Sulphur Spouter"
-      ]
+      ],
+      "id": 39376
     },
     {
       "name": "Sulphurous Stone",
@@ -5683,7 +6078,8 @@
         "Wandering Pillar",
         "Grorlam",
         "Sulphur Scuttler"
-      ]
+      ],
+      "id": 10315
     },
     {
       "name": "Swampling Club",
@@ -5696,7 +6092,8 @@
         "Minotaur Occultist",
         "Swampling",
         "Wilting Leaf Golem"
-      ]
+      ],
+      "id": 17824
     },
     {
       "name": "Swarmer Antenna",
@@ -5706,7 +6103,8 @@
       "category": "Creature's parts",
       "providers": [
         "Swarmer"
-      ]
+      ],
+      "id": 14076
     },
     {
       "name": "Tail of Corruption",
@@ -5716,7 +6114,8 @@
       "category": "Creature's parts",
       "providers": [
         "Draken Abomination"
-      ]
+      ],
+      "id": 11672
     },
     {
       "name": "Taurus Mace",
@@ -5728,7 +6127,8 @@
         "Minotaur Cult Zealot",
         "Minotaur Mage",
         "Worm Priestess"
-      ]
+      ],
+      "id": 7425
     },
     {
       "name": "Telescope Eye",
@@ -5738,7 +6138,8 @@
       "category": "Creature's parts",
       "providers": [
         "Cloak of Terror"
-      ]
+      ],
+      "id": 33934
     },
     {
       "name": "Terra Boots",
@@ -5784,7 +6185,8 @@
         "Ravenous Hunger",
         "Sister Hetai",
         "Terofar"
-      ]
+      ],
+      "id": 813
     },
     {
       "name": "Terra Hood",
@@ -5826,7 +6228,8 @@
         "Scarlett Etzel",
         "Sister Hetai",
         "The Unarmored Voidborn"
-      ]
+      ],
+      "id": 830
     },
     {
       "name": "Terra Mantle",
@@ -5872,7 +6275,8 @@
         "The Duke of the Depths",
         "The Evil Eye",
         "The Lord of the Lice"
-      ]
+      ],
+      "id": 811
     },
     {
       "name": "Terramite Legs",
@@ -5882,7 +6286,8 @@
       "category": "Creature's parts",
       "providers": [
         "Terramite"
-      ]
+      ],
+      "id": 10454
     },
     {
       "name": "Thorn",
@@ -5892,7 +6297,8 @@
       "category": "Creature's parts",
       "providers": [
         "Thornback Tortoise"
-      ]
+      ],
+      "id": 9643
     },
     {
       "name": "Titan Axe",
@@ -5928,7 +6334,8 @@
         "Gorgo",
         "Grand Chaplain Gaunder",
         "Preceptor Lazare"
-      ]
+      ],
+      "id": 7413
     },
     {
       "name": "Toe Nails",
@@ -5942,7 +6349,8 @@
         "Haunted Hunter",
         "Roaming Dread",
         "Walking Dread"
-      ]
+      ],
+      "id": 52706
     },
     {
       "name": "Tooth File",
@@ -5954,7 +6362,8 @@
         "Nightfiend",
         "Vampire Viscount",
         "Vicious Manbat"
-      ]
+      ],
+      "id": 18924
     },
     {
       "name": "Torn Page",
@@ -5965,7 +6374,8 @@
       "providers": [
         "Crusader",
         "Headwalker"
-      ]
+      ],
+      "id": 51427
     },
     {
       "name": "Trapped Bad Dream Monster",
@@ -5978,7 +6388,8 @@
         "Shiversleep",
         "Terrorsleep",
         "The Enraged Thorn Knight"
-      ]
+      ],
+      "id": 20203
     },
     {
       "name": "Tunnel Tyrant Head",
@@ -5988,7 +6399,8 @@
       "category": "Creature's parts",
       "providers": [
         "Tunnel Tyrant"
-      ]
+      ],
+      "id": 27595
     },
     {
       "name": "Tunnel Tyrant Shell",
@@ -5998,7 +6410,8 @@
       "category": "Creature's parts",
       "providers": [
         "Tunnel Tyrant"
-      ]
+      ],
+      "id": 27596
     },
     {
       "name": "Two-Headed Turtle Heads",
@@ -6008,7 +6421,8 @@
       "category": "Creature's parts",
       "providers": [
         "Two-Headed Turtle"
-      ]
+      ],
+      "id": 39409
     },
     {
       "name": "Undertaker Fangs",
@@ -6018,7 +6432,8 @@
       "category": "Creature's parts",
       "providers": [
         "Undertaker"
-      ]
+      ],
+      "id": 39380
     },
     {
       "name": "Unholy Bone",
@@ -6036,7 +6451,8 @@
         "Undead Dragon",
         "Zanakeph",
         "Zorvorax"
-      ]
+      ],
+      "id": 10316
     },
     {
       "name": "Vampire's Cape Chain",
@@ -6047,7 +6463,8 @@
       "providers": [
         "Vampire Viscount",
         "The Pale Count"
-      ]
+      ],
+      "id": 18927
     },
     {
       "name": "Vein of Ore",
@@ -6059,7 +6476,8 @@
         "Cliff Strider",
         "Drillworm",
         "Orewalker"
-      ]
+      ],
+      "id": 16135
     },
     {
       "name": "Venison",
@@ -6070,7 +6488,8 @@
       "providers": [
         "Elder Forest Fury",
         "Forest Fury"
-      ]
+      ],
+      "id": 18995
     },
     {
       "name": "Vile Axe",
@@ -6088,7 +6507,8 @@
         "Horadron",
         "Mazzinor",
         "Realityquake"
-      ]
+      ],
+      "id": 7388
     },
     {
       "name": "Volatile Proto Matter",
@@ -6099,7 +6519,8 @@
       "providers": [
         "Breach Brood",
         "Burster"
-      ]
+      ],
+      "id": 23514
     },
     {
       "name": "War Axe",
@@ -6132,7 +6553,8 @@
         "The False God",
         "Tormentor",
         "Yirkas Blue Scales"
-      ]
+      ],
+      "id": 3342
     },
     {
       "name": "Wardragon Claw",
@@ -6142,7 +6564,8 @@
       "category": "Creature's parts",
       "providers": [
         "Wardragon"
-      ]
+      ],
+      "id": 44748
     },
     {
       "name": "Wardragon Tooth",
@@ -6152,7 +6575,8 @@
       "category": "Creature's parts",
       "providers": [
         "Wardragon"
-      ]
+      ],
+      "id": 44749
     },
     {
       "name": "Waspoid Claw",
@@ -6163,7 +6587,8 @@
       "providers": [
         "Waspoid",
         "Chopper"
-      ]
+      ],
+      "id": 14080
     },
     {
       "name": "Weaver's Wandtip",
@@ -6173,7 +6598,8 @@
       "category": "Creature's parts",
       "providers": [
         "Draken Spellweaver"
-      ]
+      ],
+      "id": 10397
     },
     {
       "name": "Werebadger Claws",
@@ -6184,7 +6610,8 @@
       "providers": [
         "Werebadger",
         "Sharpclaw"
-      ]
+      ],
+      "id": 22051
     },
     {
       "name": "Werebadger Skull",
@@ -6195,7 +6622,8 @@
       "providers": [
         "Werebadger",
         "Sharpclaw"
-      ]
+      ],
+      "id": 22055
     },
     {
       "name": "Werebear Fur",
@@ -6206,7 +6634,8 @@
       "providers": [
         "Werebear",
         "Shadowpelt"
-      ]
+      ],
+      "id": 22057
     },
     {
       "name": "Werebear Skull",
@@ -6217,7 +6646,8 @@
       "providers": [
         "Werebear",
         "Shadowpelt"
-      ]
+      ],
+      "id": 22056
     },
     {
       "name": "Wereboar Loincloth",
@@ -6230,7 +6660,8 @@
         "Bloodback",
         "Feroxa",
         "Owin"
-      ]
+      ],
+      "id": 22087
     },
     {
       "name": "Wereboar Tusks",
@@ -6242,7 +6673,8 @@
         "Wereboar",
         "Bloodback",
         "Owin"
-      ]
+      ],
+      "id": 22054
     },
     {
       "name": "Werecrocodile Tongue",
@@ -6254,7 +6686,8 @@
         "Ayana The Crimson Curse",
         "Feral Werecrocodile",
         "Werecrocodile"
-      ]
+      ],
+      "id": 43729
     },
     {
       "name": "Werefox Tail",
@@ -6265,7 +6698,8 @@
       "providers": [
         "Werefox",
         "Black Vixen"
-      ]
+      ],
+      "id": 27463
     },
     {
       "name": "Werehyaena Nose",
@@ -6277,7 +6711,8 @@
         "Werehyaena",
         "Werehyaena Shaman",
         "Katex Blood Tongue"
-      ]
+      ],
+      "id": 33943
     },
     {
       "name": "Werehyaena Talisman",
@@ -6289,7 +6724,8 @@
         "Werehyaena",
         "Werehyaena Shaman",
         "Katex Blood Tongue"
-      ]
+      ],
+      "id": 33944
     },
     {
       "name": "Werepanther Claw",
@@ -6300,7 +6736,8 @@
       "providers": [
         "Cunning Werepanther",
         "Werepanther"
-      ]
+      ],
+      "id": 43731
     },
     {
       "name": "Weretiger Tooth",
@@ -6312,7 +6749,8 @@
         "Weretiger",
         "White Weretiger",
         "Tamru The Black"
-      ]
+      ],
+      "id": 43730
     },
     {
       "name": "Werewolf Fur",
@@ -6324,7 +6762,8 @@
         "Werewolf",
         "Darkfang",
         "Hemming"
-      ]
+      ],
+      "id": 10317
     },
     {
       "name": "Widow's Mandibles",
@@ -6334,7 +6773,8 @@
       "category": "Creature's parts",
       "providers": [
         "Wailing Widow"
-      ]
+      ],
+      "id": 10411
     },
     {
       "name": "Wild Flowers",
@@ -6347,7 +6787,8 @@
         "Nymph",
         "Pixie",
         "Swan Maiden"
-      ]
+      ],
+      "id": 25691
     },
     {
       "name": "Wimp Tooth Chain",
@@ -6359,7 +6800,8 @@
         "Lost Basher",
         "Lost Exile",
         "Lost Husher"
-      ]
+      ],
+      "id": 17847
     },
     {
       "name": "Winged Tail",
@@ -6371,7 +6813,8 @@
         "Serpent Spawn",
         "Srezz Yellow Eyes",
         "The Noxious Spawn"
-      ]
+      ],
+      "id": 10313
     },
     {
       "name": "Witch Broom",
@@ -6382,7 +6825,8 @@
       "providers": [
         "Witch",
         "Ekatrix"
-      ]
+      ],
+      "id": 9652
     },
     {
       "name": "Wood Cape",
@@ -6411,7 +6855,8 @@
         "Guard Captain Quaid",
         "Ravenous Hunger",
         "Raxias"
-      ]
+      ],
+      "id": 3575
     },
     {
       "name": "Wooden Spellbook",
@@ -6434,7 +6879,8 @@
         "Clavius",
         "Court Warlock",
         "Ravenous Hunger"
-      ]
+      ],
+      "id": 25699
     },
     {
       "name": "Worm Sponge",
@@ -6445,7 +6891,8 @@
       "providers": [
         "Meandering Mushroom",
         "Oozing Corpus"
-      ]
+      ],
+      "id": 43848
     },
     {
       "name": "Yapunac Dagger",
@@ -6456,7 +6903,8 @@
       "providers": [
         "Atab",
         "Iks Yapunac"
-      ]
+      ],
+      "id": 44440
     },
     {
       "name": "Zaoan Armor",
@@ -6479,7 +6927,8 @@
         "Fazzrah",
         "Lizard Gate Guardian",
         "Paiz the Pauperizer"
-      ]
+      ],
+      "id": 10384
     },
     {
       "name": "Zaoan Robe",
@@ -6491,7 +6940,8 @@
         "Draken Spellweaver",
         "Lizard Dragon Priest",
         "Flamecaller Zazrak"
-      ]
+      ],
+      "id": 10439
     },
     {
       "name": "Zaoan Shoes",
@@ -6516,7 +6966,8 @@
         "Hatebreeder",
         "Lizard Gate Guardian",
         "The Voice of Ruin"
-      ]
+      ],
+      "id": 10386
     },
     {
       "name": "Zaogun Flag",
@@ -6528,7 +6979,8 @@
         "Lizard Zaogun",
         "Battlemaster Zunzu",
         "Fazzrah"
-      ]
+      ],
+      "id": 10413
     },
     {
       "name": "Zaogun Shoulderplates",
@@ -6540,7 +6992,8 @@
         "Lizard Zaogun",
         "Battlemaster Zunzu",
         "Fazzrah"
-      ]
+      ],
+      "id": 10414
     }
   ]
 }
