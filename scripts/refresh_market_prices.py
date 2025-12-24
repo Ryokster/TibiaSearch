@@ -171,7 +171,7 @@ def load_cache() -> dict | None:
     try:
         return json.loads(CACHE_FILE.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
-    return None
+        return None
 
 
 def load_item_ids_cache() -> dict | None:
