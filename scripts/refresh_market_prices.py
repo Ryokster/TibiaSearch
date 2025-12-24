@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import json
 import html
 import random
 import re
@@ -418,6 +417,9 @@ def refresh_market_prices(
             market_values = cached_market_values
         else:
             save_cache(server, market_values)
+    elif cached_market_values:
+        merged = {**cached_market_values, **market_values}
+        market_values = merged
 
     updated = 0
     without_price = 0
