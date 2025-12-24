@@ -542,6 +542,7 @@ class ItemPriceStore:
     def __init__(self, path: Path) -> None:
         self.path = path
         self.prices: dict[str, int] = {}
+        self.favorites: dict[str, bool] = {}
         self._load()
 
     def _load(self) -> None:
@@ -551,15 +552,19 @@ class ItemPriceStore:
             with self.path.open("r", encoding="utf-8") as handle:
                 data = json.load(handle)
             prices = data.get("prices", {})
+            favorites = data.get("favorites", {})
             if isinstance(prices, dict):
                 self.prices = {str(k): int(v) for k, v in prices.items()}
+            if isinstance(favorites, dict):
+                self.favorites = {str(k): bool(v) for k, v in favorites.items()}
         except Exception:
             self.prices = {}
+            self.favorites = {}
 
     def _save(self) -> None:
         try:
             with self.path.open("w", encoding="utf-8") as handle:
-                json.dump({"prices": self.prices}, handle, ensure_ascii=False, indent=2)
+                json.dump({"prices": self.prices, "favorites": self.favorites}, handle, ensure_ascii=False, indent=2)
         except Exception:
             pass
 
@@ -568,6 +573,13 @@ class ItemPriceStore:
 
     def set_price(self, item_name: str, price: int) -> None:
         self.prices[item_name] = max(0, int(price))
+        self._save()
+
+    def is_favorite(self, key: str) -> bool:
+        return bool(self.favorites.get(key, False))
+
+    def set_favorite(self, key: str, value: bool) -> None:
+        self.favorites[key] = bool(value)
         self._save()
 
 
@@ -694,6 +706,8 @@ class TibiaSearchApp:
         self.character_window: "CharacterWindow" | None = None
         self.items_list_items: list[TibiaItem] = []
         self.items_tree_items: dict[str, TibiaItem] = {}
+        self.items_sort_field: str = "name"
+        self.items_sort_desc: bool = False
         self.active_hunt_id: str | None = None
         self.hunt_log_update_after: str | None = None
         self.hunt_detail_vars: dict[str, tk.StringVar] = {}
@@ -871,13 +885,19 @@ class TibiaSearchApp:
 
         self.items_tree = ttk.Treeview(
             list_frame,
-            columns=("name", "providers", "trader_price", "market_price"),
+            columns=("fav", "name", "providers", "trader_price", "market_price"),
             show="headings",
         )
-        self.items_tree.heading("name", text="Item")
+        self.items_tree.heading("fav", text="★")
+        self.items_tree.heading("name", text="Item", command=lambda: self._set_items_sort("name"))
         self.items_tree.heading("providers", text="Provider")
         self.items_tree.heading("trader_price", text="Händler VK")
-        self.items_tree.heading("market_price", text="Auktionshaus VK")
+        self.items_tree.heading(
+            "market_price",
+            text="Auktionshaus VK",
+            command=lambda: self._set_items_sort("market_price"),
+        )
+        self.items_tree.column("fav", width=36, anchor="center", stretch=False)
         self.items_tree.column("name", width=220, anchor="w")
         self.items_tree.column("providers", width=300, anchor="w")
         self.items_tree.column("trader_price", width=110, anchor="e")
@@ -1117,6 +1137,7 @@ class TibiaSearchApp:
 
         self.items_tree.bind("<Double-Button-1>", self._on_items_tree_double_click)
         self.items_tree.bind("<Return>", self._open_selected_item)
+        self.items_tree.bind("<Button-1>", self._on_items_tree_click)
 
         self.hunts_tree.bind("<<TreeviewSelect>>", self._on_hunt_select)
         self.hunt_profit_tree.bind("<<TreeviewSelect>>", self._on_hunt_stats_select)
@@ -1134,15 +1155,22 @@ class TibiaSearchApp:
 
     def _refresh_items_list(self) -> None:
         query = self.items_search_var.get().strip().casefold()
-        items = self._active_items()
+        items = [
+            item
+            for item in self._active_items()
+            if not query or query in f"{item.name} {' '.join(item.providers)}".casefold()
+        ]
+        favorites = [item for item in items if self.item_price_store.is_favorite(item.name)]
+        non_favorites = [item for item in items if not self.item_price_store.is_favorite(item.name)]
+        favorites_sorted = sorted(favorites, key=self._items_sort_value, reverse=self.items_sort_desc)
+        non_favorites_sorted = sorted(non_favorites, key=self._items_sort_value, reverse=self.items_sort_desc)
+        sorted_items = favorites_sorted + non_favorites_sorted
+
         self.items_tree.delete(*self.items_tree.get_children())
         self.items_list_items = []
         self.items_tree_items = {}
-        for item in items:
+        for item in sorted_items:
             providers_text = ", ".join(item.providers)
-            search_text = f"{item.name} {providers_text}".casefold()
-            if query and query not in search_text:
-                continue
             name_display = item.name
             if not item.url:
                 name_display = f"{name_display} (no link)"
@@ -1150,14 +1178,20 @@ class TibiaSearchApp:
             trader_display = self._format_price(trader_price)
             market_display = self._format_price(item.gold)
             row_id = str(len(self.items_list_items))
+            fav = "★" if self.item_price_store.is_favorite(item.name) else "☆"
             self.items_tree.insert(
                 "",
                 tk.END,
                 iid=row_id,
-                values=(name_display, providers_text, trader_display, market_display),
+                values=(fav, name_display, providers_text, trader_display, market_display),
             )
             self.items_list_items.append(item)
             self.items_tree_items[row_id] = item
+
+    def _items_sort_value(self, item: TibiaItem) -> object:
+        if self.items_sort_field == "market_price":
+            return item.gold
+        return item.name.casefold()
 
     def _format_price(self, value: int) -> str:
         if value <= 0:
@@ -1177,17 +1211,37 @@ class TibiaSearchApp:
 
     def _on_items_tree_double_click(self, event: tk.Event) -> None:
         column = self.items_tree.identify_column(event.x)
-        if column == "#3":
+        if column == "#4":
             self._begin_price_edit(event)
         else:
             self._open_selected_item(event)
+
+    def _on_items_tree_click(self, event: tk.Event) -> None:
+        region = self.items_tree.identify("region", event.x, event.y)
+        if region != "cell":
+            return
+        column = self.items_tree.identify_column(event.x)
+        row_id = self.items_tree.identify_row(event.y)
+        if column == "#1" and row_id:
+            item = self.items_tree_items.get(row_id)
+            if item:
+                self._toggle_item_favorite(item)
+                self._refresh_items_list()
+
+    def _set_items_sort(self, field: str) -> None:
+        if field == self.items_sort_field:
+            self.items_sort_desc = not self.items_sort_desc
+        else:
+            self.items_sort_field = field
+            self.items_sort_desc = False
+        self._refresh_items_list()
 
     def _begin_price_edit(self, event: tk.Event) -> None:
         row_id = self.items_tree.identify_row(event.y)
         if not row_id:
             return
         column = self.items_tree.identify_column(event.x)
-        if column != "#3":
+        if column != "#4":
             return
         item = self.items_tree_items.get(row_id)
         if not item:
@@ -1223,6 +1277,10 @@ class TibiaSearchApp:
         self.item_price_store.set_price(item.name, price_value)
         self.items_tree.set(row_id, "trader_price", self._format_price(price_value))
         editor.destroy()
+
+    def _toggle_item_favorite(self, item: TibiaItem) -> None:
+        is_favorite = self.item_price_store.is_favorite(item.name)
+        self.item_price_store.set_favorite(item.name, not is_favorite)
 
     def _parse_price_input(self, value: str) -> int:
         if not value:
