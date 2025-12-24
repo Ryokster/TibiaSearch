@@ -679,10 +679,28 @@ class _ServerFlight:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Refresh market prices for tibia items.")
-    parser.add_argument("--server", default="Antica", help="Tibia server name for market prices.")
+    parser.add_argument("--server", default="Xyla", help="Tibia server name for market prices.")
+    parser.add_argument(
+        "--allow-partial-refresh",
+        action="store_true",
+        help="Continue even if some batches fail (default: false).",
+    )
+    parser.add_argument(
+        "--delay-between-batches",
+        type=float,
+        default=DELAY_BETWEEN_BATCHES_SECONDS,
+        help="Seconds to wait between batch requests (default: 12).",
+    )
     args = parser.parse_args()
 
-    refresh_market_prices(args.server)
+    refresher = MarketRefresher(
+        resource_dir=RESOURCE_DIR,
+        log=print,
+        delay_between_batches_seconds=args.delay_between_batches,
+        throttle_seconds=args.delay_between_batches,
+        allow_partial_refresh=args.allow_partial_refresh,
+    )
+    refresher.refresh_server(args.server)
 
 
 if __name__ == "__main__":
