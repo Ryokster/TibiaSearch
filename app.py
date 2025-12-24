@@ -582,6 +582,9 @@ class ItemPriceStore:
         self.favorites[key] = bool(value)
         self._save()
 
+    def has_favorite_entry(self, key: str) -> bool:
+        return key in self.favorites
+
 
 class HuntStore:
     def __init__(self, path: Path) -> None:
@@ -692,12 +695,15 @@ class TibiaSearchApp:
         self.item_price_store = ItemPriceStore(self.items_state_path)
         self.character_store = CharacterStore(self.character_path)
         self.hunt_store = HuntStore(self.hunt_path)
+        self.imbuement_material_names = self._collect_imbuement_material_names()
+        self.imbuement_material_names_lower = {name.casefold() for name in self.imbuement_material_names}
         self.creature_products = build_tibia_items(
             load_json_resource(self.tibia_resource_dir / "creature_products.json")
         )
         self.delivery_items = build_tibia_items(
             load_json_resource(self.tibia_resource_dir / "delivery_task_items.json")
         )
+        self._seed_imbuement_material_favorites()
 
         self.always_on_top = False
         self.active_imbuement: Imbuement | None = None
@@ -902,6 +908,7 @@ class TibiaSearchApp:
         self.items_tree.column("providers", width=300, anchor="w")
         self.items_tree.column("trader_price", width=110, anchor="e")
         self.items_tree.column("market_price", width=130, anchor="e")
+        self.items_tree.tag_configure("imbuement-material", foreground="#1a7f37")
         self.items_tree.grid(row=0, column=0, sticky="nsew")
 
         list_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.items_tree.yview)
@@ -1148,6 +1155,21 @@ class TibiaSearchApp:
     def clear_entry(self) -> None:
         self.search_entry.delete(0, tk.END)
 
+    def _collect_imbuement_material_names(self) -> set[str]:
+        names: set[str] = set()
+        for imbuement in IMBUEMENTS:
+            for material in imbuement.materials:
+                names.add(material.name)
+        return names
+
+    def _seed_imbuement_material_favorites(self) -> None:
+        for name in self.imbuement_material_names:
+            if not self.item_price_store.has_favorite_entry(name):
+                self.item_price_store.set_favorite(name, True)
+
+    def _is_imbuement_material(self, item_name: str) -> bool:
+        return item_name.casefold() in self.imbuement_material_names_lower
+
     def _active_items(self) -> tuple[TibiaItem, ...]:
         if self.items_filter_var.get() == "delivery":
             return self.delivery_items
@@ -1179,11 +1201,13 @@ class TibiaSearchApp:
             market_display = self._format_price(item.gold)
             row_id = str(len(self.items_list_items))
             fav = "★" if self.item_price_store.is_favorite(item.name) else "☆"
+            tags = ("imbuement-material",) if self._is_imbuement_material(item.name) else ()
             self.items_tree.insert(
                 "",
                 tk.END,
                 iid=row_id,
                 values=(fav, name_display, providers_text, trader_display, market_display),
+                tags=tags,
             )
             self.items_list_items.append(item)
             self.items_tree_items[row_id] = item
