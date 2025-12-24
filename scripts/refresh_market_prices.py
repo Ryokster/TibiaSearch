@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import html
-import json
 import random
 import re
 import time
@@ -261,9 +260,7 @@ def fetch_market_values(
     log: Callable[[str], None] | None = None,
 ) -> dict[int, int]:
     market_values: dict[int, int] = {}
-    max_attempts = 4
-    base_delay = 0.5
-    had_partial_failure = False
+    max_attempts = 3
     for offset in range(0, len(item_ids), 100):
         batch = item_ids[offset : offset + 100]
         params = urlencode(
@@ -275,7 +272,6 @@ def fetch_market_values(
         )
         url = f"{MARKET_VALUES_URL}?{params}"
         last_error: HTTPError | None = None
-        payload: dict | list | None = None
         for attempt in range(1, max_attempts + 1):
             if log:
                 log(f"GET {url}")
@@ -294,20 +290,12 @@ def fetch_market_values(
                     delay = float(retry_after)
                 except (TypeError, ValueError):
                     delay = 1.0 * (2 ** (attempt - 1))
-                delay = min(delay, 10.0)
-                delay += random.uniform(0, 0.25)
+                delay += random.uniform(0, 0.5)
                 if log:
                     log(f"HTTP 429 received, retrying in {delay:.2f}s (attempt {attempt}/{max_attempts})")
                 time.sleep(delay)
         if last_error:
-            if isinstance(last_error, HTTPError) and last_error.code == 429:
-                had_partial_failure = True
-                if log:
-                    log(f"Giving up on batch due to repeated 429s: {url}")
-                continue
             raise last_error
-        if payload is None:
-            continue
         items = payload.get("items") if isinstance(payload, dict) else None
         if items is None and isinstance(payload, list):
             items = payload
@@ -325,9 +313,7 @@ def fetch_market_values(
                 market_values[entry_id] = int(sell_offer)
             except (TypeError, ValueError):
                 continue
-        time.sleep(base_delay)
-    if had_partial_failure and log:
-        log("Market refresh completed with partial data due to rate limits; kept prior cache for missing batches.")
+        time.sleep(0.25)
     return market_values
 
 
