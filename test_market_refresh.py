@@ -115,7 +115,7 @@ class MarketRefreshTests(TestCase):
             result = refresher.refresh_server("Antica")
 
         self.assertEqual(result.get("updated_items"), 4)  # two lists * two items
-        self.assertTrue(any(delay >= 10.2 for delay in sleeps))  # floor of 10s + jitter
+        self.assertIn(2.2, sleeps)  # 2s retry-after + 0.2 jitter
 
     def test_single_flight_blocks_parallel_refreshes(self) -> None:
         world_response = _MockResponse({"servers": {"Antica": {"last_update": "2024-03-01T00:00:00Z"}}})

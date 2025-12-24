@@ -29,20 +29,15 @@ ITEM_IDS_DUMP_PATH = ROOT_DIR / "https___tibia.fandom.com_wiki_Item_IDs.htm"
 MARKET_REFRESH_META_FILE = RESOURCE_DIR / "market_refresh_meta.json"
 
 CACHE_TTL = timedelta(hours=6)
-DELAY_BETWEEN_BATCHES_SECONDS = 12.0
-DELAY_FLOOR_SECONDS = 10.0
+THROTTLE_SECONDS = 1.0
 RETRY_JITTER_RANGE = (0.1, 0.3)
 BACKOFF_NO_RETRY_AFTER = [
-    (10.0, 15.0),
-    (20.0, 30.0),
-    (40.0, 60.0),
+    (2.0, 5.0),
+    (5.0, 12.0),
+    (10.0, 25.0),
 ]
-SERVER_ERROR_BACKOFF = [
-    (5.0, 10.0),
-    (10.0, 20.0),
-    (20.0, 40.0),
-]
-BATCH_DELAY_SECONDS = DELAY_BETWEEN_BATCHES_SECONDS
+SERVER_ERROR_BACKOFF = (1.0, 3.0)
+BATCH_DELAY_SECONDS = 1.0
 
 
 class Throttle:
@@ -391,19 +386,15 @@ class MarketRefresher:
         self,
         resource_dir: Path,
         log: Callable[[str], None] | None = None,
-        throttle_seconds: float = DELAY_BETWEEN_BATCHES_SECONDS,
+        throttle_seconds: float = THROTTLE_SECONDS,
         market_values_url: str = MARKET_VALUES_URL,
         world_data_url: str = WORLD_DATA_URL,
-        delay_between_batches_seconds: float = DELAY_BETWEEN_BATCHES_SECONDS,
-        allow_partial_refresh: bool = False,
     ) -> None:
         self.resource_dir = resource_dir
         self.log = log
         self.market_values_url = market_values_url
         self.world_data_url = world_data_url
         self.throttle_seconds = throttle_seconds
-        self.delay_between_batches_seconds = delay_between_batches_seconds
-        self.allow_partial_refresh = allow_partial_refresh
         self.meta_file = self.resource_dir / "market_refresh_meta.json"
         self._flights: dict[str, _ServerFlight] = defaultdict(_ServerFlight)
         self._flights_lock = threading.Lock()
@@ -452,7 +443,7 @@ class MarketRefresher:
         last_update_local = meta["market_last_update_by_server"].get(server)
 
         if last_update_remote and last_update_local == last_update_remote:
-            self._log(f"No new scan; skipping refresh for {server} (last_update={last_update_remote})")
+            self._log(f"No new scan for {server}, skipping refresh")
             meta["market_last_refresh_at_by_server"][server] = iso_timestamp()
             save_market_refresh_meta(meta, self.meta_file)
             return {
@@ -490,51 +481,26 @@ class MarketRefresher:
         item_ids.extend(apply_item_ids(delivery_data.get("items", []), name_to_id))
         item_ids = sorted(set(item_ids))
 
-        total_batches = (len(item_ids) + 99) // 100
-        self._log(
-            f"Refresh plan for {server}: total_ids={len(item_ids)}, batches={total_batches}, "
-            f"delay_between_batches_seconds={self.delay_between_batches_seconds}"
-        )
-
         market_values: dict[int, int] = {}
         processed_ids: set[int] = set()
         failed_batches = 0
-        failure_index: int | None = None
+        total_batches = 0
 
-        for batch_index, batch_start in enumerate(range(0, len(item_ids), 100), start=1):
+        for batch_start in range(0, len(item_ids), 100):
             batch = item_ids[batch_start : batch_start + 100]
-            if batch_index > 1:
-                self._sleep_between_batches()
-
-            batch_values, retried_429, error_message = self._fetch_market_batch(server, batch, batch_index, total_batches)
+            if total_batches > 0:
+                self._throttle.wait(log=self.log)
+            total_batches += 1
+            batch_values = self._fetch_market_batch(server, batch)
             if batch_values is None:
                 failed_batches += 1
-                failure_index = batch_index
-                self._log(
-                    f"Batch {batch_index}/{total_batches} failed for {server}: {error_message or 'unknown error'}"
-                )
-                if not self.allow_partial_refresh:
-                    self._log("Partial refresh not allowed; aborting remaining batches")
-                    break
+                self._log(f"Failed to fetch batch starting at offset {batch_start} for {server}; skipping updates for this batch")
                 continue
-
-            batch_updated, batch_missing = self._apply_batch_updates(
-                creature_data,
-                delivery_data,
-                name_to_id,
-                batch_values,
-                set(batch),
-            )
+            market_values.update(batch_values)
             processed_ids.update(batch)
-            save_json(creature_path, creature_data)
-            save_json(delivery_path, delivery_data)
-            self._log(
-                f"Batch {batch_index}/{total_batches} persisted OK: updated={batch_updated} missing={batch_missing}"
-            )
-            if retried_429 and batch_index < total_batches:
-                self._sleep_between_batches(reason="post-429")
-            elif batch_index < total_batches:
-                self._sleep_between_batches()
+            if BATCH_DELAY_SECONDS > 0 and batch_start + 100 < len(item_ids):
+                self._log(f"Batch processed, sleeping {BATCH_DELAY_SECONDS:.2f}s before next batch")
+                time.sleep(BATCH_DELAY_SECONDS)
 
         updated = 0
         without_price = 0
@@ -561,6 +527,9 @@ class MarketRefresher:
             without_price += without_count
             missing_ids += missing_count
 
+            save_json(creature_path, creature_data)
+            save_json(delivery_path, delivery_data)
+
         if last_update_remote:
             meta["market_last_update_by_server"][server] = last_update_remote
         meta["market_last_refresh_at_by_server"][server] = iso_timestamp()
@@ -573,7 +542,6 @@ class MarketRefresher:
             "items_missing_ids": missing_ids,
             "batches": total_batches,
             "failed_batches": failed_batches,
-            "failure_batch_index": failure_index,
         }
 
         self._log(
@@ -582,8 +550,7 @@ class MarketRefresher:
             f"without_price={without_price}, "
             f"missing_ids={missing_ids}, "
             f"batches={total_batches}, "
-            f"failed_batches={failed_batches}, "
-            f"failure_batch_index={failure_index}"
+            f"failed_batches={failed_batches}"
         )
         return summary
 
@@ -608,13 +575,7 @@ class MarketRefresher:
                     return last_update
         return None
 
-    def _fetch_market_batch(
-        self,
-        server: str,
-        batch: list[int],
-        batch_index: int,
-        total_batches: int,
-    ) -> tuple[dict[int, int] | None, bool, str | None]:
+    def _fetch_market_batch(self, server: str, batch: list[int]) -> dict[int, int] | None:
         params = urlencode(
             {
                 "server": server,
@@ -624,59 +585,46 @@ class MarketRefresher:
         )
         url = f"{self.market_values_url}?{params}"
         max_attempts = 3
-        retried_429 = False
-        error_message: str | None = None
 
         for attempt in range(1, max_attempts + 1):
             self._throttle.wait(log=self.log)
-            self._log(f"Batch {batch_index}/{total_batches} request (attempt {attempt}/{max_attempts}, ids={len(batch)}): GET {self.market_values_url} (...ids omitted...)")
+            self._log(f"GET {url} (attempt {attempt}/{max_attempts})")
             request = Request(url, headers={"User-Agent": USER_AGENT})
             try:
                 with urlopen(request, timeout=30) as response:
                     payload = _decode_json_response(response)
-                status = getattr(response, "status", 200)
-                self._log(f"Batch {batch_index}/{total_batches} response status {status}")
                 self._throttle.mark()
-                parsed = self._parse_market_values(payload)
-                self._log(
-                    f"Batch {batch_index}/{total_batches} response entries={len(parsed)}"
-                )
-                return parsed, retried_429, None
+                return self._parse_market_values(payload)
             except HTTPError as exc:
                 self._throttle.mark()
                 if exc.code == 429:
-                    retried_429 = True
                     wait_seconds = self._compute_retry_after(exc, attempt)
                     if attempt == max_attempts:
-                        error_message = f"HTTP 429 after {attempt} attempts"
-                        self._log(f"{error_message} for {server} batch {batch_index}/{total_batches}")
-                        return None, retried_429, error_message
-                    self._log(f"HTTP 429 received; waiting {wait_seconds:.2f}s before retrying batch {batch_index}/{total_batches}")
+                        self._log(f"HTTP 429 on final attempt for {server} batch {batch[0]}-{batch[-1]}, giving up")
+                        return None
+                    self._log(f"HTTP 429 received; waiting {wait_seconds:.2f}s before retrying")
                     time.sleep(wait_seconds)
                     continue
                 if 500 <= exc.code < 600:
                     if attempt == max_attempts:
-                        error_message = f"Server error {exc.code} after {attempt} attempts"
-                        self._log(f"{error_message} for {server} batch {batch_index}/{total_batches}")
-                        return None, retried_429, error_message
-                    wait_seconds = random.uniform(*SERVER_ERROR_BACKOFF[attempt - 1])
+                        self._log(f"Server error {exc.code} on final attempt for {server} batch {batch[0]}-{batch[-1]}, giving up")
+                        return None
+                    wait_seconds = random.uniform(*SERVER_ERROR_BACKOFF)
                     wait_seconds = max(wait_seconds, self._throttle.required_delay())
-                    self._log(f"Server error {exc.code}; retrying batch {batch_index}/{total_batches} in {wait_seconds:.2f}s")
+                    self._log(f"Server error {exc.code}; retrying in {wait_seconds:.2f}s")
                     time.sleep(wait_seconds)
                     continue
-                error_message = f"HTTP error {exc.code}: {exc}"
-                self._log(f"{error_message} for {server} batch {batch_index}/{total_batches}; not retrying")
-                return None, retried_429, error_message
+                self._log(f"HTTP error {exc.code} for {server} batch {batch[0]}-{batch[-1]}: {exc}; not retrying")
+                return None
             except (URLError, json.JSONDecodeError) as exc:
                 self._throttle.mark()
                 if attempt == max_attempts:
-                    error_message = f"Request failed after {attempt} attempts: {exc}"
-                    self._log(f"{error_message} for {server} batch {batch_index}/{total_batches}")
-                    return None, retried_429, error_message
-                wait_seconds = max(random.uniform(*SERVER_ERROR_BACKOFF[attempt - 1]), self._throttle.required_delay())
-                self._log(f"Request error: {exc}; retrying batch {batch_index}/{total_batches} in {wait_seconds:.2f}s")
+                    self._log(f"Request failed on attempt {attempt} for {server} batch {batch[0]}-{batch[-1]}: {exc}")
+                    return None
+                wait_seconds = max(random.uniform(*SERVER_ERROR_BACKOFF), self._throttle.required_delay())
+                self._log(f"Request error: {exc}; retrying in {wait_seconds:.2f}s")
                 time.sleep(wait_seconds)
-        return None, retried_429, error_message
+        return None
 
     def _compute_retry_after(self, exc: HTTPError, attempt: int) -> float:
         retry_after = exc.headers.get("Retry-After") if exc.headers else None
@@ -686,13 +634,12 @@ class MarketRefresher:
                 base_delay = float(retry_after)
             except (TypeError, ValueError):
                 base_delay = 0.0
-            base_delay = max(base_delay, DELAY_FLOOR_SECONDS)
-            base_delay += random.uniform(0.2, 0.8)
+            base_delay += random.uniform(*RETRY_JITTER_RANGE)
         else:
             index = min(attempt - 1, len(BACKOFF_NO_RETRY_AFTER) - 1)
             base_delay = random.uniform(*BACKOFF_NO_RETRY_AFTER[index])
         throttle_delay = self._throttle.required_delay()
-        return max(base_delay, throttle_delay, DELAY_FLOOR_SECONDS)
+        return max(base_delay, throttle_delay)
 
     def _parse_market_values(self, payload: object) -> dict[int, int]:
         items = payload.get("items") if isinstance(payload, dict) else None
@@ -709,69 +656,16 @@ class MarketRefresher:
             except (TypeError, ValueError):
                 continue
             sell_offer = entry.get("sell_offer")
+            if sell_offer is None:
+                market_values[entry_id] = 0
+                continue
             try:
-                sell_value = int(sell_offer) if sell_offer is not None else -1
+                sell_value = int(sell_offer)
             except (TypeError, ValueError):
-                sell_value = -1
+                market_values[entry_id] = 0
+                continue
             market_values[entry_id] = 0 if sell_value == -1 else max(0, sell_value)
         return market_values
-
-    def _apply_batch_updates(
-        self,
-        creature_data: dict,
-        delivery_data: dict,
-        name_to_id: dict[str, int],
-        batch_values: dict[int, int],
-        batch_ids: set[int],
-    ) -> tuple[int, int]:
-        updated = 0
-        missing = 0
-
-        updated_count, missing_count = self._update_items_batch(
-            creature_data.get("items", []),
-            name_to_id,
-            batch_values,
-            batch_ids,
-        )
-        updated += updated_count
-        missing += missing_count
-
-        updated_count, missing_count = self._update_items_batch(
-            delivery_data.get("items", []),
-            name_to_id,
-            batch_values,
-            batch_ids,
-        )
-        updated += updated_count
-        missing += missing_count
-        return updated, missing
-
-    def _update_items_batch(
-        self,
-        items: list[dict[str, object]],
-        name_to_id: dict[str, int],
-        batch_values: dict[int, int],
-        batch_ids: set[int],
-    ) -> tuple[int, int]:
-        updated = 0
-        missing = 0
-        for item in items:
-            name = str(item.get("name", ""))
-            normalized = normalize_name(name)
-            item_id = item.get("id")
-            if not isinstance(item_id, int):
-                item_id = name_to_id.get(normalized)
-                if item_id is not None:
-                    item["id"] = item_id
-            if not isinstance(item_id, int) or item_id not in batch_ids:
-                continue
-            value = batch_values.get(item_id, 0)
-            item["gold"] = value
-            if value == 0:
-                missing += 1
-            else:
-                updated += 1
-        return updated, missing
 
 
 class _ServerFlight:
