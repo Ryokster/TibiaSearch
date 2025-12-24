@@ -14,7 +14,8 @@
       "category": "Creature Product",
       "providers": [
         "Demon"
-      ]
+      ],
+      "id": 5954
     },
     {
       "name": "Frosty Heart",
@@ -25,7 +26,8 @@
       "providers": [
         "Frost Dragon",
         "Ice Dragon"
-      ]
+      ],
+      "id": 9661
     },
     {
       "name": "Green Dragon Scale",
@@ -35,7 +37,8 @@
       "category": "Creature Product",
       "providers": [
         "Green Dragon"
-      ]
+      ],
+      "id": 5920
     },
     {
       "name": "Poisonous Slime",
@@ -46,7 +49,8 @@
       "providers": [
         "Slime",
         "Poisonous Slime"
-      ]
+      ],
+      "id": 9640
     },
     {
       "name": "Rope Belt",
@@ -57,7 +61,8 @@
       "providers": [
         "Rotworm",
         "Carrion Worm"
-      ]
+      ],
+      "id": 11492
     },
     {
       "name": "Rorc Feather",
@@ -68,7 +73,8 @@
       "providers": [
         "Rorc",
         "Rorc Warrior"
-      ]
+      ],
+      "id": 18993
     },
     {
       "name": "Silencer Claw",
@@ -78,7 +84,8 @@
       "category": "Creature Product",
       "providers": [
         "Silencer"
-      ]
+      ],
+      "id": 20200
     },
     {
       "name": "Vampire Teeth",
@@ -89,7 +96,8 @@
       "providers": [
         "Vampire",
         "Vampire Bride"
-      ]
+      ],
+      "id": 9685
     }
   ]
 }

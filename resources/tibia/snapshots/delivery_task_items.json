@@ -14,7 +14,8 @@
       "category": "Delivery Task Item",
       "providers": [
         "Postman"
-      ]
+      ],
+      "id": 3503
     },
     {
       "name": "Letter",
@@ -24,7 +25,8 @@
       "category": "Delivery Task Item",
       "providers": [
         "Postman"
-      ]
+      ],
+      "id": 3505
     },
     {
       "name": "Green Parcel",
