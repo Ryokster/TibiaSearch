@@ -52,7 +52,7 @@
         "Abyssador"
       ],
       "id": 16206,
-      "gold": 19949
+      "gold": 40000
     },
     {
       "name": "Acorn",
@@ -64,7 +64,7 @@
         "Badger Squirrel"
       ],
       "id": 10296,
-      "gold": 1700
+      "gold": 2399
     },
     {
       "name": "Afflicted Strider Head",
@@ -76,7 +76,7 @@
         "Afflicted Strider"
       ],
       "id": 36789,
-      "gold": 37498
+      "gold": 60000
     },
     {
       "name": "Afflicted Strider Worms",
@@ -88,7 +88,7 @@
         "Afflicted Strider"
       ],
       "id": 36790,
-      "gold": 24980
+      "gold": 44498
     },
     {
       "name": "Albino Dragon Leather",
@@ -98,7 +98,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 44157,
-      "gold": 34899000
+      "gold": 0
     },
     {
       "name": "Alptramun's Toothbrush",
@@ -122,7 +122,7 @@
         "Quara Looter Quara Plunderer Quara Raider"
       ],
       "id": 48508,
-      "gold": 9400
+      "gold": 42400
     },
     {
       "name": "Ancient Belt Buckle",
@@ -134,7 +134,7 @@
         "Broken Shaper Twisted Shaper"
       ],
       "id": 24384,
-      "gold": 4297
+      "gold": 4999
     },
     {
       "name": "Ancient Crypt Rune",
@@ -166,7 +166,7 @@
         "Count Vlarkorth Duke Krule Earl Osam King Zelos Lord Azaram Sir Baeloc"
       ],
       "id": 31588,
-      "gold": 32896
+      "gold": 49000
     },
     {
       "name": "Ancient Scales",
@@ -188,7 +188,7 @@
         "Ancient Spawn of Morgathla Eternal Guardian Ogre Brute Stone Devourer Stone Golem The Last Lore Keeper The Source of Corruption"
       ],
       "id": 9632,
-      "gold": 1097
+      "gold": 2398
     },
     {
       "name": "Ancient Watch",
@@ -200,7 +200,7 @@
         "The Blazing Time Guardian The Time Guardian"
       ],
       "id": 24969,
-      "gold": 49800
+      "gold": 0
     },
     {
       "name": "Antlers",
@@ -212,7 +212,7 @@
         "Deer"
       ],
       "id": 10297,
-      "gold": 2000
+      "gold": 9999
     },
     {
       "name": "Ape Fur",
@@ -224,7 +224,7 @@
         "Cursed Ape Hairman the Huge Kongra Merlkin Sibang"
       ],
       "id": 5883,
-      "gold": 15999
+      "gold": 17597
     },
     {
       "name": "Apron",
@@ -236,7 +236,7 @@
         "Many Faces"
       ],
       "id": 33933,
-      "gold": 19990
+      "gold": 0
     },
     {
       "name": "Arbaziloth Shoulder Piece",
@@ -248,7 +248,7 @@
         "Arbaziloth"
       ],
       "id": 50067,
-      "gold": 450000
+      "gold": 0
     },
     {
       "name": "Astral Glyph",
@@ -260,7 +260,7 @@
         "The Last Lore Keeper"
       ],
       "id": 24976,
-      "gold": 400000
+      "gold": 0
     },
     {
       "name": "Astral Source",
@@ -272,7 +272,7 @@
         "The Last Lore Keeper"
       ],
       "id": 24975,
-      "gold": 980000
+      "gold": 0
     },
     {
       "name": "Atab's Mitmah Helmet",
@@ -294,7 +294,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 51429,
-      "gold": 90000
+      "gold": 0
     },
     {
       "name": "Badger Fur",
@@ -306,7 +306,7 @@
         "Badger"
       ],
       "id": 10299,
-      "gold": 250
+      "gold": 298
     },
     {
       "name": "Bakragore's Amalgamation",
@@ -318,7 +318,7 @@
         "Bakragore"
       ],
       "id": 43968,
-      "gold": 2900000
+      "gold": 0
     },
     {
       "name": "Bamboo Stick",
@@ -330,7 +330,7 @@
         "Panda"
       ],
       "id": 11445,
-      "gold": 444
+      "gold": 1699
     },
     {
       "name": "Banana Sash",
@@ -342,7 +342,7 @@
         "Merlkin Sibang"
       ],
       "id": 11511,
-      "gold": 999
+      "gold": 1500
     },
     {
       "name": "Basalt Core",
@@ -354,7 +354,7 @@
         "Wandering Pillar"
       ],
       "id": 43859,
-      "gold": 0
+      "gold": 90000
     },
     {
       "name": "Basalt Crumbs",
@@ -366,7 +366,7 @@
         "Darklight Emitter Wandering Pillar"
       ],
       "id": 43858,
-      "gold": 83999
+      "gold": 89997
     },
     {
       "name": "Basalt Fetish",
@@ -378,7 +378,7 @@
         "Lost Basher Lost Exile Lost Husher Lost Thrower"
       ],
       "id": 17856,
-      "gold": 2438
+      "gold": 4768
     },
     {
       "name": "Basalt Figurine",
@@ -390,7 +390,7 @@
         "Lost Basher Lost Exile Lost Husher Lost Thrower"
       ],
       "id": 17857,
-      "gold": 1048
+      "gold": 2098
     },
     {
       "name": "Bashmu Fang",
@@ -402,7 +402,7 @@
         "Bashmu Juvenile Bashmu"
       ],
       "id": 36820,
-      "gold": 9473
+      "gold": 15000
     },
     {
       "name": "Bashmu Feather",
@@ -414,7 +414,7 @@
         "Bashmu Juvenile Bashmu"
       ],
       "id": 36823,
-      "gold": 4747
+      "gold": 6398
     },
     {
       "name": "Bashmu Tongue",
@@ -426,7 +426,7 @@
         "Bashmu Juvenile Bashmu"
       ],
       "id": 36821,
-      "gold": 3497
+      "gold": 6498
     },
     {
       "name": "Bat Decoration",
@@ -438,7 +438,7 @@
         "Mr. Punish The Mutated Pumpkin"
       ],
       "id": 6491,
-      "gold": 90000
+      "gold": 5000
     },
     {
       "name": "Bat Wing",
@@ -450,7 +450,7 @@
         "Bat Bruise Payne Exotic Bat Grynch Clan Goblin Mutated Bat Vicious Manbat"
       ],
       "id": 5894,
-      "gold": 64
+      "gold": 140
     },
     {
       "name": "Battle Stone",
@@ -462,7 +462,7 @@
         "Animated Ogre Brute Armadile Behemoth Ogre Brute"
       ],
       "id": 11447,
-      "gold": 239
+      "gold": 369
     },
     {
       "name": "Bear Paw",
@@ -474,7 +474,7 @@
         "Bear Shadowpelt Werebear"
       ],
       "id": 5896,
-      "gold": 400
+      "gold": 448
     },
     {
       "name": "Beast's Nightmare-Cushion",
@@ -486,7 +486,7 @@
         "The Nightmare Beast"
       ],
       "id": 29946,
-      "gold": 650000
+      "gold": 0
     },
     {
       "name": "Bed of Nails",
@@ -498,7 +498,7 @@
         "Barkless Devotee Barkless Fanatic Ravenous Hunger"
       ],
       "id": 25743,
-      "gold": 400
+      "gold": 1234
     },
     {
       "name": "Beetle Carapace",
@@ -510,7 +510,7 @@
         "Orclops Doomhauler Orclops Ravager"
       ],
       "id": 24381,
-      "gold": 154
+      "gold": 1497
     },
     {
       "name": "Behemoth Claw",
@@ -522,7 +522,7 @@
         "Behemoth Stonecracker"
       ],
       "id": 5930,
-      "gold": 1700
+      "gold": 1000
     },
     {
       "name": "Beijinho",
@@ -534,7 +534,7 @@
         "Honey Elemental Sugar Daddy"
       ],
       "id": 48253,
-      "gold": 2999
+      "gold": 29800
     },
     {
       "name": "Black Hood",
@@ -546,7 +546,7 @@
         "Priestess"
       ],
       "id": 9645,
-      "gold": 889
+      "gold": 499
     },
     {
       "name": "Black Wool",
@@ -558,7 +558,7 @@
         "Black Sheep"
       ],
       "id": 11448,
-      "gold": 28888
+      "gold": 10000
     },
     {
       "name": "Blazing Bone",
@@ -570,7 +570,7 @@
         "Dragonling Hellhound Lava Golem Magma Crawler Vulcongra Weeper"
       ],
       "id": 16131,
-      "gold": 950
+      "gold": 1977
     },
     {
       "name": "Blemished Spawn Abdomen",
@@ -582,7 +582,7 @@
         "Blemished Spawn"
       ],
       "id": 36779,
-      "gold": 7999
+      "gold": 19999
     },
     {
       "name": "Blemished Spawn Head",
@@ -594,7 +594,7 @@
         "Blemished Spawn"
       ],
       "id": 36778,
-      "gold": 17898
+      "gold": 40000
     },
     {
       "name": "Blemished Spawn Tail",
@@ -606,7 +606,7 @@
         "Blemished Spawn"
       ],
       "id": 36780,
-      "gold": 19699
+      "gold": 57799
     },
     {
       "name": "Bloated Maggot",
@@ -616,7 +616,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 43856,
-      "gold": 79000
+      "gold": 144444
     },
     {
       "name": "Blood Amulet",
@@ -628,7 +628,7 @@
         "Dworc Shadowstalker"
       ],
       "id": 51473,
-      "gold": 2399
+      "gold": 3999
     },
     {
       "name": "Blood Crown",
@@ -638,7 +638,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 51483,
-      "gold": 337696
+      "gold": 0
     },
     {
       "name": "Blood Hood",
@@ -650,7 +650,7 @@
         "Norcferatu Nightweaver"
       ],
       "id": 51480,
-      "gold": 2300
+      "gold": 4999
     },
     {
       "name": "Blood Preservation",
@@ -662,7 +662,7 @@
         "Arachir the Ancient One Arthei Boreth Diblis the Fair Lersatio Nightfiend The Pale Count Vampire Vampire Bride Vampire Viscount Vicious Manbat"
       ],
       "id": 11449,
-      "gold": 970
+      "gold": 699
     },
     {
       "name": "Blood Sceptre",
@@ -672,7 +672,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 51481,
-      "gold": 179000
+      "gold": 0
     },
     {
       "name": "Blood Tincture in a Vial",
@@ -684,7 +684,7 @@
         "Blood Hand Blood Priest"
       ],
       "id": 18928,
-      "gold": 5195
+      "gold": 4976
     },
     {
       "name": "Blooded Worm",
@@ -696,7 +696,7 @@
         "Rotten Man-Maggot"
       ],
       "id": 43857,
-      "gold": 49999
+      "gold": 0
     },
     {
       "name": "Bloodshot Giant Eye",
@@ -708,7 +708,7 @@
         "Orclops Bloodbreaker"
       ],
       "id": 51482,
-      "gold": 4700
+      "gold": 7000
     },
     {
       "name": "Bloodstained Scythe",
@@ -720,7 +720,7 @@
         "Brinebrute Inferniarch"
       ],
       "id": 50101,
-      "gold": 389800
+      "gold": 0
     },
     {
       "name": "Bloody Dwarven Beard",
@@ -732,7 +732,7 @@
         "Lost Basher Lost Thrower"
       ],
       "id": 17827,
-      "gold": 82
+      "gold": 580
     },
     {
       "name": "Bloody Pincers",
@@ -744,7 +744,7 @@
         "Blood Crab Deepsea Blood Crab Thanatursus"
       ],
       "id": 9633,
-      "gold": 12250
+      "gold": 17900
     },
     {
       "name": "Bloody Tears",
@@ -756,7 +756,7 @@
         "The Fear Feaster"
       ],
       "id": 32594,
-      "gold": 1999998
+      "gold": 1449990
     },
     {
       "name": "Blue Goanna Scale",
@@ -768,7 +768,7 @@
         "Yirkas Blue Scales Young Goanna"
       ],
       "id": 31559,
-      "gold": 1219
+      "gold": 2775
     },
     {
       "name": "Blue Piece of Cloth",
@@ -780,7 +780,7 @@
         "Blue Djinn Broken Shaper Fahim the Wise Hideous Fungus Hirintror Humongous Fungus Marid Minotaur Hunter Minotaur Invader Terrorsleep The Pale Count The Winter Bloom Undead Jester Weakened Shlorg Wiggler Worm Priestess Yakchal Zugurosh Zushuka"
       ],
       "id": 5912,
-      "gold": 287
+      "gold": 333
     },
     {
       "name": "Boar Man Hoof",
@@ -792,7 +792,7 @@
         "Boar Man"
       ],
       "id": 40584,
-      "gold": 3997
+      "gold": 2500
     },
     {
       "name": "Boggy Dreads",
@@ -804,7 +804,7 @@
         "Bog Raider Weakened Shlorg"
       ],
       "id": 9667,
-      "gold": 4899
+      "gold": 6948
     },
     {
       "name": "Bola",
@@ -816,7 +816,7 @@
         "Corym Charlatan Corym Skirmisher Corym Vanguard"
       ],
       "id": 17809,
-      "gold": 1996
+      "gold": 1774
     },
     {
       "name": "Bone Fetish",
@@ -828,7 +828,7 @@
         "Animated Ogre Shaman Lost Basher Lost Exile Lost Husher Ogre Sage Ogre Shaman"
       ],
       "id": 17831,
-      "gold": 5172
+      "gold": 3150
     },
     {
       "name": "Bone Fibula",
@@ -852,7 +852,7 @@
         "Dworc Shadowstalker"
       ],
       "id": 51478,
-      "gold": 4800
+      "gold": 5498
     },
     {
       "name": "Bone Shoulderplate",
@@ -864,7 +864,7 @@
         "Draken Warmaster"
       ],
       "id": 10404,
-      "gold": 1248
+      "gold": 1799
     },
     {
       "name": "Bone Spikes",
@@ -886,7 +886,7 @@
         "Orclops Doomhauler Orclops Ravager Skeleton Elite Warrior"
       ],
       "id": 24380,
-      "gold": 3050
+      "gold": 2798
     },
     {
       "name": "Bonecarving Knife",
@@ -898,7 +898,7 @@
         "Lost Basher Lost Exile Lost Husher"
       ],
       "id": 17830,
-      "gold": 1487
+      "gold": 2150
     },
     {
       "name": "Bonelord Eye",
@@ -910,7 +910,7 @@
         "Bonelord Elder Bonelord Braindeath The Evil Eye"
       ],
       "id": 5898,
-      "gold": 4640
+      "gold": 4999
     },
     {
       "name": "Bones of Zorvorax",
@@ -922,7 +922,7 @@
         "Zorvorax"
       ],
       "id": 24942,
-      "gold": 0
+      "gold": 9876
     },
     {
       "name": "Bony Tail",
@@ -934,7 +934,7 @@
         "Bonebeast Ribstride"
       ],
       "id": 10277,
-      "gold": 520
+      "gold": 868
     },
     {
       "name": "Book of Necromantic Rituals",
@@ -946,7 +946,7 @@
         "Blood Hand Blood Priest Floating Savant Necromancer Necromancer Servant Necropharus Shadow Pupil"
       ],
       "id": 10320,
-      "gold": 2780
+      "gold": 2999
     },
     {
       "name": "Book of Prayers",
@@ -958,7 +958,7 @@
         "Dark Monk Fernfang Monk (Creature) Monk of the Order"
       ],
       "id": 9646,
-      "gold": 390
+      "gold": 811
     },
     {
       "name": "Book Page",
@@ -970,7 +970,7 @@
         "Biting Book Burning Book Cursed Book Energetic Book Energuardian of Tales Guardian of Tales Icecold Book Knowledge Elemental"
       ],
       "id": 28569,
-      "gold": 979
+      "gold": 999
     },
     {
       "name": "Book with a Dragon",
@@ -982,7 +982,7 @@
         "Bramble Wyrmling Cinder Wyrmling"
       ],
       "id": 51423,
-      "gold": 5995
+      "gold": 7797
     },
     {
       "name": "Book with an Hourglass",
@@ -994,7 +994,7 @@
         "Headwalker"
       ],
       "id": 51425,
-      "gold": 1697
+      "gold": 2100
     },
     {
       "name": "Bottled Dragon Breath",
@@ -1016,7 +1016,7 @@
         "Feversleep Terrorsleep"
       ],
       "id": 20204,
-      "gold": 3698
+      "gold": 2000
     },
     {
       "name": "Brain Head's Brain",
@@ -1038,7 +1038,7 @@
         "Brain Head"
       ],
       "id": 32578,
-      "gold": 2500000
+      "gold": 0
     },
     {
       "name": "Brain Head's Left Hemisphere",
@@ -1062,7 +1062,7 @@
         "Brain Head"
       ],
       "id": 32580,
-      "gold": 600000
+      "gold": 0
     },
     {
       "name": "Brainstealer's Brain",
@@ -1074,7 +1074,7 @@
         "The Brainstealer"
       ],
       "id": 36795,
-      "gold": 400000
+      "gold": 0
     },
     {
       "name": "Brainstealer's Brainwave",
@@ -1086,7 +1086,7 @@
         "The Brainstealer"
       ],
       "id": 36796,
-      "gold": 1999999
+      "gold": 0
     },
     {
       "name": "Brainstealer's Tissue",
@@ -1098,7 +1098,7 @@
         "The Brainstealer"
       ],
       "id": 36794,
-      "gold": 449000
+      "gold": 0
     },
     {
       "name": "Brigadeiro",
@@ -1110,7 +1110,7 @@
         "Candy Horror Sugar Daddy"
       ],
       "id": 48252,
-      "gold": 24496
+      "gold": 79999
     },
     {
       "name": "Bright Bell",
@@ -1122,7 +1122,7 @@
         "Schiach"
       ],
       "id": 30324,
-      "gold": 1999
+      "gold": 4900
     },
     {
       "name": "Brimstone Fangs",
@@ -1134,7 +1134,7 @@
         "Brimstone Bug Sulphur Scuttler"
       ],
       "id": 11702,
-      "gold": 10000
+      "gold": 19999
     },
     {
       "name": "Brimstone Shell",
@@ -1146,7 +1146,7 @@
         "Brimstone Bug Sulphur Scuttler"
       ],
       "id": 11703,
-      "gold": 160
+      "gold": 550
     },
     {
       "name": "Brinebrute Claw",
@@ -1158,7 +1158,7 @@
         "Brinebrute Inferniarch"
       ],
       "id": 50056,
-      "gold": 12850
+      "gold": 69000
     },
     {
       "name": "Broken Crossbow",
@@ -1170,7 +1170,7 @@
         "Minotaur Archer Orc Marauder"
       ],
       "id": 11451,
-      "gold": 54
+      "gold": 285
     },
     {
       "name": "Broken Draken Mail",
@@ -1182,7 +1182,7 @@
         "Draken Elite Paiz the Pauperizer"
       ],
       "id": 11660,
-      "gold": 6497
+      "gold": 5999
     },
     {
       "name": "Broken Gladiator Shield",
@@ -1194,7 +1194,7 @@
         "Undead Elite Gladiator Undead Gladiator"
       ],
       "id": 9656,
-      "gold": 850
+      "gold": 689
     },
     {
       "name": "Broken Halberd",
@@ -1206,7 +1206,7 @@
         "Lizard Legionnaire"
       ],
       "id": 10418,
-      "gold": 4189
+      "gold": 4896
     },
     {
       "name": "Broken Helmet",
@@ -1218,7 +1218,7 @@
         "Ancient Lion Knight Orc Warlord Orc Warrior"
       ],
       "id": 11453,
-      "gold": 26
+      "gold": 97
     },
     {
       "name": "Broken Iks Cuirass",
@@ -1230,7 +1230,7 @@
         "Iks Aucar Ahau"
       ],
       "id": 40533,
-      "gold": 8000000
+      "gold": 0
     },
     {
       "name": "Broken Iks Faulds",
@@ -1242,7 +1242,7 @@
         "Ahau Iks Ahpututu Iks Pututu Iks Aucar"
       ],
       "id": 40531,
-      "gold": 545900
+      "gold": 2000000
     },
     {
       "name": "Broken Iks Headpiece",
@@ -1254,7 +1254,7 @@
         "Ahau Iks Pututu"
       ],
       "id": 40532,
-      "gold": 699999
+      "gold": 1500000
     },
     {
       "name": "Broken Iks Sandals",
@@ -1266,7 +1266,7 @@
         "Iks Ahpututu Iks Chuka Iks Pututu Iks Aucar"
       ],
       "id": 40534,
-      "gold": 199900
+      "gold": 999999
     },
     {
       "name": "Broken Key Ring",
@@ -1278,7 +1278,7 @@
         "Acolyte of the Cult Adept of the Cult Enlightened of the Cult Melting Frozen Horror Ravenous Hunger Soul of Dragonking Zyrtarch Zyrtarch"
       ],
       "id": 11652,
-      "gold": 7000
+      "gold": 7500
     },
     {
       "name": "Broken Longbow",
@@ -1290,7 +1290,7 @@
         "Usurper Archer"
       ],
       "id": 34161,
-      "gold": 2500
+      "gold": 8499
     },
     {
       "name": "Broken Macuahuitl",
@@ -1302,7 +1302,7 @@
         "Ahau"
       ],
       "id": 40530,
-      "gold": 400000
+      "gold": 0
     },
     {
       "name": "Broken Mitmah Chestplate",
@@ -1314,7 +1314,7 @@
         "Mitmah Vanguard"
       ],
       "id": 44727,
-      "gold": 98799
+      "gold": 0
     },
     {
       "name": "Broken Mitmah Necklace",
@@ -1326,7 +1326,7 @@
         "Atab Mitmah Scout Mitmah Vanguard"
       ],
       "id": 44438,
-      "gold": 2200
+      "gold": 1974
     },
     {
       "name": "Broken Ring of Ending",
@@ -1338,7 +1338,7 @@
         "Yielothax"
       ],
       "id": 12737,
-      "gold": 4699
+      "gold": 3500
     },
     {
       "name": "Broken Shamanic Staff",
@@ -1350,7 +1350,7 @@
         "Animated Ogre Shaman Ogre Sage Ogre Shaman Orc Cult Priest Orc Shaman"
       ],
       "id": 11452,
-      "gold": 9299
+      "gold": 11499
     },
     {
       "name": "Broken Slicer",
@@ -1362,7 +1362,7 @@
         "Draken Elite Paiz the Pauperizer"
       ],
       "id": 11661,
-      "gold": 5998
+      "gold": 8497
     },
     {
       "name": "Broken Staff of Mind Control",
@@ -1386,7 +1386,7 @@
         "Lost Thrower"
       ],
       "id": 17851,
-      "gold": 2300
+      "gold": 4990
     },
     {
       "name": "Broken Visor",
@@ -1398,7 +1398,7 @@
         "Sight of Surrender"
       ],
       "id": 20184,
-      "gold": 4999
+      "gold": 0
     },
     {
       "name": "Broodrider Saddle",
@@ -1410,7 +1410,7 @@
         "Broodrider Inferniarch"
       ],
       "id": 50058,
-      "gold": 7598
+      "gold": 10499
     },
     {
       "name": "Brown Piece of Cloth",
@@ -1422,7 +1422,7 @@
         "Barbarian Headsplitter Barbarian Skullhunter Broken Shaper Choking Fear Ghoul Humongous Fungus Man in the Cave Undead Jester Undead Prospector Zugurosh"
       ],
       "id": 5913,
-      "gold": 77
+      "gold": 300
     },
     {
       "name": "Brutus Bloodbeard's Hat",
@@ -1434,7 +1434,7 @@
         "Brutus Bloodbeard"
       ],
       "id": 6099,
-      "gold": 1769999
+      "gold": 1200000
     },
     {
       "name": "Bulltaur Armor Scrap",
@@ -1446,7 +1446,7 @@
         "Bulltaur Brute"
       ],
       "id": 44738,
-      "gold": 3499
+      "gold": 5277
     },
     {
       "name": "Bulltaur Hoof",
@@ -1458,7 +1458,7 @@
         "Bulltaur Brute"
       ],
       "id": 44737,
-      "gold": 2000
+      "gold": 2698
     },
     {
       "name": "Bulltaur Horn",
@@ -1470,7 +1470,7 @@
         "Bulltaur Alchemist Bulltaur Brute Bulltaur Forgepriest"
       ],
       "id": 44736,
-      "gold": 480
+      "gold": 1000
     },
     {
       "name": "Bunch of Troll Hair",
@@ -1482,7 +1482,7 @@
         "Big Boss Trolliver Furious Troll Salamander Trainer Troll Troll Champion Troll Guard Young Troll"
       ],
       "id": 9689,
-      "gold": 588
+      "gold": 699
     },
     {
       "name": "Bundle of Cursed Straw",
@@ -1494,7 +1494,7 @@
         "Blightwalker"
       ],
       "id": 9688,
-      "gold": 6249
+      "gold": 10000
     },
     {
       "name": "Burnt Out Devourer Core",
@@ -1504,7 +1504,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 23687,
-      "gold": 299800
+      "gold": 1200000
     },
     {
       "name": "Capricious Heart",
@@ -1516,7 +1516,7 @@
         "Capricious Phantom"
       ],
       "id": 34138,
-      "gold": 46999
+      "gold": 0
     },
     {
       "name": "Capricious Robe",
@@ -1528,7 +1528,7 @@
         "Capricious Phantom"
       ],
       "id": 34145,
-      "gold": 40000
+      "gold": 0
     },
     {
       "name": "Carniphila Seeds",
@@ -1540,7 +1540,7 @@
         "Carniphila Deathbine Grove Guardian"
       ],
       "id": 10300,
-      "gold": 293
+      "gold": 499
     },
     {
       "name": "Carnisylvan Bark",
@@ -1552,7 +1552,7 @@
         "Dark Carnisylvan Hulking Carnisylvan Poisonous Carnisylvan"
       ],
       "id": 36806,
-      "gold": 2150
+      "gold": 5389
     },
     {
       "name": "Carnisylvan Finger",
@@ -1564,7 +1564,7 @@
         "Dark Carnisylvan Hulking Carnisylvan Poisonous Carnisylvan"
       ],
       "id": 36805,
-      "gold": 1499
+      "gold": 14500
     },
     {
       "name": "Carnivostrich Feather",
@@ -1588,7 +1588,7 @@
         "Carrion Worm White Pale"
       ],
       "id": 10275,
-      "gold": 220
+      "gold": 498
     },
     {
       "name": "Cat's Paw",
@@ -1600,7 +1600,7 @@
         "Dark Torturer Hemming Mr. Punish The Scourge of Oblivion"
       ],
       "id": 5479,
-      "gold": 4000
+      "gold": 8000
     },
     {
       "name": "Cave Chimera Head",
@@ -1612,7 +1612,7 @@
         "Cave Chimera"
       ],
       "id": 36787,
-      "gold": 6500
+      "gold": 29999
     },
     {
       "name": "Cave Chimera Leg",
@@ -1624,7 +1624,7 @@
         "Cave Chimera"
       ],
       "id": 36788,
-      "gold": 5350
+      "gold": 14999
     },
     {
       "name": "Cave Devourer Eyes",
@@ -1636,7 +1636,7 @@
         "Cave Devourer"
       ],
       "id": 27599,
-      "gold": 1549
+      "gold": 2075
     },
     {
       "name": "Cave Devourer Legs",
@@ -1648,7 +1648,7 @@
         "Cave Devourer"
       ],
       "id": 27601,
-      "gold": 2000
+      "gold": 3250
     },
     {
       "name": "Cave Devourer Maw",
@@ -1660,7 +1660,7 @@
         "Cave Devourer"
       ],
       "id": 27600,
-      "gold": 1400
+      "gold": 1500
     },
     {
       "name": "Cavebear Skull",
@@ -1684,7 +1684,7 @@
         "Centipede"
       ],
       "id": 10301,
-      "gold": 6988
+      "gold": 5899
     },
     {
       "name": "Chagorz Igneous Obsidian",
@@ -1708,7 +1708,7 @@
         "Gloom Maw"
       ],
       "id": 51472,
-      "gold": 4600
+      "gold": 4499
     },
     {
       "name": "Chasm Spawn Abdomen",
@@ -1720,7 +1720,7 @@
         "Chasm Spawn"
       ],
       "id": 27603,
-      "gold": 1649
+      "gold": 2299
     },
     {
       "name": "Chasm Spawn Head",
@@ -1732,7 +1732,7 @@
         "Chasm Spawn"
       ],
       "id": 27602,
-      "gold": 5700
+      "gold": 4000
     },
     {
       "name": "Chasm Spawn Tail",
@@ -1744,7 +1744,7 @@
         "Chasm Spawn"
       ],
       "id": 27604,
-      "gold": 1480
+      "gold": 1000
     },
     {
       "name": "Cheese Cutter",
@@ -1756,7 +1756,7 @@
         "Corym Charlatan Corym Skirmisher Corym Vanguard"
       ],
       "id": 17817,
-      "gold": 1000
+      "gold": 1499
     },
     {
       "name": "Cheesy Figurine",
@@ -1768,7 +1768,7 @@
         "Cobra Scout Corym Charlatan Corym Skirmisher Corym Vanguard"
       ],
       "id": 17818,
-      "gold": 5999
+      "gold": 1300
     },
     {
       "name": "Cheesy Membership Card",
@@ -1780,7 +1780,7 @@
         "Ratmiral Blackwhiskers"
       ],
       "id": 35614,
-      "gold": 399999
+      "gold": 0
     },
     {
       "name": "Chicken Feather",
@@ -1792,7 +1792,7 @@
         "Agrestic Chicken Chicken Grynch Clan Goblin"
       ],
       "id": 5890,
-      "gold": 3985
+      "gold": 2985
     },
     {
       "name": "Chitinous Mouth (Baron from Below)",
@@ -1804,7 +1804,7 @@
         "The Baron from Below"
       ],
       "id": 27622,
-      "gold": 9900
+      "gold": 0
     },
     {
       "name": "Chitinous Mouth (Count of the Core)",
@@ -1816,7 +1816,7 @@
         "The Count of the Core"
       ],
       "id": 27626,
-      "gold": 490000
+      "gold": 0
     },
     {
       "name": "Christmas Present Bag",
@@ -1828,7 +1828,7 @@
         "Grynch Clan Goblin"
       ],
       "id": 6496,
-      "gold": 1398
+      "gold": 0
     },
     {
       "name": "Christmas Token",
@@ -1838,7 +1838,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 6526,
-      "gold": 499
+      "gold": 2999
     },
     {
       "name": "Churro Heart",
@@ -1850,7 +1850,7 @@
         "Goggle Cake"
       ],
       "id": 48254,
-      "gold": 5666
+      "gold": 5998
     },
     {
       "name": "Claw of 'The Noxious Spawn'",
@@ -1874,7 +1874,7 @@
         "Cliff Strider"
       ],
       "id": 16134,
-      "gold": 760
+      "gold": 3989
     },
     {
       "name": "Closed Pocket Sundial",
@@ -1886,7 +1886,7 @@
         "Ayana the Crimson Curse"
       ],
       "id": 43888,
-      "gold": 94666
+      "gold": 0
     },
     {
       "name": "Cluster of Crystallized Death",
@@ -1908,7 +1908,7 @@
         "Choking Fear Demon Outcast Feversleep Frazzlemaw Gaz'haragoth Guzzlemaw Horadron Kroazur Lady Tenebris Mawhawk Memory of a Frazzlemaw Omrafir Prince Drazzak Reflection of Mawhawk Retching Horror Shiversleep Sight of Surrender Silencer Terofar Terrorsleep The Blazing Time Guardian The Freezing Time Guardian The Sandking The Time Guardian Weakened Frazzlemaw Zavarash"
       ],
       "id": 20062,
-      "gold": 3899
+      "gold": 3290
     },
     {
       "name": "Coal",
@@ -1920,7 +1920,7 @@
         "Armadile Blazing Fire Elemental Blistering Fire Elemental Carrion Worm Drillworm Dwarf Guard Earth Elemental Earth Overlord Enslaved Dwarf Eternal Guardian Fire Overlord Firestarter Guardian of Tales Hellfire Fighter Infected Weeper Jagged Earth Elemental Lost Basher Lost Berserker Lost Exile Lost Husher Lost Thrower Magma Crawler Massive Earth Elemental Muddy Earth Elemental Rotworm Queen Stone Devourer Stone Golem Stonerefiner Vulcongra Weeper"
       ],
       "id": 12600,
-      "gold": 10
+      "gold": 69
     },
     {
       "name": "Coal Eyes",
@@ -1932,7 +1932,7 @@
         "Melting Frozen Horror"
       ],
       "id": 24978,
-      "gold": 999
+      "gold": 0
     },
     {
       "name": "Cobra Crest",
@@ -1944,7 +1944,7 @@
         "Cobra Assassin Cobra Scout Cobra Vizier Custodian Gaffir Guard Captain Quaid"
       ],
       "id": 31678,
-      "gold": 660
+      "gold": 1111
     },
     {
       "name": "Cobra Tongue",
@@ -1956,7 +1956,7 @@
         "Cobra"
       ],
       "id": 9634,
-      "gold": 800
+      "gold": 1650
     },
     {
       "name": "Cockroach Leg",
@@ -1980,7 +1980,7 @@
         "Terror Bird"
       ],
       "id": 11514,
-      "gold": 8840
+      "gold": 7768
     },
     {
       "name": "Colourful Feathers",
@@ -1990,7 +1990,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 25089,
-      "gold": 50000
+      "gold": 69997
     },
     {
       "name": "Colourful Quill",
@@ -2002,7 +2002,7 @@
         "Sir Leopold Sir Leonard"
       ],
       "id": 51421,
-      "gold": 666666
+      "gold": 0
     },
     {
       "name": "Colourful Snail Shell",
@@ -2014,7 +2014,7 @@
         "Nymph Pixie Swan Maiden"
       ],
       "id": 25696,
-      "gold": 4044
+      "gold": 4500
     },
     {
       "name": "Compass",
@@ -2026,7 +2026,7 @@
         "Pirate Buccaneer Pirate Corsair Pirate Cutthroat Pirate Marauder"
       ],
       "id": 10302,
-      "gold": 109
+      "gold": 150
     },
     {
       "name": "Compound Eye",
@@ -2038,7 +2038,7 @@
         "Chopper Crawler Fleshslicer Hive Overseer Insectoid Worker Kollos Maw Mindmasher Rotspit Shadowstalker Spidris Spidris Elite Spitter Swarmer The Hungerer The Mean Masher Waspoid"
       ],
       "id": 14083,
-      "gold": 398
+      "gold": 643
     },
     {
       "name": "Condensed Energy",
@@ -2050,7 +2050,7 @@
         "Stabilizing Reality Reaver"
       ],
       "id": 23501,
-      "gold": 1387
+      "gold": 9400
     },
     {
       "name": "Cookbook (Creature Product)",
@@ -2062,7 +2062,7 @@
         "Crusader"
       ],
       "id": 51424,
-      "gold": 2499
+      "gold": 2100
     },
     {
       "name": "Coral Branch",
@@ -2074,7 +2074,7 @@
         "Foam Stalker Venerable Foam Stalker"
       ],
       "id": 39406,
-      "gold": 8967
+      "gold": 10889
     },
     {
       "name": "Corrupt Naga Scales",
@@ -2086,7 +2086,7 @@
         "Corrupt Naga"
       ],
       "id": 39415,
-      "gold": 500
+      "gold": 2699
     },
     {
       "name": "Corrupted Flag",
@@ -2098,7 +2098,7 @@
         "Lizard Chosen The Voice of Ruin"
       ],
       "id": 10409,
-      "gold": 650
+      "gold": 1750
     },
     {
       "name": "Countess Sorrow's Frozen Tear",
@@ -2110,7 +2110,7 @@
         "Countess Sorrow"
       ],
       "id": 6536,
-      "gold": 1000000
+      "gold": 500000
     },
     {
       "name": "Cow Bell",
@@ -2134,7 +2134,7 @@
         "Minotaur Amazon Minotaur Cult Follower Minotaur Cult Prophet"
       ],
       "id": 21204,
-      "gold": 620
+      "gold": 550
     },
     {
       "name": "Crab Man Claws",
@@ -2146,7 +2146,7 @@
         "Crape Man"
       ],
       "id": 40582,
-      "gold": 2500
+      "gold": 7198
     },
     {
       "name": "Crab Pincers",
@@ -2158,7 +2158,7 @@
         "Crab"
       ],
       "id": 10272,
-      "gold": 150
+      "gold": 350
     },
     {
       "name": "Cracked Alabaster Vase",
@@ -2170,7 +2170,7 @@
         "Broken Shaper Shaper Matriarch Twisted Shaper"
       ],
       "id": 24385,
-      "gold": 5200
+      "gold": 2000
     },
     {
       "name": "Crawler Head Plating",
@@ -2182,7 +2182,7 @@
         "Crawler Shadowstalker"
       ],
       "id": 14079,
-      "gold": 2890
+      "gold": 4999
     },
     {
       "name": "Crawler's Essence",
@@ -2194,7 +2194,7 @@
         "Branchy Crawler"
       ],
       "id": 33982,
-      "gold": 97998
+      "gold": 59493
     },
     {
       "name": "Crown (Plant)",
@@ -2206,7 +2206,7 @@
         "Cloak of Terror"
       ],
       "id": 33935,
-      "gold": 39999
+      "gold": 100000
     },
     {
       "name": "Cruelty's Chest",
@@ -2242,7 +2242,7 @@
         "Shrieking Cry-Stal"
       ],
       "id": 39394,
-      "gold": 38888
+      "gold": 0
     },
     {
       "name": "Cryptic Fossil",
@@ -2264,7 +2264,7 @@
         "Instable Breach Brood"
       ],
       "id": 23521,
-      "gold": 14800
+      "gold": 13500
     },
     {
       "name": "Crystal of the Mitmah",
@@ -2276,7 +2276,7 @@
         "Atab Mitmah Seer Mitmah Vanguard"
       ],
       "id": 44439,
-      "gold": 4000
+      "gold": 2244
     },
     {
       "name": "Crystalline Spikes",
@@ -2288,7 +2288,7 @@
         "Armadile Crystalcrusher Enraged Crystal Golem Ironblight Stone Devourer"
       ],
       "id": 16138,
-      "gold": 2499
+      "gold": 2799
     },
     {
       "name": "Crystallised Blood",
@@ -2300,7 +2300,7 @@
         "Dragon Hoard"
       ],
       "id": 44752,
-      "gold": 319999
+      "gold": 0
     },
     {
       "name": "Crystallized Anger",
@@ -2312,7 +2312,7 @@
         "Breach Brood Burster Lokathmor Realityquake The Source of Corruption World Devourer"
       ],
       "id": 23507,
-      "gold": 364
+      "gold": 679
     },
     {
       "name": "Crystallized Death",
@@ -2344,7 +2344,7 @@
         "Enlightened of the Cult"
       ],
       "id": 9638,
-      "gold": 6096
+      "gold": 8095
     },
     {
       "name": "Cultish Robe",
@@ -2356,7 +2356,7 @@
         "Acolyte of the Cult Adept of the Cult Cult Believer Cult Enforcer Cult Scholar Minotaur Cult Follower Minotaur Cult Prophet Minotaur Cult Zealot Novice of the Cult Orc Cult Fanatic Orc Cult Inquisitor Orc Cult Minion Orc Cult Priest Orc Cultist Priestess"
       ],
       "id": 9639,
-      "gold": 119
+      "gold": 198
     },
     {
       "name": "Cultish Symbol",
@@ -2368,7 +2368,7 @@
         "Acolyte of the Cult Adept of the Cult Enlightened of the Cult Tzumrah the Dazzler"
       ],
       "id": 11455,
-      "gold": 590
+      "gold": 860
     },
     {
       "name": "Curious Matter",
@@ -2380,7 +2380,7 @@
         "Anomaly Breach Brood Burster Gorzindel The Sinister Hermit (Blue) The Souldespoiler"
       ],
       "id": 23511,
-      "gold": 749
+      "gold": 900
     },
     {
       "name": "Curl of Hair",
@@ -2404,7 +2404,7 @@
         "Brain Head Flimsy Lost Soul The Dread Maiden The Fear Feaster The Pale Worm The Unwelcome Vok the Freakish"
       ],
       "id": 32774,
-      "gold": 5999
+      "gold": 5919
     },
     {
       "name": "Cursed Shoulder Spikes",
@@ -2416,7 +2416,7 @@
         "Lizard Chosen The Voice of Ruin"
       ],
       "id": 10410,
-      "gold": 4500
+      "gold": 4990
     },
     {
       "name": "Cyclops Toe",
@@ -2428,7 +2428,7 @@
         "Cyclops Cyclops Drone Cyclops Smith The Old Whopper"
       ],
       "id": 9657,
-      "gold": 498
+      "gold": 300
     },
     {
       "name": "Damaged Armor Plates",
@@ -2440,7 +2440,7 @@
         "Falcon Knight Falcon Paladin Grand Canon Dominus Grand Chaplain Gaunder Grand Commander Soeren"
       ],
       "id": 28822,
-      "gold": 5000
+      "gold": 3799
     },
     {
       "name": "Damaged Worm Head",
@@ -2452,7 +2452,7 @@
         "The Duke of the Depths"
       ],
       "id": 27620,
-      "gold": 7799
+      "gold": 0
     },
     {
       "name": "Damselfly Eye",
@@ -2464,7 +2464,7 @@
         "Emerald Damselfly"
       ],
       "id": 17463,
-      "gold": 4450
+      "gold": 5700
     },
     {
       "name": "Damselfly Wing",
@@ -2476,7 +2476,7 @@
         "Emerald Damselfly"
       ],
       "id": 17458,
-      "gold": 380
+      "gold": 442
     },
     {
       "name": "Dandelion Seeds",
@@ -2488,7 +2488,7 @@
         "Arctic Faun Faun Nymph Pixie"
       ],
       "id": 25695,
-      "gold": 2750
+      "gold": 2000
     },
     {
       "name": "Dangerous Proto Matter",
@@ -2500,7 +2500,7 @@
         "Dreadful Disruptor Reality Reaver"
       ],
       "id": 23515,
-      "gold": 729
+      "gold": 7396
     },
     {
       "name": "Dark Bell",
@@ -2512,7 +2512,7 @@
         "Percht"
       ],
       "id": 30325,
-      "gold": 3300
+      "gold": 2496
     },
     {
       "name": "Dark Bell (Silver)",
@@ -2536,7 +2536,7 @@
         "Darklight Construct Darklight Source Darklight Striker"
       ],
       "id": 43850,
-      "gold": 26998
+      "gold": 26699
     },
     {
       "name": "Dark Rosary",
@@ -2548,7 +2548,7 @@
         "Dark Monk Priestess"
       ],
       "id": 10303,
-      "gold": 3200
+      "gold": 2244
     },
     {
       "name": "Darklight Basalt Chunk",
@@ -2560,7 +2560,7 @@
         "Walking Pillar"
       ],
       "id": 43852,
-      "gold": 37752
+      "gold": 33999
     },
     {
       "name": "Darklight Core (Object)",
@@ -2570,7 +2570,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 43853,
-      "gold": 11497
+      "gold": 17886
     },
     {
       "name": "Darklight Figurine",
@@ -2582,7 +2582,7 @@
         "Bakragore Chagorz Vemiath"
       ],
       "id": 43961,
-      "gold": 6858888
+      "gold": 0
     },
     {
       "name": "Darklight Heart",
@@ -2592,7 +2592,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 43855,
-      "gold": 4995000
+      "gold": 5000000
     },
     {
       "name": "Darklight Matter (Object)",
@@ -2604,7 +2604,7 @@
         "Darklight Matter"
       ],
       "id": 43851,
-      "gold": 33279
+      "gold": 28887
     },
     {
       "name": "Dead Weight",
@@ -2616,7 +2616,7 @@
         "Choking Fear"
       ],
       "id": 20202,
-      "gold": 888
+      "gold": 617
     },
     {
       "name": "Deadeye Devious' Eye Patch",
@@ -2628,7 +2628,7 @@
         "Deadeye Devious"
       ],
       "id": 6102,
-      "gold": 849980
+      "gold": 1200000
     },
     {
       "name": "Deadly Fangs",
@@ -2660,7 +2660,7 @@
         "Deathstrike"
       ],
       "id": 16136,
-      "gold": 38999
+      "gold": 142999
     },
     {
       "name": "Decayed Finger Bone",
@@ -2672,7 +2672,7 @@
         "Oozing Carcass Sopping Carcass"
       ],
       "id": 43846,
-      "gold": 149999
+      "gold": 0
     },
     {
       "name": "Deepling Breaktime Snack",
@@ -2684,7 +2684,7 @@
         "Deepling Guard Deepling Tyrant"
       ],
       "id": 14011,
-      "gold": 4996
+      "gold": 5000
     },
     {
       "name": "Deepling Claw",
@@ -2696,7 +2696,7 @@
         "Deepling Guard Deepling Tyrant"
       ],
       "id": 14044,
-      "gold": 4997
+      "gold": 9999
     },
     {
       "name": "Deepling Guard Belt Buckle",
@@ -2708,7 +2708,7 @@
         "Deepling Guard Deepling Tyrant"
       ],
       "id": 14010,
-      "gold": 11997
+      "gold": 5600
     },
     {
       "name": "Deepling Ridge",
@@ -2720,7 +2720,7 @@
         "Deathling Scout Deathling Spellsinger Deepling Elite Deepling Warrior Neutral Deepling Warrior"
       ],
       "id": 14041,
-      "gold": 4300
+      "gold": 4699
     },
     {
       "name": "Deepling Scales",
@@ -2732,7 +2732,7 @@
         "Deepling Brawler Deepling Worker Shark"
       ],
       "id": 14017,
-      "gold": 10000
+      "gold": 8499
     },
     {
       "name": "Deepling Warts",
@@ -2744,7 +2744,7 @@
         "Deathling Scout Deathling Spellsinger Deepling Elite Deepling Warrior Neutral Deepling Warrior"
       ],
       "id": 14012,
-      "gold": 898
+      "gold": 550
     },
     {
       "name": "Deeptags",
@@ -2756,7 +2756,7 @@
         "Deathling Scout Deathling Spellsinger Deepling Elite Deepling Warrior Neutral Deepling Warrior"
       ],
       "id": 14013,
-      "gold": 3127
+      "gold": 3500
     },
     {
       "name": "Deepworm Jaws",
@@ -2768,7 +2768,7 @@
         "Deepworm"
       ],
       "id": 27594,
-      "gold": 1648
+      "gold": 2200
     },
     {
       "name": "Deepworm Spike Roots",
@@ -2780,7 +2780,7 @@
         "Deepworm"
       ],
       "id": 27593,
-      "gold": 4600
+      "gold": 4999
     },
     {
       "name": "Deepworm Spikes",
@@ -2792,7 +2792,7 @@
         "Deepworm"
       ],
       "id": 27592,
-      "gold": 2800
+      "gold": 6499
     },
     {
       "name": "Demon Claws",
@@ -2804,7 +2804,7 @@
         "Arbaziloth"
       ],
       "id": 50060,
-      "gold": 129999999
+      "gold": 0
     },
     {
       "name": "Demon Dust",
@@ -2816,7 +2816,7 @@
         "Demon Outcast The Source of Corruption"
       ],
       "id": 5906,
-      "gold": 1179
+      "gold": 3398
     },
     {
       "name": "Demon Horn",
@@ -2828,7 +2828,7 @@
         "Angry Demon Annihilon Demon Gaz'haragoth Ghazbaran Ghulosh Gorzindel Hellgorak Horadron Lokathmor Madareth Mazzinor Morgaroth Omrafir Orshabaal Prince Drazzak Terofar Ushuriel Zavarash Zugurosh"
       ],
       "id": 5954,
-      "gold": 976
+      "gold": 990
     },
     {
       "name": "Demon Root",
@@ -2840,7 +2840,7 @@
         "Rootthing Amber Shaper Rootthing Bug Tracker Rootthing Nutshell"
       ],
       "id": 48510,
-      "gold": 2498
+      "gold": 2500
     },
     {
       "name": "Demon Skull",
@@ -2852,7 +2852,7 @@
         "Arbaziloth"
       ],
       "id": 50061,
-      "gold": 3999999
+      "gold": 0
     },
     {
       "name": "Demonic Core Essence",
@@ -2864,7 +2864,7 @@
         "Brinebrute Inferniarch Broodrider Inferniarch Gorger Inferniarch Hellhunter Inferniarch Sineater Inferniarch Spellreaper Inferniarch"
       ],
       "id": 49909,
-      "gold": 13500
+      "gold": 9995
     },
     {
       "name": "Demonic Essence",
@@ -2876,7 +2876,7 @@
         "Angry Demon Betrayed Wraith Blightwalker Bretzecutioner Burning Book Countess Sorrow Dark Torturer Dawnfire Asura Defiler Demon Destroyer Diabolic Imp Dracola Ethershreck Flameborn Floating Savant Frost Flower Asura Fury Furyosa Gaz'haragoth Ghastly Dragon Ghazbaran Ghulosh Golgordan Grim Reaper Grimeleech Hand of Cursed Fate Hatebreeder Haunted Dragon Hellfire Fighter Hellflayer Hellgorak Hellhound Hellspawn Horadron Juggernaut Kerberos Kusuma Latrivan Lost Soul Madareth Massacre Mazoran Mazzinor Midnight Asura Morgaroth Mr. Punish Nightmare Omrafir Orshabaal Phantasm Plagirath Plaguesmith Preceptor Lazare Prince Drazzak Rage Squid Ragiaz Razzagorn Shulgrax Spectre Tarbaz Terofar The Abomination The Blazing Rose The Diamond Blossom The Enraged Thorn Knight The Flaming Orchid The Handmaiden The Imperor The Lily of Night The Moonlight Aster The Plasmother The Winter Bloom Tormentor True Dawnfire Asura True Frost Flower Asura True Midnight Asura Undead Dragon Ushuriel Vexclaw Zamulosh Zanakeph Zavarash Zorvorax Zugurosh Lokathmor"
       ],
       "id": 6499,
-      "gold": 999
+      "gold": 1065
     },
     {
       "name": "Demonic Finger",
@@ -2888,7 +2888,7 @@
         "Askarak Prince Shaburak Prince"
       ],
       "id": 12541,
-      "gold": 1899999
+      "gold": 3499998
     },
     {
       "name": "Demonic Matter",
@@ -2900,7 +2900,7 @@
         "Brinebrute Inferniarch Broodrider Inferniarch Gorger Inferniarch Hellhunter Inferniarch Sineater Inferniarch Spellreaper Inferniarch"
       ],
       "id": 49894,
-      "gold": 2398
+      "gold": 4600
     },
     {
       "name": "Demonic Skeletal Hand",
@@ -2912,7 +2912,7 @@
         "Demon Skeleton"
       ],
       "id": 9647,
-      "gold": 46
+      "gold": 80
     },
     {
       "name": "Devourer Core",
@@ -2924,7 +2924,7 @@
         "World Devourer"
       ],
       "id": 23686,
-      "gold": 1699998
+      "gold": 1999999
     },
     {
       "name": "Dewberry Palm Leaf",
@@ -2946,7 +2946,7 @@
         "Diremaw"
       ],
       "id": 27597,
-      "gold": 650
+      "gold": 777
     },
     {
       "name": "Diremaw Legs",
@@ -2958,7 +2958,7 @@
         "Diremaw"
       ],
       "id": 27598,
-      "gold": 590
+      "gold": 2500
     },
     {
       "name": "Dirty Turban",
@@ -2970,7 +2970,7 @@
         "Blue Djinn Crypt Defiler Grave Robber Green Djinn Nomad (Basic) Nomad (Blue) Nomad (Female)"
       ],
       "id": 11456,
-      "gold": 13000
+      "gold": 8893
     },
     {
       "name": "Distorted Heart",
@@ -2982,7 +2982,7 @@
         "Distorted Phantom"
       ],
       "id": 34142,
-      "gold": 12999
+      "gold": 0
     },
     {
       "name": "Distorted Robe",
@@ -2994,7 +2994,7 @@
         "Distorted Phantom"
       ],
       "id": 34149,
-      "gold": 21000
+      "gold": 0
     },
     {
       "name": "Downy Feather",
@@ -3006,7 +3006,7 @@
         "Flamingo"
       ],
       "id": 11684,
-      "gold": 7898
+      "gold": 0
     },
     {
       "name": "Dowser",
@@ -3018,7 +3018,7 @@
         "Dazed Leaf Golem Leaf Golem Wilting Leaf Golem"
       ],
       "id": 19110,
-      "gold": 4000
+      "gold": 950
     },
     {
       "name": "Dracola's Eye",
@@ -3030,7 +3030,7 @@
         "Dracola"
       ],
       "id": 6546,
-      "gold": 777777
+      "gold": 0
     },
     {
       "name": "Dracoyle Statue",
@@ -3042,7 +3042,7 @@
         "Flameborn Hellspawn"
       ],
       "id": 9035,
-      "gold": 7500
+      "gold": 4940
     },
     {
       "name": "Dracoyle Statue (Enchanted)",
@@ -3064,7 +3064,7 @@
         "Dragolisk"
       ],
       "id": 44746,
-      "gold": 17800
+      "gold": 4800
     },
     {
       "name": "Dragolisk Poison Gland",
@@ -3076,7 +3076,7 @@
         "Dragolisk"
       ],
       "id": 44747,
-      "gold": 1960
+      "gold": 2800
     },
     {
       "name": "Dragon Blood",
@@ -3088,7 +3088,7 @@
         "Ice Dragon Tazhadur Kalyassa Gelidrazah the Frozen"
       ],
       "id": 24937,
-      "gold": 1990
+      "gold": 3000
     },
     {
       "name": "Dragon Claw",
@@ -3100,7 +3100,7 @@
         "Demodras"
       ],
       "id": 5919,
-      "gold": 1284993
+      "gold": 1600000
     },
     {
       "name": "Dragon Claw (Green)",
@@ -3122,7 +3122,7 @@
         "Soul of Dragonking Zyrtarch"
       ],
       "id": 24967,
-      "gold": 18788
+      "gold": 1000000
     },
     {
       "name": "Dragon Priest's Wandtip",
@@ -3134,7 +3134,7 @@
         "Flamecaller Zazrak Lizard Dragon Priest"
       ],
       "id": 10444,
-      "gold": 10999
+      "gold": 12100
     },
     {
       "name": "Dragon Tongue",
@@ -3146,7 +3146,7 @@
         "Ice Dragon Gelidrazah the Frozen Kalyassa Soul of Dragonking Zyrtarch Tazhadur"
       ],
       "id": 24938,
-      "gold": 4900
+      "gold": 4500
     },
     {
       "name": "Dragon's Tail",
@@ -3158,7 +3158,7 @@
         "Dragon Dragon Hatchling"
       ],
       "id": 11457,
-      "gold": 698
+      "gold": 639
     },
     {
       "name": "Draken Sulphur",
@@ -3170,7 +3170,7 @@
         "Draken Elite Draken Spellweaver Paiz the Pauperizer"
       ],
       "id": 11658,
-      "gold": 883
+      "gold": 2400
     },
     {
       "name": "Draken Wristbands",
@@ -3182,7 +3182,7 @@
         "Draken Elite Paiz the Pauperizer"
       ],
       "id": 11659,
-      "gold": 7998
+      "gold": 12997
     },
     {
       "name": "Draptor Scales",
@@ -3194,7 +3194,7 @@
         "Draptor"
       ],
       "id": 12309,
-      "gold": 50000
+      "gold": 30000
     },
     {
       "name": "Dream Essence Egg",
@@ -3206,7 +3206,7 @@
         "Crazed Summer Rearguard Crazed Summer Vanguard Crazed Winter Rearguard Crazed Winter Vanguard Insane Siren Soul-Broken Harbinger"
       ],
       "id": 30005,
-      "gold": 700
+      "gold": 347
     },
     {
       "name": "Dream Matter",
@@ -3218,7 +3218,7 @@
         "Gaz'haragoth Horadron Omrafir Prince Drazzak Terofar"
       ],
       "id": 20063,
-      "gold": 4484
+      "gold": 5489
     },
     {
       "name": "Dream Warden Claw",
@@ -3230,7 +3230,7 @@
         "Gaz'haragoth"
       ],
       "id": 20275,
-      "gold": 4000000
+      "gold": 8447267
     },
     {
       "name": "Dream Warden Mask",
@@ -3242,7 +3242,7 @@
         "Gaz'haragoth Horadron Omrafir Prince Drazzak Terofar Zavarash"
       ],
       "id": 20276,
-      "gold": 149581
+      "gold": 0
     },
     {
       "name": "Dubious Piece of Cloth",
@@ -3254,7 +3254,7 @@
         "Feverish Citizen"
       ],
       "id": 12552,
-      "gold": 993
+      "gold": 300
     },
     {
       "name": "Dung Ball",
@@ -3266,7 +3266,7 @@
         "Insectoid Worker Mindmasher"
       ],
       "id": 14225,
-      "gold": 3879
+      "gold": 7998
     },
     {
       "name": "Dwarven Beard",
@@ -3288,7 +3288,7 @@
         "Corym Charlatan Corym Skirmisher Corym Vanguard"
       ],
       "id": 17819,
-      "gold": 1789
+      "gold": 554
     },
     {
       "name": "Egg of The Many",
@@ -3300,7 +3300,7 @@
         "The Many"
       ],
       "id": 9606,
-      "gold": 350000
+      "gold": 450000
     },
     {
       "name": "Elder Bonelord Tentacle",
@@ -3312,7 +3312,7 @@
         "Elder Bonelord"
       ],
       "id": 10276,
-      "gold": 8797
+      "gold": 6499
     },
     {
       "name": "Elemental Spikes",
@@ -3324,7 +3324,7 @@
         "Raging Mage"
       ],
       "id": 12803,
-      "gold": 219999999
+      "gold": 0
     },
     {
       "name": "Elven Astral Observer",
@@ -3336,7 +3336,7 @@
         "Crazed Summer Vanguard Crazed Winter Rearguard Dharalion Elf Arcanist"
       ],
       "id": 11465,
-      "gold": 1450
+      "gold": 950
     },
     {
       "name": "Elven Hoof",
@@ -3348,7 +3348,7 @@
         "Elder Forest Fury Forest Fury"
       ],
       "id": 18994,
-      "gold": 9299
+      "gold": 7947
     },
     {
       "name": "Elven Scouting Glass",
@@ -3360,7 +3360,7 @@
         "Elf Scout"
       ],
       "id": 11464,
-      "gold": 545
+      "gold": 650
     },
     {
       "name": "Elvish Talisman",
@@ -3372,7 +3372,7 @@
         "Crazed Summer Rearguard Dharalion Elf Elf Arcanist Elf Overseer Elf Scout Firestarter Soul-Broken Harbinger"
       ],
       "id": 9635,
-      "gold": 5215
+      "gold": 6495
     },
     {
       "name": "Emerald Tortoise Shell",
@@ -3384,7 +3384,7 @@
         "Emerald Tortoise"
       ],
       "id": 39379,
-      "gold": 34996
+      "gold": 9980
     },
     {
       "name": "Empty Honey Glass",
@@ -3396,7 +3396,7 @@
         "Black Sphinx Acolyte Burning Gladiator Priestess of the Wild Sun"
       ],
       "id": 31331,
-      "gold": 4900
+      "gold": 24810
     },
     {
       "name": "Enchanted Chicken Wing",
@@ -3408,7 +3408,7 @@
         "Ancient Spawn of Morgathla Lloyd The Last Lore Keeper The Source of Corruption Ushuriel"
       ],
       "id": 5891,
-      "gold": 32599
+      "gold": 90000
     },
     {
       "name": "Encrypted Notes",
@@ -3420,7 +3420,7 @@
         "Bulltaur Alchemist"
       ],
       "id": 44739,
-      "gold": 3000
+      "gold": 6799
     },
     {
       "name": "Energy Ball",
@@ -3432,7 +3432,7 @@
         "Brain Squid Dread Intruder Energetic Book Outburst"
       ],
       "id": 23523,
-      "gold": 879
+      "gold": 1294
     },
     {
       "name": "Energy Soil",
@@ -3444,7 +3444,7 @@
         "Charged Energy Elemental Overcharged Energy Element"
       ],
       "id": 945,
-      "gold": 18988
+      "gold": 29950
     },
     {
       "name": "Energy Vein",
@@ -3456,7 +3456,7 @@
         "Dreadful Disruptor Reality Reaver Realityquake Tunnel Tyrant World Devourer"
       ],
       "id": 23508,
-      "gold": 270
+      "gold": 390
     },
     {
       "name": "Ensouled Essence",
@@ -3468,7 +3468,7 @@
         "Flimsy Lost Soul Mean Lost Soul Freakish Lost Soul"
       ],
       "id": 32698,
-      "gold": 1669
+      "gold": 1232
     },
     {
       "name": "Essence of a Bad Dream",
@@ -3480,7 +3480,7 @@
         "Arachnophobica Nightmare Nightmare Scion Thanatursus Tormentor"
       ],
       "id": 10306,
-      "gold": 989
+      "gold": 898
     },
     {
       "name": "Eternal Flames",
@@ -3492,7 +3492,7 @@
         "Fire Overlord"
       ],
       "id": 946,
-      "gold": 350000
+      "gold": 490053
     },
     {
       "name": "Exalted Seal",
@@ -3504,7 +3504,7 @@
         "Dragon Hoard"
       ],
       "id": 44750,
-      "gold": 347999
+      "gold": 0
     },
     {
       "name": "Execowtioner Mask",
@@ -3516,7 +3516,7 @@
         "Execowtioner"
       ],
       "id": 21201,
-      "gold": 5222
+      "gold": 2799
     },
     {
       "name": "Eye of a Deepling",
@@ -3528,7 +3528,7 @@
         "Deathling Scout Deathling Spellsinger Deepling Brawler Deepling Elite Deepling Guard Deepling Master Librarian Deepling Scout Deepling Spellsinger Deepling Tyrant Deepling Warrior Deepling Worker Reflection of Obujos Shark"
       ],
       "id": 12730,
-      "gold": 6498
+      "gold": 10000
     },
     {
       "name": "Eye of a Weeper",
@@ -3540,7 +3540,7 @@
         "Weeper"
       ],
       "id": 16132,
-      "gold": 18493
+      "gold": 31999
     },
     {
       "name": "Eye of Corruption",
@@ -3552,7 +3552,7 @@
         "Draken Abomination"
       ],
       "id": 11671,
-      "gold": 6798
+      "gold": 5999
     },
     {
       "name": "Eye Patch",
@@ -3564,7 +3564,7 @@
         "Pirate Buccaneer Pirate Corsair Pirate Cutthroat Pirate Marauder"
       ],
       "id": 6098,
-      "gold": 8455
+      "gold": 14875
     },
     {
       "name": "Eyeless Devourer Legs",
@@ -3576,7 +3576,7 @@
         "Eyeless Devourer"
       ],
       "id": 36776,
-      "gold": 16000
+      "gold": 50000
     },
     {
       "name": "Eyeless Devourer Maw",
@@ -3588,7 +3588,7 @@
         "Eyeless Devourer"
       ],
       "id": 36775,
-      "gold": 10996
+      "gold": 12221
     },
     {
       "name": "Eyeless Devourer Tongue",
@@ -3600,7 +3600,7 @@
         "Eyeless Devourer"
       ],
       "id": 36777,
-      "gold": 36895
+      "gold": 80000
     },
     {
       "name": "Fafnar Symbol",
@@ -3612,7 +3612,7 @@
         "Burning Gladiator Priestess of the Wild Sun"
       ],
       "id": 31443,
-      "gold": 4205
+      "gold": 21000
     },
     {
       "name": "Fairy Wings",
@@ -3624,7 +3624,7 @@
         "Boogy Dark Faun Enfeebled Silencer Kroazur Raxias Twisted Pooka Weakened Frazzlemaw"
       ],
       "id": 25694,
-      "gold": 225
+      "gold": 500
     },
     {
       "name": "Falcon Crest",
@@ -3636,7 +3636,7 @@
         "Falcon Knight Falcon Paladin Grand Canon Dominus Grand Chaplain Gaunder Grand Commander Soeren"
       ],
       "id": 28823,
-      "gold": 0
+      "gold": 6499
     },
     {
       "name": "Ferumbras' Hat",
@@ -3648,7 +3648,7 @@
         "Ferumbras Ferumbras Mortal Shell"
       ],
       "id": 5903,
-      "gold": 1339999000
+      "gold": 0
     },
     {
       "name": "Ferumbras' Mana Keg",
@@ -3660,7 +3660,7 @@
         "Ferumbras Mortal Shell"
       ],
       "id": 22769,
-      "gold": 58000
+      "gold": 79100
     },
     {
       "name": "Fetid Heart",
@@ -3692,7 +3692,7 @@
         "Blazing Fire Elemental Blistering Fire Elemental Fire Overlord Hellfire Fighter Hellhound Lava Golem Magma Crawler Thornfire Wolf Vulcongra Weeper"
       ],
       "id": 9636,
-      "gold": 300
+      "gold": 666
     },
     {
       "name": "Fig Leaf",
@@ -3704,7 +3704,7 @@
         "Barkless Devotee Barkless Fanatic Ravenous Hunger"
       ],
       "id": 25742,
-      "gold": 3500
+      "gold": 3900
     },
     {
       "name": "Figurine of Bakragore",
@@ -3726,7 +3726,7 @@
         "Goshnar's Cruelty Goshnar's Megalomania"
       ],
       "id": 34019,
-      "gold": 8800000
+      "gold": 0
     },
     {
       "name": "Figurine of Greed",
@@ -3738,7 +3738,7 @@
         "Goshnar's Greed Goshnar's Megalomania"
       ],
       "id": 34021,
-      "gold": 5000000
+      "gold": 0
     },
     {
       "name": "Figurine of Hatred",
@@ -3750,7 +3750,7 @@
         "Goshnar's Hatred Goshnar's Megalomania"
       ],
       "id": 34020,
-      "gold": 4000000
+      "gold": 0
     },
     {
       "name": "Figurine of Malice",
@@ -3762,7 +3762,7 @@
         "Goshnar's Malice Goshnar's Megalomania"
       ],
       "id": 34018,
-      "gold": 4999999
+      "gold": 0
     },
     {
       "name": "Figurine of Megalomania",
@@ -3774,7 +3774,7 @@
         "Goshnar's Megalomania"
       ],
       "id": 33953,
-      "gold": 9000000
+      "gold": 0
     },
     {
       "name": "Figurine of Spite",
@@ -3786,7 +3786,7 @@
         "Goshnar's Spite Goshnar's Megalomania"
       ],
       "id": 33952,
-      "gold": 9899999
+      "gold": 0
     },
     {
       "name": "Fir Cone",
@@ -3798,7 +3798,7 @@
         "Dazed Leaf Golem Leaf Golem Wilting Leaf Golem"
       ],
       "id": 19111,
-      "gold": 1999
+      "gold": 2455
     },
     {
       "name": "Fireworks Capsule",
@@ -3810,7 +3810,7 @@
         "Schiach Percht"
       ],
       "id": 30208,
-      "gold": 299
+      "gold": 1788
     },
     {
       "name": "Fish Eye",
@@ -3834,7 +3834,7 @@
         "Animated Guzzlemaw Deathling Scout Deathling Spellsinger Deepling Brawler Deepling Elite Deepling Master Librarian Deepling Scout Deepling Spellsinger Deepling Warrior Deepling Worker Frazzlemaw Groam Guzzlemaw Mawhawk Quara Constrictor Quara Constrictor Scout Quara Hydromancer Quara Hydromancer Scout Quara Mantassin Quara Mantassin Scout Quara Pincher Quara Pincher Scout Quara Predator Quara Predator Scout Renegade Quara Constrictor Renegade Quara Hydromancer Renegade Quara Mantassin Renegade Quara Pincher Renegade Quara Predator Shark Terrorsleep Thul Weakened Frazzlemaw"
       ],
       "id": 5895,
-      "gold": 150
+      "gold": 165
     },
     {
       "name": "Flames of the Percht Queen",
@@ -3846,7 +3846,7 @@
         "The Percht Queen"
       ],
       "id": 30278,
-      "gold": 459977
+      "gold": 299087
     },
     {
       "name": "Flask of Demonic Blood",
@@ -3858,7 +3858,7 @@
         "Betrayed Wraith Burning Book Dark Torturer Dawnfire Asura Diabolic Imp Falcon Knight Floating Savant Frost Flower Asura Fury Furyosa Grand Chaplain Gaunder Grim Reaper Grimeleech Hand of Cursed Fate Hellflayer Hellhound Juggernaut Kerberos Kusuma Mazoran Midnight Asura Nightmare Plagirath Preceptor Lazare Ragiaz Razzagorn Shulgrax Tarbaz The Blazing Rose The Diamond Blossom The Flaming Orchid The Lily of Night Tormentor True Dawnfire Asura True Frost Flower Asura True Midnight Asura Zamulosh The Moonlight Aster The Winter Bloom"
       ],
       "id": 6558,
-      "gold": 48
+      "gold": 70
     },
     {
       "name": "Flask of Embalming Fluid",
@@ -3870,7 +3870,7 @@
         "Animated Mummy Elder Mummy Mahatheb Mummy"
       ],
       "id": 11466,
-      "gold": 7390
+      "gold": 4884
     },
     {
       "name": "Flask of Warrior's Sweat",
@@ -3882,7 +3882,7 @@
         "Duke Krule King Zelos The Enraged Thorn Knight Undead Elite Gladiator Undead Gladiator Ushuriel"
       ],
       "id": 5885,
-      "gold": 9995
+      "gold": 8696
     },
     {
       "name": "Flawless Ice Crystal",
@@ -3894,7 +3894,7 @@
         "Ice Overlord"
       ],
       "id": 942,
-      "gold": 248000
+      "gold": 0
     },
     {
       "name": "Flintstone",
@@ -3906,7 +3906,7 @@
         "Firestarter"
       ],
       "id": 12806,
-      "gold": 2300
+      "gold": 0
     },
     {
       "name": "Flotsam",
@@ -3918,7 +3918,7 @@
         "Foam Stalker Venerable Foam Stalker"
       ],
       "id": 39407,
-      "gold": 11897
+      "gold": 49999
     },
     {
       "name": "Foam Stalker Spume",
@@ -3942,7 +3942,7 @@
         "The Enraged Thorn Knight"
       ],
       "id": 24966,
-      "gold": 4000000
+      "gold": 0
     },
     {
       "name": "Forbidden Tome",
@@ -3954,7 +3954,7 @@
         "The Last Lore Keeper"
       ],
       "id": 24971,
-      "gold": 18000000
+      "gold": 0
     },
     {
       "name": "Fox Paw",
@@ -3966,7 +3966,7 @@
         "Black Vixen Fox Werefox"
       ],
       "id": 27462,
-      "gold": 3400
+      "gold": 2000
     },
     {
       "name": "Frazzle Skin",
@@ -3978,7 +3978,7 @@
         "Animated Guzzlemaw Frazzlemaw Guzzlemaw Weakened Frazzlemaw"
       ],
       "id": 20199,
-      "gold": 394
+      "gold": 450
     },
     {
       "name": "Frazzle Tongue",
@@ -3990,7 +3990,7 @@
         "Animated Guzzlemaw Frazzlemaw Guzzlemaw Mawhawk Reflection of Mawhawk Weakened Frazzlemaw"
       ],
       "id": 20198,
-      "gold": 839
+      "gold": 750
     },
     {
       "name": "Frost Giant Pelt",
@@ -4002,7 +4002,7 @@
         "Frost Giant Frost Giantess"
       ],
       "id": 9658,
-      "gold": 338
+      "gold": 500
     },
     {
       "name": "Frosty Ear of a Troll",
@@ -4014,7 +4014,7 @@
         "Frost Troll Troll Legionnaire"
       ],
       "id": 9648,
-      "gold": 399
+      "gold": 899
     },
     {
       "name": "Frosty Heart",
@@ -4026,7 +4026,7 @@
         "Frost Dragon Hatchling Hirintror Ice Golem Icecold Book Melting Frozen Horror Shardhead Squid Warden"
       ],
       "id": 9661,
-      "gold": 251
+      "gold": 249
     },
     {
       "name": "Frozen Chain",
@@ -4038,7 +4038,7 @@
         "The Percht Queen"
       ],
       "id": 30281,
-      "gold": 20000
+      "gold": 8999
     },
     {
       "name": "Frozen Claw",
@@ -4050,7 +4050,7 @@
         "The Percht Queen"
       ],
       "id": 30279,
-      "gold": 12222
+      "gold": 10000
     },
     {
       "name": "Frozen Claw (Ice Horror)",
@@ -4060,7 +4060,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 30279,
-      "gold": 12222
+      "gold": 10000
     },
     {
       "name": "Frozen Crapace",
@@ -4082,7 +4082,7 @@
         "Anomaly Brain Squid Dread Intruder Mazzinor"
       ],
       "id": 23519,
-      "gold": 678
+      "gold": 879
     },
     {
       "name": "Frozen Time",
@@ -4094,7 +4094,7 @@
         "The Time Guardian"
       ],
       "id": 24970,
-      "gold": 147999
+      "gold": 0
     },
     {
       "name": "Fungal Blister",
@@ -4116,7 +4116,7 @@
         "Usurper Commander"
       ],
       "id": 34164,
-      "gold": 208
+      "gold": 2850
     },
     {
       "name": "Gauze Bandage",
@@ -4128,7 +4128,7 @@
         "Animated Mummy Elder Mummy Mahatheb Mummy"
       ],
       "id": 9649,
-      "gold": 2398
+      "gold": 1999
     },
     {
       "name": "Gear Crystal",
@@ -4140,7 +4140,7 @@
         "Damaged Worker Golem Diamond Servant Diamond Servant Replica Worker Golem"
       ],
       "id": 9655,
-      "gold": 449
+      "gold": 1949
     },
     {
       "name": "Gear Wheel",
@@ -4152,7 +4152,7 @@
         "Control Tower Diamond Servant Diamond Servant Replica Glooth Battery Glooth Fairy Glooth Golem Golden Servant Golden Servant Replica Iron Servant Iron Servant Replica Worker Golem"
       ],
       "id": 8775,
-      "gold": 850
+      "gold": 1197
     },
     {
       "name": "Geomancer's Robe",
@@ -4164,7 +4164,7 @@
         "Dwarf Geomancer"
       ],
       "id": 11458,
-      "gold": 1399
+      "gold": 1400
     },
     {
       "name": "Geomancer's Staff",
@@ -4176,7 +4176,7 @@
         "Dwarf Geomancer"
       ],
       "id": 11463,
-      "gold": 12899
+      "gold": 30000
     },
     {
       "name": "Ghastly Dragon Head",
@@ -4188,7 +4188,7 @@
         "Ethershreck Ghastly Dragon Hatebreeder"
       ],
       "id": 10449,
-      "gold": 18999
+      "gold": 15000
     },
     {
       "name": "Ghostly Tissue",
@@ -4200,7 +4200,7 @@
         "Ghost Tarnished Spirit"
       ],
       "id": 9690,
-      "gold": 488
+      "gold": 1248
     },
     {
       "name": "Ghoul Snack",
@@ -4212,7 +4212,7 @@
         "Ghoul"
       ],
       "id": 11467,
-      "gold": 35
+      "gold": 89
     },
     {
       "name": "Giant Crab Pincer",
@@ -4236,7 +4236,7 @@
         "Elder Bonelord"
       ],
       "id": 10280,
-      "gold": 1950
+      "gold": 18888
     },
     {
       "name": "Giant Pacifier",
@@ -4248,7 +4248,7 @@
         "Animated Moohtant Bullwark Moohtant Moohtant Wallbreaker"
       ],
       "id": 21199,
-      "gold": 14500
+      "gold": 4887
     },
     {
       "name": "Giant Tentacle",
@@ -4260,7 +4260,7 @@
         "The Duke of the Depths"
       ],
       "id": 27619,
-      "gold": 9900
+      "gold": 0
     },
     {
       "name": "Giant Tusk",
@@ -4282,7 +4282,7 @@
         "Amazon Valkyrie"
       ],
       "id": 11443,
-      "gold": 1477
+      "gold": 649
     },
     {
       "name": "Girtablilu Warrior Carapace",
@@ -4294,7 +4294,7 @@
         "Girtablilu Warrior"
       ],
       "id": 36971,
-      "gold": 16000
+      "gold": 17799
     },
     {
       "name": "Gland",
@@ -4306,7 +4306,7 @@
         "Rotworm Queen"
       ],
       "id": 8143,
-      "gold": 1700000
+      "gold": 0
     },
     {
       "name": "Glimmering Soil",
@@ -4318,7 +4318,7 @@
         "Blazing Fire Elemental Blistering Fire Elemental"
       ],
       "id": 941,
-      "gold": 80000
+      "gold": 100000
     },
     {
       "name": "Glistening Bone",
@@ -4330,7 +4330,7 @@
         "Stabilizing Dread Intruder"
       ],
       "id": 23522,
-      "gold": 1496
+      "gold": 11000
     },
     {
       "name": "Glob of Acid Slime",
@@ -4342,7 +4342,7 @@
         "Acid Blob Defiler Stonerefiner"
       ],
       "id": 9054,
-      "gold": 350
+      "gold": 596
     },
     {
       "name": "Glob of Glooth",
@@ -4354,7 +4354,7 @@
         "Devourer Glooth Blob Rot Elemental"
       ],
       "id": 21182,
-      "gold": 220
+      "gold": 169
     },
     {
       "name": "Glob of Mercury",
@@ -4366,7 +4366,7 @@
         "Mercury Blob"
       ],
       "id": 9053,
-      "gold": 355
+      "gold": 997
     },
     {
       "name": "Glob of Tar",
@@ -4378,7 +4378,7 @@
         "Death Blob Defiler"
       ],
       "id": 9055,
-      "gold": 4500
+      "gold": 4996
     },
     {
       "name": "Gloom Wolf Fur",
@@ -4390,7 +4390,7 @@
         "Gloom Wolf"
       ],
       "id": 22007,
-      "gold": 24938
+      "gold": 21295
     },
     {
       "name": "Glooth Injection Tube",
@@ -4402,7 +4402,7 @@
         "Glooth Fairy Glooth Golem"
       ],
       "id": 21103,
-      "gold": 1600
+      "gold": 1999
     },
     {
       "name": "Glowing Carrot",
@@ -4414,7 +4414,7 @@
         "Melting Frozen Horror"
       ],
       "id": 24977,
-      "gold": 3998
+      "gold": 0
     },
     {
       "name": "Glowing Rune",
@@ -4426,7 +4426,7 @@
         "Animated Feather Biting Book Brain Squid Energetic Book Energuardian of Tales Guardian of Tales Knowledge Elemental Rage Squid Squid Warden"
       ],
       "id": 28570,
-      "gold": 620
+      "gold": 700
     },
     {
       "name": "Gnomevil's Hat",
@@ -4438,7 +4438,7 @@
         "Gnomevil"
       ],
       "id": 16205,
-      "gold": 9998
+      "gold": 99969
     },
     {
       "name": "Goanna Claw",
@@ -4450,7 +4450,7 @@
         "Adult Goanna Sun-Marked Goanna Young Goanna"
       ],
       "id": 31561,
-      "gold": 3300
+      "gold": 3799
     },
     {
       "name": "Goanna Meat",
@@ -4462,7 +4462,7 @@
         "Adult Goanna Young Goanna"
       ],
       "id": 31560,
-      "gold": 4900
+      "gold": 3498
     },
     {
       "name": "Goblin Ear",
@@ -4474,7 +4474,7 @@
         "Goblin"
       ],
       "id": 11539,
-      "gold": 9391
+      "gold": 7895
     },
     {
       "name": "Gold-Brocaded Cloth",
@@ -4486,7 +4486,7 @@
         "Ahau Iks Ahpututu Iks Aucar Iks Chuka Iks Pututu"
       ],
       "id": 40529,
-      "gold": 896
+      "gold": 3888
     },
     {
       "name": "Gold-Scaled Sentinel",
@@ -4498,7 +4498,7 @@
         "Dragon Hoard"
       ],
       "id": 44751,
-      "gold": 799998
+      "gold": 0
     },
     {
       "name": "Golden Bell",
@@ -4510,7 +4510,7 @@
         "The Percht Queen"
       ],
       "id": 30195,
-      "gold": 999999
+      "gold": 0
     },
     {
       "name": "Golden Brush",
@@ -4522,7 +4522,7 @@
         "Goldhanded Cultist Goldhanded Cultist Bride"
       ],
       "id": 25689,
-      "gold": 19700
+      "gold": 0
     },
     {
       "name": "Golden Claw",
@@ -4544,7 +4544,7 @@
         "The Percht Queen"
       ],
       "id": 30285,
-      "gold": 399953
+      "gold": 449999
     },
     {
       "name": "Golden Lotus Brooch",
@@ -4556,7 +4556,7 @@
         "Dawnfire Asura Frost Flower Asura Kusuma Midnight Asura The Blazing Rose The Diamond Blossom The Flaming Orchid The Lily of Night True Dawnfire Asura True Frost Flower Asura True Midnight Asura The Moonlight Aster The Winter Bloom"
       ],
       "id": 21974,
-      "gold": 449
+      "gold": 498
     },
     {
       "name": "Golden Sun Coin",
@@ -4568,7 +4568,7 @@
         "Ayana the Crimson Curse Feral Werecrocodile Werecrocodile"
       ],
       "id": 43734,
-      "gold": 63998
+      "gold": 100000
     },
     {
       "name": "Golden Talon",
@@ -4580,7 +4580,7 @@
         "Soul of Dragonking Zyrtarch"
       ],
       "id": 24968,
-      "gold": 25000
+      "gold": 0
     },
     {
       "name": "Golden Tiger Coin",
@@ -4590,7 +4590,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 43735,
-      "gold": 149953
+      "gold": 0
     },
     {
       "name": "Goosebump Leather",
@@ -4602,7 +4602,7 @@
         "Retching Horror"
       ],
       "id": 20205,
-      "gold": 433
+      "gold": 942
     },
     {
       "name": "Gore Horn (Item)",
@@ -4614,7 +4614,7 @@
         "Gore Horn"
       ],
       "id": 39377,
-      "gold": 9497
+      "gold": 9999
     },
     {
       "name": "Gorerilla Mane",
@@ -4626,7 +4626,7 @@
         "Gorerilla"
       ],
       "id": 39392,
-      "gold": 39000
+      "gold": 9988
     },
     {
       "name": "Gorerilla Tail",
@@ -4638,7 +4638,7 @@
         "Gorerilla"
       ],
       "id": 39393,
-      "gold": 24897
+      "gold": 12000
     },
     {
       "name": "Gorger Antlers",
@@ -4650,7 +4650,7 @@
         "Gorger Inferniarch"
       ],
       "id": 50059,
-      "gold": 6000
+      "gold": 16000
     },
     {
       "name": "Grant of Arms",
@@ -4662,7 +4662,7 @@
         "Grand Master Oberon"
       ],
       "id": 28824,
-      "gold": 190000
+      "gold": 375123
     },
     {
       "name": "Grappling Hook",
@@ -4674,7 +4674,7 @@
         "Pirat Scoundrel"
       ],
       "id": 35588,
-      "gold": 5000
+      "gold": 1449
     },
     {
       "name": "Greasy Wool",
@@ -4708,7 +4708,7 @@
         "Putrid Mummy"
       ],
       "id": 25697,
-      "gold": 1790
+      "gold": 1800
     },
     {
       "name": "Green Dragon Leather",
@@ -4720,7 +4720,7 @@
         "Dragon Grand Mother Foulscale Tazhadur"
       ],
       "id": 5877,
-      "gold": 9098
+      "gold": 13244
     },
     {
       "name": "Green Dragon Scale",
@@ -4732,7 +4732,7 @@
         "Dragon Grand Mother Foulscale Tazhadur"
       ],
       "id": 5920,
-      "gold": 358
+      "gold": 688
     },
     {
       "name": "Green Piece of Cloth",
@@ -4744,7 +4744,7 @@
         "Broken Shaper Efreet Green Djinn Hellhound Hideous Fungus Kusuma Merikh the Slaughterer Minotaur Hunter Oodok Witchmaster Orc Cult Priest Orc Cultist Renegade Quara Hydromancer The Enraged Thorn Knight Undead Jester Weakened Shlorg Wiggler Worm Priestess Zugurosh"
       ],
       "id": 5910,
-      "gold": 490
+      "gold": 850
     },
     {
       "name": "Grimace",
@@ -4756,7 +4756,7 @@
         "The Fear Feaster"
       ],
       "id": 32593,
-      "gold": 177900
+      "gold": 0
     },
     {
       "name": "Guidebook",
@@ -4778,7 +4778,7 @@
         "Candy Floss Elemental Candy Horror Goggle Cake Nibblemaw"
       ],
       "id": 48116,
-      "gold": 49
+      "gold": 900
     },
     {
       "name": "Hair of a Banshee",
@@ -4790,7 +4790,7 @@
         "Banshee"
       ],
       "id": 11446,
-      "gold": 500
+      "gold": 332
     },
     {
       "name": "Half-Digested Piece of Meat",
@@ -4802,7 +4802,7 @@
         "Crypt Shambler Tomb Servant"
       ],
       "id": 10283,
-      "gold": 99
+      "gold": 330
     },
     {
       "name": "Half-Digested Stones",
@@ -4814,7 +4814,7 @@
         "Stonerefiner"
       ],
       "id": 27369,
-      "gold": 500
+      "gold": 850
     },
     {
       "name": "Half-Eaten Brain",
@@ -4826,7 +4826,7 @@
         "Zombie"
       ],
       "id": 9659,
-      "gold": 7250
+      "gold": 5899
     },
     {
       "name": "Hand",
@@ -4838,7 +4838,7 @@
         "Brachiodemon"
       ],
       "id": 33936,
-      "gold": 20000
+      "gold": 90000
     },
     {
       "name": "Hard-Boiled Hydra Egg",
@@ -4848,7 +4848,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 33947,
-      "gold": 4000
+      "gold": 0
     },
     {
       "name": "Hardened Bone",
@@ -4860,7 +4860,7 @@
         "Animated Clomp Animated Guzzlemaw Bonebeast Clomp Dracola Dreadbeast Frazzlemaw Guzzlemaw Hellhound Mawhawk Museum Stone Rhino Ribstride Stone Rhino Undead Dragon Ushuriel Zanakeph Zorvorax"
       ],
       "id": 5925,
-      "gold": 178
+      "gold": 114
     },
     {
       "name": "Harpoon of a Giant Snail",
@@ -4872,7 +4872,7 @@
         "The Count of the Core"
       ],
       "id": 27625,
-      "gold": 300000
+      "gold": 0
     },
     {
       "name": "Harpy Feathers",
@@ -4884,7 +4884,7 @@
         "Harpy"
       ],
       "id": 40585,
-      "gold": 3199
+      "gold": 11998
     },
     {
       "name": "Hatched Rorc Egg",
@@ -4896,7 +4896,7 @@
         "Rorc"
       ],
       "id": 18997,
-      "gold": 94
+      "gold": 81
     },
     {
       "name": "Haunted Piece of Wood",
@@ -4908,7 +4908,7 @@
         "Haunted Treeling"
       ],
       "id": 9683,
-      "gold": 97
+      "gold": 774
     },
     {
       "name": "Hazardous Heart",
@@ -4920,7 +4920,7 @@
         "Hazardous Phantom"
       ],
       "id": 34140,
-      "gold": 29998
+      "gold": 0
     },
     {
       "name": "Hazardous Robe",
@@ -4932,7 +4932,7 @@
         "Hazardous Phantom"
       ],
       "id": 34147,
-      "gold": 49999
+      "gold": 0
     },
     {
       "name": "Head (Brachiodemon)",
@@ -4944,7 +4944,7 @@
         "Brachiodemon"
       ],
       "id": 33937,
-      "gold": 39999
+      "gold": 90000
     },
     {
       "name": "Head (Many Faces)",
@@ -4956,7 +4956,7 @@
         "Many Faces"
       ],
       "id": 33932,
-      "gold": 38999
+      "gold": 0
     },
     {
       "name": "Headpecker Beak",
@@ -4980,7 +4980,7 @@
         "Headpecker"
       ],
       "id": 39388,
-      "gold": 14444
+      "gold": 39999
     },
     {
       "name": "Heart Amphora",
@@ -4992,7 +4992,7 @@
         "Norcferatu Heartless"
       ],
       "id": 51484,
-      "gold": 1999
+      "gold": 1399
     },
     {
       "name": "Heaven Blossom",
@@ -5004,7 +5004,7 @@
         "Crazed Summer Rearguard Elf Elf Scout Firestarter"
       ],
       "id": 5921,
-      "gold": 131
+      "gold": 78
     },
     {
       "name": "Hellhound Slobber",
@@ -5016,7 +5016,7 @@
         "Hellhound Kerberos"
       ],
       "id": 9637,
-      "gold": 10000
+      "gold": 8699
     },
     {
       "name": "Hellhunter Eye",
@@ -5028,7 +5028,7 @@
         "Hellhunter Inferniarch"
       ],
       "id": 50055,
-      "gold": 99500
+      "gold": 0
     },
     {
       "name": "Hellspawn Tail",
@@ -5040,7 +5040,7 @@
         "Flameborn Hellspawn"
       ],
       "id": 10304,
-      "gold": 463
+      "gold": 550
     },
     {
       "name": "Helmet of Sir Leonard",
@@ -5050,7 +5050,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 51430,
-      "gold": 49999
+      "gold": 0
     },
     {
       "name": "Hemp Rope",
@@ -5062,7 +5062,7 @@
         "Choking Fear"
       ],
       "id": 20206,
-      "gold": 655
+      "gold": 596
     },
     {
       "name": "Hideous Chunk",
@@ -5074,7 +5074,7 @@
         "Hideous Fungus"
       ],
       "id": 16140,
-      "gold": 8974
+      "gold": 12248
     },
     {
       "name": "High Guard Flag",
@@ -5086,7 +5086,7 @@
         "Lizard High Guard"
       ],
       "id": 10415,
-      "gold": 14999
+      "gold": 6800
     },
     {
       "name": "High Guard Shoulderplates",
@@ -5098,7 +5098,7 @@
         "Lizard High Guard"
       ],
       "id": 10416,
-      "gold": 3929
+      "gold": 3000
     },
     {
       "name": "Hollow Stampor Hoof",
@@ -5110,7 +5110,7 @@
         "Stampor Tromphonyte"
       ],
       "id": 12314,
-      "gold": 4497
+      "gold": 9990
     },
     {
       "name": "Holy Ash",
@@ -5122,7 +5122,7 @@
         "Lost Exile Lost Husher"
       ],
       "id": 17850,
-      "gold": 12333
+      "gold": 6548
     },
     {
       "name": "Holy Orchid",
@@ -5134,7 +5134,7 @@
         "Dharalion Elf Arcanist Elf Overseer Insane Siren"
       ],
       "id": 5922,
-      "gold": 889
+      "gold": 555
     },
     {
       "name": "Honeycomb",
@@ -5146,7 +5146,7 @@
         "Bear Grynch Clan Goblin Shadowpelt Wasp Werebear Willi Wasp"
       ],
       "id": 5902,
-      "gold": 5800
+      "gold": 4499
     },
     {
       "name": "Hook",
@@ -5158,7 +5158,7 @@
         "Pirate Buccaneer Pirate Corsair Pirate Cutthroat Pirate Marauder"
       ],
       "id": 6097,
-      "gold": 8900
+      "gold": 20994
     },
     {
       "name": "Horn of Kalyassa",
@@ -5170,7 +5170,7 @@
         "Kalyassa"
       ],
       "id": 24941,
-      "gold": 10000
+      "gold": 9897
     },
     {
       "name": "Horoscope",
@@ -5182,7 +5182,7 @@
         "Blood Hand Blood Priest Shadow Pupil"
       ],
       "id": 18926,
-      "gold": 6700
+      "gold": 4400
     },
     {
       "name": "Horseshoe",
@@ -5194,7 +5194,7 @@
         "The Percht Queen"
       ],
       "id": 30318,
-      "gold": 322222
+      "gold": 0
     },
     {
       "name": "Huge Chunk of Crude Iron",
@@ -5206,7 +5206,7 @@
         "Alptramun Ancient Spawn of Morgathla Izcandar Champion of Summer Izcandar Champion of Winter Izcandar the Banished King Zelos Lord Azaram Malofur Mangrinder Maxxenius Melting Frozen Horror Plagueroot The Baron from Below The Blazing Time Guardian The Count of the Core The Duke of the Depths The False God The Freezing Time Guardian The Nightmare Beast The Sandking The Scourge of Oblivion The Time Guardian Ushuriel"
       ],
       "id": 5892,
-      "gold": 14750
+      "gold": 17499
     },
     {
       "name": "Huge Shell",
@@ -5218,7 +5218,7 @@
         "The Baron from Below"
       ],
       "id": 27621,
-      "gold": 14849
+      "gold": 0
     },
     {
       "name": "Huge Spiky Snail Shell",
@@ -5230,7 +5230,7 @@
         "The Count of the Core"
       ],
       "id": 27627,
-      "gold": 290000
+      "gold": 0
     },
     {
       "name": "Human Teeth",
@@ -5242,7 +5242,7 @@
         "Dark Carnisylvan Hulking Carnisylvan Poisonous Carnisylvan"
       ],
       "id": 36807,
-      "gold": 44998
+      "gold": 48000
     },
     {
       "name": "Humongous Chunk",
@@ -5254,7 +5254,7 @@
         "Humongous Fungus"
       ],
       "id": 16139,
-      "gold": 7100
+      "gold": 7700
     },
     {
       "name": "Hunter's Quiver",
@@ -5266,7 +5266,7 @@
         "Arthom the Hunter Hunter"
       ],
       "id": 11469,
-      "gold": 249
+      "gold": 400
     },
     {
       "name": "Hydra Egg",
@@ -5278,7 +5278,7 @@
         "Hydra The Welter"
       ],
       "id": 4839,
-      "gold": 475
+      "gold": 1700
     },
     {
       "name": "Hydra Head",
@@ -5290,7 +5290,7 @@
         "Hydra"
       ],
       "id": 10282,
-      "gold": 899
+      "gold": 800
     },
     {
       "name": "Hydra Tongue",
@@ -5300,7 +5300,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 7250,
-      "gold": 2999
+      "gold": 1490
     },
     {
       "name": "Hydrophytes",
@@ -5312,7 +5312,7 @@
         "Two-Headed Turtle"
       ],
       "id": 39410,
-      "gold": 3349
+      "gold": 5899
     },
     {
       "name": "Ice Flower (Item)",
@@ -5324,7 +5324,7 @@
         "Crazed Winter Rearguard Crazed Winter Vanguard Soul-Broken Harbinger"
       ],
       "id": 30058,
-      "gold": 2249
+      "gold": 2490
     },
     {
       "name": "Ice Flower Seeds",
@@ -5334,7 +5334,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 13844,
-      "gold": 39251
+      "gold": 80000
     },
     {
       "name": "Iced Soil",
@@ -5346,7 +5346,7 @@
         "Roaring Water Elemental Slick Water Elemental"
       ],
       "id": 944,
-      "gold": 29999
+      "gold": 59000
     },
     {
       "name": "Ichgahal's Fungal Infestation",
@@ -5368,7 +5368,7 @@
         "The Percht Queen"
       ],
       "id": 30277,
-      "gold": 18600
+      "gold": 10000
     },
     {
       "name": "Icy Crypt Rune",
@@ -5410,7 +5410,7 @@
         "Bulltaur Forgepriest"
       ],
       "id": 44742,
-      "gold": 15499
+      "gold": 14797
     },
     {
       "name": "Incantation Notes",
@@ -5422,7 +5422,7 @@
         "Blood Hand Blood Priest Shadow Pupil"
       ],
       "id": 18929,
-      "gold": 4396
+      "gold": 7996
     },
     {
       "name": "Infernal Heart",
@@ -5434,7 +5434,7 @@
         "Infernal Phantom"
       ],
       "id": 34139,
-      "gold": 95000
+      "gold": 90000
     },
     {
       "name": "Infernal Robe",
@@ -5446,7 +5446,7 @@
         "Infernal Phantom"
       ],
       "id": 34146,
-      "gold": 99999
+      "gold": 90000
     },
     {
       "name": "Inkwell (Black)",
@@ -5458,7 +5458,7 @@
         "Brain Squid Ink Blob Rage Squid Squid Warden"
       ],
       "id": 28568,
-      "gold": 4100
+      "gold": 3799
     },
     {
       "name": "Insectoid Cocoon (Item)",
@@ -5480,7 +5480,7 @@
         "Brain Squid Dread Intruder Outburst"
       ],
       "id": 23516,
-      "gold": 559
+      "gold": 800
     },
     {
       "name": "Iron Ore",
@@ -5492,7 +5492,7 @@
         "Animated Guzzlemaw Cliff Strider Control Tower Damaged Worker Golem Drillworm Dwarf Dwarf Geomancer Dwarf Guard Dwarf Miner Dwarf Soldier Enslaved Dwarf Eternal Guardian Foreman Kneebiter Frazzlemaw Glooth Battery Glooth Fairy Glooth Golem Grorlam Guzzlemaw Jagged Earth Elemental Lava Golem Lost Basher Lost Berserker Lost Thrower Mad Technomancer Magma Crawler Mawhawk Metal Gargoyle Museum Stone Golem Orewalker Rustheap Golem Stone Golem The False God The Last Lore Keeper Ushuriel War Golem Weakened Frazzlemaw Worker Golem"
       ],
       "id": 5880,
-      "gold": 476
+      "gold": 400
     },
     {
       "name": "Ivory Carving",
@@ -5504,7 +5504,7 @@
         "Werelion Werelioness"
       ],
       "id": 33945,
-      "gold": 1400
+      "gold": 1000
     },
     {
       "name": "Izcandar's Snow Globe",
@@ -5516,7 +5516,7 @@
         "Izcandar Champion of Winter Izcandar the Banished"
       ],
       "id": 29944,
-      "gold": 490000
+      "gold": 0
     },
     {
       "name": "Izcandar's Sundial",
@@ -5528,7 +5528,7 @@
         "Izcandar Champion of Summer Izcandar the Banished"
       ],
       "id": 29945,
-      "gold": 500000
+      "gold": 0
     },
     {
       "name": "Jagged Sickle",
@@ -5540,7 +5540,7 @@
         "The Dread Maiden"
       ],
       "id": 32595,
-      "gold": 499000
+      "gold": 0
     },
     {
       "name": "Jaul's Pearl",
@@ -5550,7 +5550,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 14021,
-      "gold": 100000
+      "gold": 415549
     },
     {
       "name": "Jaws",
@@ -5562,7 +5562,7 @@
         "Bony Sea Devil"
       ],
       "id": 34014,
-      "gold": 19989
+      "gold": 0
     },
     {
       "name": "Jewelled Belt",
@@ -5574,7 +5574,7 @@
         "Efreet Fahim the Wise Marid Merikh the Slaughterer"
       ],
       "id": 11470,
-      "gold": 319
+      "gold": 795
     },
     {
       "name": "Jungle Moa Claw",
@@ -5586,7 +5586,7 @@
         "Jungle Moa"
       ],
       "id": 39404,
-      "gold": 499
+      "gold": 1200
     },
     {
       "name": "Jungle Moa Egg",
@@ -5598,7 +5598,7 @@
         "Jungle Moa"
       ],
       "id": 39405,
-      "gold": 962
+      "gold": 1699
     },
     {
       "name": "Jungle Moa Feather",
@@ -5610,7 +5610,7 @@
         "Jungle Moa"
       ],
       "id": 39403,
-      "gold": 749
+      "gold": 949
     },
     {
       "name": "Katex' Blood",
@@ -5622,7 +5622,7 @@
         "Katex Blood Tongue"
       ],
       "id": 34100,
-      "gold": 2499
+      "gold": 0
     },
     {
       "name": "Key to Knowledge",
@@ -5634,7 +5634,7 @@
         "The Last Lore Keeper"
       ],
       "id": 24972,
-      "gold": 35000000
+      "gold": 0
     },
     {
       "name": "Key to the Drowned Library",
@@ -5646,7 +5646,7 @@
         "Deepling Master Librarian Deepling Spellsinger"
       ],
       "id": 14009,
-      "gold": 3699
+      "gold": 2900
     },
     {
       "name": "Kollos Shell",
@@ -5658,7 +5658,7 @@
         "Hive Overseer Kollos Maw The Mean Masher"
       ],
       "id": 14077,
-      "gold": 398
+      "gold": 1495
     },
     {
       "name": "Kongra's Shoulderpad",
@@ -5670,7 +5670,7 @@
         "Cursed Ape Kongra"
       ],
       "id": 11471,
-      "gold": 2900
+      "gold": 2400
     },
     {
       "name": "Lamassu Hoof",
@@ -5682,7 +5682,7 @@
         "Crypt Warden Lamassu"
       ],
       "id": 31441,
-      "gold": 7000
+      "gold": 5000
     },
     {
       "name": "Lamassu Horn",
@@ -5694,7 +5694,7 @@
         "Crypt Warden Lamassu"
       ],
       "id": 31442,
-      "gold": 2199
+      "gold": 2000
     },
     {
       "name": "Lancer Beetle Shell",
@@ -5706,7 +5706,7 @@
         "Lancer Beetle The Blightfather"
       ],
       "id": 10455,
-      "gold": 6498
+      "gold": 6750
     },
     {
       "name": "Lancet",
@@ -5718,7 +5718,7 @@
         "Blood Hand Blood Priest"
       ],
       "id": 18925,
-      "gold": 3990
+      "gold": 18800
     },
     {
       "name": "Lavafungus Head",
@@ -5730,7 +5730,7 @@
         "Lavafungus"
       ],
       "id": 36785,
-      "gold": 40000
+      "gold": 47499
     },
     {
       "name": "Lavafungus Ring",
@@ -5742,7 +5742,7 @@
         "Lavafungus"
       ],
       "id": 36786,
-      "gold": 6600
+      "gold": 14899
     },
     {
       "name": "Lavaworm Jaws",
@@ -5754,7 +5754,7 @@
         "Lavaworm"
       ],
       "id": 36771,
-      "gold": 17999
+      "gold": 35000
     },
     {
       "name": "Lavaworm Spike Roots",
@@ -5766,7 +5766,7 @@
         "Lavaworm"
       ],
       "id": 36769,
-      "gold": 14998
+      "gold": 22000
     },
     {
       "name": "Lavaworm Spikes",
@@ -5778,7 +5778,7 @@
         "Lavaworm"
       ],
       "id": 36770,
-      "gold": 19999
+      "gold": 23999
     },
     {
       "name": "Legionnaire Flags",
@@ -5790,7 +5790,7 @@
         "Lizard Legionnaire"
       ],
       "id": 10417,
-      "gold": 399
+      "gold": 749
     },
     {
       "name": "Lime Tart",
@@ -5802,7 +5802,7 @@
         "Nibblemaw Sugar Daddy"
       ],
       "id": 48255,
-      "gold": 14111
+      "gold": 17500
     },
     {
       "name": "Liodile Fang",
@@ -5814,7 +5814,7 @@
         "Liodile"
       ],
       "id": 40583,
-      "gold": 2498
+      "gold": 2399
     },
     {
       "name": "Lion Cloak Patch",
@@ -5826,7 +5826,7 @@
         "Usurper Archer Usurper Commander Usurper Knight Usurper Warlock"
       ],
       "id": 34162,
-      "gold": 6852
+      "gold": 8699
     },
     {
       "name": "Lion Crest",
@@ -5838,7 +5838,7 @@
         "Usurper Archer Usurper Commander Usurper Knight Usurper Warlock"
       ],
       "id": 34160,
-      "gold": 4600
+      "gold": 9818
     },
     {
       "name": "Lion Seal",
@@ -5860,7 +5860,7 @@
         "Lion Noble Lion Roaring Lion Werelion Werelioness White Lion Zomba"
       ],
       "id": 9691,
-      "gold": 62
+      "gold": 169
     },
     {
       "name": "Little Bowl of Myrrh",
@@ -5872,7 +5872,7 @@
         "Putrid Mummy"
       ],
       "id": 25702,
-      "gold": 4999
+      "gold": 5099
     },
     {
       "name": "Lizard Essence",
@@ -5884,7 +5884,7 @@
         "Souleater"
       ],
       "id": 11680,
-      "gold": 327
+      "gold": 787
     },
     {
       "name": "Lizard Heart",
@@ -5896,7 +5896,7 @@
         "Adult Goanna Yirkas Blue Scales Young Goanna"
       ],
       "id": 31340,
-      "gold": 489
+      "gold": 944
     },
     {
       "name": "Lizard Leather",
@@ -5920,7 +5920,7 @@
         "Chizzoron the Distorter Fazzrah Flamecaller Zazrak High Templar Cobrass Lizard Chosen Lizard Dragon Priest Lizard Gate Guardian Lizard High Guard Lizard Legionnaire Lizard Magistratus Lizard Noble Lizard Sentinel Lizard Snakecharmer Lizard Templar Lizard Zaogun Paiz the Pauperizer"
       ],
       "id": 5881,
-      "gold": 442
+      "gold": 640
     },
     {
       "name": "Longing Eyes",
@@ -5932,7 +5932,7 @@
         "The Baron from Below"
       ],
       "id": 27624,
-      "gold": 7699
+      "gold": 0
     },
     {
       "name": "Lost Basher's Spike",
@@ -5944,7 +5944,7 @@
         "Lost Basher"
       ],
       "id": 17826,
-      "gold": 1498
+      "gold": 3499
     },
     {
       "name": "Lost Bracers",
@@ -5956,7 +5956,7 @@
         "Lost Thrower"
       ],
       "id": 17853,
-      "gold": 2877
+      "gold": 8595
     },
     {
       "name": "Lost Husher's Staff",
@@ -5968,7 +5968,7 @@
         "Lost Exile Lost Husher"
       ],
       "id": 17848,
-      "gold": 179
+      "gold": 992
     },
     {
       "name": "Lost Soul (Item)",
@@ -5980,7 +5980,7 @@
         "Flimsy Lost Soul Mean Lost Soul Freakish Lost Soul"
       ],
       "id": 32227,
-      "gold": 122
+      "gold": 114
     },
     {
       "name": "Lucky Pig",
@@ -5992,7 +5992,7 @@
         "The Percht Queen"
       ],
       "id": 30320,
-      "gold": 0
+      "gold": 750000
     },
     {
       "name": "Ludicrous Piece of Cloth",
@@ -6004,7 +6004,7 @@
         "Feverish Citizen"
       ],
       "id": 12555,
-      "gold": 800
+      "gold": 199
     },
     {
       "name": "Luminous Orb",
@@ -6016,7 +6016,7 @@
         "Ancient Spawn of Morgathla Draken Spellweaver Lloyd Mad Mage Raging Mage Ravenous Hunger Reflection of a Mage The Baron from Below The Blazing Time Guardian The Count of the Core The Duke of the Depths The Freezing Time Guardian The Sandking The Time Guardian Warlock"
       ],
       "id": 11454,
-      "gold": 3499
+      "gold": 7444
     },
     {
       "name": "Luminous Piece of Cloth",
@@ -6028,7 +6028,7 @@
         "Feverish Citizen"
       ],
       "id": 12556,
-      "gold": 999
+      "gold": 899
     },
     {
       "name": "Lump of Dirt",
@@ -6040,7 +6040,7 @@
         "Animated Rotworm Earworm Lancer Beetle Rottie the Rotworm Rotworm The Blightfather Tunnel Tyrant White Pale"
       ],
       "id": 9692,
-      "gold": 13
+      "gold": 1998
     },
     {
       "name": "Lump of Earth",
@@ -6052,7 +6052,7 @@
         "Brimstone Bug Clay Guardian Drillworm Earth Elemental Earth Overlord Jagged Earth Elemental Massive Earth Elemental Muddy Earth Elemental Sulphur Scuttler"
       ],
       "id": 10305,
-      "gold": 800
+      "gold": 1149
     },
     {
       "name": "Mad Froth",
@@ -6064,7 +6064,7 @@
         "Lost Thrower"
       ],
       "id": 17854,
-      "gold": 6999
+      "gold": 8498
     },
     {
       "name": "Magic Sulphur",
@@ -6076,7 +6076,7 @@
         "Alptramun Ancient Spawn of Morgathla Askarak Demon Askarak Lord Askarak Prince Brimstone Bug Cliff Strider Count Vlarkorth Draken Elite Ghulosh Infernalist Ironblight Izcandar Champion of Summer Izcandar Champion of Winter Izcandar the Banished King Zelos Lloyd Lokathmor Lost Berserker Malofur Mangrinder Maxxenius Mazzinor Orewalker Paiz the Pauperizer Plagueroot Ravenous Hunger Shaburak Demon Shaburak Lord Shaburak Prince Soul of Dragonking Zyrtarch Sulphur Scuttler The Baron from Below The Blazing Time Guardian The Count of the Core The Duke of the Depths The False God The Last Lore Keeper The Nightmare Beast The Percht Queen The Sandking The Scourge of Oblivion The Source of Corruption The Time Guardian The Unarmored Voidborn Gorzindel"
       ],
       "id": 5904,
-      "gold": 7800
+      "gold": 8000
     },
     {
       "name": "Magma Clump",
@@ -6088,7 +6088,7 @@
         "Lava Golem Magma Crawler Vulcongra Weeper Walking Pillar"
       ],
       "id": 16130,
-      "gold": 1999
+      "gold": 2899
     },
     {
       "name": "Makara Fin",
@@ -6100,7 +6100,7 @@
         "Makara"
       ],
       "id": 39401,
-      "gold": 1440
+      "gold": 3499
     },
     {
       "name": "Makara Tongue",
@@ -6112,7 +6112,7 @@
         "Makara"
       ],
       "id": 39402,
-      "gold": 1346
+      "gold": 4499
     },
     {
       "name": "Malice's Horn",
@@ -6148,7 +6148,7 @@
         "Malofur Mangrinder"
       ],
       "id": 30088,
-      "gold": 499999
+      "gold": 0
     },
     {
       "name": "Mammoth Tusk",
@@ -6160,7 +6160,7 @@
         "Mammoth The Bloodtusk"
       ],
       "id": 10321,
-      "gold": 3999
+      "gold": 1991
     },
     {
       "name": "Mantassin Tail",
@@ -6172,7 +6172,7 @@
         "Quara Mantassin Quara Mantassin Scout Renegade Quara Mantassin"
       ],
       "id": 11489,
-      "gold": 880
+      "gold": 3800
     },
     {
       "name": "Manticore Ear",
@@ -6184,7 +6184,7 @@
         "Enusat the Onyx Wing Manticore"
       ],
       "id": 31440,
-      "gold": 12500
+      "gold": 14900
     },
     {
       "name": "Manticore Tail",
@@ -6196,7 +6196,7 @@
         "Enusat the Onyx Wing Manticore"
       ],
       "id": 31439,
-      "gold": 22700
+      "gold": 12798
     },
     {
       "name": "Mantosaurus Jaw",
@@ -6208,7 +6208,7 @@
         "Mantosaurus"
       ],
       "id": 39386,
-      "gold": 15000
+      "gold": 39999
     },
     {
       "name": "Marsh Stalker Beak",
@@ -6220,7 +6220,7 @@
         "Marsh Stalker"
       ],
       "id": 17461,
-      "gold": 95
+      "gold": 350
     },
     {
       "name": "Marsh Stalker Feather",
@@ -6232,7 +6232,7 @@
         "Marsh Stalker"
       ],
       "id": 17462,
-      "gold": 1664
+      "gold": 1050
     },
     {
       "name": "Maxilla",
@@ -6244,7 +6244,7 @@
         "Undead Cavebear"
       ],
       "id": 12315,
-      "gold": 49910
+      "gold": 0
     },
     {
       "name": "Maxxenius Head",
@@ -6268,7 +6268,7 @@
         "Cow"
       ],
       "id": 32010,
-      "gold": 3000
+      "gold": 0
     },
     {
       "name": "Medal of Valiance",
@@ -6280,7 +6280,7 @@
         "Count Vlarkorth"
       ],
       "id": 31591,
-      "gold": 1000000
+      "gold": 0
     },
     {
       "name": "Mega Dragon Heart",
@@ -6292,7 +6292,7 @@
         "Mega Dragon"
       ],
       "id": 44745,
-      "gold": 27899
+      "gold": 48999
     },
     {
       "name": "Megalomania's Essence",
@@ -6304,7 +6304,7 @@
         "Goshnar's Megalomania"
       ],
       "id": 33928,
-      "gold": 9000000
+      "gold": 0
     },
     {
       "name": "Megalomania's Skull",
@@ -6316,7 +6316,7 @@
         "Goshnar's Megalomania"
       ],
       "id": 33925,
-      "gold": 4000000
+      "gold": 0
     },
     {
       "name": "Mercurial Wing",
@@ -6328,7 +6328,7 @@
         "Mercurial Menace"
       ],
       "id": 39395,
-      "gold": 30000
+      "gold": 0
     },
     {
       "name": "Metal Jaw",
@@ -6340,7 +6340,7 @@
         "Metal Gargoyle"
       ],
       "id": 21193,
-      "gold": 6500
+      "gold": 10000
     },
     {
       "name": "Metal Spike",
@@ -6352,7 +6352,7 @@
         "Bretzecutioner Destroyer"
       ],
       "id": 10298,
-      "gold": 345
+      "gold": 994
     },
     {
       "name": "Metal Toe",
@@ -6364,7 +6364,7 @@
         "Walker"
       ],
       "id": 21198,
-      "gold": 990
+      "gold": 1700
     },
     {
       "name": "Mighty Demonic Core Essence",
@@ -6388,7 +6388,7 @@
         "Cow"
       ],
       "id": 32011,
-      "gold": 10000
+      "gold": 0
     },
     {
       "name": "Minotaur Horn",
@@ -6400,7 +6400,7 @@
         "Apprentice Sheng Depowered Minotaur Execowtioner General Murius Minotaur Minotaur Amazon Minotaur Archer Minotaur Cult Follower Minotaur Cult Prophet Minotaur Cult Zealot Minotaur Guard Minotaur Hunter Minotaur Invader Minotaur Mage Mooh'Tah Warrior The Horned Fox Worm Priestess"
       ],
       "id": 11472,
-      "gold": 60
+      "gold": 54
     },
     {
       "name": "Minotaur Leather",
@@ -6412,7 +6412,7 @@
         "Animated Moohtant Apprentice Sheng Bullwark Depowered Minotaur Execowtioner General Murius Minotaur Minotaur Amazon Minotaur Archer Minotaur Cult Follower Minotaur Cult Prophet Minotaur Cult Zealot Minotaur Guard Minotaur Hunter Minotaur Invader Minotaur Mage Mooh'Tah Warrior Moohtant The Horned Fox Worm Priestess"
       ],
       "id": 5878,
-      "gold": 97
+      "gold": 122
     },
     {
       "name": "Miraculum",
@@ -6424,7 +6424,7 @@
         "Crazed Winter Vanguard Insane Siren Stalker"
       ],
       "id": 11474,
-      "gold": 193
+      "gold": 289
     },
     {
       "name": "Molten Dragon Essence",
@@ -6436,7 +6436,7 @@
         "Mega Dragon"
       ],
       "id": 44744,
-      "gold": 20000
+      "gold": 12000
     },
     {
       "name": "Mooh'tah Shell",
@@ -6448,7 +6448,7 @@
         "Mooh'Tah Warrior Moohtant Wallbreaker"
       ],
       "id": 21202,
-      "gold": 999
+      "gold": 1800
     },
     {
       "name": "Moohtant Horn",
@@ -6460,7 +6460,7 @@
         "Bullwark Glooth Bomb Moohtant Moohtant Wallbreaker"
       ],
       "id": 21200,
-      "gold": 5500
+      "gold": 4883
     },
     {
       "name": "Moon Compass",
@@ -6494,7 +6494,7 @@
         "Tamru the Black White Weretiger"
       ],
       "id": 43736,
-      "gold": 44422
+      "gold": 28999
     },
     {
       "name": "Morgaroth's Heart",
@@ -6506,7 +6506,7 @@
         "Morgaroth"
       ],
       "id": 5943,
-      "gold": 14899999
+      "gold": 0
     },
     {
       "name": "Morshabaal's Brain",
@@ -6530,7 +6530,7 @@
         "Morshabaal"
       ],
       "id": 37810,
-      "gold": 19900000
+      "gold": 0
     },
     {
       "name": "Mother Soil",
@@ -6542,7 +6542,7 @@
         "Earth Overlord"
       ],
       "id": 947,
-      "gold": 44000
+      "gold": 0
     },
     {
       "name": "Mould Heart",
@@ -6554,7 +6554,7 @@
         "Mould Phantom"
       ],
       "id": 34141,
-      "gold": 99325
+      "gold": 54500
     },
     {
       "name": "Mould Robe",
@@ -6566,7 +6566,7 @@
         "Mould Phantom"
       ],
       "id": 34148,
-      "gold": 14044
+      "gold": 0
     },
     {
       "name": "Mouldy Powder",
@@ -6578,7 +6578,7 @@
         "Pirat Bombardier Pirat Mate"
       ],
       "id": 35596,
-      "gold": 2700
+      "gold": 2500
     },
     {
       "name": "Mr. Punish's Handcuffs",
@@ -6590,7 +6590,7 @@
         "Mr. Punish"
       ],
       "id": 6537,
-      "gold": 0
+      "gold": 500000
     },
     {
       "name": "Mummified Demon Finger",
@@ -6602,7 +6602,7 @@
         "Broodrider Inferniarch Gorger Inferniarch Hellhunter Inferniarch Sineater Inferniarch Spellreaper Inferniarch"
       ],
       "id": 49908,
-      "gold": 1198
+      "gold": 4999
     },
     {
       "name": "Murcion's Mycelium",
@@ -6624,7 +6624,7 @@
         "Bruise Payne Mutated Bat"
       ],
       "id": 9662,
-      "gold": 15000
+      "gold": 13000
     },
     {
       "name": "Mutated Flesh",
@@ -6636,7 +6636,7 @@
         "Mutated Human"
       ],
       "id": 10308,
-      "gold": 1099
+      "gold": 750
     },
     {
       "name": "Mutated Rat Tail",
@@ -6648,7 +6648,7 @@
         "Esmeralda Mutated Rat"
       ],
       "id": 9668,
-      "gold": 11000
+      "gold": 14498
     },
     {
       "name": "Mysterious Remains",
@@ -6660,7 +6660,7 @@
         "Alptramun Anomaly Eradicator Essence of Malice Izcandar Champion of Summer Izcandar Champion of Winter Izcandar the Banished Malofur Mangrinder Maxxenius Outburst Plagueroot Ravenous Hunger Realityquake Rupture The False God The Nightmare Beast The Percht Queen The Scourge of Oblivion The Sinister Hermit (Blue) The Souldespoiler The Unarmored Voidborn World Devourer"
       ],
       "id": 23509,
-      "gold": 1998
+      "gold": 3333
     },
     {
       "name": "Mystical Hourglass",
@@ -6672,7 +6672,7 @@
         "Grim Reaper The Last Lore Keeper"
       ],
       "id": 9660,
-      "gold": 859
+      "gold": 848
     },
     {
       "name": "Naga Archer Scales",
@@ -6684,7 +6684,7 @@
         "Naga Archer"
       ],
       "id": 39413,
-      "gold": 3430
+      "gold": 2199
     },
     {
       "name": "Naga Armring",
@@ -6696,7 +6696,7 @@
         "Naga Archer Naga Warrior"
       ],
       "id": 39411,
-      "gold": 4189
+      "gold": 4899
     },
     {
       "name": "Naga Earring",
@@ -6708,7 +6708,7 @@
         "Naga Archer Naga Warrior"
       ],
       "id": 39412,
-      "gold": 1785
+      "gold": 1398
     },
     {
       "name": "Naga Warrior Scales",
@@ -6720,7 +6720,7 @@
         "Naga Warrior"
       ],
       "id": 39414,
-      "gold": 1747
+      "gold": 2899
     },
     {
       "name": "Natural Soil",
@@ -6732,7 +6732,7 @@
         "Jagged Earth Elemental Muddy Earth Elemental"
       ],
       "id": 940,
-      "gold": 99998
+      "gold": 0
     },
     {
       "name": "Necromantic Core",
@@ -6764,7 +6764,7 @@
         "Necromancer Necromancer Servant Necropharus"
       ],
       "id": 11475,
-      "gold": 385
+      "gold": 1650
     },
     {
       "name": "Necromantic Rust",
@@ -6776,7 +6776,7 @@
         "Rustheap Golem The False God"
       ],
       "id": 21196,
-      "gold": 7400
+      "gold": 2222
     },
     {
       "name": "Nettle Blossom",
@@ -6788,7 +6788,7 @@
         "Spit Nettle"
       ],
       "id": 10314,
-      "gold": 898
+      "gold": 1195
     },
     {
       "name": "Nettle Spit",
@@ -6800,7 +6800,7 @@
         "Spit Nettle"
       ],
       "id": 11476,
-      "gold": 333
+      "gold": 740
     },
     {
       "name": "Neutral Matter",
@@ -6812,7 +6812,7 @@
         "Lord of the Elements"
       ],
       "id": 954,
-      "gold": 4940
+      "gold": 0
     },
     {
       "name": "Night Harpy Beak",
@@ -6844,7 +6844,7 @@
         "Nighthunter"
       ],
       "id": 39381,
-      "gold": 13997
+      "gold": 14444
     },
     {
       "name": "Nimmersatt's Seal",
@@ -6856,7 +6856,7 @@
         "Dragolisk Mega Dragon Wardragon"
       ],
       "id": 44743,
-      "gold": 1098
+      "gold": 3000
     },
     {
       "name": "Noble Amulet",
@@ -6880,7 +6880,7 @@
         "Lord Azaram"
       ],
       "id": 31593,
-      "gold": 0
+      "gold": 450000
     },
     {
       "name": "Noble Turban",
@@ -6892,7 +6892,7 @@
         "Efreet Fahim the Wise Marid Merikh the Slaughterer"
       ],
       "id": 11486,
-      "gold": 1499
+      "gold": 4846
     },
     {
       "name": "Norcferatu Talisman",
@@ -6916,7 +6916,7 @@
         "The Horned Fox"
       ],
       "id": 5804,
-      "gold": 2345000
+      "gold": 2198000
     },
     {
       "name": "Obujos' Shell",
@@ -6928,7 +6928,7 @@
         "Reflection of Obujos"
       ],
       "id": 14023,
-      "gold": 9855000
+      "gold": 0
     },
     {
       "name": "Obvious Piece of Cloth",
@@ -6940,7 +6940,7 @@
         "Feverish Citizen"
       ],
       "id": 12554,
-      "gold": 998
+      "gold": 2499
     },
     {
       "name": "Odd Organ",
@@ -6952,7 +6952,7 @@
         "Brain Squid Dread Intruder Essence of Malice Rupture The Sinister Hermit (Blue) The Souldespoiler"
       ],
       "id": 23510,
-      "gold": 1548
+      "gold": 4998
     },
     {
       "name": "Ogre Ear Stud",
@@ -6964,7 +6964,7 @@
         "Animated Ogre Brute Animated Ogre Savage Animated Ogre Shaman Ogre Brute Ogre Rowdy Ogre Ruffian Ogre Sage Ogre Savage Ogre Shaman"
       ],
       "id": 22188,
-      "gold": 1300
+      "gold": 2199
     },
     {
       "name": "Ogre Nose Ring",
@@ -6976,7 +6976,7 @@
         "Animated Ogre Brute Animated Ogre Savage Animated Ogre Shaman Ogre Brute Ogre Rowdy Ogre Ruffian Ogre Sage Ogre Savage Ogre Shaman"
       ],
       "id": 22189,
-      "gold": 199
+      "gold": 530
     },
     {
       "name": "Old Girtablilu Carapace",
@@ -6988,7 +6988,7 @@
         "Venerable Girtablilu"
       ],
       "id": 36972,
-      "gold": 34000
+      "gold": 30000
     },
     {
       "name": "Old Royal Diary",
@@ -7000,7 +7000,7 @@
         "Megasylvan Yselda"
       ],
       "id": 36808,
-      "gold": 999999
+      "gold": 0
     },
     {
       "name": "Ominous Piece of Cloth",
@@ -7012,7 +7012,7 @@
         "Feverish Citizen"
       ],
       "id": 12551,
-      "gold": 999
+      "gold": 899
     },
     {
       "name": "One of Timira's Many Heads",
@@ -7024,7 +7024,7 @@
         "Timira the Many-Headed"
       ],
       "id": 39399,
-      "gold": 216000
+      "gold": 0
     },
     {
       "name": "Orc Leather",
@@ -7036,7 +7036,7 @@
         "Cublarc the Plunderer Kraknaknork Orc Orc Berserker Orc Cult Fanatic Orc Cult Inquisitor Orc Cult Priest Orc Leader Orc Marauder Orc Rider Orc Shaman Orc Spearman Orc Warlord Orc Warrior Renegade Orc Warlord Ruzad"
       ],
       "id": 11479,
-      "gold": 24
+      "gold": 44
     },
     {
       "name": "Orc Tooth",
@@ -7048,7 +7048,7 @@
         "Cublarc the Plunderer Orc Orc Berserker Orc Cult Fanatic Orc Cult Inquisitor Orc Cult Priest Orc Leader Orc Marauder Orc Rider Orc Shaman Orc Spearman Orc Warlord Orc Warrior Renegade Orc"
       ],
       "id": 10196,
-      "gold": 331
+      "gold": 300
     },
     {
       "name": "Orc Tusk",
@@ -7060,7 +7060,7 @@
         "Orc Berserker Orc Cultist Orc Leader Orc Rider Orc Shaman Orc Warlord The Unarmored Voidborn"
       ],
       "id": 7786,
-      "gold": 499
+      "gold": 664
     },
     {
       "name": "Orcish Gear",
@@ -7072,7 +7072,7 @@
         "Orc Berserker Orc Cult Inquisitor"
       ],
       "id": 11477,
-      "gold": 1380
+      "gold": 1499
     },
     {
       "name": "Orcish Toothbrush",
@@ -7084,7 +7084,7 @@
         "Orclops Bloodbreaker"
       ],
       "id": 51477,
-      "gold": 3499
+      "gold": 2700
     },
     {
       "name": "Orshabaal's Brain",
@@ -7096,7 +7096,7 @@
         "Orshabaal"
       ],
       "id": 5808,
-      "gold": 3765000
+      "gold": 0
     },
     {
       "name": "Pair of Hellflayer Horns",
@@ -7108,7 +7108,7 @@
         "Hellflayer"
       ],
       "id": 22729,
-      "gold": 2885
+      "gold": 3999
     },
     {
       "name": "Pale Worm's Scalp",
@@ -7132,7 +7132,7 @@
         "Midnight Panther"
       ],
       "id": 12039,
-      "gold": 1999999
+      "gold": 0
     },
     {
       "name": "Panther Paw",
@@ -7144,7 +7144,7 @@
         "Midnight Panther"
       ],
       "id": 12040,
-      "gold": 189953
+      "gold": 500000
     },
     {
       "name": "Paper Boat",
@@ -7156,7 +7156,7 @@
         "Bluebeak"
       ],
       "id": 51420,
-      "gold": 3500
+      "gold": 2350
     },
     {
       "name": "Paper Plane",
@@ -7168,7 +7168,7 @@
         "Shell Drake"
       ],
       "id": 51419,
-      "gold": 9900
+      "gold": 7000
     },
     {
       "name": "Parder Fur",
@@ -7180,7 +7180,7 @@
         "Parder"
       ],
       "id": 39418,
-      "gold": 276
+      "gold": 899
     },
     {
       "name": "Parder Tooth",
@@ -7192,7 +7192,7 @@
         "Parder"
       ],
       "id": 39417,
-      "gold": 141
+      "gold": 749
     },
     {
       "name": "Pastry Dragon",
@@ -7204,7 +7204,7 @@
         "Sugar Daddy"
       ],
       "id": 48256,
-      "gold": 90000
+      "gold": 0
     },
     {
       "name": "Patch of Fine Cloth",
@@ -7216,7 +7216,7 @@
         "Grand Canon Dominus Grand Chaplain Gaunder Grand Commander Soeren Preceptor Lazare"
       ],
       "id": 28821,
-      "gold": 6495
+      "gold": 1999
     },
     {
       "name": "Peacock Feather Fan",
@@ -7228,7 +7228,7 @@
         "Dawnfire Asura Frost Flower Asura Kusuma Midnight Asura The Blazing Rose The Diamond Blossom The Flaming Orchid The Lily of Night True Dawnfire Asura True Frost Flower Asura True Midnight Asura The Moonlight Aster The Winter Bloom"
       ],
       "id": 21975,
-      "gold": 315
+      "gold": 328
     },
     {
       "name": "Peg Leg",
@@ -7240,7 +7240,7 @@
         "Pirate Buccaneer Pirate Corsair Pirate Cutthroat Pirate Marauder"
       ],
       "id": 6126,
-      "gold": 7881
+      "gold": 18000
     },
     {
       "name": "Pelvis Bone",
@@ -7252,7 +7252,7 @@
         "Crypt Warrior Grand Master Oberon Honour Guard Jailer Skeleton Skeleton Elite Warrior Skeleton Warrior Teleskor"
       ],
       "id": 11481,
-      "gold": 111
+      "gold": 286
     },
     {
       "name": "Percht Broom",
@@ -7264,7 +7264,7 @@
         "The Percht Queen"
       ],
       "id": 30282,
-      "gold": 56666
+      "gold": 0
     },
     {
       "name": "Percht Handkerchief",
@@ -7276,7 +7276,7 @@
         "The Percht Queen"
       ],
       "id": 30284,
-      "gold": 89000
+      "gold": 299999
     },
     {
       "name": "Percht Horns",
@@ -7300,7 +7300,7 @@
         "The Percht Queen"
       ],
       "id": 30280,
-      "gold": 154553
+      "gold": 250000
     },
     {
       "name": "Percht Skull",
@@ -7312,7 +7312,7 @@
         "The Percht Queen"
       ],
       "id": 30192,
-      "gold": 249999
+      "gold": 480000
     },
     {
       "name": "Perfect Behemoth Fang",
@@ -7324,7 +7324,7 @@
         "Behemoth Stonecracker"
       ],
       "id": 5893,
-      "gold": 4500
+      "gold": 17999
     },
     {
       "name": "Petrified Scream",
@@ -7336,7 +7336,7 @@
         "Banshee"
       ],
       "id": 10420,
-      "gold": 582
+      "gold": 1950
     },
     {
       "name": "Phantasmal Hair",
@@ -7348,7 +7348,7 @@
         "Thaian"
       ],
       "id": 32704,
-      "gold": 30000
+      "gold": 0
     },
     {
       "name": "Piece of Archer Armor",
@@ -7360,7 +7360,7 @@
         "Minotaur Archer"
       ],
       "id": 11483,
-      "gold": 30
+      "gold": 196
     },
     {
       "name": "Piece of Crocodile Leather",
@@ -7372,7 +7372,7 @@
         "Crocodile Dreadmaw Killer Caiman"
       ],
       "id": 10279,
-      "gold": 20
+      "gold": 87
     },
     {
       "name": "Piece of Dead Brain",
@@ -7384,7 +7384,7 @@
         "Brain Squid Braindeath Rage Squid Squid Warden"
       ],
       "id": 9663,
-      "gold": 18886
+      "gold": 27600
     },
     {
       "name": "Piece of Draconian Steel",
@@ -7396,7 +7396,7 @@
         "Earl Osam Plaguesmith Soul of Dragonking Zyrtarch The False God"
       ],
       "id": 5889,
-      "gold": 6000
+      "gold": 9998
     },
     {
       "name": "Piece of Frozen Night",
@@ -7408,7 +7408,7 @@
         "Gloom Maw Norcferatu Nightweaver"
       ],
       "id": 51474,
-      "gold": 1650
+      "gold": 3999
     },
     {
       "name": "Piece of Hell Steel",
@@ -7420,7 +7420,7 @@
         "Duke Krule Earl Osam Lloyd Lord Azaram Plaguesmith Sir Baeloc The False God The Source of Corruption"
       ],
       "id": 5888,
-      "gold": 798
+      "gold": 997
     },
     {
       "name": "Piece of Hellfire Armor",
@@ -7432,7 +7432,7 @@
         "Guardian of Tales Hellfire Fighter"
       ],
       "id": 9664,
-      "gold": 497
+      "gold": 700
     },
     {
       "name": "Piece of Massacre's Shell",
@@ -7444,7 +7444,7 @@
         "Massacre"
       ],
       "id": 6540,
-      "gold": 800000
+      "gold": 500000
     },
     {
       "name": "Piece of Royal Steel",
@@ -7456,7 +7456,7 @@
         "Lloyd Plaguesmith Sir Baeloc Soul of Dragonking Zyrtarch The Enraged Thorn Knight The False God The Last Lore Keeper The Unarmored Voidborn"
       ],
       "id": 5887,
-      "gold": 9295
+      "gold": 4600
     },
     {
       "name": "Piece of Scarab Shell",
@@ -7468,7 +7468,7 @@
         "Scarab"
       ],
       "id": 9641,
-      "gold": 998
+      "gold": 289
     },
     {
       "name": "Piece of Swampling Wood",
@@ -7480,7 +7480,7 @@
         "Swampling"
       ],
       "id": 17823,
-      "gold": 4850
+      "gold": 2800
     },
     {
       "name": "Piece of Timira's Sensors",
@@ -7492,7 +7492,7 @@
         "Timira the Many-Headed"
       ],
       "id": 39400,
-      "gold": 165000
+      "gold": 450000
     },
     {
       "name": "Piece of Warrior Armor",
@@ -7504,7 +7504,7 @@
         "Minotaur Guard Minotaur Invader The Horned Fox"
       ],
       "id": 11482,
-      "gold": 788
+      "gold": 1500
     },
     {
       "name": "Pieces of Magic Chalk",
@@ -7516,7 +7516,7 @@
         "Blood Hand Blood Priest Shadow Pupil"
       ],
       "id": 18930,
-      "gold": 199
+      "gold": 467
     },
     {
       "name": "Pig Foot",
@@ -7528,7 +7528,7 @@
         "Pig"
       ],
       "id": 9693,
-      "gold": 6777
+      "gold": 0
     },
     {
       "name": "Pile of Grave Earth",
@@ -7540,7 +7540,7 @@
         "Ghoul Gravedigger"
       ],
       "id": 11484,
-      "gold": 399
+      "gold": 668
     },
     {
       "name": "Pirat's Tail",
@@ -7552,7 +7552,7 @@
         "Pirat Bombardier Pirat Cutthroat Pirat Mate Pirat Scoundrel"
       ],
       "id": 35573,
-      "gold": 561
+      "gold": 488
     },
     {
       "name": "Pirate Coin",
@@ -7564,7 +7564,7 @@
         "Pirat Bombardier Pirat Cutthroat Pirat Mate Pirat Scoundrel Ratmiral Blackwhiskers Tentugly's Head"
       ],
       "id": 35572,
-      "gold": 165
+      "gold": 169
     },
     {
       "name": "Plagueroot Offshoot",
@@ -7588,7 +7588,7 @@
         "Breach Brood Burster Dreadful Disruptor Essence of Malice Instable Breach Brood Reality Reaver Rupture Stabilizing Reality Reaver The Sinister Hermit (Blue) The Souldespoiler"
       ],
       "id": 23506,
-      "gold": 750
+      "gold": 998
     },
     {
       "name": "Plasmatic Lightning",
@@ -7600,7 +7600,7 @@
         "Dreadful Disruptor Eradicator Reality Reaver The Scourge of Oblivion"
       ],
       "id": 23520,
-      "gold": 549
+      "gold": 1797
     },
     {
       "name": "Poison Gland",
@@ -7612,7 +7612,7 @@
         "Lucifuga Aranea"
       ],
       "id": 29348,
-      "gold": 50000
+      "gold": 0
     },
     {
       "name": "Poison Spider Shell",
@@ -7624,7 +7624,7 @@
         "Poison Spider"
       ],
       "id": 11485,
-      "gold": 92
+      "gold": 88
     },
     {
       "name": "Poisoned Fang",
@@ -7636,7 +7636,7 @@
         "Blood Beast"
       ],
       "id": 21195,
-      "gold": 777
+      "gold": 697
     },
     {
       "name": "Poisonous Slime",
@@ -7648,7 +7648,7 @@
         "Blood Beast Brimstone Bug Diremaw Filth Toad Ink Blob Lancer Beetle Stonerefiner Sulphur Scuttler The Blightfather Toad"
       ],
       "id": 9640,
-      "gold": 45
+      "gold": 37
     },
     {
       "name": "Polar Bear Paw",
@@ -7660,7 +7660,7 @@
         "Polar Bear"
       ],
       "id": 9650,
-      "gold": 2500
+      "gold": 2400
     },
     {
       "name": "Pool of Chitinous Glue",
@@ -7672,7 +7672,7 @@
         "Retching Horror"
       ],
       "id": 20207,
-      "gold": 750
+      "gold": 785
     },
     {
       "name": "Pot of Orcish Warpaint",
@@ -7684,7 +7684,7 @@
         "Norcferatu Heartless"
       ],
       "id": 51476,
-      "gold": 3750
+      "gold": 3499
     },
     {
       "name": "Prehemoth Claw",
@@ -7696,7 +7696,7 @@
         "Hulking Prehemoth"
       ],
       "id": 39383,
-      "gold": 17973
+      "gold": 14999
     },
     {
       "name": "Prehemoth Horns",
@@ -7708,7 +7708,7 @@
         "Hulking Prehemoth"
       ],
       "id": 39382,
-      "gold": 28500
+      "gold": 14999
     },
     {
       "name": "Preserved Dark Seed",
@@ -7720,7 +7720,7 @@
         "Rootthing Amber Shaper"
       ],
       "id": 48505,
-      "gold": 200000
+      "gold": 50000
     },
     {
       "name": "Preserved Light Blue Seed",
@@ -7732,7 +7732,7 @@
         "Quara Raider"
       ],
       "id": 45654,
-      "gold": 48953
+      "gold": 65000
     },
     {
       "name": "Preserved Pink Seed",
@@ -7744,7 +7744,7 @@
         "Rootthing Nutshell"
       ],
       "id": 45652,
-      "gold": 45000
+      "gold": 18000
     },
     {
       "name": "Preserved Purple Seed",
@@ -7756,7 +7756,7 @@
         "Quara Raider"
       ],
       "id": 45656,
-      "gold": 49953
+      "gold": 0
     },
     {
       "name": "Preserved Red Seed",
@@ -7768,7 +7768,7 @@
         "Rootthing Nutshell"
       ],
       "id": 45653,
-      "gold": 3000
+      "gold": 18000
     },
     {
       "name": "Preserved Violet Seed",
@@ -7780,7 +7780,7 @@
         "Quara Looter"
       ],
       "id": 45655,
-      "gold": 88953
+      "gold": 0
     },
     {
       "name": "Preserved Yellow Seed",
@@ -7790,7 +7790,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 45657,
-      "gold": 33000
+      "gold": 18000
     },
     {
       "name": "Pressed Flower",
@@ -7802,7 +7802,7 @@
         "Hawk Hopper"
       ],
       "id": 51428,
-      "gold": 6299
+      "gold": 12000
     },
     {
       "name": "Pristine Worm Head",
@@ -7814,7 +7814,7 @@
         "The Duke of the Depths"
       ],
       "id": 27618,
-      "gold": 300000
+      "gold": 0
     },
     {
       "name": "Protective Charm",
@@ -7826,7 +7826,7 @@
         "Amazon Valkyrie"
       ],
       "id": 11444,
-      "gold": 3850
+      "gold": 3624
     },
     {
       "name": "Pulverized Ore",
@@ -7838,7 +7838,7 @@
         "Cliff Strider Drillworm Orewalker"
       ],
       "id": 16133,
-      "gold": 1478
+      "gold": 1390
     },
     {
       "name": "Purified Soul (Netherworld)",
@@ -7848,7 +7848,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 32228,
-      "gold": 999
+      "gold": 0
     },
     {
       "name": "Purple Robe",
@@ -7860,7 +7860,7 @@
         "Minotaur Cult Zealot Minotaur Mage Worm Priestess"
       ],
       "id": 11473,
-      "gold": 95
+      "gold": 129
     },
     {
       "name": "Putrefactive Figurine",
@@ -7872,7 +7872,7 @@
         "Bakragore Ichgahal Murcion"
       ],
       "id": 43962,
-      "gold": 3500000
+      "gold": 0
     },
     {
       "name": "Quara Bone",
@@ -7896,7 +7896,7 @@
         "Quara Hydromancer Quara Hydromancer Scout Renegade Quara Hydromancer"
       ],
       "id": 11488,
-      "gold": 3579
+      "gold": 1739
     },
     {
       "name": "Quara Pincers",
@@ -7908,7 +7908,7 @@
         "Quara Pincher Quara Pincher Scout Renegade Quara Pincher"
       ],
       "id": 11490,
-      "gold": 2400
+      "gold": 2899
     },
     {
       "name": "Quara Tentacle",
@@ -7920,7 +7920,7 @@
         "Quara Constrictor Quara Constrictor Scout Renegade Quara Constrictor"
       ],
       "id": 11487,
-      "gold": 2500
+      "gold": 4149
     },
     {
       "name": "Quill",
@@ -7932,7 +7932,7 @@
         "Animated Feather Icecold Book Knowledge Elemental"
       ],
       "id": 28567,
-      "gold": 980
+      "gold": 1995
     },
     {
       "name": "Rabbit's Foot",
@@ -7942,7 +7942,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 12172,
-      "gold": 2792
+      "gold": 0
     },
     {
       "name": "Rare Earth",
@@ -7954,7 +7954,7 @@
         "Stonerefiner"
       ],
       "id": 27301,
-      "gold": 70
+      "gold": 75
     },
     {
       "name": "Ratmiral's Hat",
@@ -7966,7 +7966,7 @@
         "Ratmiral Blackwhiskers"
       ],
       "id": 35613,
-      "gold": 428000
+      "gold": 300000
     },
     {
       "name": "Ravenous Circlet",
@@ -7990,7 +7990,7 @@
         "Animated Clomp Clomp Museum Stone Rhino Stone Rhino"
       ],
       "id": 22186,
-      "gold": 1998
+      "gold": 1300
     },
     {
       "name": "Reality Splinter",
@@ -8002,7 +8002,7 @@
         "Spirit Overlord"
       ],
       "id": 51259,
-      "gold": 300000
+      "gold": 0
     },
     {
       "name": "Red Dragon Leather",
@@ -8014,7 +8014,7 @@
         "Demodras Dragon Lord Kalyassa Soul of Dragonking Zyrtarch"
       ],
       "id": 5948,
-      "gold": 3285
+      "gold": 2500
     },
     {
       "name": "Red Dragon Scale",
@@ -8026,7 +8026,7 @@
         "Dragon Lord Soul of Dragonking Zyrtarch"
       ],
       "id": 5882,
-      "gold": 690
+      "gold": 786
     },
     {
       "name": "Red Goanna Scale",
@@ -8038,7 +8038,7 @@
         "Adult Goanna"
       ],
       "id": 31558,
-      "gold": 12186
+      "gold": 8000
     },
     {
       "name": "Red Hair Dye",
@@ -8050,7 +8050,7 @@
         "Lost Basher Lost Exile Lost Husher Lost Thrower"
       ],
       "id": 17855,
-      "gold": 1050
+      "gold": 1835
     },
     {
       "name": "Red Lantern",
@@ -8062,7 +8062,7 @@
         "Battlemaster Zunzu Fazzrah Lizard High Guard Lizard Legionnaire Lizard Zaogun"
       ],
       "id": 10289,
-      "gold": 234
+      "gold": 600
     },
     {
       "name": "Red Piece of Cloth",
@@ -8074,7 +8074,7 @@
         "Animated Moohtant Barbarian Bloodwalker Blood Hand Blood Priest Broken Shaper Bullwark Choking Fear Dawnfire Asura Depowered Minotaur Execowtioner Floating Savant Fury Furyosa Gaz'haragoth Glooth Bomb Hellhound Hero Hideous Fungus Humongous Fungus Infernalist Lava Golem Mad Mage Magma Crawler Mawhawk Minotaur Amazon Minotaur Cult Follower Minotaur Cult Prophet Minotaur Cult Zealot Minotaur Hunter Minotaur Invader Mooh'Tah Warrior Moohtant Moohtant Wallbreaker Raging Mage Renegade Knight Terrorsleep The Bloodtusk The False God The Pale Count True Dawnfire Asura Undead Jester Vampire Viscount Vile Grandmaster Weakened Shlorg Worm Priestess Zugurosh Zushuka"
       ],
       "id": 5911,
-      "gold": 268
+      "gold": 293
     },
     {
       "name": "Resin Parasite",
@@ -8086,7 +8086,7 @@
         "Rootthing Amber Shaper Rootthing Bug Tracker Rootthing Nutshell"
       ],
       "id": 48511,
-      "gold": 4400
+      "gold": 5000
     },
     {
       "name": "Resinous Fish Fin",
@@ -8098,7 +8098,7 @@
         "Quara Looter Quara Raider"
       ],
       "id": 48509,
-      "gold": 14995
+      "gold": 37300
     },
     {
       "name": "Rhindeer Antlers",
@@ -8110,7 +8110,7 @@
         "Rhindeer"
       ],
       "id": 40587,
-      "gold": 3189
+      "gold": 6499
     },
     {
       "name": "Rhino Hide",
@@ -8122,7 +8122,7 @@
         "Museum Stone Rhino Stone Rhino"
       ],
       "id": 24388,
-      "gold": 19999
+      "gold": 0
     },
     {
       "name": "Rhino Horn",
@@ -8134,7 +8134,7 @@
         "Stone Rhino"
       ],
       "id": 24389,
-      "gold": 1050
+      "gold": 0
     },
     {
       "name": "Rhino Horn Carving",
@@ -8146,7 +8146,7 @@
         "Broken Shaper Shaper Matriarch"
       ],
       "id": 24386,
-      "gold": 200
+      "gold": 499
     },
     {
       "name": "Ripptor Claw",
@@ -8158,7 +8158,7 @@
         "Noxious Ripptor"
       ],
       "id": 39389,
-      "gold": 24800
+      "gold": 55000
     },
     {
       "name": "Ripptor Scales",
@@ -8170,7 +8170,7 @@
         "Noxious Ripptor"
       ],
       "id": 39391,
-      "gold": 9994
+      "gold": 50000
     },
     {
       "name": "Ritual Bone Knife",
@@ -8182,7 +8182,7 @@
         "Varg"
       ],
       "id": 51475,
-      "gold": 4998
+      "gold": 3499
     },
     {
       "name": "Ritual Tooth",
@@ -8194,7 +8194,7 @@
         "Ahau Iks Ahpututu Iks Aucar Iks Chuka Iks Pututu"
       ],
       "id": 40528,
-      "gold": 3000
+      "gold": 4442
     },
     {
       "name": "Rod (Creature Product)",
@@ -8206,7 +8206,7 @@
         "Bony Sea Devil"
       ],
       "id": 33929,
-      "gold": 18998
+      "gold": 0
     },
     {
       "name": "Rogue Naga Scales",
@@ -8218,7 +8218,7 @@
         "Rogue Naga"
       ],
       "id": 39416,
-      "gold": 488
+      "gold": 900
     },
     {
       "name": "Root Tentacle",
@@ -8240,7 +8240,7 @@
         "Branchy Crawler"
       ],
       "id": 33938,
-      "gold": 76000
+      "gold": 39500
     },
     {
       "name": "Rope Belt",
@@ -8252,7 +8252,7 @@
         "Acolyte of the Cult Adept of the Cult Crypt Defiler Dark Monk Fernfang Grave Robber Monk (Creature) Monk of the Order Nomad (Basic) Nomad (Blue) Nomad (Female) Novice of the Cult"
       ],
       "id": 11492,
-      "gold": 4200
+      "gold": 4198
     },
     {
       "name": "Rorc Egg",
@@ -8264,7 +8264,7 @@
         "Rorc"
       ],
       "id": 18996,
-      "gold": 750
+      "gold": 490
     },
     {
       "name": "Rorc Feather",
@@ -8276,7 +8276,7 @@
         "Rorc"
       ],
       "id": 18993,
-      "gold": 250
+      "gold": 765
     },
     {
       "name": "Rotrender Claw",
@@ -8312,7 +8312,7 @@
         "Ahau Iks Ahpututu Iks Aucar Iks Chuka Iks Pututu"
       ],
       "id": 40527,
-      "gold": 2895
+      "gold": 7499
     },
     {
       "name": "Rotten Heart",
@@ -8324,7 +8324,7 @@
         "Count Vlarkorth Duke Krule Earl Osam King Zelos Lord Azaram Sir Baeloc"
       ],
       "id": 31589,
-      "gold": 78399
+      "gold": 149999
     },
     {
       "name": "Rotten Piece of Cloth",
@@ -8336,7 +8336,7 @@
         "Ghoul"
       ],
       "id": 10291,
-      "gold": 2400
+      "gold": 1797
     },
     {
       "name": "Rotten Roots",
@@ -8348,7 +8348,7 @@
         "Meandering Mushroom Oozing Carcass Oozing Corpus Rotten Man-Maggot Sopping Carcass"
       ],
       "id": 43849,
-      "gold": 10698
+      "gold": 55000
     },
     {
       "name": "Rotten Vermin Ichor",
@@ -8358,7 +8358,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 43847,
-      "gold": 6000
+      "gold": 50000
     },
     {
       "name": "Sabretooth",
@@ -8370,7 +8370,7 @@
         "Midnight Panther Mutated Tiger"
       ],
       "id": 10311,
-      "gold": 6099
+      "gold": 9693
     },
     {
       "name": "Sabretooth Fur",
@@ -8382,7 +8382,7 @@
         "Sabretooth (Creature)"
       ],
       "id": 39378,
-      "gold": 10999
+      "gold": 14444
     },
     {
       "name": "Safety Pin",
@@ -8394,7 +8394,7 @@
         "Dark Monk Fernfang Gravedigger Monk (Creature) Monk of the Order"
       ],
       "id": 11493,
-      "gold": 549
+      "gold": 988
     },
     {
       "name": "Sandcrawler Shell",
@@ -8406,7 +8406,7 @@
         "Sandcrawler"
       ],
       "id": 10456,
-      "gold": 31899
+      "gold": 17996
     },
     {
       "name": "Scale of Corruption",
@@ -8418,7 +8418,7 @@
         "Draken Abomination Lizard Chosen The Voice of Ruin"
       ],
       "id": 11673,
-      "gold": 1899
+      "gold": 5450
     },
     {
       "name": "Scale of Gelidrazah",
@@ -8430,7 +8430,7 @@
         "Gelidrazah the Frozen"
       ],
       "id": 24939,
-      "gold": 45000
+      "gold": 9900
     },
     {
       "name": "Scarab Pincers",
@@ -8442,7 +8442,7 @@
         "Ancient Scarab Ancient Spawn of Morgathla Fleshcrawler"
       ],
       "id": 9631,
-      "gold": 2499
+      "gold": 4000
     },
     {
       "name": "Scorpion Charm",
@@ -8454,7 +8454,7 @@
         "Girtablilu Warrior Venerable Girtablilu"
       ],
       "id": 36822,
-      "gold": 9297
+      "gold": 16750
     },
     {
       "name": "Scorpion Tail",
@@ -8466,7 +8466,7 @@
         "Scorpion Utua Stone Sting"
       ],
       "id": 9651,
-      "gold": 15
+      "gold": 277
     },
     {
       "name": "Scroll of Heroic Deeds",
@@ -8478,7 +8478,7 @@
         "Hero Renegade Knight Vile Grandmaster"
       ],
       "id": 11510,
-      "gold": 799
+      "gold": 490
     },
     {
       "name": "Scythe Leg",
@@ -8490,7 +8490,7 @@
         "Nightmare Nightmare Scion Tormentor"
       ],
       "id": 10312,
-      "gold": 889
+      "gold": 1677
     },
     {
       "name": "Sea Serpent Scale",
@@ -8502,7 +8502,7 @@
         "Sea Serpent Young Sea Serpent"
       ],
       "id": 9666,
-      "gold": 530
+      "gold": 598
     },
     {
       "name": "Sea Serpent Trophy",
@@ -8514,7 +8514,7 @@
         "Leviathan"
       ],
       "id": 9613,
-      "gold": 9900
+      "gold": 0
     },
     {
       "name": "Seacrest Hair",
@@ -8526,7 +8526,7 @@
         "Seacrest Serpent"
       ],
       "id": 21801,
-      "gold": 760
+      "gold": 849
     },
     {
       "name": "Seacrest Pearl",
@@ -8538,7 +8538,7 @@
         "Seacrest Serpent"
       ],
       "id": 21747,
-      "gold": 780
+      "gold": 983
     },
     {
       "name": "Seacrest Scale",
@@ -8550,7 +8550,7 @@
         "Seacrest Serpent"
       ],
       "id": 21800,
-      "gold": 580
+      "gold": 1799
     },
     {
       "name": "Sealing Wax",
@@ -8562,7 +8562,7 @@
         "Lion Hydra"
       ],
       "id": 51426,
-      "gold": 1500
+      "gold": 2400
     },
     {
       "name": "Seeds",
@@ -8574,7 +8574,7 @@
         "Blightwalker Carniphila Crazed Summer Vanguard Deathbine Dryad Dworc Venomsniper Fahim the Wise Jagged Earth Elemental Marid Marsh Stalker Merikh the Slaughterer Spit Nettle Terror Bird Tiquandas Revenge"
       ],
       "id": 647,
-      "gold": 140
+      "gold": 290
     },
     {
       "name": "Shadow Mask",
@@ -8586,7 +8586,7 @@
         "Lady Tenebris"
       ],
       "id": 24973,
-      "gold": 5000
+      "gold": 299998
     },
     {
       "name": "Shadow Paint",
@@ -8598,7 +8598,7 @@
         "Lady Tenebris"
       ],
       "id": 24974,
-      "gold": 22310
+      "gold": 0
     },
     {
       "name": "Shaggy Tail",
@@ -8610,7 +8610,7 @@
         "Cublarc the Plunderer Fleabringer Gnarlhound Orc Marauder"
       ],
       "id": 10407,
-      "gold": 4200
+      "gold": 3200
     },
     {
       "name": "Shamanic Hood",
@@ -8622,7 +8622,7 @@
         "Orc Cult Priest Orc Shaman"
       ],
       "id": 11478,
-      "gold": 29
+      "gold": 198
     },
     {
       "name": "Shamanic Talisman",
@@ -8634,7 +8634,7 @@
         "Animated Ogre Shaman Ogre Sage Ogre Shaman"
       ],
       "id": 22184,
-      "gold": 10299
+      "gold": 13899
     },
     {
       "name": "Shard",
@@ -8646,7 +8646,7 @@
         "Barbarian Bloodwalker Crystal Spider Frost Dragon Frost Giant Frost Giantess Gelidrazah the Frozen Hirintror Ice Dragon Ice Golem Ice Witch Man in the Cave Melting Frozen Horror Shardhead The Bloodweb Yakchal Zushuka"
       ],
       "id": 7290,
-      "gold": 2522
+      "gold": 4989
     },
     {
       "name": "Shark Fins",
@@ -8658,7 +8658,7 @@
         "Pirat Cutthroat Pirat Mate"
       ],
       "id": 35574,
-      "gold": 2200
+      "gold": 5000
     },
     {
       "name": "Shimmering Beetles",
@@ -8670,7 +8670,7 @@
         "Arctic Faun Boogy Dark Faun Faun Pooka Raxias Twisted Pooka"
       ],
       "id": 25693,
-      "gold": 4299
+      "gold": 3000
     },
     {
       "name": "Shiny Stone",
@@ -8682,7 +8682,7 @@
         "Cliff Strider Crystal Wolf Earth Overlord Enslaved Dwarf Eternal Guardian Ethershreck Fahim the Wise Gargoyle Ghastly Dragon Grorlam Ironblight Merikh the Slaughterer Metal Gargoyle Orewalker Spectre Stone Golem Stonecracker The Shatterer"
       ],
       "id": 10310,
-      "gold": 740
+      "gold": 2397
     },
     {
       "name": "Shrunken Head",
@@ -8704,7 +8704,7 @@
         "Sight of Surrender"
       ],
       "id": 20183,
-      "gold": 15000
+      "gold": 0
     },
     {
       "name": "Signet Ring",
@@ -8716,7 +8716,7 @@
         "Sir Baeloc"
       ],
       "id": 31592,
-      "gold": 599999
+      "gold": 0
     },
     {
       "name": "Silencer Claws",
@@ -8728,7 +8728,7 @@
         "Enfeebled Silencer Silencer"
       ],
       "id": 20200,
-      "gold": 3331
+      "gold": 4294
     },
     {
       "name": "Silencer Resonating Chamber",
@@ -8740,7 +8740,7 @@
         "Silencer"
       ],
       "id": 20201,
-      "gold": 997
+      "gold": 883
     },
     {
       "name": "Silken Bookmark",
@@ -8752,7 +8752,7 @@
         "Biting Book Burning Book Cursed Book Energetic Book Icecold Book Knowledge Elemental"
       ],
       "id": 28566,
-      "gold": 9600
+      "gold": 2495
     },
     {
       "name": "Silky Fur",
@@ -8764,7 +8764,7 @@
         "Silver Rabbit"
       ],
       "id": 10292,
-      "gold": 129
+      "gold": 699
     },
     {
       "name": "Silver Foxmouse Coin",
@@ -8774,7 +8774,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 43733,
-      "gold": 89999
+      "gold": 0
     },
     {
       "name": "Silver Moon Coin",
@@ -8786,7 +8786,7 @@
         "Tamru the Black Weretiger White Weretiger"
       ],
       "id": 43732,
-      "gold": 44397
+      "gold": 50000
     },
     {
       "name": "Silver Poniard",
@@ -8808,7 +8808,7 @@
         "Sineater Inferniarch"
       ],
       "id": 50057,
-      "gold": 3221
+      "gold": 7499
     },
     {
       "name": "Single Human Eye",
@@ -8820,7 +8820,7 @@
         "Putrid Mummy"
       ],
       "id": 25701,
-      "gold": 3100
+      "gold": 3499
     },
     {
       "name": "Skeleton Decoration",
@@ -8832,7 +8832,7 @@
         "Lost Soul Nightmare The Mutated Pumpkin Tormentor"
       ],
       "id": 6525,
-      "gold": 6500
+      "gold": 2799
     },
     {
       "name": "Skin of Gralvalon",
@@ -8844,7 +8844,7 @@
         "Gralvalon"
       ],
       "id": 49892,
-      "gold": 30000000
+      "gold": 24000000
     },
     {
       "name": "Skin of Malvaroth",
@@ -8856,7 +8856,7 @@
         "Malvaroth"
       ],
       "id": 49893,
-      "gold": 0
+      "gold": 6500000
     },
     {
       "name": "Skin of Twisterror",
@@ -8868,7 +8868,7 @@
         "Twisterror"
       ],
       "id": 49891,
-      "gold": 3999988
+      "gold": 0
     },
     {
       "name": "Skull Belt",
@@ -8880,7 +8880,7 @@
         "Orc Cult Fanatic Orc Leader Orc Warlord Orc Warrior"
       ],
       "id": 11480,
-      "gold": 147
+      "gold": 555
     },
     {
       "name": "Skull Fetish",
@@ -8892,7 +8892,7 @@
         "Animated Ogre Shaman Ogre Brute Ogre Rowdy Ogre Ruffian Ogre Sage Ogre Savage Ogre Shaman The Unarmored Voidborn"
       ],
       "id": 22191,
-      "gold": 4297
+      "gold": 3250
     },
     {
       "name": "Skull Shatterer",
@@ -8904,7 +8904,7 @@
         "Lost Exile Lost Husher"
       ],
       "id": 17849,
-      "gold": 149
+      "gold": 875
     },
     {
       "name": "Skull Tendril",
@@ -8926,7 +8926,7 @@
         "Skunk"
       ],
       "id": 10274,
-      "gold": 7998
+      "gold": 9845
     },
     {
       "name": "Slime Heart",
@@ -8938,7 +8938,7 @@
         "Blood Beast Brain Squid Cave Devourer Rage Squid Squid Warden"
       ],
       "id": 21194,
-      "gold": 125
+      "gold": 149
     },
     {
       "name": "Slime Mould",
@@ -8950,7 +8950,7 @@
         "Diamond Servant Diamond Servant Replica Golden Servant Golden Servant Replica Iron Servant Iron Servant Replica"
       ],
       "id": 12601,
-      "gold": 5000
+      "gold": 9849
     },
     {
       "name": "Slimy Leaf Tentacle",
@@ -8962,7 +8962,7 @@
         "Glooth Anemone Lisa"
       ],
       "id": 21197,
-      "gold": 1699
+      "gold": 3490
     },
     {
       "name": "Slimy Leg",
@@ -8974,7 +8974,7 @@
         "The Baron from Below"
       ],
       "id": 27623,
-      "gold": 6400
+      "gold": 0
     },
     {
       "name": "Small Energy Ball",
@@ -8986,7 +8986,7 @@
         "Stabilizing Reality Reaver"
       ],
       "id": 23524,
-      "gold": 237
+      "gold": 3499
     },
     {
       "name": "Small Flask of Eyedrops",
@@ -8998,7 +8998,7 @@
         "Bonelord Elder Bonelord Gazer The Evil Eye"
       ],
       "id": 11512,
-      "gold": 3333
+      "gold": 1700
     },
     {
       "name": "Small Ladybug",
@@ -9010,7 +9010,7 @@
         "The Percht Queen"
       ],
       "id": 30322,
-      "gold": 390053
+      "gold": 53000
     },
     {
       "name": "Small Notebook",
@@ -9022,7 +9022,7 @@
         "Hero Renegade Knight Vile Grandmaster"
       ],
       "id": 11450,
-      "gold": 2100
+      "gold": 2499
     },
     {
       "name": "Small Oil Lamp",
@@ -9034,7 +9034,7 @@
         "Blue Djinn Efreet Fahim the Wise Green Djinn Marid Merikh the Slaughterer"
       ],
       "id": 2933,
-      "gold": 799
+      "gold": 666
     },
     {
       "name": "Small Pitchfork",
@@ -9046,7 +9046,7 @@
         "Fire Devil"
       ],
       "id": 11513,
-      "gold": 222
+      "gold": 9997
     },
     {
       "name": "Small Treasure Chest",
@@ -9058,7 +9058,7 @@
         "Pirat Mate Ratmiral Blackwhiskers Tentugly's Head"
       ],
       "id": 35571,
-      "gold": 11961
+      "gold": 4888
     },
     {
       "name": "Small Tropical Fish",
@@ -9070,7 +9070,7 @@
         "Two-Headed Turtle"
       ],
       "id": 39408,
-      "gold": 3499
+      "gold": 9900
     },
     {
       "name": "Smoldering Eye",
@@ -9082,7 +9082,7 @@
         "Magma Bubble"
       ],
       "id": 39543,
-      "gold": 529999
+      "gold": 500000
     },
     {
       "name": "Snake Skin",
@@ -9094,7 +9094,7 @@
         "Serpent Spawn Srezz Yellow Eyes The Noxious Spawn"
       ],
       "id": 9694,
-      "gold": 540
+      "gold": 694
     },
     {
       "name": "Sniper Gloves",
@@ -9106,7 +9106,7 @@
         "Arthom the Hunter Hunter The Enraged Thorn Knight"
       ],
       "id": 5875,
-      "gold": 8999
+      "gold": 13399
     },
     {
       "name": "Some Grimeleech Wings",
@@ -9118,7 +9118,7 @@
         "Grimeleech"
       ],
       "id": 22730,
-      "gold": 1993
+      "gold": 3196
     },
     {
       "name": "Soul Stone",
@@ -9130,7 +9130,7 @@
         "Alptramun Izcandar Champion of Summer Izcandar the Banished Malofur Mangrinder Maxxenius Necropharus Plagueroot The Blazing Time Guardian The Freezing Time Guardian The Last Lore Keeper The Nightmare Beast The Percht Queen The Scourge of Oblivion The Time Guardian"
       ],
       "id": 5809,
-      "gold": 5996
+      "gold": 77000
     },
     {
       "name": "Soul Trap",
@@ -9152,7 +9152,7 @@
         "Breach Brood Burster Eradicator Melting Frozen Horror The Scourge of Oblivion The Sinister Hermit (Blue) The Souldespoiler"
       ],
       "id": 23518,
-      "gold": 588
+      "gold": 1398
     },
     {
       "name": "Sparkion Claw",
@@ -9164,7 +9164,7 @@
         "Instable Sparkion Sparkion"
       ],
       "id": 23502,
-      "gold": 449
+      "gold": 998
     },
     {
       "name": "Sparkion Legs",
@@ -9176,7 +9176,7 @@
         "Instable Sparkion Sparkion"
       ],
       "id": 23504,
-      "gold": 729
+      "gold": 1498
     },
     {
       "name": "Sparkion Stings",
@@ -9188,7 +9188,7 @@
         "Instable Sparkion Sparkion"
       ],
       "id": 23505,
-      "gold": 749
+      "gold": 1099
     },
     {
       "name": "Sparkion Tail",
@@ -9200,7 +9200,7 @@
         "Instable Sparkion Sparkion"
       ],
       "id": 23503,
-      "gold": 1249
+      "gold": 1498
     },
     {
       "name": "Spectral Gold Nugget",
@@ -9212,7 +9212,7 @@
         "Cursed Prospector"
       ],
       "id": 32724,
-      "gold": 25222
+      "gold": 0
     },
     {
       "name": "Spectral Silver Nugget",
@@ -9224,7 +9224,7 @@
         "Cursed Prospector Evil Prospector"
       ],
       "id": 32725,
-      "gold": 1999
+      "gold": 0
     },
     {
       "name": "Spellreaper Staff Totem",
@@ -9236,7 +9236,7 @@
         "Spellreaper Inferniarch"
       ],
       "id": 50054,
-      "gold": 13888
+      "gold": 25555
     },
     {
       "name": "Spellsinger's Seal",
@@ -9248,7 +9248,7 @@
         "Deepling Master Librarian Deepling Spellsinger"
       ],
       "id": 14008,
-      "gold": 3993
+      "gold": 6555
     },
     {
       "name": "Sphinx Feather",
@@ -9260,7 +9260,7 @@
         "Feral Sphinx Sphinx"
       ],
       "id": 31437,
-      "gold": 485
+      "gold": 646
     },
     {
       "name": "Sphinx Tiara",
@@ -9272,7 +9272,7 @@
         "Feral Sphinx Sphinx"
       ],
       "id": 31438,
-      "gold": 2899
+      "gold": 1399
     },
     {
       "name": "Spider Fangs",
@@ -9284,7 +9284,7 @@
         "Arachnophobica Sacred Spider Spider Spider (Nostalgia) Tarantula"
       ],
       "id": 8031,
-      "gold": 11
+      "gold": 39
     },
     {
       "name": "Spider Silk",
@@ -9296,7 +9296,7 @@
         "Arachnophobica Cave Spider Crystal Spider Exotic Cave Spider Giant Spider Hide Mamma Longlegs The Bloodweb The Old Widow Undertaker"
       ],
       "id": 5879,
-      "gold": 1377
+      "gold": 1332
     },
     {
       "name": "Spiderweb Clouds Shreds",
@@ -9318,7 +9318,7 @@
         "Fleshslicer Spidris Spidris Elite The Manhunter"
       ],
       "id": 14082,
-      "gold": 443
+      "gold": 1296
     },
     {
       "name": "Spiked Bracers",
@@ -9328,7 +9328,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 51479,
-      "gold": 5900
+      "gold": 5899
     },
     {
       "name": "Spiked Gorget",
@@ -9350,7 +9350,7 @@
         "Eternal Guardian Lizard Chosen Lizard High Guard The Voice of Ruin"
       ],
       "id": 10408,
-      "gold": 250
+      "gold": 900
     },
     {
       "name": "Spirit Container",
@@ -9362,7 +9362,7 @@
         "King Zelos Souleater The Enraged Thorn Knight Ushuriel"
       ],
       "id": 5884,
-      "gold": 59985
+      "gold": 88900
     },
     {
       "name": "Spite's Spirit",
@@ -9374,7 +9374,7 @@
         "Goshnar's Spite"
       ],
       "id": 33926,
-      "gold": 1500000
+      "gold": 0
     },
     {
       "name": "Spitter Nose",
@@ -9386,7 +9386,7 @@
         "Rotspit Spitter The Hungerer"
       ],
       "id": 14078,
-      "gold": 3490
+      "gold": 5990
     },
     {
       "name": "Splintered Mitmah Gem",
@@ -9398,7 +9398,7 @@
         "Mitmah Vanguard"
       ],
       "id": 44728,
-      "gold": 220000
+      "gold": 0
     },
     {
       "name": "Spooky Blue Eye",
@@ -9410,7 +9410,7 @@
         "Pirate Skeleton"
       ],
       "id": 9642,
-      "gold": 800
+      "gold": 1489
     },
     {
       "name": "Spool of Yarn",
@@ -9422,7 +9422,7 @@
         "Mamma Longlegs The Old Widow"
       ],
       "id": 5886,
-      "gold": 20994
+      "gold": 25000
     },
     {
       "name": "Srezz' Eye",
@@ -9434,7 +9434,7 @@
         "Srezz Yellow Eyes"
       ],
       "id": 34103,
-      "gold": 1111
+      "gold": 0
     },
     {
       "name": "Staff Piece",
@@ -9446,7 +9446,7 @@
         "Bulltaur Forgepriest"
       ],
       "id": 44741,
-      "gold": 5598
+      "gold": 4689
     },
     {
       "name": "Stag Parchment",
@@ -9468,7 +9468,7 @@
         "Stalking Stalk"
       ],
       "id": 39384,
-      "gold": 8998
+      "gold": 17000
     },
     {
       "name": "Stampor Horn",
@@ -9480,7 +9480,7 @@
         "Stampor Tromphonyte"
       ],
       "id": 12312,
-      "gold": 3998
+      "gold": 4387
     },
     {
       "name": "Stampor Talons",
@@ -9492,7 +9492,7 @@
         "Stampor Tromphonyte"
       ],
       "id": 12313,
-      "gold": 3300
+      "gold": 5998
     },
     {
       "name": "Star Herb",
@@ -9504,7 +9504,7 @@
         "Bruise Payne Ekatrix Fernfang Mutated Bat Pixie Witch Yaga the Crone"
       ],
       "id": 3736,
-      "gold": 90
+      "gold": 149
     },
     {
       "name": "Star Ink",
@@ -9516,7 +9516,7 @@
         "Bluebeak Ink Splash"
       ],
       "id": 51422,
-      "gold": 1699
+      "gold": 4900
     },
     {
       "name": "Steel Spider Silk",
@@ -9538,7 +9538,7 @@
         "Esmeralda Mutated Rat Twisted Pooka"
       ],
       "id": 3735,
-      "gold": 320
+      "gold": 50
     },
     {
       "name": "Stone Nose",
@@ -9550,7 +9550,7 @@
         "Stone Devourer"
       ],
       "id": 16137,
-      "gold": 1199
+      "gold": 2800
     },
     {
       "name": "Stone Wing",
@@ -9562,7 +9562,7 @@
         "Gargoyle"
       ],
       "id": 10278,
-      "gold": 4698
+      "gold": 2840
     },
     {
       "name": "Stonerefiner's Skull",
@@ -9574,7 +9574,7 @@
         "Stonerefiner"
       ],
       "id": 27606,
-      "gold": 1600
+      "gold": 2200
     },
     {
       "name": "Strand of Medusa Hair",
@@ -9586,7 +9586,7 @@
         "Gorga Gorgo Medusa"
       ],
       "id": 10309,
-      "gold": 2384
+      "gold": 3956
     },
     {
       "name": "Strange Proto Matter",
@@ -9598,7 +9598,7 @@
         "Stabilizing Dread Intruder"
       ],
       "id": 23513,
-      "gold": 1100
+      "gold": 5500
     },
     {
       "name": "Strange Substance",
@@ -9610,7 +9610,7 @@
         "Bulltaur Alchemist"
       ],
       "id": 44740,
-      "gold": 9000
+      "gold": 9949
     },
     {
       "name": "Strange Symbol",
@@ -9622,7 +9622,7 @@
         "Arachnophobica Behemoth Burster Spectre Dworc Voodoomaster Ghazbaran Morgaroth Oodok Witchmaster Orshabaal Stonecracker"
       ],
       "id": 3058,
-      "gold": 180
+      "gold": 998
     },
     {
       "name": "Streaked Devourer Eyes",
@@ -9634,7 +9634,7 @@
         "Streaked Devourer"
       ],
       "id": 36772,
-      "gold": 9499
+      "gold": 17999
     },
     {
       "name": "Streaked Devourer Legs",
@@ -9646,7 +9646,7 @@
         "Streaked Devourer"
       ],
       "id": 36774,
-      "gold": 14499
+      "gold": 17999
     },
     {
       "name": "Streaked Devourer Maw",
@@ -9658,7 +9658,7 @@
         "Streaked Devourer"
       ],
       "id": 36773,
-      "gold": 7280
+      "gold": 15499
     },
     {
       "name": "Striped Fur",
@@ -9670,7 +9670,7 @@
         "Mutated Tiger Tiger"
       ],
       "id": 10293,
-      "gold": 1800
+      "gold": 900
     },
     {
       "name": "Sulphider Shell",
@@ -9682,7 +9682,7 @@
         "Sulphider"
       ],
       "id": 39375,
-      "gold": 13999
+      "gold": 44444
     },
     {
       "name": "Sulphur Powder",
@@ -9694,7 +9694,7 @@
         "Sulphider Sulphur Spouter"
       ],
       "id": 39376,
-      "gold": 6998
+      "gold": 14444
     },
     {
       "name": "Sulphurous Stone",
@@ -9706,7 +9706,7 @@
         "Brimstone Bug Grorlam Orewalker Stone Golem Sulphur Scuttler"
       ],
       "id": 10315,
-      "gold": 200
+      "gold": 800
     },
     {
       "name": "Sun Brooch",
@@ -9718,7 +9718,7 @@
         "Ayana the Crimson Curse Feral Werecrocodile"
       ],
       "id": 43737,
-      "gold": 33222
+      "gold": 50000
     },
     {
       "name": "Swamp Grass",
@@ -9730,7 +9730,7 @@
         "Swamp Troll"
       ],
       "id": 9686,
-      "gold": 50
+      "gold": 311
     },
     {
       "name": "Swampling Moss",
@@ -9742,7 +9742,7 @@
         "Swampling"
       ],
       "id": 17822,
-      "gold": 79
+      "gold": 110
     },
     {
       "name": "Swarmer Antenna",
@@ -9754,7 +9754,7 @@
         "Swarmer"
       ],
       "id": 14076,
-      "gold": 3999
+      "gold": 4199
     },
     {
       "name": "Tail of Corruption",
@@ -9766,7 +9766,7 @@
         "Draken Abomination"
       ],
       "id": 11672,
-      "gold": 14999
+      "gold": 12000
     },
     {
       "name": "Tainted Heart",
@@ -9776,7 +9776,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 43854,
-      "gold": 10800000
+      "gold": 0
     },
     {
       "name": "Taiyaki Ice Cream",
@@ -9788,7 +9788,7 @@
         "Sugar Mommy"
       ],
       "id": 48273,
-      "gold": 30000
+      "gold": 0
     },
     {
       "name": "Tanjis' Sight",
@@ -9798,7 +9798,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 14022,
-      "gold": 17500000
+      "gold": 0
     },
     {
       "name": "Tarantula Egg",
@@ -9810,7 +9810,7 @@
         "Tarantula"
       ],
       "id": 10281,
-      "gold": 288
+      "gold": 844
     },
     {
       "name": "Tarnished Rhino Figurine",
@@ -9822,7 +9822,7 @@
         "Shaper Matriarch Twisted Shaper"
       ],
       "id": 24387,
-      "gold": 220
+      "gold": 999
     },
     {
       "name": "Tattered Piece of Robe",
@@ -9834,7 +9834,7 @@
         "Pirate Ghost"
       ],
       "id": 9684,
-      "gold": 780
+      "gold": 9000
     },
     {
       "name": "Technomancer Beard",
@@ -9846,7 +9846,7 @@
         "Mad Technomancer"
       ],
       "id": 396,
-      "gold": 19999
+      "gold": 8500
     },
     {
       "name": "Telescope Eye",
@@ -9858,7 +9858,7 @@
         "Cloak of Terror"
       ],
       "id": 33934,
-      "gold": 149999
+      "gold": 100000
     },
     {
       "name": "Tentacle of Tentugly",
@@ -9870,7 +9870,7 @@
         "Tentugly's Head"
       ],
       "id": 35611,
-      "gold": 45555
+      "gold": 0
     },
     {
       "name": "Tentacle Piece",
@@ -9882,7 +9882,7 @@
         "Spawn of Devovorga"
       ],
       "id": 11666,
-      "gold": 32700
+      "gold": 85000
     },
     {
       "name": "Tentugly's Eye",
@@ -9894,7 +9894,7 @@
         "Tentugly's Head"
       ],
       "id": 35610,
-      "gold": 249999
+      "gold": 0
     },
     {
       "name": "Tentugly's Jaws",
@@ -9906,7 +9906,7 @@
         "Tentugly's Head"
       ],
       "id": 35612,
-      "gold": 299999
+      "gold": 0
     },
     {
       "name": "Terramite Eggs",
@@ -9918,7 +9918,7 @@
         "Terramite"
       ],
       "id": 10453,
-      "gold": 63
+      "gold": 199
     },
     {
       "name": "Terramite Legs",
@@ -9930,7 +9930,7 @@
         "Terramite"
       ],
       "id": 10454,
-      "gold": 5750
+      "gold": 4500
     },
     {
       "name": "Terramite Shell",
@@ -9942,7 +9942,7 @@
         "Terramite"
       ],
       "id": 10452,
-      "gold": 152
+      "gold": 299
     },
     {
       "name": "Terrorbird Beak",
@@ -9954,7 +9954,7 @@
         "Terror Bird"
       ],
       "id": 10273,
-      "gold": 199
+      "gold": 690
     },
     {
       "name": "The Crown of the Percht Queen (Fire)",
@@ -9966,7 +9966,7 @@
         "The Percht Queen"
       ],
       "id": 30275,
-      "gold": 349999
+      "gold": 0
     },
     {
       "name": "The Crown of the Percht Queen (Ice)",
@@ -9978,7 +9978,7 @@
         "The Percht Queen"
       ],
       "id": 30276,
-      "gold": 240000
+      "gold": 489953
     },
     {
       "name": "The Handmaiden's Protector",
@@ -9990,7 +9990,7 @@
         "The Handmaiden"
       ],
       "id": 6539,
-      "gold": 780000
+      "gold": 500000
     },
     {
       "name": "The Imperor's Trident",
@@ -10002,7 +10002,7 @@
         "The Imperor"
       ],
       "id": 6534,
-      "gold": 1000000
+      "gold": 0
     },
     {
       "name": "The Lethal Lissy's Shirt",
@@ -10014,7 +10014,7 @@
         "Lethal Lissy"
       ],
       "id": 6100,
-      "gold": 1049900
+      "gold": 1149000
     },
     {
       "name": "The Plasmother's Remains",
@@ -10026,7 +10026,7 @@
         "The Plasmother"
       ],
       "id": 6535,
-      "gold": 2000000
+      "gold": 0
     },
     {
       "name": "The Vampire Count's Medal",
@@ -10038,7 +10038,7 @@
         "The Pale Count"
       ],
       "id": 18936,
-      "gold": 349953
+      "gold": 75000
     },
     {
       "name": "Thick Fur",
@@ -10050,7 +10050,7 @@
         "Animated Clomp Clomp Mammoth"
       ],
       "id": 10307,
-      "gold": 1677
+      "gold": 2490
     },
     {
       "name": "Thorn",
@@ -10062,7 +10062,7 @@
         "Thornback Tortoise"
       ],
       "id": 9643,
-      "gold": 4100
+      "gold": 1000
     },
     {
       "name": "Thorn Seed",
@@ -10074,7 +10074,7 @@
         "The Enraged Thorn Knight"
       ],
       "id": 24965,
-      "gold": 89999
+      "gold": 0
     },
     {
       "name": "Tiny Bat Coffin",
@@ -10122,7 +10122,7 @@
         "Nightfiend Vampire Viscount Vicious Manbat"
       ],
       "id": 18924,
-      "gold": 6000
+      "gold": 2749
     },
     {
       "name": "Tooth of Tazhadur",
@@ -10134,7 +10134,7 @@
         "Tazhadur"
       ],
       "id": 24940,
-      "gold": 9999
+      "gold": 9900
     },
     {
       "name": "Torn Page",
@@ -10146,7 +10146,7 @@
         "Crusader Headwalker"
       ],
       "id": 51427,
-      "gold": 797
+      "gold": 1195
     },
     {
       "name": "Torn Shirt",
@@ -10158,7 +10158,7 @@
         "Barkless Devotee Barkless Fanatic Ravenous Hunger"
       ],
       "id": 25744,
-      "gold": 279
+      "gold": 991
     },
     {
       "name": "Trapped Bad Dream Monster",
@@ -10170,7 +10170,7 @@
         "Feversleep Shiversleep Terrorsleep The Enraged Thorn Knight"
       ],
       "id": 20203,
-      "gold": 4197
+      "gold": 3000
     },
     {
       "name": "Tremendous Tyrant Head",
@@ -10182,7 +10182,7 @@
         "Tremendous Tyrant"
       ],
       "id": 36783,
-      "gold": 6665
+      "gold": 30000
     },
     {
       "name": "Tremendous Tyrant Shell",
@@ -10194,7 +10194,7 @@
         "Tremendous Tyrant"
       ],
       "id": 36784,
-      "gold": 6555
+      "gold": 13999
     },
     {
       "name": "Trollroot",
@@ -10206,7 +10206,7 @@
         "Troll Champion"
       ],
       "id": 11515,
-      "gold": 2350
+      "gold": 0
     },
     {
       "name": "Tunnel Tyrant Head",
@@ -10218,7 +10218,7 @@
         "Tunnel Tyrant"
       ],
       "id": 27595,
-      "gold": 2039
+      "gold": 1200
     },
     {
       "name": "Tunnel Tyrant Shell",
@@ -10230,7 +10230,7 @@
         "Tunnel Tyrant"
       ],
       "id": 27596,
-      "gold": 1099
+      "gold": 1000
     },
     {
       "name": "Turtle Shell",
@@ -10242,7 +10242,7 @@
         "Thornback Tortoise Tortoise"
       ],
       "id": 5899,
-      "gold": 21000
+      "gold": 10999
     },
     {
       "name": "Tusk",
@@ -10254,7 +10254,7 @@
         "Elephant Terrified Elephant The Bloodtusk"
       ],
       "id": 3044,
-      "gold": 693
+      "gold": 2700
     },
     {
       "name": "Twig Arms",
@@ -10288,7 +10288,7 @@
         "Two-Headed Turtle"
       ],
       "id": 39409,
-      "gold": 1799
+      "gold": 3200
     },
     {
       "name": "Ulcer Probe",
@@ -10310,7 +10310,7 @@
         "Ethershreck Ghastly Dragon Hatebreeder"
       ],
       "id": 10450,
-      "gold": 695
+      "gold": 1000
     },
     {
       "name": "Undertaker Fangs",
@@ -10322,7 +10322,7 @@
         "Undertaker"
       ],
       "id": 39380,
-      "gold": 9990
+      "gold": 24300
     },
     {
       "name": "Unholy Bone",
@@ -10334,7 +10334,7 @@
         "Betrayed Wraith Crypt Warrior Gravedigger Haunted Dragon Lost Soul Skeleton Elite Warrior Undead Dragon Zanakeph Zorvorax"
       ],
       "id": 10316,
-      "gold": 902
+      "gold": 998
     },
     {
       "name": "Urmahlullu's Mane",
@@ -10346,7 +10346,7 @@
         "Urmahlullu the Weakened"
       ],
       "id": 31623,
-      "gold": 649000
+      "gold": 480000
     },
     {
       "name": "Urmahlullu's Paw",
@@ -10358,7 +10358,7 @@
         "Urmahlullu the Weakened"
       ],
       "id": 31624,
-      "gold": 249899
+      "gold": 0
     },
     {
       "name": "Urmahlullu's Tail",
@@ -10370,7 +10370,7 @@
         "Urmahlullu the Weakened"
       ],
       "id": 31622,
-      "gold": 209890
+      "gold": 499999
     },
     {
       "name": "Utua's Poison",
@@ -10382,7 +10382,7 @@
         "Utua Stone Sting"
       ],
       "id": 34101,
-      "gold": 999
+      "gold": 560
     },
     {
       "name": "Vampire Dust",
@@ -10392,7 +10392,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 5905,
-      "gold": 7300
+      "gold": 3798
     },
     {
       "name": "Vampire Lord Token",
@@ -10404,7 +10404,7 @@
         "Arachir the Ancient One Diblis the Fair Sir Valorcrest The Pale Count Zevelon Duskbringer"
       ],
       "id": 8192,
-      "gold": 940000
+      "gold": 509991
     },
     {
       "name": "Vampire Teeth",
@@ -10416,7 +10416,7 @@
         "Nightfiend The Pale Count Vampire Vampire Bride Vampire Viscount Vicious Manbat"
       ],
       "id": 9685,
-      "gold": 716
+      "gold": 946
     },
     {
       "name": "Vampire's Cape Chain",
@@ -10428,7 +10428,7 @@
         "The Pale Count Vampire Viscount"
       ],
       "id": 18927,
-      "gold": 14000
+      "gold": 7500
     },
     {
       "name": "Varnished Diremaw Brainpan",
@@ -10440,7 +10440,7 @@
         "Varnished Diremaw"
       ],
       "id": 36781,
-      "gold": 5367
+      "gold": 15000
     },
     {
       "name": "Varnished Diremaw Legs",
@@ -10452,7 +10452,7 @@
         "Varnished Diremaw"
       ],
       "id": 36782,
-      "gold": 8670
+      "gold": 15000
     },
     {
       "name": "Vein of Ore",
@@ -10464,7 +10464,7 @@
         "Cliff Strider Drillworm Orewalker"
       ],
       "id": 16135,
-      "gold": 2500
+      "gold": 1199
     },
     {
       "name": "Vemiath's Infused Basalt",
@@ -10488,7 +10488,7 @@
         "Forest Fury Elder Forest Fury"
       ],
       "id": 18995,
-      "gold": 3900
+      "gold": 1400
     },
     {
       "name": "Versicolour Fireworks Powder",
@@ -10500,7 +10500,7 @@
         "Percht Schiach"
       ],
       "id": 30187,
-      "gold": 400
+      "gold": 655
     },
     {
       "name": "Vexclaw Talon",
@@ -10512,7 +10512,7 @@
         "Vexclaw"
       ],
       "id": 22728,
-      "gold": 1355
+      "gold": 1361
     },
     {
       "name": "Vial of Hatred",
@@ -10524,7 +10524,7 @@
         "Goshnar's Hatred"
       ],
       "id": 33927,
-      "gold": 2900000
+      "gold": 0
     },
     {
       "name": "Vibrant Heart",
@@ -10536,7 +10536,7 @@
         "Vibrant Phantom"
       ],
       "id": 34143,
-      "gold": 39990
+      "gold": 0
     },
     {
       "name": "Vibrant Robe",
@@ -10548,7 +10548,7 @@
         "Vibrant Phantom"
       ],
       "id": 34144,
-      "gold": 34444
+      "gold": 0
     },
     {
       "name": "Volatile Proto Matter",
@@ -10560,7 +10560,7 @@
         "Breach Brood Burster"
       ],
       "id": 23514,
-      "gold": 778
+      "gold": 2948
     },
     {
       "name": "Voluminous Piece of Cloth",
@@ -10572,7 +10572,7 @@
         "Feverish Citizen"
       ],
       "id": 12553,
-      "gold": 992
+      "gold": 244
     },
     {
       "name": "Wad of Fairy Floss",
@@ -10584,7 +10584,7 @@
         "Candy Floss Elemental"
       ],
       "id": 48544,
-      "gold": 9898
+      "gold": 69998
     },
     {
       "name": "Wafer Paper Flower",
@@ -10596,7 +10596,7 @@
         "Angry Sugar Fairy Sugar Daddy"
       ],
       "id": 48251,
-      "gold": 2200
+      "gold": 14998
     },
     {
       "name": "War Crystal",
@@ -10608,7 +10608,7 @@
         "Control Tower Ironblight War Golem"
       ],
       "id": 9654,
-      "gold": 437
+      "gold": 1100
     },
     {
       "name": "War Wolf Skin",
@@ -10630,7 +10630,7 @@
         "Wardragon"
       ],
       "id": 44748,
-      "gold": 2099
+      "gold": 4999
     },
     {
       "name": "Wardragon Tooth",
@@ -10642,7 +10642,7 @@
         "Wardragon"
       ],
       "id": 44749,
-      "gold": 6220
+      "gold": 6400
     },
     {
       "name": "Warmaster's Wristguards",
@@ -10654,7 +10654,7 @@
         "Draken Warmaster"
       ],
       "id": 10405,
-      "gold": 249
+      "gold": 838
     },
     {
       "name": "Warwolf Fur",
@@ -10666,7 +10666,7 @@
         "Orc Rider War Wolf"
       ],
       "id": 10318,
-      "gold": 329
+      "gold": 743
     },
     {
       "name": "Waspoid Claw",
@@ -10678,7 +10678,7 @@
         "Chopper Waspoid"
       ],
       "id": 14080,
-      "gold": 2220
+      "gold": 6498
     },
     {
       "name": "Waspoid Wing",
@@ -10690,7 +10690,7 @@
         "Chopper Waspoid"
       ],
       "id": 14081,
-      "gold": 444
+      "gold": 700
     },
     {
       "name": "Weaver's Wandtip",
@@ -10702,7 +10702,7 @@
         "Draken Spellweaver"
       ],
       "id": 10397,
-      "gold": 699
+      "gold": 998
     },
     {
       "name": "Werebadger Claws",
@@ -10714,7 +10714,7 @@
         "Sharpclaw Werebadger"
       ],
       "id": 22051,
-      "gold": 3349
+      "gold": 2200
     },
     {
       "name": "Werebadger Skull",
@@ -10726,7 +10726,7 @@
         "Sharpclaw Werebadger"
       ],
       "id": 22055,
-      "gold": 3450
+      "gold": 1666
     },
     {
       "name": "Werebear Fur",
@@ -10738,7 +10738,7 @@
         "Shadowpelt Werebear"
       ],
       "id": 22057,
-      "gold": 2399
+      "gold": 4500
     },
     {
       "name": "Werebear Skull",
@@ -10750,7 +10750,7 @@
         "Shadowpelt Werebear"
       ],
       "id": 22056,
-      "gold": 3850
+      "gold": 3500
     },
     {
       "name": "Wereboar Hooves",
@@ -10762,7 +10762,7 @@
         "Bloodback Owin (Creature) Wereboar"
       ],
       "id": 22053,
-      "gold": 180
+      "gold": 369
     },
     {
       "name": "Wereboar Tusks",
@@ -10774,7 +10774,7 @@
         "Bloodback Owin (Creature) Wereboar"
       ],
       "id": 22054,
-      "gold": 3800
+      "gold": 2500
     },
     {
       "name": "Werecrocodile Tongue",
@@ -10786,7 +10786,7 @@
         "Ayana the Crimson Curse Feral Werecrocodile Werecrocodile"
       ],
       "id": 43729,
-      "gold": 4399
+      "gold": 5000
     },
     {
       "name": "Werefox Tail",
@@ -10798,7 +10798,7 @@
         "Black Vixen Werefox"
       ],
       "id": 27463,
-      "gold": 4500
+      "gold": 2848
     },
     {
       "name": "Werehyaena Nose",
@@ -10810,7 +10810,7 @@
         "Katex Blood Tongue Werehyaena Werehyaena Shaman"
       ],
       "id": 33943,
-      "gold": 230
+      "gold": 330
     },
     {
       "name": "Werehyaena Talisman",
@@ -10822,7 +10822,7 @@
         "Katex Blood Tongue Werehyaena Werehyaena Shaman"
       ],
       "id": 33944,
-      "gold": 3800
+      "gold": 3388
     },
     {
       "name": "Werepanther Claw",
@@ -10834,7 +10834,7 @@
         "Cunning Werepanther Werepanther"
       ],
       "id": 43731,
-      "gold": 638
+      "gold": 600
     },
     {
       "name": "Weretiger Tooth",
@@ -10846,7 +10846,7 @@
         "Tamru the Black Weretiger White Weretiger"
       ],
       "id": 43730,
-      "gold": 3350
+      "gold": 2999
     },
     {
       "name": "Werewolf Fangs",
@@ -10858,7 +10858,7 @@
         "Darkfang Werewolf"
       ],
       "id": 22052,
-      "gold": 150
+      "gold": 399
     },
     {
       "name": "Werewolf Fur",
@@ -10870,7 +10870,7 @@
         "Darkfang Hemming Werewolf"
       ],
       "id": 10317,
-      "gold": 3250
+      "gold": 4100
     },
     {
       "name": "White Deer Antlers",
@@ -10882,7 +10882,7 @@
         "Desperate White Deer Enraged White Deer"
       ],
       "id": 12544,
-      "gold": 400
+      "gold": 1099
     },
     {
       "name": "White Deer Skin",
@@ -10894,7 +10894,7 @@
         "Desperate White Deer Enraged White Deer"
       ],
       "id": 12545,
-      "gold": 197
+      "gold": 1110
     },
     {
       "name": "White Piece of Cloth",
@@ -10906,7 +10906,7 @@
         "Blood Hand Blood Priest Broken Shaper Enraged Soul Furyosa Ghost Hideous Fungus Humongous Fungus King Zelos Lava Golem Lloyd Magma Crawler Ocyakao Spectre Tarnished Spirit Terrorsleep The Last Lore Keeper The Pale Count The Source of Corruption Undead Jester White Shade Zugurosh Zushuka"
       ],
       "id": 5909,
-      "gold": 576
+      "gold": 440
     },
     {
       "name": "Widow's Mandibles",
@@ -10918,7 +10918,7 @@
         "Wailing Widow"
       ],
       "id": 10411,
-      "gold": 2000
+      "gold": 1200
     },
     {
       "name": "Wild Flowers",
@@ -10930,7 +10930,7 @@
         "Nymph Pixie Swan Maiden"
       ],
       "id": 25691,
-      "gold": 1666
+      "gold": 1500
     },
     {
       "name": "Wimp Tooth Chain",
@@ -10942,7 +10942,7 @@
         "Lost Basher Lost Exile Lost Husher"
       ],
       "id": 17847,
-      "gold": 2000
+      "gold": 2999
     },
     {
       "name": "Winged Tail",
@@ -10954,7 +10954,7 @@
         "Serpent Spawn Srezz Yellow Eyes The Noxious Spawn"
       ],
       "id": 10313,
-      "gold": 4000
+      "gold": 8999
     },
     {
       "name": "Winter Wolf Fur",
@@ -10966,7 +10966,7 @@
         "Winter Wolf"
       ],
       "id": 10295,
-      "gold": 3700
+      "gold": 4197
     },
     {
       "name": "Witch Broom",
@@ -10978,7 +10978,7 @@
         "Ekatrix Witch"
       ],
       "id": 9652,
-      "gold": 6200
+      "gold": 9949
     },
     {
       "name": "Withered Pauldrons",
@@ -11014,7 +11014,7 @@
         "Crystal Wolf Darkfang Gloom Wolf Hemming Starving Wolf The Big Bad One Thornfire Wolf War Wolf Werewolf Wolf"
       ],
       "id": 5897,
-      "gold": 80
+      "gold": 66
     },
     {
       "name": "Wood",
@@ -11026,7 +11026,7 @@
         "Island Troll Swamp Troll"
       ],
       "id": 5901,
-      "gold": 479
+      "gold": 444
     },
     {
       "name": "Wool",
@@ -11038,7 +11038,7 @@
         "Sheep"
       ],
       "id": 10319,
-      "gold": 13000
+      "gold": 11000
     },
     {
       "name": "Worm",
@@ -11050,7 +11050,7 @@
         "Agrestic Chicken Animated Mummy Animated Rotworm Azure Frog Carrion Worm Cave Rat Chicken Coral Frog Crimson Frog Crypt Shambler Drillworm Earworm Elder Mummy Enraged Bookworm Feverish Citizen Fleabringer Ghoul Ghoulish Hyaena Gnarlhound Hyaena Mahatheb Marsh Stalker Meadow Strider Mummy Munster Mutated Human Orchid Frog Rottie the Rotworm Rotworm Rotworm Queen Slug Terror Bird Tomb Servant Undead Prospector"
       ],
       "id": 3492,
-      "gold": 4
+      "gold": 10
     },
     {
       "name": "Worm Sponge",
@@ -11062,7 +11062,7 @@
         "Meandering Mushroom Oozing Corpus"
       ],
       "id": 43848,
-      "gold": 78999
+      "gold": 100000
     },
     {
       "name": "Worn Guide Book",
@@ -11096,7 +11096,7 @@
         "The Unwelcome"
       ],
       "id": 32599,
-      "gold": 248800
+      "gold": 0
     },
     {
       "name": "Wyrm Scale",
@@ -11108,7 +11108,7 @@
         "Elder Wyrm Tyrn Wyrm"
       ],
       "id": 9665,
-      "gold": 448
+      "gold": 449
     },
     {
       "name": "Wyvern Talisman",
@@ -11120,7 +11120,7 @@
         "Wyvern"
       ],
       "id": 9644,
-      "gold": 7347
+      "gold": 9272
     },
     {
       "name": "Yapunac Dagger",
@@ -11132,7 +11132,7 @@
         "Atab Iks Yapunac"
       ],
       "id": 44440,
-      "gold": 1300
+      "gold": 1979
     },
     {
       "name": "Yellow Piece of Cloth",
@@ -11144,7 +11144,7 @@
         "Animated Mummy Broken Shaper Choking Fear Furyosa Gaz'haragoth Hellhound Lava Golem Magma Crawler Mummy Renegade Quara Hydromancer Undead Jester Weakened Shlorg Wiggler Zugurosh"
       ],
       "id": 5914,
-      "gold": 369
+      "gold": 389
     },
     {
       "name": "Yielocks",
@@ -11156,7 +11156,7 @@
         "Yielothax"
       ],
       "id": 12805,
-      "gold": 998
+      "gold": 3000
     },
     {
       "name": "Yielowax",
@@ -11168,7 +11168,7 @@
         "Yielothax"
       ],
       "id": 12742,
-      "gold": 6000
+      "gold": 7399
     },
     {
       "name": "Yirkas' Egg",
@@ -11180,7 +11180,7 @@
         "Yirkas Blue Scales"
       ],
       "id": 34102,
-      "gold": 500
+      "gold": 50000
     }
   ]
 }
