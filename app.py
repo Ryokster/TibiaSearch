@@ -1146,7 +1146,9 @@ class TibiaSearchApp:
             name_display = item.name
             if not item.url:
                 name_display = f"{name_display} (no link)"
-            price_display = self._format_price(item.gold)
+            trader_price = self.item_price_store.get_price(item.name)
+            trader_display = self._format_price(trader_price)
+            market_display = self._format_price(item.gold)
             row_id = str(len(self.items_list_items))
             self.items_tree.insert(
                 "",
