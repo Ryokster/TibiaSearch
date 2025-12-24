@@ -8,6 +8,6 @@
     "Critical|Basic Strike": false,
     "Attack / Life Leech|Intricate Vampirism": true,
     "Attack / Mana Leech|Intricate Void": true,
-    "Attack / Critical Hit|Intricate Strike": true
+    "Attack / Critical Hit|Intricate Strike": false
   }
 }

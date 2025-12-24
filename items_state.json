@@ -1,5 +1,10 @@
 {
   "prices": {
     "Afflicted Strider Head": 6
+  },
+  "favorites": {
+    "Bloody Pincers": false,
+    "Broken Shamanic Staff": true,
+    "Broken Ring of Ending": true
   }
 }
