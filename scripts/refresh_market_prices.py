@@ -3,13 +3,15 @@ from __future__ import annotations
 import argparse
 import json
 import html
+import random
 import re
+import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Callable, Iterable
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
@@ -259,6 +261,7 @@ def fetch_market_values(
     log: Callable[[str], None] | None = None,
 ) -> dict[int, int]:
     market_values: dict[int, int] = {}
+    max_attempts = 3
     for offset in range(0, len(item_ids), 100):
         batch = item_ids[offset : offset + 100]
         params = urlencode(
@@ -269,11 +272,31 @@ def fetch_market_values(
             }
         )
         url = f"{MARKET_VALUES_URL}?{params}"
-        if log:
-            log(f"GET {url}")
-        request = Request(url, headers={"User-Agent": USER_AGENT})
-        with urlopen(request, timeout=30) as response:
-            payload = json.loads(response.read().decode("utf-8"))
+        last_error: HTTPError | None = None
+        for attempt in range(1, max_attempts + 1):
+            if log:
+                log(f"GET {url}")
+            request = Request(url, headers={"User-Agent": USER_AGENT})
+            try:
+                with urlopen(request, timeout=30) as response:
+                    payload = json.loads(response.read().decode("utf-8"))
+                last_error = None
+                break
+            except HTTPError as exc:
+                if exc.code != 429 or attempt == max_attempts:
+                    last_error = exc
+                    break
+                retry_after = exc.headers.get("Retry-After")
+                try:
+                    delay = float(retry_after)
+                except (TypeError, ValueError):
+                    delay = 1.0 * (2 ** (attempt - 1))
+                delay += random.uniform(0, 0.5)
+                if log:
+                    log(f"HTTP 429 received, retrying in {delay:.2f}s (attempt {attempt}/{max_attempts})")
+                time.sleep(delay)
+        if last_error:
+            raise last_error
         items = payload.get("items") if isinstance(payload, dict) else None
         if items is None and isinstance(payload, list):
             items = payload
@@ -291,6 +314,7 @@ def fetch_market_values(
                 market_values[entry_id] = int(sell_offer)
             except (TypeError, ValueError):
                 continue
+        time.sleep(0.25)
     return market_values
 
 
@@ -379,17 +403,19 @@ def refresh_market_prices(
     item_ids = sorted(set(item_ids))
 
     cache = load_cache()
-    market_values: dict[int, int] | None = {}
-    if cache and cache_is_fresh(cache, args.server):
+    cached_market_values: dict[int, int] | None = None
+    if cache and cache_is_fresh(cache, server):
         items_cache = cache.get("items", {})
-        market_values = {int(key): int(value) for key, value in items_cache.items()}
-    else:
+        cached_market_values = {int(key): int(value) for key, value in items_cache.items()}
+
+    market_values: dict[int, int] | None = cached_market_values
+    if market_values is None:
         try:
             market_values = fetch_market_values(server, item_ids, log=log)
-        except (URLError, RuntimeError, json.JSONDecodeError) as exc:
+        except (URLError, HTTPError, RuntimeError, json.JSONDecodeError) as exc:
             if log:
                 log(f"Failed to fetch market values: {exc}")
-            market_values = None
+            market_values = cached_market_values
         else:
             save_cache(server, market_values)
 
