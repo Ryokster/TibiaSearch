@@ -20,6 +20,8 @@ from urllib.request import Request, urlopen
 MARKET_VALUES_URL = "https://api.tibiamarket.top/market_values"
 WORLD_DATA_URL = "https://api.tibiamarket.top/world_data"
 USER_AGENT = "Mozilla/5.0 (compatible; TibiaSearchBot/1.0)"
+_SESSION_REFRESH_LOCK = threading.Lock()
+_SESSION_REFRESHED_SERVERS: set[str] = set()
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 RESOURCE_DIR = ROOT_DIR / "resources" / "tibia"
@@ -405,6 +407,17 @@ class MarketRefresher:
             self.log(message)
 
     def refresh_server(self, server: str) -> dict[str, int | str]:
+        with _SESSION_REFRESH_LOCK:
+            if server in _SESSION_REFRESHED_SERVERS:
+                self._log(f"Session refresh already completed for {server}; skipping API calls")
+                with self._flights_lock:
+                    flight = self._flights.get(server)
+                result = dict(flight.last_result or {}) if flight else {}
+                result.setdefault("server", server)
+                result.setdefault("status", "session_skipped")
+                result.setdefault("skipped", True)
+                return result
+
         with self._flights_lock:
             flight = self._flights[server]
         with flight.lock:
@@ -435,6 +448,8 @@ class MarketRefresher:
                     **(result or {}),
                 }
                 flight.condition.notify_all()
+            with _SESSION_REFRESH_LOCK:
+                _SESSION_REFRESHED_SERVERS.add(server)
 
     def _refresh_server_impl(self, server: str) -> dict[str, int | str]:
         meta = load_market_refresh_meta(self.meta_file)

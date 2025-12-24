@@ -57,6 +57,8 @@ class MarketRefreshTests(TestCase):
         rmp.RESOURCE_DIR = tibia_dir
         rmp.CACHE_FILE = self.cache_file
         rmp.ITEM_IDS_CACHE_FILE = self.ids_cache_file
+        with rmp._SESSION_REFRESH_LOCK:
+            rmp._SESSION_REFRESHED_SERVERS.clear()
 
         self.addCleanup(self._restore_paths)
 
@@ -72,7 +74,7 @@ class MarketRefreshTests(TestCase):
         self.meta_file.write_text(
             json.dumps(
                 {
-                    "market_last_update_by_server": {"Antica": "2024-01-01T00:00:00Z"},
+                    "market_last_update_by_server": {"Xyla": "2024-01-01T00:00:00Z"},
                     "market_last_refresh_at_by_server": {},
                 }
             ),
@@ -80,18 +82,18 @@ class MarketRefreshTests(TestCase):
         )
 
         responses = [
-            _MockResponse({"servers": {"Antica": {"last_update": "2024-01-01T00:00:00Z"}}}),
+            _MockResponse({"servers": {"Xyla": {"last_update": "2024-01-01T00:00:00Z"}}}),
         ]
 
         with patch("scripts.refresh_market_prices.urlopen", side_effect=responses) as mock_urlopen:
             refresher = rmp.MarketRefresher(resource_dir=rmp.RESOURCE_DIR, log=None, throttle_seconds=0.0)
-            result = refresher.refresh_server("Antica")
+            result = refresher.refresh_server("Xyla")
 
         self.assertTrue(result.get("skipped"))
         self.assertEqual(mock_urlopen.call_count, 1)
 
     def test_handles_retry_after_and_marks_throttle(self) -> None:
-        world_response = _MockResponse({"servers": {"Antica": {"last_update": "2024-02-01T00:00:00Z"}}})
+        world_response = _MockResponse({"servers": {"Xyla": {"last_update": "2024-02-01T00:00:00Z"}}})
         market_success = _MockResponse([{"id": 1, "sell_offer": 10}, {"id": 2, "sell_offer": -1}])
         retry_error = rmp.HTTPError(
             url="http://example",
@@ -112,13 +114,13 @@ class MarketRefreshTests(TestCase):
             patch("scripts.refresh_market_prices.random.uniform", return_value=0.2),
         ):
             refresher = rmp.MarketRefresher(resource_dir=rmp.RESOURCE_DIR, log=None, throttle_seconds=0.0)
-            result = refresher.refresh_server("Antica")
+            result = refresher.refresh_server("Xyla")
 
         self.assertEqual(result.get("updated_items"), 4)  # two lists * two items
         self.assertIn(2.2, sleeps)  # 2s retry-after + 0.2 jitter
 
     def test_single_flight_blocks_parallel_refreshes(self) -> None:
-        world_response = _MockResponse({"servers": {"Antica": {"last_update": "2024-03-01T00:00:00Z"}}})
+        world_response = _MockResponse({"servers": {"Xyla": {"last_update": "2024-03-01T00:00:00Z"}}})
         market_success = _MockResponse([{"id": 1, "sell_offer": 10}, {"id": 2, "sell_offer": 5}])
         responses: list[Any] = [world_response, market_success]
 
@@ -127,7 +129,7 @@ class MarketRefreshTests(TestCase):
             results: list[dict] = []
 
             def run_refresh() -> None:
-                results.append(refresher.refresh_server("Antica"))
+                results.append(refresher.refresh_server("Xyla"))
 
             t1 = threading.Thread(target=run_refresh)
             t2 = threading.Thread(target=run_refresh)
@@ -139,3 +141,19 @@ class MarketRefreshTests(TestCase):
         self.assertEqual(len(results), 2)
         self.assertEqual(results[0].get("updated_items"), 4)
         self.assertEqual(results[1].get("status", "ok"), "joined")
+
+    def test_skips_additional_session_refreshes(self) -> None:
+        world_response = _MockResponse({"servers": {"Xyla": {"last_update": "2024-04-01T00:00:00Z"}}})
+        market_success = _MockResponse([{"id": 1, "sell_offer": 10}, {"id": 2, "sell_offer": 5}])
+
+        with patch("scripts.refresh_market_prices.urlopen", side_effect=[world_response, market_success]):
+            refresher = rmp.MarketRefresher(resource_dir=rmp.RESOURCE_DIR, log=None, throttle_seconds=0.0)
+            first = refresher.refresh_server("Xyla")
+
+        with patch("scripts.refresh_market_prices.urlopen") as mock_urlopen:
+            second = refresher.refresh_server("Xyla")
+
+        self.assertEqual(first.get("updated_items"), 4)
+        self.assertTrue(second.get("skipped"))
+        self.assertEqual(second.get("status"), "session_skipped")
+        mock_urlopen.assert_not_called()
