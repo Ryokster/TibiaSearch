@@ -144,7 +144,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52660,
-      "gold": 35000000
+      "gold": 0
     },
     {
       "name": "Ancient Eye Stalk",
@@ -840,7 +840,7 @@
         "Orclops Bloodbreaker"
       ],
       "id": 51485,
-      "gold": 4600
+      "gold": 5300
     },
     {
       "name": "Bone Rattle",
@@ -1374,7 +1374,7 @@
         "Court Warlock"
       ],
       "id": 52747,
-      "gold": 5000000
+      "gold": 0
     },
     {
       "name": "Broken Throwing Axe",
@@ -1896,7 +1896,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52720,
-      "gold": 125000
+      "gold": 89999
     },
     {
       "name": "Cluster of Solace",
@@ -2252,7 +2252,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52709,
-      "gold": 849999
+      "gold": 0
     },
     {
       "name": "Crystal Bone",
@@ -2322,7 +2322,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52719,
-      "gold": 22000
+      "gold": 65000
     },
     {
       "name": "Cuirass Plate",
@@ -2332,7 +2332,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52663,
-      "gold": 14994
+      "gold": 44998
     },
     {
       "name": "Cultish Mask",
@@ -2638,7 +2638,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52718,
-      "gold": 48000
+      "gold": 35000
     },
     {
       "name": "Deathly Crypt Rune",
@@ -2648,7 +2648,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52659,
-      "gold": 34000000
+      "gold": 0
     },
     {
       "name": "Deathstrike's Snippet",
@@ -3670,7 +3670,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52708,
-      "gold": 299888
+      "gold": 0
     },
     {
       "name": "Fiery Crypt Rune",
@@ -3680,7 +3680,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52657,
-      "gold": 29000000
+      "gold": 0
     },
     {
       "name": "Fiery Heart",
@@ -4270,7 +4270,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52707,
-      "gold": 88888
+      "gold": 0
     },
     {
       "name": "Girlish Hair Decoration",
@@ -5378,7 +5378,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52658,
-      "gold": 38999999
+      "gold": 0
     },
     {
       "name": "Icy Horns",
@@ -6742,7 +6742,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52705,
-      "gold": 57995
+      "gold": 88000
     },
     {
       "name": "Necromantic Crypt Rune",
@@ -6752,7 +6752,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52661,
-      "gold": 69990000
+      "gold": 0
     },
     {
       "name": "Necromantic Robe",
@@ -6822,7 +6822,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52632,
-      "gold": 20000
+      "gold": 44997
     },
     {
       "name": "Night Harpy Feathers",
@@ -6832,7 +6832,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52633,
-      "gold": 69999
+      "gold": 99999
     },
     {
       "name": "Nighthunter Wing",
@@ -6904,7 +6904,7 @@
         "Dworc Shadowstalker Gloom Maw Norcferatu Heartless Norcferatu Nightweaver Orclops Bloodbreaker Varg"
       ],
       "id": 51487,
-      "gold": 780
+      "gold": 1597
     },
     {
       "name": "Nose Ring",
@@ -8692,7 +8692,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52712,
-      "gold": 2000000
+      "gold": 0
     },
     {
       "name": "Sight of Surrender's Eye",
@@ -8796,7 +8796,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52662,
-      "gold": 31997
+      "gold": 89999
     },
     {
       "name": "Sineater Wing",
@@ -9338,7 +9338,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 51486,
-      "gold": 11000
+      "gold": 8999
     },
     {
       "name": "Spiked Iron Ball",
@@ -9456,7 +9456,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52664,
-      "gold": 34949
+      "gold": 70000
     },
     {
       "name": "Stalking Seeds",
@@ -10098,7 +10098,7 @@
         "Crypt Construct Haunted Hunter"
       ],
       "id": 52706,
-      "gold": 28499
+      "gold": 65000
     },
     {
       "name": "Token of Love",
@@ -10276,7 +10276,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52746,
-      "gold": 25000000
+      "gold": 0
     },
     {
       "name": "Two-Headed Turtle Heads",
@@ -11072,7 +11072,7 @@
       "category": "Creature Product",
       "providers": [],
       "id": 52710,
-      "gold": 999999
+      "gold": 0
     },
     {
       "name": "Writhing Brain",

@@ -47,11 +47,11 @@
     {
       "id": "a70f1f6a-414a-464d-be68-e16d9cc5aea8",
       "name": "Tarantulas",
-      "character_id": "Strongsword",
+      "character_id": "Tschuris",
       "equipment_tag": "Normal",
       "raw_log_text": "Session data: From 2025-12-22, 19:37:54 to 2025-12-22, 20:09:37\nSession: 00:31h\nXP Gain: 41,925\nXP/h: 104,605\nLoot: 8,676\nSupplies: 13,426\nBalance: -4,750\nDamage: 33,970\nDamage/h: 33,970\nHealing: 98\nHealing/h: 98\nKilled Monsters:\n  3x bug\n  20x centipede\n  55x poison spider\n  2x snake\n  1x spider\n  128x tarantula\n  14x toad\n  2x wasp\nLooted Items:\n  414x a gold coin\n  1x a fish\n  4x spider fangs\n  2x a tarantula egg\n  2x a centipede leg",
       "created_at": "2025-12-22T20:09:49",
-      "updated_at": "2025-12-24T22:11:56",
+      "updated_at": "2025-12-25T07:58:57",
       "start_dt": "2025-12-22T19:37:54",
       "end_dt": "2025-12-22T20:09:37",
       "duration_seconds": 1903,
@@ -81,6 +81,53 @@
         "spider fangs": 4,
         "a tarantula egg": 2,
         "a centipede leg": 2
+      }
+    },
+    {
+      "id": "a1097598-058b-42aa-855a-faf31264525f",
+      "name": "Chor",
+      "character_id": "Tschuris",
+      "equipment_tag": "Normal",
+      "raw_log_text": "Session data: From 2025-12-25, 07:07:13 to 2025-12-25, 07:58:13\nSession: 00:51h\nXP Gain: 433,584\nXP/h: 328,763\nLoot: 32,017\nSupplies: 33,608\nBalance: -1,591\nDamage: 264,652\nDamage/h: 264,652\nHealing: 18,234\nHealing/h: 18,234\nKilled Monsters:\n  63x cobra\n  34x crocodile\n  366x lizard sentinel\n  115x lizard snakecharmer\n  266x lizard templar\n  1x panda\n  2x spit nettle\n  4x terror bird\nLooted Items:\n  4x a health potion\n  1800x a gold coin\n  2x a terra rod\n  5x a sword\n  1x a halberd\n  1x a sentinel shield\n  2x ham\n  38x a dead snake\n  8x a dead snake\n  8x lizard leather\n  8x a lizard scale\n  3x a cobra tongue\n  1x a terrorbird beak\n  6x a piece of crocodile leather",
+      "created_at": "2025-12-25T07:59:10",
+      "updated_at": "2025-12-25T07:59:10",
+      "start_dt": "2025-12-25T07:07:13",
+      "end_dt": "2025-12-25T07:58:13",
+      "duration_seconds": 3060,
+      "xp_total": 433584,
+      "xp_per_hour": 328763.0,
+      "loot_total": 32017,
+      "supplies_total": 33608,
+      "balance_total": -1591,
+      "damage_total": 264652,
+      "damage_per_hour": 264652.0,
+      "healing_total": 18234,
+      "healing_per_hour": 18234.0,
+      "kills_breakdown": {
+        "cobra": 63,
+        "crocodile": 34,
+        "lizard sentinel": 366,
+        "lizard snakecharmer": 115,
+        "lizard templar": 266,
+        "panda": 1,
+        "spit nettle": 2,
+        "terror bird": 4
+      },
+      "kills_count": 851,
+      "looted_items_breakdown": {
+        "a health potion": 4,
+        "a gold coin": 1800,
+        "a terra rod": 2,
+        "a sword": 5,
+        "a halberd": 1,
+        "a sentinel shield": 1,
+        "ham": 2,
+        "a dead snake": 46,
+        "lizard leather": 8,
+        "a lizard scale": 8,
+        "a cobra tongue": 3,
+        "a terrorbird beak": 1,
+        "a piece of crocodile leather": 6
       }
     }
   ]
