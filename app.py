@@ -1,7 +1,11 @@
 import json
+import queue
 import re
+import shutil
+import subprocess
 import sys
 import threading
+import time
 import uuid
 import tkinter as tk
 import tkinter.font as tkfont
@@ -9,7 +13,7 @@ import webbrowser
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
-from tkinter import messagebox, ttk
+from tkinter import filedialog, messagebox, ttk
 from typing import Callable
 from urllib.parse import quote, urlencode
 
@@ -727,15 +731,137 @@ class TibiaSearchApp:
         self._suppress_hunt_log_change = False
         self._price_editor: ttk.Entry | None = None
         self.request_log: list[str] = []
+        self.module_windows: dict[str, tk.Toplevel] = {}
+        self._hunt_traces_bound = False
+        self.hotkeys_dir = self.base_dir / "ahk"
+        self.hotkeys_script_path = self.hotkeys_dir / "tibia_hotkeys.ahk"
+        self.hotkeys_map_path = self.hotkeys_dir / "hotkeys.map"
+        self.hotkeys_events_path = self.hotkeys_dir / "hotkeys_events.log"
+        self.hotkeys_command_path = self.hotkeys_dir / "hotkeys_command.txt"
+        self.hotkeys_state_path = self.base_dir / "hotkeys_state.json"
+        self.hotkeys_process: subprocess.Popen[str] | None = None
+        self.hotkeys_tree: ttk.Treeview | None = None
+        self.hotkey_name_entry: ttk.Entry | None = None
+        self.hotkey_entry: ttk.Entry | None = None
+        self.action_entry: ttk.Entry | None = None
+        self.hotkey_cooldown_entry: ttk.Entry | None = None
+        self.hotkey_icon_entry: ttk.Entry | None = None
+        self.hotkeys_status_var = tk.StringVar(value="Stopped")
+        self.hotkeys_overlay_var = tk.StringVar(value="Overlay: Off")
+        self.hotkeys_defs: list[dict[str, object]] = []
+        self._ipc_queue: queue.Queue[str] = queue.Queue()
+        self._ipc_stop_event = threading.Event()
+        self.cooldowns_list: tk.Listbox | None = None
+        self.cooldown_defs = {
+            "FIRE_WAVE": 6,
+            "GEB": 10,
+            "EB": 6,
+            "HELLS_CORE": 30,
+            "HASTE": 2,
+        }
+        self.cooldown_expiries: dict[str, float] = {}
 
+        self._apply_fantasy_theme()
         self._build_ui()
         self._bind_events()
         self._refresh_history_list()
-        self._populate_imbuements()
-        self._select_first_imbuement()
         self._start_market_refresh()
+        self._start_ipc_listener()
+        self._schedule_cooldowns_refresh()
+        self._schedule_hotkeys_status_refresh()
 
         self.root.protocol("WM_DELETE_WINDOW", self.exit_app)
+
+    def _apply_fantasy_theme(self) -> None:
+        base_bg = "#f3e4c7"
+        panel_bg = "#f9f1dd"
+        accent_bg = "#7a2a1d"
+        accent_bg_alt = "#8c3a2a"
+        border = "#5a2a1d"
+        text = "#2b1a10"
+        highlight = "#e2cfb2"
+
+        self.root.configure(bg=base_bg)
+        self.root.option_add("*Font", ("Georgia", 10))
+        self.root.option_add("*Foreground", text)
+        self.root.option_add("*Background", base_bg)
+        self.root.option_add("*Entry.background", panel_bg)
+        self.root.option_add("*Entry.foreground", text)
+        self.root.option_add("*Text.background", panel_bg)
+        self.root.option_add("*Text.foreground", text)
+        self.root.option_add("*Text.insertBackground", text)
+        self.root.option_add("*Listbox.background", panel_bg)
+        self.root.option_add("*Listbox.foreground", text)
+        self.root.option_add("*Listbox.selectBackground", accent_bg_alt)
+        self.root.option_add("*Listbox.selectForeground", "#fff6e8")
+
+        style = ttk.Style(self.root)
+        style.theme_use("clam")
+        style.configure(".", font=("Georgia", 10), background=base_bg, foreground=text)
+        style.configure("TFrame", background=base_bg)
+        style.configure("TLabel", background=base_bg, foreground=text)
+        style.configure("TLabelFrame", background=base_bg, foreground=accent_bg, bordercolor=border)
+        style.configure(
+            "TLabelFrame.Label",
+            background=base_bg,
+            foreground=accent_bg,
+            font=("Georgia", 10, "bold"),
+        )
+        style.configure("TNotebook", background=base_bg, bordercolor=border)
+        style.configure(
+            "TNotebook.Tab",
+            background=highlight,
+            foreground=text,
+            padding=(10, 6),
+        )
+        style.map(
+            "TNotebook.Tab",
+            background=[("selected", panel_bg)],
+            foreground=[("selected", accent_bg)],
+        )
+        style.configure(
+            "TButton",
+            background=accent_bg,
+            foreground="#fff6e8",
+            padding=(10, 4),
+            bordercolor=border,
+        )
+        style.map(
+            "TButton",
+            background=[("active", accent_bg_alt)],
+            foreground=[("active", "#fff6e8")],
+        )
+        style.configure(
+            "TEntry",
+            fieldbackground=panel_bg,
+            foreground=text,
+            bordercolor=border,
+        )
+        style.configure(
+            "TCombobox",
+            fieldbackground=panel_bg,
+            foreground=text,
+        )
+        style.map("TCombobox", fieldbackground=[("readonly", panel_bg)])
+        style.configure(
+            "Treeview",
+            background=panel_bg,
+            fieldbackground=panel_bg,
+            foreground=text,
+            bordercolor=border,
+            rowheight=22,
+        )
+        style.configure(
+            "Treeview.Heading",
+            background=highlight,
+            foreground=accent_bg,
+            font=("Georgia", 10, "bold"),
+        )
+        style.map(
+            "Treeview",
+            background=[("selected", accent_bg_alt)],
+            foreground=[("selected", "#fff6e8")],
+        )
 
     def _build_ui(self) -> None:
         self.root.columnconfigure(0, weight=1)
@@ -751,49 +877,698 @@ class TibiaSearchApp:
         self.search_button = ttk.Button(top_frame, text="Search", command=self.perform_search)
         self.search_button.grid(row=0, column=1, padx=(6, 0))
 
-        self.character_button = ttk.Button(top_frame, text="Character Window", command=self.open_character_window)
-        self.character_button.grid(row=0, column=2, padx=(6, 0))
+        content_frame = ttk.Frame(self.root)
+        content_frame.grid(row=1, column=0, sticky="nsew", padx=8, pady=8)
+        content_frame.columnconfigure(0, weight=1)
+        content_frame.columnconfigure(1, weight=1)
+        content_frame.rowconfigure(0, weight=1)
 
-        self.top_button = ttk.Button(top_frame, text="Top Off", width=8, command=self.toggle_topmost)
-        self.top_button.grid(row=0, column=3, padx=(6, 0))
+        left_frame = ttk.Frame(content_frame)
+        left_frame.grid(row=0, column=0, sticky="nsew", padx=(0, 8))
+        left_frame.columnconfigure(0, weight=1)
+        left_frame.rowconfigure(0, weight=1)
 
-        self.log_button = ttk.Button(top_frame, text="Log", width=6, command=self.open_request_log)
-        self.log_button.grid(row=0, column=4, padx=(6, 0))
+        modules_frame = ttk.LabelFrame(left_frame, text="Modules")
+        modules_frame.grid(row=0, column=0, sticky="nsew", pady=(0, 8))
+        modules_frame.columnconfigure(0, weight=1)
 
-        self.notebook = ttk.Notebook(self.root)
-        self.notebook.grid(row=1, column=0, sticky="nsew", padx=8, pady=8)
+        ttk.Button(
+            modules_frame,
+            text="Imbuements",
+            command=lambda: self._open_module_window("imbuements"),
+        ).grid(row=0, column=0, sticky="ew", padx=6, pady=(6, 4))
+        ttk.Button(
+            modules_frame,
+            text="Tibia Items",
+            command=lambda: self._open_module_window("items"),
+        ).grid(row=1, column=0, sticky="ew", padx=6, pady=4)
+        ttk.Button(
+            modules_frame,
+            text="Hunts",
+            command=lambda: self._open_module_window("hunts"),
+        ).grid(row=2, column=0, sticky="ew", padx=6, pady=4)
+        ttk.Button(
+            modules_frame,
+            text="Hotkeys",
+            command=lambda: self._open_module_window("hotkeys"),
+        ).grid(row=3, column=0, sticky="ew", padx=6, pady=4)
+        ttk.Button(
+            modules_frame,
+            text="Cooldowns",
+            command=lambda: self._open_module_window("cooldowns"),
+        ).grid(row=4, column=0, sticky="ew", padx=6, pady=(4, 6))
+        ttk.Button(
+            modules_frame,
+            text="Hunting Ground",
+            command=lambda: self._open_module_window("hunting_ground"),
+        ).grid(row=5, column=0, sticky="ew", padx=6, pady=(4, 6))
 
-        self.history_tab = ttk.Frame(self.notebook)
-        self.imbuements_tab = ttk.Frame(self.notebook)
-        self.items_tab = ttk.Frame(self.notebook)
-        self.hunts_tab = ttk.Frame(self.notebook)
-        self.notebook.add(self.history_tab, text="History")
-        self.notebook.add(self.imbuements_tab, text="Imbuements")
-        self.notebook.add(self.items_tab, text="Tibia Items")
-        self.notebook.add(self.hunts_tab, text="Hunts")
+        actions_frame = ttk.LabelFrame(left_frame, text="Actions")
+        actions_frame.grid(row=1, column=0, sticky="nsew")
+        actions_frame.columnconfigure(0, weight=1)
 
-        self._build_history_tab()
-        self._build_imbuements_tab()
-        self._build_items_tab()
-        self._build_hunts_tab()
+        ttk.Button(actions_frame, text="Character Window", command=self.open_character_window).grid(
+            row=0, column=0, sticky="ew", padx=6, pady=(6, 4)
+        )
+        self.top_button = ttk.Button(actions_frame, text="Top Off", width=8, command=self.toggle_topmost)
+        self.top_button.grid(row=1, column=0, sticky="ew", padx=6, pady=4)
+        ttk.Button(actions_frame, text="Log", command=self.open_request_log).grid(
+            row=2, column=0, sticky="ew", padx=6, pady=(4, 6)
+        )
 
-    def _build_history_tab(self) -> None:
-        self.history_tab.columnconfigure(0, weight=1)
-        self.history_tab.rowconfigure(0, weight=1)
+        history_frame = ttk.LabelFrame(content_frame, text="Search History")
+        history_frame.grid(row=0, column=1, sticky="nsew")
+        self._build_history_tab(history_frame)
 
-        self.history_list = tk.Listbox(self.history_tab, height=6)
+    def _build_history_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        parent.rowconfigure(0, weight=1)
+
+        self.history_list = tk.Listbox(parent, height=6)
         self.history_list.grid(row=0, column=0, sticky="nsew")
 
-        history_scroll = ttk.Scrollbar(self.history_tab, orient="vertical", command=self.history_list.yview)
+        history_scroll = ttk.Scrollbar(parent, orient="vertical", command=self.history_list.yview)
         history_scroll.grid(row=0, column=1, sticky="ns")
         self.history_list.configure(yscrollcommand=history_scroll.set)
 
-    def _build_imbuements_tab(self) -> None:
-        self.imbuements_tab.columnconfigure(0, weight=1)
-        self.imbuements_tab.columnconfigure(1, weight=2)
-        self.imbuements_tab.rowconfigure(0, weight=1)
+    def _build_hotkeys_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        parent.rowconfigure(1, weight=0)
+        parent.rowconfigure(2, weight=1)
 
-        left_frame = ttk.Frame(self.imbuements_tab)
+        header_frame = ttk.Frame(parent)
+        header_frame.grid(row=0, column=0, sticky="ew", padx=8, pady=(8, 4))
+        header_frame.columnconfigure(2, weight=1)
+
+        ttk.Label(header_frame, text="Status:").grid(row=0, column=0, sticky="w")
+        ttk.Label(header_frame, textvariable=self.hotkeys_status_var).grid(row=0, column=1, sticky="w", padx=(4, 12))
+        ttk.Button(header_frame, textvariable=self.hotkeys_overlay_var, command=self._toggle_overlay).grid(
+            row=0, column=2, sticky="e"
+        )
+
+        editor_frame = ttk.LabelFrame(parent, text="Hotkey Editor")
+        editor_frame.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 6))
+        editor_frame.columnconfigure(1, weight=1)
+        editor_frame.columnconfigure(3, weight=1)
+
+        ttk.Label(editor_frame, text="Name").grid(row=0, column=0, sticky="w", padx=6, pady=(6, 2))
+        self.hotkey_name_entry = ttk.Entry(editor_frame, width=20)
+        self.hotkey_name_entry.grid(row=0, column=1, sticky="ew", padx=6, pady=(6, 2))
+
+        ttk.Label(editor_frame, text="Hotkey").grid(row=0, column=2, sticky="w", padx=6, pady=(6, 2))
+        self.hotkey_entry = ttk.Entry(editor_frame, width=16)
+        self.hotkey_entry.grid(row=0, column=3, sticky="w", padx=6, pady=(6, 2))
+
+        ttk.Label(editor_frame, text="Action / Send").grid(row=1, column=0, sticky="w", padx=6, pady=2)
+        self.action_entry = ttk.Entry(editor_frame, width=26)
+        self.action_entry.grid(row=1, column=1, sticky="ew", padx=6, pady=2)
+
+        ttk.Label(editor_frame, text="Cooldown (ms)").grid(row=1, column=2, sticky="w", padx=6, pady=2)
+        self.hotkey_cooldown_entry = ttk.Entry(editor_frame, width=10)
+        self.hotkey_cooldown_entry.grid(row=1, column=3, sticky="w", padx=6, pady=2)
+
+        ttk.Label(editor_frame, text="Icon").grid(row=2, column=0, sticky="w", padx=6, pady=(2, 6))
+        self.hotkey_icon_entry = ttk.Entry(editor_frame, width=32)
+        self.hotkey_icon_entry.grid(row=2, column=1, sticky="ew", padx=6, pady=(2, 6))
+        ttk.Button(editor_frame, text="Browse", command=self._browse_hotkey_icon).grid(
+            row=2, column=2, sticky="w", padx=6, pady=(2, 6)
+        )
+
+        ttk.Button(editor_frame, text="Add New", command=self._add_hotkey).grid(
+            row=2, column=3, sticky="e", padx=6, pady=(2, 6)
+        )
+
+        list_frame = ttk.Frame(parent)
+        list_frame.grid(row=2, column=0, sticky="nsew", padx=8, pady=(0, 6))
+        list_frame.columnconfigure(0, weight=1)
+        list_frame.rowconfigure(0, weight=1)
+
+        self.hotkeys_tree = ttk.Treeview(
+            list_frame,
+            columns=("name", "hotkey", "action", "cooldown", "icon"),
+            show="headings",
+            height=10,
+        )
+        self.hotkeys_tree.heading("name", text="Name")
+        self.hotkeys_tree.heading("hotkey", text="Hotkey")
+        self.hotkeys_tree.heading("action", text="Action / Send")
+        self.hotkeys_tree.heading("cooldown", text="Cooldown (ms)")
+        self.hotkeys_tree.heading("icon", text="Icon")
+        self.hotkeys_tree.column("name", width=160, anchor="w")
+        self.hotkeys_tree.column("hotkey", width=110, anchor="w")
+        self.hotkeys_tree.column("action", width=180, anchor="w")
+        self.hotkeys_tree.column("cooldown", width=110, anchor="e")
+        self.hotkeys_tree.column("icon", width=200, anchor="w")
+        self.hotkeys_tree.grid(row=0, column=0, sticky="nsew")
+        self.hotkeys_tree.bind("<<TreeviewSelect>>", self._on_hotkeys_select)
+        self.hotkeys_tree.bind("<Double-Button-1>", lambda _event: self._edit_selected_hotkey())
+
+        list_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.hotkeys_tree.yview)
+        list_scroll.grid(row=0, column=1, sticky="ns")
+        self.hotkeys_tree.configure(yscrollcommand=list_scroll.set)
+
+        row_actions = ttk.Frame(parent)
+        row_actions.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 6))
+        ttk.Button(row_actions, text="Edit Selected", command=self._edit_selected_hotkey).grid(
+            row=0, column=0, sticky="w"
+        )
+        ttk.Button(row_actions, text="Update Selected", command=self._update_selected_hotkey).grid(
+            row=0, column=1, sticky="w", padx=(6, 0)
+        )
+        ttk.Button(row_actions, text="Delete Selected", command=self._remove_hotkey).grid(
+            row=0, column=2, sticky="w", padx=(6, 0)
+        )
+
+        actions_frame = ttk.Frame(parent)
+        actions_frame.grid(row=4, column=0, sticky="ew", padx=8, pady=(0, 8))
+        actions_frame.columnconfigure(0, weight=1)
+
+        ttk.Button(actions_frame, text="Save", command=self._save_hotkeys_mappings).grid(
+            row=0, column=0, sticky="w"
+        )
+        ttk.Button(actions_frame, text="Start", command=self._start_hotkeys_script).grid(
+            row=0, column=1, sticky="w", padx=(6, 0)
+        )
+        ttk.Button(actions_frame, text="Stop", command=self._stop_hotkeys_script).grid(
+            row=0, column=2, sticky="w", padx=(6, 0)
+        )
+        ttk.Button(actions_frame, text="Restart", command=self._restart_hotkeys_script).grid(
+            row=0, column=3, sticky="w", padx=(6, 0)
+        )
+
+    def _build_cooldowns_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        parent.rowconfigure(0, weight=1)
+
+        list_frame = ttk.LabelFrame(parent, text="Cooldowns")
+        list_frame.grid(row=0, column=0, sticky="nsew", padx=8, pady=8)
+        list_frame.columnconfigure(0, weight=1)
+        list_frame.rowconfigure(0, weight=1)
+
+        self.cooldowns_list = tk.Listbox(list_frame, height=10)
+        self.cooldowns_list.grid(row=0, column=0, sticky="nsew")
+
+        list_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.cooldowns_list.yview)
+        list_scroll.grid(row=0, column=1, sticky="ns")
+        self.cooldowns_list.configure(yscrollcommand=list_scroll.set)
+
+        self._refresh_cooldowns_view()
+
+    def _build_hunting_ground_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        parent.rowconfigure(0, weight=1)
+
+        list_frame = ttk.LabelFrame(parent, text="Hunting Ground Links")
+        list_frame.grid(row=0, column=0, sticky="nsew", padx=8, pady=8)
+        list_frame.columnconfigure(0, weight=1)
+
+        links = [
+            ("TibiaPal - Hunting", "https://tibiapal.com/hunting"),
+            (
+                "TibiaRoute - Hunting Places",
+                "https://tibiaroute.com/de/hunting-places?page=1&level=100&levelType=Lower&size=Solo&voc=MS",
+            ),
+            ("TibiaWiki - Hunting Places", "https://tibia.fandom.com/wiki/Hunting_Places"),
+            ("inTibia - Hunts", "https://intibia.com/hunts?level=100&vocation=sorcerer"),
+        ]
+
+        for row, (label, url) in enumerate(links):
+            link_label = ttk.Label(list_frame, text=label, foreground="#0a66cc", cursor="hand2")
+            link_label.grid(row=row, column=0, sticky="w", padx=6, pady=4)
+            link_label.bind("<Button-1>", lambda _event, target=url: self._open_url(target, label))
+
+    def _ensure_hotkeys_files(self) -> None:
+        self.hotkeys_dir.mkdir(parents=True, exist_ok=True)
+        if not self.hotkeys_map_path.exists():
+            self.hotkeys_map_path.write_text("", encoding="utf-8")
+        if not self.hotkeys_events_path.exists():
+            self.hotkeys_events_path.write_text("", encoding="utf-8")
+        if not self.hotkeys_command_path.exists():
+            self.hotkeys_command_path.write_text("", encoding="utf-8")
+
+    def _load_hotkeys_table(self) -> None:
+        if not self.hotkeys_tree or not self.hotkeys_tree.winfo_exists():
+            return
+        self._ensure_hotkeys_files()
+        self._load_hotkeys_state()
+        self._refresh_hotkeys_table()
+
+    def _write_hotkeys_mappings(self, mappings: list[tuple[str, str]]) -> None:
+        payload = "\n".join(f"{hotkey}=>{action}" for hotkey, action in mappings)
+        self.hotkeys_map_path.write_text(payload + ("\n" if payload else ""), encoding="utf-8")
+
+    def _on_hotkeys_select(self, _event: tk.Event) -> None:
+        if not self.hotkeys_tree or not self.hotkeys_tree.winfo_exists():
+            return
+        selection = self.hotkeys_tree.selection()
+        if not selection:
+            return
+        self._edit_selected_hotkey()
+
+    def _edit_selected_hotkey(self) -> None:
+        if not self.hotkeys_tree or not self.hotkeys_tree.winfo_exists():
+            return
+        selection = self.hotkeys_tree.selection()
+        if not selection:
+            return
+        item_id = selection[0]
+        data = next((entry for entry in self.hotkeys_defs if str(entry.get("id")) == item_id), None)
+        if not data:
+            return
+        if self.hotkey_name_entry:
+            self.hotkey_name_entry.delete(0, tk.END)
+            self.hotkey_name_entry.insert(0, str(data.get("name", "")))
+        if self.hotkey_entry:
+            self.hotkey_entry.delete(0, tk.END)
+            self.hotkey_entry.insert(0, str(data.get("hotkey", "")))
+        if self.action_entry:
+            self.action_entry.delete(0, tk.END)
+            self.action_entry.insert(0, str(data.get("action", "")))
+        if self.hotkey_cooldown_entry:
+            self.hotkey_cooldown_entry.delete(0, tk.END)
+            self.hotkey_cooldown_entry.insert(0, str(data.get("cooldown_ms", "")))
+        if self.hotkey_icon_entry:
+            self.hotkey_icon_entry.delete(0, tk.END)
+            self.hotkey_icon_entry.insert(0, str(data.get("icon_path", "")))
+
+    def _collect_hotkey_form(self) -> dict[str, object] | None:
+        if not self.hotkey_name_entry or not self.hotkey_entry or not self.action_entry:
+            return None
+        name = self.hotkey_name_entry.get().strip()
+        hotkey = self.hotkey_entry.get().strip()
+        action = self.action_entry.get().strip()
+        cooldown_text = self.hotkey_cooldown_entry.get().strip() if self.hotkey_cooldown_entry else ""
+        icon_path = self.hotkey_icon_entry.get().strip() if self.hotkey_icon_entry else ""
+        if not name or not hotkey or not action:
+            messagebox.showwarning("Missing Data", "Name, Hotkey, and Action are required.")
+            return None
+        try:
+            cooldown_ms = int(cooldown_text) if cooldown_text else 0
+        except ValueError:
+            messagebox.showwarning("Invalid Cooldown", "Cooldown must be an integer in milliseconds.")
+            return None
+        return {
+            "name": name,
+            "hotkey": hotkey,
+            "action": action,
+            "cooldown_ms": max(0, cooldown_ms),
+            "icon_path": icon_path,
+        }
+
+    def _add_hotkey(self) -> None:
+        data = self._collect_hotkey_form()
+        if not data:
+            return
+        data["id"] = str(uuid.uuid4())
+        self.hotkeys_defs.append(data)
+        self._refresh_hotkeys_table()
+        self._clear_hotkeys_form()
+
+    def _update_selected_hotkey(self) -> None:
+        if not self.hotkeys_tree or not self.hotkeys_tree.winfo_exists():
+            return
+        selection = self.hotkeys_tree.selection()
+        if not selection:
+            messagebox.showwarning("No Selection", "Select a hotkey to update.")
+            return
+        data = self._collect_hotkey_form()
+        if not data:
+            return
+        item_id = selection[0]
+        for entry in self.hotkeys_defs:
+            if str(entry.get("id")) == item_id:
+                entry.update(data)
+                break
+        self._refresh_hotkeys_table()
+        self._clear_hotkeys_form()
+
+    def _remove_hotkey(self) -> None:
+        if not self.hotkeys_tree or not self.hotkeys_tree.winfo_exists():
+            return
+        selection = self.hotkeys_tree.selection()
+        if not selection:
+            return
+        selected_ids = {str(item) for item in selection}
+        self.hotkeys_defs = [entry for entry in self.hotkeys_defs if str(entry.get("id")) not in selected_ids]
+        self._refresh_hotkeys_table()
+
+    def _save_hotkeys_mappings(self) -> None:
+        if not self.hotkeys_tree or not self.hotkeys_tree.winfo_exists():
+            return
+        self._ensure_hotkeys_files()
+        self._save_hotkeys_state()
+        mappings = [
+            (str(entry.get("hotkey", "")).strip(), str(entry.get("action", "")).strip())
+            for entry in self.hotkeys_defs
+            if str(entry.get("hotkey", "")).strip() and str(entry.get("action", "")).strip()
+        ]
+        self._write_hotkeys_mappings(mappings)
+        if self._is_hotkeys_running():
+            self._restart_hotkeys_script()
+        messagebox.showinfo("Saved", "Hotkeys mapping saved.")
+
+    def _is_hotkeys_running(self) -> bool:
+        return self.hotkeys_process is not None and self.hotkeys_process.poll() is None
+
+    def _start_hotkeys_script(self) -> None:
+        if self._is_hotkeys_running():
+            self.hotkeys_status_var.set("Running")
+            return
+        self._ensure_hotkeys_files()
+        if not self.hotkeys_script_path.exists():
+            messagebox.showerror(
+                "AutoHotkey Script Missing",
+                f"Missing script: {self.hotkeys_script_path}",
+            )
+            return
+        ahk_exe = shutil.which("AutoHotkey64.exe") or shutil.which("AutoHotkey.exe")
+        if not ahk_exe:
+            messagebox.showerror("AutoHotkey Missing", "AutoHotkey v2 was not found in PATH.")
+            return
+        try:
+            self.hotkeys_process = subprocess.Popen([ahk_exe, str(self.hotkeys_script_path)])
+        except OSError as exc:
+            messagebox.showerror("AutoHotkey Error", f"Failed to start AutoHotkey: {exc}")
+            return
+        self.hotkeys_status_var.set("Running")
+
+    def _stop_hotkeys_script(self) -> None:
+        if not self._is_hotkeys_running():
+            self.hotkeys_status_var.set("Stopped")
+            return
+        if self.hotkeys_process:
+            self.hotkeys_process.terminate()
+            try:
+                self.hotkeys_process.wait(timeout=2)
+            except subprocess.TimeoutExpired:
+                self.hotkeys_process.kill()
+        self.hotkeys_process = None
+        self.hotkeys_status_var.set("Stopped")
+
+    def _restart_hotkeys_script(self) -> None:
+        self._stop_hotkeys_script()
+        self._start_hotkeys_script()
+
+    def _schedule_hotkeys_status_refresh(self) -> None:
+        self.hotkeys_status_var.set("Running" if self._is_hotkeys_running() else "Stopped")
+        self.root.after(1000, self._schedule_hotkeys_status_refresh)
+
+    def _toggle_overlay(self) -> None:
+        self._ensure_hotkeys_files()
+        self._send_hotkeys_command("TOGGLE_OVERLAY")
+        current = self.hotkeys_overlay_var.get()
+        self.hotkeys_overlay_var.set("Overlay: On" if "Off" in current else "Overlay: Off")
+
+    def _send_hotkeys_command(self, command: str) -> None:
+        timestamp = datetime.now().isoformat(timespec="seconds")
+        payload = f"{timestamp} {command}\n"
+        self.hotkeys_command_path.write_text(payload, encoding="utf-8")
+
+    def _start_ipc_listener(self) -> None:
+        thread = threading.Thread(target=self._ipc_tail_loop, daemon=True)
+        thread.start()
+        self.root.after(200, self._process_ipc_events)
+
+    def _ipc_tail_loop(self) -> None:
+        position = 0
+        while not self._ipc_stop_event.is_set():
+            if self.hotkeys_events_path.exists():
+                try:
+                    size = self.hotkeys_events_path.stat().st_size
+                    if size < position:
+                        position = 0
+                    with self.hotkeys_events_path.open("r", encoding="utf-8", errors="ignore") as handle:
+                        handle.seek(position)
+                        for line in handle:
+                            action_id = line.strip()
+                            if action_id:
+                                self._ipc_queue.put(action_id)
+                        position = handle.tell()
+                except OSError:
+                    position = 0
+            time.sleep(0.4)
+
+    def _process_ipc_events(self) -> None:
+        processed = False
+        while True:
+            try:
+                action_id = self._ipc_queue.get_nowait()
+            except queue.Empty:
+                break
+            self._register_cooldown_trigger(action_id)
+            processed = True
+        if processed:
+            self._refresh_cooldowns_view()
+        self.root.after(200, self._process_ipc_events)
+
+    def _register_cooldown_trigger(self, action_id: str) -> None:
+        duration = self.cooldown_defs.get(action_id, 5)
+        for entry in self.hotkeys_defs:
+            if str(entry.get("action")) == action_id:
+                try:
+                    duration = max(0, int(entry.get("cooldown_ms") or 0)) / 1000
+                except (TypeError, ValueError):
+                    duration = self.cooldown_defs.get(action_id, 5)
+                break
+        self.cooldown_expiries[action_id] = time.time() + duration
+
+    def _schedule_cooldowns_refresh(self) -> None:
+        self._refresh_cooldowns_view()
+        self.root.after(500, self._schedule_cooldowns_refresh)
+
+    def _refresh_cooldowns_view(self) -> None:
+        now = time.time()
+        expired = [key for key, expiry in self.cooldown_expiries.items() if expiry <= now]
+        for key in expired:
+            self.cooldown_expiries.pop(key, None)
+        if not self.cooldowns_list or not self.cooldowns_list.winfo_exists():
+            return
+        self.cooldowns_list.delete(0, tk.END)
+        if not self.cooldown_expiries:
+            self.cooldowns_list.insert(tk.END, "No active cooldowns.")
+            return
+        for action_id, expiry in sorted(self.cooldown_expiries.items()):
+            remaining = max(0, int(expiry - now))
+            self.cooldowns_list.insert(tk.END, f"{action_id} - {remaining}s")
+
+    def _load_hotkeys_state(self) -> None:
+        if not self.hotkeys_state_path.exists():
+            self.hotkeys_defs = []
+            self._ensure_default_hotkeys()
+            return
+        try:
+            payload = json.loads(self.hotkeys_state_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            self.hotkeys_defs = []
+            self._ensure_default_hotkeys()
+            return
+        if isinstance(payload, list):
+            self.hotkeys_defs = [entry for entry in payload if isinstance(entry, dict)]
+        else:
+            self.hotkeys_defs = []
+        self._ensure_default_hotkeys()
+
+    def _save_hotkeys_state(self) -> None:
+        self.hotkeys_state_path.write_text(
+            json.dumps(self.hotkeys_defs, indent=2, ensure_ascii=True),
+            encoding="utf-8",
+        )
+
+    def _ensure_default_hotkeys(self) -> None:
+        if self.hotkeys_defs:
+            return
+        defaults = [
+            {
+                "id": str(uuid.uuid4()),
+                "name": "F4 (MButton)",
+                "hotkey": "MButton",
+                "action": "{F4}",
+                "cooldown_ms": 0,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "F5 (Alt+MButton)",
+                "hotkey": "!MButton",
+                "action": "{F5}",
+                "cooldown_ms": 0,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "F6 (Ctrl+MButton)",
+                "hotkey": "^MButton",
+                "action": "{F6}",
+                "cooldown_ms": 0,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "F10 (XButton1)",
+                "hotkey": "XButton1",
+                "action": "{F10}",
+                "cooldown_ms": 0,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Haste",
+                "hotkey": "$WheelUp",
+                "action": "!r",
+                "cooldown_ms": 21000,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Alt+Q",
+                "hotkey": "$WheelDown",
+                "action": "!q",
+                "cooldown_ms": 0,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Fire Wave",
+                "hotkey": "~3",
+                "action": "3",
+                "cooldown_ms": 4000,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Great Energy Beam",
+                "hotkey": "~4",
+                "action": "4",
+                "cooldown_ms": 8000,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Energy Beam",
+                "hotkey": "~!4",
+                "action": "!4",
+                "cooldown_ms": 6000,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Hell's Core",
+                "hotkey": "~!2",
+                "action": "!2",
+                "cooldown_ms": 40000,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Haste (pass-through)",
+                "hotkey": "~!r",
+                "action": "!r",
+                "cooldown_ms": 21000,
+                "icon_path": "",
+            },
+        ]
+        self.hotkeys_defs = defaults
+        self._save_hotkeys_state()
+        mappings = [(entry["hotkey"], entry["action"]) for entry in self.hotkeys_defs]
+        self._write_hotkeys_mappings(mappings)
+
+    def _refresh_hotkeys_table(self) -> None:
+        if not self.hotkeys_tree or not self.hotkeys_tree.winfo_exists():
+            return
+        self.hotkeys_tree.delete(*self.hotkeys_tree.get_children())
+        for entry in self.hotkeys_defs:
+            item_id = str(entry.get("id") or uuid.uuid4())
+            entry["id"] = item_id
+            values = (
+                str(entry.get("name", "")),
+                str(entry.get("hotkey", "")),
+                str(entry.get("action", "")),
+                str(entry.get("cooldown_ms", "")),
+                str(entry.get("icon_path", "")),
+            )
+            self.hotkeys_tree.insert("", tk.END, iid=item_id, values=values)
+
+    def _clear_hotkeys_form(self) -> None:
+        for widget in (
+            self.hotkey_name_entry,
+            self.hotkey_entry,
+            self.action_entry,
+            self.hotkey_cooldown_entry,
+            self.hotkey_icon_entry,
+        ):
+            if widget:
+                widget.delete(0, tk.END)
+
+    def _browse_hotkey_icon(self) -> None:
+        if not self.hotkey_icon_entry:
+            return
+        path = filedialog.askopenfilename(title="Select Icon")
+        if not path:
+            return
+        self.hotkey_icon_entry.delete(0, tk.END)
+        self.hotkey_icon_entry.insert(0, path)
+
+    def _open_module_window(self, module_key: str) -> None:
+        existing = self.module_windows.get(module_key)
+        if existing and existing.winfo_exists():
+            existing.deiconify()
+            existing.lift()
+            existing.focus_force()
+            return
+
+        window = tk.Toplevel(self.root)
+        window.title(
+            {
+                "imbuements": "Imbuements",
+                "items": "Tibia Items",
+                "hunts": "Hunts",
+                "hotkeys": "Hotkeys",
+                "cooldowns": "Cooldowns",
+                "hunting_ground": "Hunting Ground",
+            }.get(module_key, "Module")
+        )
+        window.minsize(720, 480)
+        window.rowconfigure(0, weight=1)
+        window.columnconfigure(0, weight=1)
+        window.protocol("WM_DELETE_WINDOW", lambda key=module_key, w=window: self._close_module_window(key, w))
+
+        container = ttk.Frame(window, padding=8)
+        container.grid(row=0, column=0, sticky="nsew")
+
+        if module_key == "imbuements":
+            self._build_imbuements_tab(container)
+            self._bind_imbuements_events()
+            self._populate_imbuements()
+            self._select_first_imbuement()
+        elif module_key == "items":
+            self._build_items_tab(container)
+            self._bind_items_events()
+            self._refresh_items_list()
+        elif module_key == "hunts":
+            self._build_hunts_tab(container)
+            self._bind_hunts_events()
+            self._refresh_hunts_list()
+        elif module_key == "hotkeys":
+            self._build_hotkeys_tab(container)
+            self._load_hotkeys_table()
+        elif module_key == "cooldowns":
+            self._build_cooldowns_tab(container)
+        elif module_key == "hunting_ground":
+            self._build_hunting_ground_tab(container)
+
+        self.module_windows[module_key] = window
+
+    def _close_module_window(self, module_key: str, window: tk.Toplevel) -> None:
+        if module_key in self.module_windows:
+            self.module_windows.pop(module_key, None)
+        window.destroy()
+
+    def _build_imbuements_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        parent.columnconfigure(1, weight=2)
+        parent.rowconfigure(0, weight=1)
+
+        left_frame = ttk.Frame(parent)
         left_frame.grid(row=0, column=0, sticky="nsew", padx=(0, 6))
         left_frame.columnconfigure(0, weight=1)
         left_frame.rowconfigure(0, weight=1)
@@ -811,7 +1586,7 @@ class TibiaSearchApp:
         tree_scroll.grid(row=0, column=1, sticky="ns")
         self.imbuement_tree.configure(yscrollcommand=tree_scroll.set)
 
-        right_frame = ttk.Frame(self.imbuements_tab)
+        right_frame = ttk.Frame(parent)
         right_frame.grid(row=0, column=1, sticky="nsew")
         right_frame.columnconfigure(0, weight=1)
 
@@ -856,11 +1631,11 @@ class TibiaSearchApp:
         self.total_label = ttk.Label(right_frame, text="Gesamt: 0 gp")
         self.total_label.grid(row=3, column=0, sticky="e", pady=(10, 0))
 
-    def _build_items_tab(self) -> None:
-        self.items_tab.columnconfigure(0, weight=1)
-        self.items_tab.rowconfigure(1, weight=1)
+    def _build_items_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        parent.rowconfigure(1, weight=1)
 
-        controls_frame = ttk.Frame(self.items_tab)
+        controls_frame = ttk.Frame(parent)
         controls_frame.grid(row=0, column=0, sticky="ew", padx=8, pady=(8, 4))
         controls_frame.columnconfigure(2, weight=1)
 
@@ -884,7 +1659,7 @@ class TibiaSearchApp:
         search_entry = ttk.Entry(controls_frame, textvariable=self.items_search_var)
         search_entry.grid(row=0, column=2, sticky="ew", padx=(12, 0))
 
-        list_frame = ttk.Frame(self.items_tab)
+        list_frame = ttk.Frame(parent)
         list_frame.grid(row=1, column=0, sticky="nsew", padx=8, pady=(0, 8))
         list_frame.columnconfigure(0, weight=1)
         list_frame.rowconfigure(0, weight=1)
@@ -919,11 +1694,11 @@ class TibiaSearchApp:
         self.items_search_var.trace_add("write", lambda *_args: self._refresh_items_list())
         self._refresh_items_list()
 
-    def _build_hunts_tab(self) -> None:
-        self.hunts_tab.columnconfigure(0, weight=1)
-        self.hunts_tab.rowconfigure(1, weight=1)
+    def _build_hunts_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        parent.rowconfigure(1, weight=1)
 
-        header_frame = ttk.Frame(self.hunts_tab)
+        header_frame = ttk.Frame(parent)
         header_frame.grid(row=0, column=0, sticky="ew", padx=8, pady=(8, 4))
         header_frame.columnconfigure(0, weight=1)
 
@@ -932,8 +1707,14 @@ class TibiaSearchApp:
             row=0, column=1, sticky="e"
         )
 
-        list_frame = ttk.Frame(self.hunts_tab)
-        list_frame.grid(row=1, column=0, sticky="nsew", padx=8, pady=(0, 6))
+        content_frame = ttk.Frame(parent)
+        content_frame.grid(row=1, column=0, sticky="nsew", padx=8, pady=(0, 8))
+        content_frame.columnconfigure(0, weight=1)
+        content_frame.columnconfigure(1, weight=4)
+        content_frame.rowconfigure(0, weight=1)
+
+        list_frame = ttk.Frame(content_frame)
+        list_frame.grid(row=0, column=0, sticky="nsew", padx=(0, 8))
         list_frame.columnconfigure(0, weight=1)
         list_frame.rowconfigure(0, weight=1)
 
@@ -957,8 +1738,8 @@ class TibiaSearchApp:
         hunt_scroll.grid(row=0, column=1, sticky="ns")
         self.hunts_tree.configure(yscrollcommand=hunt_scroll.set)
 
-        self.hunts_notebook = ttk.Notebook(self.hunts_tab)
-        self.hunts_notebook.grid(row=2, column=0, sticky="nsew", padx=8, pady=(0, 8))
+        self.hunts_notebook = ttk.Notebook(content_frame)
+        self.hunts_notebook.grid(row=0, column=1, sticky="nsew")
 
         self.hunt_details_tab = ttk.Frame(self.hunts_notebook)
         self.hunt_stats_tab = ttk.Frame(self.hunts_notebook)
@@ -1137,20 +1918,31 @@ class TibiaSearchApp:
         self.history_list.bind("<Double-Button-1>", lambda _event: self.search_from_history())
         self.history_list.bind("<Return>", lambda _event: self.search_from_history())
 
+    def _bind_imbuements_events(self) -> None:
+        if not getattr(self, "imbuement_tree", None) or not self.imbuement_tree.winfo_exists():
+            return
         self.imbuement_tree.bind("<<TreeviewSelect>>", self.on_imbuement_select)
         self.imbuement_tree.bind("<Double-Button-1>", lambda _event: self.search_selected_imbuement())
         self.imbuement_tree.bind("<Return>", lambda _event: self.search_selected_imbuement())
         self.imbuement_tree.bind("<Button-1>", self.on_tree_click)
 
+    def _bind_items_events(self) -> None:
+        if not getattr(self, "items_tree", None) or not self.items_tree.winfo_exists():
+            return
         self.items_tree.bind("<Double-Button-1>", self._on_items_tree_double_click)
         self.items_tree.bind("<Return>", self._open_selected_item)
         self.items_tree.bind("<Button-1>", self._on_items_tree_click)
 
+    def _bind_hunts_events(self) -> None:
+        if not getattr(self, "hunts_tree", None) or not self.hunts_tree.winfo_exists():
+            return
         self.hunts_tree.bind("<<TreeviewSelect>>", self._on_hunt_select)
         self.hunt_profit_tree.bind("<<TreeviewSelect>>", self._on_hunt_stats_select)
         self.hunt_xp_tree.bind("<<TreeviewSelect>>", self._on_hunt_stats_select)
-        self.hunt_equipment_var.trace_add("write", self._on_hunt_equipment_change)
-        self.hunt_character_var.trace_add("write", self._on_hunt_character_change)
+        if not self._hunt_traces_bound:
+            self.hunt_equipment_var.trace_add("write", self._on_hunt_equipment_change)
+            self.hunt_character_var.trace_add("write", self._on_hunt_character_change)
+            self._hunt_traces_bound = True
 
     def clear_entry(self) -> None:
         self.search_entry.delete(0, tk.END)
@@ -1176,6 +1968,10 @@ class TibiaSearchApp:
         return self.creature_products
 
     def _refresh_items_list(self) -> None:
+        if not getattr(self, "items_tree", None) or not self.items_tree.winfo_exists():
+            return
+        if not getattr(self, "items_filter_var", None) or not getattr(self, "items_search_var", None):
+            return
         query = self.items_search_var.get().strip().casefold()
         items = [
             item
@@ -1386,6 +2182,8 @@ class TibiaSearchApp:
         name_entry.focus_set()
 
     def _refresh_hunts_list(self, select_id: str | None = None) -> None:
+        if not getattr(self, "hunts_tree", None) or not self.hunts_tree.winfo_exists():
+            return
         self.hunts_tree.delete(*self.hunts_tree.get_children())
         hunts = sorted(
             self.hunt_store.hunts,
@@ -1573,6 +2371,8 @@ class TibiaSearchApp:
         self._refresh_hunts_list(select_id=self.active_hunt_id)
 
     def _refresh_hunt_stats(self) -> None:
+        if not getattr(self, "hunt_profit_tree", None) or not self.hunt_profit_tree.winfo_exists():
+            return
         self.hunt_profit_tree.delete(*self.hunt_profit_tree.get_children())
         self.hunt_xp_tree.delete(*self.hunt_xp_tree.get_children())
 
@@ -1669,6 +2469,8 @@ class TibiaSearchApp:
         self._open_url(target_url, "Search")
 
     def _populate_imbuements(self) -> None:
+        if not getattr(self, "imbuement_tree", None) or not self.imbuement_tree.winfo_exists():
+            return
         self.imbuement_tree.delete(*self.imbuement_tree.get_children())
         ordered = sorted(
             IMBUEMENTS,
@@ -1683,6 +2485,8 @@ class TibiaSearchApp:
         self.imbuement_tree.insert("", tk.END, iid=imbuement.key, values=(fav, imbuement.name, total))
 
     def _select_first_imbuement(self) -> None:
+        if not getattr(self, "imbuement_tree", None) or not self.imbuement_tree.winfo_exists():
+            return
         children = self.imbuement_tree.get_children()
         if children:
             self.imbuement_tree.selection_set(children[0])
@@ -1870,6 +2674,9 @@ class TibiaSearchApp:
         return f"{value:,}".replace(",", ".") + " gp"
 
     def exit_app(self) -> None:
+        self._ipc_stop_event.set()
+        if self._is_hotkeys_running():
+            self._stop_hotkeys_script()
         self.root.destroy()
 
     def open_character_window(self) -> None:

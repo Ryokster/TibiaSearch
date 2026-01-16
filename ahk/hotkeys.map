@@ -1,0 +1,11 @@
+MButton=>{F4}
+!MButton=>{F5}
+^MButton=>{F6}
+XButton1=>{F10}
+$WheelUp=>!r
+$WheelDown=>!q
+~3=>3
+~4=>4
+~!4=>!4
+~!2=>!2
+~!r=>!r

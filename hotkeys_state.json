@@ -1,0 +1,90 @@
+[
+  {
+    "id": "9fab2333-774b-489f-8b18-c470cd3ffbb1",
+    "name": "F4 (MButton)",
+    "hotkey": "MButton",
+    "action": "{F4}",
+    "cooldown_ms": 0,
+    "icon_path": ""
+  },
+  {
+    "id": "a46b4d7e-8742-4663-a603-50859794a0d9",
+    "name": "F5 (Alt+MButton)",
+    "hotkey": "!MButton",
+    "action": "{F5}",
+    "cooldown_ms": 0,
+    "icon_path": ""
+  },
+  {
+    "id": "6799d2da-1183-4dc7-ab53-6aef4a6ced65",
+    "name": "F6 (Ctrl+MButton)",
+    "hotkey": "^MButton",
+    "action": "{F6}",
+    "cooldown_ms": 0,
+    "icon_path": ""
+  },
+  {
+    "id": "a91fea56-4a3f-4041-b898-6e3dec8a6f24",
+    "name": "F10 (XButton1)",
+    "hotkey": "XButton1",
+    "action": "{F10}",
+    "cooldown_ms": 0,
+    "icon_path": ""
+  },
+  {
+    "id": "08141bb5-7f3e-4e95-8335-1f0b387f02f4",
+    "name": "Haste",
+    "hotkey": "$WheelUp",
+    "action": "!r",
+    "cooldown_ms": 21000,
+    "icon_path": ""
+  },
+  {
+    "id": "86743374-974a-42d9-8ca1-bfc22a54de29",
+    "name": "Alt+Q",
+    "hotkey": "$WheelDown",
+    "action": "!q",
+    "cooldown_ms": 0,
+    "icon_path": ""
+  },
+  {
+    "id": "b83180bf-ec73-453b-9b32-fec113dd3cf8",
+    "name": "Fire Wave",
+    "hotkey": "~3",
+    "action": "3",
+    "cooldown_ms": 4000,
+    "icon_path": ""
+  },
+  {
+    "id": "43a81c23-583d-47bb-b761-a94792133d61",
+    "name": "Great Energy Beam",
+    "hotkey": "~4",
+    "action": "4",
+    "cooldown_ms": 8000,
+    "icon_path": ""
+  },
+  {
+    "id": "9b813395-6127-447c-a87f-835a50bcb90f",
+    "name": "Energy Beam",
+    "hotkey": "~!4",
+    "action": "!4",
+    "cooldown_ms": 6000,
+    "icon_path": ""
+  },
+  {
+    "id": "7a7fc1b3-7d88-475e-820d-9736740a4c25",
+    "name": "Hell's Core",
+    "hotkey": "~!2",
+    "action": "!2",
+    "cooldown_ms": 40000,
+    "icon_path": ""
+  },
+  {
+    "id": "9f274e64-c22e-4c9e-bc5d-ff2993739faa",
+    "name": "Haste (pass-through)",
+    "hotkey": "~!r",
+    "action": "!r",
+    "cooldown_ms": 21000,
+    "icon_path": ""
+  }
+]

@@ -7,7 +7,7 @@
       "equipment_tag": "Normal",
       "raw_log_text": "Session data: From 2025-12-22, 17:33:19 to 2025-12-22, 17:39:14 Session: 00:05h XP Gain: 2,013 XP/h: 12,147 Loot: 1,311 Supplies: 378 Balance: 933 Damage: 2,585 Damage/h: 2,585 Healing: 0 Healing/h: 0 Killed Monsters: 8x bat 8x bug 1x carniphila 1x cave rat 3x centipede 2x flamingo 3x poison spider 1x sibang 2x skunk 2x snake 3x spider 3x tarantula 3x tiger 6x wasp Looted Items: 49x a gold coin 3x meat 1x spider fangs 1x striped furso sieht ein log aus",
       "created_at": "2025-12-22T17:54:22",
-      "updated_at": "2025-12-24T11:55:20",
+      "updated_at": "2026-01-16T20:11:18",
       "start_dt": "2025-12-22T17:33:19",
       "end_dt": "2025-12-22T17:39:14",
       "duration_seconds": 355,
@@ -51,7 +51,7 @@
       "equipment_tag": "Normal",
       "raw_log_text": "Session data: From 2025-12-22, 19:37:54 to 2025-12-22, 20:09:37\nSession: 00:31h\nXP Gain: 41,925\nXP/h: 104,605\nLoot: 8,676\nSupplies: 13,426\nBalance: -4,750\nDamage: 33,970\nDamage/h: 33,970\nHealing: 98\nHealing/h: 98\nKilled Monsters:\n  3x bug\n  20x centipede\n  55x poison spider\n  2x snake\n  1x spider\n  128x tarantula\n  14x toad\n  2x wasp\nLooted Items:\n  414x a gold coin\n  1x a fish\n  4x spider fangs\n  2x a tarantula egg\n  2x a centipede leg",
       "created_at": "2025-12-22T20:09:49",
-      "updated_at": "2025-12-25T07:58:57",
+      "updated_at": "2026-01-16T20:11:27",
       "start_dt": "2025-12-22T19:37:54",
       "end_dt": "2025-12-22T20:09:37",
       "duration_seconds": 1903,
@@ -90,7 +90,7 @@
       "equipment_tag": "Normal",
       "raw_log_text": "Session data: From 2025-12-25, 07:07:13 to 2025-12-25, 07:58:13\nSession: 00:51h\nXP Gain: 433,584\nXP/h: 328,763\nLoot: 32,017\nSupplies: 33,608\nBalance: -1,591\nDamage: 264,652\nDamage/h: 264,652\nHealing: 18,234\nHealing/h: 18,234\nKilled Monsters:\n  63x cobra\n  34x crocodile\n  366x lizard sentinel\n  115x lizard snakecharmer\n  266x lizard templar\n  1x panda\n  2x spit nettle\n  4x terror bird\nLooted Items:\n  4x a health potion\n  1800x a gold coin\n  2x a terra rod\n  5x a sword\n  1x a halberd\n  1x a sentinel shield\n  2x ham\n  38x a dead snake\n  8x a dead snake\n  8x lizard leather\n  8x a lizard scale\n  3x a cobra tongue\n  1x a terrorbird beak\n  6x a piece of crocodile leather",
       "created_at": "2025-12-25T07:59:10",
-      "updated_at": "2025-12-25T07:59:10",
+      "updated_at": "2026-01-16T20:12:11",
       "start_dt": "2025-12-25T07:07:13",
       "end_dt": "2025-12-25T07:58:13",
       "duration_seconds": 3060,
@@ -129,6 +129,30 @@
         "a terrorbird beak": 1,
         "a piece of crocodile leather": 6
       }
+    },
+    {
+      "id": "3e740af3-03aa-47bb-9585-512b79c26260",
+      "name": "fg",
+      "character_id": "Strongsword",
+      "equipment_tag": "Normal",
+      "raw_log_text": "fsdf",
+      "created_at": "2026-01-16T18:52:43",
+      "updated_at": "2026-01-16T21:35:36",
+      "start_dt": null,
+      "end_dt": null,
+      "duration_seconds": 0,
+      "xp_total": 0,
+      "xp_per_hour": null,
+      "loot_total": 0,
+      "supplies_total": 0,
+      "balance_total": 0,
+      "damage_total": 0,
+      "damage_per_hour": null,
+      "healing_total": 0,
+      "healing_per_hour": null,
+      "kills_breakdown": {},
+      "kills_count": 0,
+      "looted_items_breakdown": {}
     }
   ]
 }
