@@ -1,0 +1,37 @@
+[
+  {
+    "id": "067767c1-4806-4fb2-b25c-a5acd4cc6727",
+    "action_id": "HASTE",
+    "name": "Haste",
+    "cooldown_ms": 21000,
+    "icon_path": ""
+  },
+  {
+    "id": "8fc6d990-c639-4756-b986-84621f1f1af3",
+    "action_id": "FIRE_WAVE",
+    "name": "Fire Wave",
+    "cooldown_ms": 4000,
+    "icon_path": ""
+  },
+  {
+    "id": "27d519b6-6712-4266-ace0-1af99a2cfa38",
+    "action_id": "GEB",
+    "name": "Great Energy Beam",
+    "cooldown_ms": 8000,
+    "icon_path": ""
+  },
+  {
+    "id": "bcb9eb26-3bd3-42d6-9ba6-12188012c3e4",
+    "action_id": "EB",
+    "name": "Energy Beam",
+    "cooldown_ms": 6000,
+    "icon_path": ""
+  },
+  {
+    "id": "c6cdbc16-5de1-4985-85be-512a04e51826",
+    "action_id": "HELLS_CORE",
+    "name": "Hell's Core",
+    "cooldown_ms": 40000,
+    "icon_path": ""
+  }
+]

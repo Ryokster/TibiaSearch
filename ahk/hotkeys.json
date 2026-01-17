@@ -1,0 +1,49 @@
+{
+  "target_win": "ahk_exe client.exe",
+  "hotkeys": [
+    {
+      "hotkey": "MButton",
+      "action": "F4"
+    },
+    {
+      "hotkey": "!MButton",
+      "action": "F5"
+    },
+    {
+      "hotkey": "^MButton",
+      "action": "F6"
+    },
+    {
+      "hotkey": "XButton1",
+      "action": "F10"
+    },
+    {
+      "hotkey": "$WheelUp",
+      "action": "HASTE"
+    },
+    {
+      "hotkey": "$WheelDown",
+      "action": "ALT_Q"
+    },
+    {
+      "hotkey": "~3",
+      "action": "FIRE_WAVE"
+    },
+    {
+      "hotkey": "~4",
+      "action": "GEB"
+    },
+    {
+      "hotkey": "~!4",
+      "action": "EB"
+    },
+    {
+      "hotkey": "~!2",
+      "action": "HELLS_CORE"
+    },
+    {
+      "hotkey": "~!r",
+      "action": "HASTE"
+    }
+  ]
+}

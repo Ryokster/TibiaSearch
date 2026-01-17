@@ -1,11 +1,10 @@
+import ctypes
 import json
-import queue
 import re
 import shutil
 import subprocess
 import sys
 import threading
-import time
 import uuid
 import tkinter as tk
 import tkinter.font as tkfont
@@ -735,39 +734,34 @@ class TibiaSearchApp:
         self._hunt_traces_bound = False
         self.hotkeys_dir = self.base_dir / "ahk"
         self.hotkeys_script_path = self.hotkeys_dir / "tibia_hotkeys.ahk"
-        self.hotkeys_map_path = self.hotkeys_dir / "hotkeys.map"
+        self.hotkeys_json_path = self.hotkeys_dir / "hotkeys.json"
         self.hotkeys_events_path = self.hotkeys_dir / "hotkeys_events.log"
-        self.hotkeys_command_path = self.hotkeys_dir / "hotkeys_command.txt"
-        self.hotkeys_state_path = self.base_dir / "hotkeys_state.json"
+        self.hotkeys_cmd_path = self.hotkeys_dir / "hotkeys_cmd.txt"
         self.hotkeys_process: subprocess.Popen[str] | None = None
         self.hotkeys_tree: ttk.Treeview | None = None
-        self.hotkey_name_entry: ttk.Entry | None = None
         self.hotkey_entry: ttk.Entry | None = None
         self.action_entry: ttk.Entry | None = None
-        self.hotkey_cooldown_entry: ttk.Entry | None = None
-        self.hotkey_icon_entry: ttk.Entry | None = None
         self.hotkeys_status_var = tk.StringVar(value="Stopped")
         self.hotkeys_overlay_var = tk.StringVar(value="Overlay: Off")
+        self.hotkeys_admin_var = tk.StringVar(value="AHK admin: ?")
+        self.hotkeys_admin_warning_var = tk.StringVar(value="")
+        self.hotkeys_target_win = "ahk_exe client.exe"
         self.hotkeys_defs: list[dict[str, object]] = []
-        self._ipc_queue: queue.Queue[str] = queue.Queue()
-        self._ipc_stop_event = threading.Event()
-        self.cooldowns_list: tk.Listbox | None = None
-        self.cooldown_defs = {
-            "FIRE_WAVE": 6,
-            "GEB": 10,
-            "EB": 6,
-            "HELLS_CORE": 30,
-            "HASTE": 2,
-        }
-        self.cooldown_expiries: dict[str, float] = {}
+        self.hotkeys_admin_state: bool | None = None
+        self.python_is_admin = self._is_admin()
+        self.cooldowns_state_path = self.base_dir / "cooldowns_state.json"
+        self.cooldowns_tree: ttk.Treeview | None = None
+        self.cooldown_action_entry: ttk.Entry | None = None
+        self.cooldown_name_entry: ttk.Entry | None = None
+        self.cooldown_ms_entry: ttk.Entry | None = None
+        self.cooldown_icon_entry: ttk.Entry | None = None
+        self.cooldowns_defs: list[dict[str, object]] = []
 
         self._apply_fantasy_theme()
         self._build_ui()
         self._bind_events()
         self._refresh_history_list()
         self._start_market_refresh()
-        self._start_ipc_listener()
-        self._schedule_cooldowns_refresh()
         self._schedule_hotkeys_status_refresh()
 
         self.root.protocol("WM_DELETE_WINDOW", self.exit_app)
@@ -958,12 +952,16 @@ class TibiaSearchApp:
 
         header_frame = ttk.Frame(parent)
         header_frame.grid(row=0, column=0, sticky="ew", padx=8, pady=(8, 4))
-        header_frame.columnconfigure(2, weight=1)
+        header_frame.columnconfigure(4, weight=1)
 
         ttk.Label(header_frame, text="Status:").grid(row=0, column=0, sticky="w")
         ttk.Label(header_frame, textvariable=self.hotkeys_status_var).grid(row=0, column=1, sticky="w", padx=(4, 12))
+        ttk.Label(header_frame, textvariable=self.hotkeys_admin_var).grid(row=0, column=2, sticky="w", padx=(0, 12))
+        ttk.Label(header_frame, textvariable=self.hotkeys_admin_warning_var).grid(
+            row=0, column=3, sticky="w", padx=(0, 12)
+        )
         ttk.Button(header_frame, textvariable=self.hotkeys_overlay_var, command=self._toggle_overlay).grid(
-            row=0, column=2, sticky="e"
+            row=0, column=4, sticky="e"
         )
 
         editor_frame = ttk.LabelFrame(parent, text="Hotkey Editor")
@@ -971,31 +969,16 @@ class TibiaSearchApp:
         editor_frame.columnconfigure(1, weight=1)
         editor_frame.columnconfigure(3, weight=1)
 
-        ttk.Label(editor_frame, text="Name").grid(row=0, column=0, sticky="w", padx=6, pady=(6, 2))
-        self.hotkey_name_entry = ttk.Entry(editor_frame, width=20)
-        self.hotkey_name_entry.grid(row=0, column=1, sticky="ew", padx=6, pady=(6, 2))
-
-        ttk.Label(editor_frame, text="Hotkey").grid(row=0, column=2, sticky="w", padx=6, pady=(6, 2))
+        ttk.Label(editor_frame, text="Hotkey").grid(row=0, column=0, sticky="w", padx=6, pady=(6, 2))
         self.hotkey_entry = ttk.Entry(editor_frame, width=16)
-        self.hotkey_entry.grid(row=0, column=3, sticky="w", padx=6, pady=(6, 2))
+        self.hotkey_entry.grid(row=0, column=1, sticky="w", padx=6, pady=(6, 2))
 
-        ttk.Label(editor_frame, text="Action / Send").grid(row=1, column=0, sticky="w", padx=6, pady=2)
+        ttk.Label(editor_frame, text="Action / Send").grid(row=0, column=2, sticky="w", padx=6, pady=(6, 2))
         self.action_entry = ttk.Entry(editor_frame, width=26)
-        self.action_entry.grid(row=1, column=1, sticky="ew", padx=6, pady=2)
-
-        ttk.Label(editor_frame, text="Cooldown (ms)").grid(row=1, column=2, sticky="w", padx=6, pady=2)
-        self.hotkey_cooldown_entry = ttk.Entry(editor_frame, width=10)
-        self.hotkey_cooldown_entry.grid(row=1, column=3, sticky="w", padx=6, pady=2)
-
-        ttk.Label(editor_frame, text="Icon").grid(row=2, column=0, sticky="w", padx=6, pady=(2, 6))
-        self.hotkey_icon_entry = ttk.Entry(editor_frame, width=32)
-        self.hotkey_icon_entry.grid(row=2, column=1, sticky="ew", padx=6, pady=(2, 6))
-        ttk.Button(editor_frame, text="Browse", command=self._browse_hotkey_icon).grid(
-            row=2, column=2, sticky="w", padx=6, pady=(2, 6)
-        )
+        self.action_entry.grid(row=0, column=3, sticky="ew", padx=6, pady=(6, 2))
 
         ttk.Button(editor_frame, text="Add New", command=self._add_hotkey).grid(
-            row=2, column=3, sticky="e", padx=6, pady=(2, 6)
+            row=1, column=3, sticky="e", padx=6, pady=(2, 6)
         )
 
         list_frame = ttk.Frame(parent)
@@ -1005,20 +988,14 @@ class TibiaSearchApp:
 
         self.hotkeys_tree = ttk.Treeview(
             list_frame,
-            columns=("name", "hotkey", "action", "cooldown", "icon"),
+            columns=("hotkey", "action"),
             show="headings",
             height=10,
         )
-        self.hotkeys_tree.heading("name", text="Name")
         self.hotkeys_tree.heading("hotkey", text="Hotkey")
         self.hotkeys_tree.heading("action", text="Action / Send")
-        self.hotkeys_tree.heading("cooldown", text="Cooldown (ms)")
-        self.hotkeys_tree.heading("icon", text="Icon")
-        self.hotkeys_tree.column("name", width=160, anchor="w")
-        self.hotkeys_tree.column("hotkey", width=110, anchor="w")
-        self.hotkeys_tree.column("action", width=180, anchor="w")
-        self.hotkeys_tree.column("cooldown", width=110, anchor="e")
-        self.hotkeys_tree.column("icon", width=200, anchor="w")
+        self.hotkeys_tree.column("hotkey", width=140, anchor="w")
+        self.hotkeys_tree.column("action", width=240, anchor="w")
         self.hotkeys_tree.grid(row=0, column=0, sticky="nsew")
         self.hotkeys_tree.bind("<<TreeviewSelect>>", self._on_hotkeys_select)
         self.hotkeys_tree.bind("<Double-Button-1>", lambda _event: self._edit_selected_hotkey())
@@ -1055,24 +1032,84 @@ class TibiaSearchApp:
         ttk.Button(actions_frame, text="Restart", command=self._restart_hotkeys_script).grid(
             row=0, column=3, sticky="w", padx=(6, 0)
         )
+        ttk.Button(actions_frame, text="Restart as Admin", command=self._restart_hotkeys_as_admin).grid(
+            row=0, column=4, sticky="w", padx=(6, 0)
+        )
 
     def _build_cooldowns_tab(self, parent: ttk.Frame) -> None:
         parent.columnconfigure(0, weight=1)
-        parent.rowconfigure(0, weight=1)
+        parent.rowconfigure(1, weight=0)
+        parent.rowconfigure(2, weight=1)
 
-        list_frame = ttk.LabelFrame(parent, text="Cooldowns")
-        list_frame.grid(row=0, column=0, sticky="nsew", padx=8, pady=8)
+        editor_frame = ttk.LabelFrame(parent, text="Cooldown Editor")
+        editor_frame.grid(row=0, column=0, sticky="ew", padx=8, pady=(8, 6))
+        editor_frame.columnconfigure(1, weight=1)
+        editor_frame.columnconfigure(3, weight=1)
+        editor_frame.columnconfigure(4, weight=0)
+
+        ttk.Label(editor_frame, text="Action ID").grid(row=0, column=0, sticky="w", padx=6, pady=(6, 2))
+        self.cooldown_action_entry = ttk.Entry(editor_frame, width=18)
+        self.cooldown_action_entry.grid(row=0, column=1, sticky="ew", padx=6, pady=(6, 2))
+
+        ttk.Label(editor_frame, text="Name").grid(row=0, column=2, sticky="w", padx=6, pady=(6, 2))
+        self.cooldown_name_entry = ttk.Entry(editor_frame, width=22)
+        self.cooldown_name_entry.grid(row=0, column=3, sticky="ew", padx=6, pady=(6, 2))
+
+        ttk.Label(editor_frame, text="Cooldown (ms)").grid(row=1, column=0, sticky="w", padx=6, pady=2)
+        self.cooldown_ms_entry = ttk.Entry(editor_frame, width=12)
+        self.cooldown_ms_entry.grid(row=1, column=1, sticky="w", padx=6, pady=2)
+
+        ttk.Label(editor_frame, text="Icon").grid(row=1, column=2, sticky="w", padx=6, pady=2)
+        self.cooldown_icon_entry = ttk.Entry(editor_frame, width=28)
+        self.cooldown_icon_entry.grid(row=1, column=3, sticky="ew", padx=6, pady=2)
+        ttk.Button(editor_frame, text="Browse", command=self._browse_cooldown_icon).grid(
+            row=1, column=4, sticky="w", padx=(0, 6), pady=2
+        )
+
+        ttk.Button(editor_frame, text="Add New", command=self._add_cooldown).grid(
+            row=2, column=3, sticky="e", padx=6, pady=(2, 6)
+        )
+
+        list_frame = ttk.Frame(parent)
+        list_frame.grid(row=2, column=0, sticky="nsew", padx=8, pady=(0, 6))
         list_frame.columnconfigure(0, weight=1)
         list_frame.rowconfigure(0, weight=1)
 
-        self.cooldowns_list = tk.Listbox(list_frame, height=10)
-        self.cooldowns_list.grid(row=0, column=0, sticky="nsew")
+        self.cooldowns_tree = ttk.Treeview(
+            list_frame,
+            columns=("action_id", "name", "cooldown_ms", "icon"),
+            show="headings",
+            height=10,
+        )
+        self.cooldowns_tree.heading("action_id", text="Action ID")
+        self.cooldowns_tree.heading("name", text="Name")
+        self.cooldowns_tree.heading("cooldown_ms", text="Cooldown (ms)")
+        self.cooldowns_tree.heading("icon", text="Icon")
+        self.cooldowns_tree.column("action_id", width=140, anchor="w")
+        self.cooldowns_tree.column("name", width=180, anchor="w")
+        self.cooldowns_tree.column("cooldown_ms", width=130, anchor="e")
+        self.cooldowns_tree.column("icon", width=220, anchor="w")
+        self.cooldowns_tree.grid(row=0, column=0, sticky="nsew")
+        self.cooldowns_tree.bind("<<TreeviewSelect>>", self._on_cooldown_select)
+        self.cooldowns_tree.bind("<Double-Button-1>", lambda _event: self._edit_selected_cooldown())
 
-        list_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.cooldowns_list.yview)
+        list_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.cooldowns_tree.yview)
         list_scroll.grid(row=0, column=1, sticky="ns")
-        self.cooldowns_list.configure(yscrollcommand=list_scroll.set)
+        self.cooldowns_tree.configure(yscrollcommand=list_scroll.set)
 
-        self._refresh_cooldowns_view()
+        row_actions = ttk.Frame(parent)
+        row_actions.grid(row=3, column=0, sticky="ew", padx=8, pady=(0, 8))
+        ttk.Button(row_actions, text="Edit Selected", command=self._edit_selected_cooldown).grid(
+            row=0, column=0, sticky="w"
+        )
+        ttk.Button(row_actions, text="Update Selected", command=self._update_selected_cooldown).grid(
+            row=0, column=1, sticky="w", padx=(6, 0)
+        )
+        ttk.Button(row_actions, text="Delete Selected", command=self._remove_cooldown).grid(
+            row=0, column=2, sticky="w", padx=(6, 0)
+        )
+
+        self._load_cooldowns_table()
 
     def _build_hunting_ground_tab(self, parent: ttk.Frame) -> None:
         parent.columnconfigure(0, weight=1)
@@ -1099,12 +1136,12 @@ class TibiaSearchApp:
 
     def _ensure_hotkeys_files(self) -> None:
         self.hotkeys_dir.mkdir(parents=True, exist_ok=True)
-        if not self.hotkeys_map_path.exists():
-            self.hotkeys_map_path.write_text("", encoding="utf-8")
         if not self.hotkeys_events_path.exists():
             self.hotkeys_events_path.write_text("", encoding="utf-8")
-        if not self.hotkeys_command_path.exists():
-            self.hotkeys_command_path.write_text("", encoding="utf-8")
+        if not self.hotkeys_cmd_path.exists():
+            self.hotkeys_cmd_path.write_text("", encoding="utf-8")
+        if not self.hotkeys_json_path.exists():
+            self._ensure_default_hotkeys()
 
     def _load_hotkeys_table(self) -> None:
         if not self.hotkeys_tree or not self.hotkeys_tree.winfo_exists():
@@ -1113,9 +1150,6 @@ class TibiaSearchApp:
         self._load_hotkeys_state()
         self._refresh_hotkeys_table()
 
-    def _write_hotkeys_mappings(self, mappings: list[tuple[str, str]]) -> None:
-        payload = "\n".join(f"{hotkey}=>{action}" for hotkey, action in mappings)
-        self.hotkeys_map_path.write_text(payload + ("\n" if payload else ""), encoding="utf-8")
 
     def _on_hotkeys_select(self, _event: tk.Event) -> None:
         if not self.hotkeys_tree or not self.hotkeys_tree.winfo_exists():
@@ -1135,44 +1169,24 @@ class TibiaSearchApp:
         data = next((entry for entry in self.hotkeys_defs if str(entry.get("id")) == item_id), None)
         if not data:
             return
-        if self.hotkey_name_entry:
-            self.hotkey_name_entry.delete(0, tk.END)
-            self.hotkey_name_entry.insert(0, str(data.get("name", "")))
         if self.hotkey_entry:
             self.hotkey_entry.delete(0, tk.END)
             self.hotkey_entry.insert(0, str(data.get("hotkey", "")))
         if self.action_entry:
             self.action_entry.delete(0, tk.END)
             self.action_entry.insert(0, str(data.get("action", "")))
-        if self.hotkey_cooldown_entry:
-            self.hotkey_cooldown_entry.delete(0, tk.END)
-            self.hotkey_cooldown_entry.insert(0, str(data.get("cooldown_ms", "")))
-        if self.hotkey_icon_entry:
-            self.hotkey_icon_entry.delete(0, tk.END)
-            self.hotkey_icon_entry.insert(0, str(data.get("icon_path", "")))
 
     def _collect_hotkey_form(self) -> dict[str, object] | None:
-        if not self.hotkey_name_entry or not self.hotkey_entry or not self.action_entry:
+        if not self.hotkey_entry or not self.action_entry:
             return None
-        name = self.hotkey_name_entry.get().strip()
         hotkey = self.hotkey_entry.get().strip()
         action = self.action_entry.get().strip()
-        cooldown_text = self.hotkey_cooldown_entry.get().strip() if self.hotkey_cooldown_entry else ""
-        icon_path = self.hotkey_icon_entry.get().strip() if self.hotkey_icon_entry else ""
-        if not name or not hotkey or not action:
-            messagebox.showwarning("Missing Data", "Name, Hotkey, and Action are required.")
-            return None
-        try:
-            cooldown_ms = int(cooldown_text) if cooldown_text else 0
-        except ValueError:
-            messagebox.showwarning("Invalid Cooldown", "Cooldown must be an integer in milliseconds.")
+        if not hotkey or not action:
+            messagebox.showwarning("Missing Data", "Hotkey and Action are required.")
             return None
         return {
-            "name": name,
             "hotkey": hotkey,
             "action": action,
-            "cooldown_ms": max(0, cooldown_ms),
-            "icon_path": icon_path,
         }
 
     def _add_hotkey(self) -> None:
@@ -1217,14 +1231,8 @@ class TibiaSearchApp:
             return
         self._ensure_hotkeys_files()
         self._save_hotkeys_state()
-        mappings = [
-            (str(entry.get("hotkey", "")).strip(), str(entry.get("action", "")).strip())
-            for entry in self.hotkeys_defs
-            if str(entry.get("hotkey", "")).strip() and str(entry.get("action", "")).strip()
-        ]
-        self._write_hotkeys_mappings(mappings)
         if self._is_hotkeys_running():
-            self._restart_hotkeys_script()
+            self._apply_hotkeys_changes()
         messagebox.showinfo("Saved", "Hotkeys mapping saved.")
 
     def _is_hotkeys_running(self) -> bool:
@@ -1241,9 +1249,12 @@ class TibiaSearchApp:
                 f"Missing script: {self.hotkeys_script_path}",
             )
             return
-        ahk_exe = shutil.which("AutoHotkey64.exe") or shutil.which("AutoHotkey.exe")
+        ahk_exe = self._resolve_ahk_exe()
         if not ahk_exe:
-            messagebox.showerror("AutoHotkey Missing", "AutoHotkey v2 was not found in PATH.")
+            messagebox.showerror(
+                "AutoHotkey Missing",
+                "AutoHotkey v2 was not found in PATH or the default install location.",
+            )
             return
         try:
             self.hotkeys_process = subprocess.Popen([ahk_exe, str(self.hotkeys_script_path)])
@@ -1271,6 +1282,7 @@ class TibiaSearchApp:
 
     def _schedule_hotkeys_status_refresh(self) -> None:
         self.hotkeys_status_var.set("Running" if self._is_hotkeys_running() else "Stopped")
+        self._refresh_hotkeys_admin_status()
         self.root.after(1000, self._schedule_hotkeys_status_refresh)
 
     def _toggle_overlay(self) -> None:
@@ -1280,97 +1292,371 @@ class TibiaSearchApp:
         self.hotkeys_overlay_var.set("Overlay: On" if "Off" in current else "Overlay: Off")
 
     def _send_hotkeys_command(self, command: str) -> None:
-        timestamp = datetime.now().isoformat(timespec="seconds")
-        payload = f"{timestamp} {command}\n"
-        self.hotkeys_command_path.write_text(payload, encoding="utf-8")
+        payload = f"{command}\n"
+        self.hotkeys_cmd_path.write_text(payload, encoding="utf-8")
 
-    def _start_ipc_listener(self) -> None:
-        thread = threading.Thread(target=self._ipc_tail_loop, daemon=True)
-        thread.start()
-        self.root.after(200, self._process_ipc_events)
+    def _apply_hotkeys_changes(self) -> None:
+        if not self._is_hotkeys_running():
+            return
+        try:
+            self._send_hotkeys_command("RELOAD")
+        except OSError:
+            self._restart_hotkeys_script()
+            return
+        self.root.after(800, self._ensure_hotkeys_running_after_reload)
 
-    def _ipc_tail_loop(self) -> None:
-        position = 0
-        while not self._ipc_stop_event.is_set():
-            if self.hotkeys_events_path.exists():
-                try:
-                    size = self.hotkeys_events_path.stat().st_size
-                    if size < position:
-                        position = 0
-                    with self.hotkeys_events_path.open("r", encoding="utf-8", errors="ignore") as handle:
-                        handle.seek(position)
-                        for line in handle:
-                            action_id = line.strip()
-                            if action_id:
-                                self._ipc_queue.put(action_id)
-                        position = handle.tell()
-                except OSError:
-                    position = 0
-            time.sleep(0.4)
+    def _ensure_hotkeys_running_after_reload(self) -> None:
+        if not self._is_hotkeys_running():
+            self._restart_hotkeys_script()
 
-    def _process_ipc_events(self) -> None:
-        processed = False
-        while True:
-            try:
-                action_id = self._ipc_queue.get_nowait()
-            except queue.Empty:
+    def _resolve_ahk_exe(self) -> str | None:
+        return (
+            shutil.which("AutoHotkey64.exe")
+            or shutil.which("AutoHotkey.exe")
+            or r"C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe"
+        )
+
+    def _restart_hotkeys_as_admin(self) -> None:
+        if self._is_hotkeys_running():
+            self._stop_hotkeys_script()
+        ahk_exe = self._resolve_ahk_exe()
+        if not ahk_exe:
+            messagebox.showerror(
+                "AutoHotkey Missing",
+                "AutoHotkey v2 was not found in PATH or the default install location.",
+            )
+            return
+        try:
+            ctypes.windll.shell32.ShellExecuteW(
+                None,
+                "runas",
+                ahk_exe,
+                f"\"{self.hotkeys_script_path}\"",
+                None,
+                1,
+            )
+        except OSError as exc:
+            messagebox.showerror("AutoHotkey Error", f"Failed to start AutoHotkey as admin: {exc}")
+
+    def _refresh_hotkeys_admin_status(self) -> None:
+        admin_state = self._read_ahk_admin_state()
+        if admin_state is None:
+            self.hotkeys_admin_var.set("AHK admin: ?")
+            self.hotkeys_admin_warning_var.set("")
+            return
+        self.hotkeys_admin_state = admin_state
+        self.hotkeys_admin_var.set("AHK admin: yes" if admin_state else "AHK admin: no")
+        if admin_state != self.python_is_admin:
+            self.hotkeys_admin_warning_var.set("Admin mismatch")
+        else:
+            self.hotkeys_admin_warning_var.set("")
+
+    def _read_ahk_admin_state(self) -> bool | None:
+        if not self.hotkeys_events_path.exists():
+            return None
+        try:
+            with self.hotkeys_events_path.open("rb") as handle:
+                handle.seek(0, 2)
+                size = handle.tell()
+                handle.seek(max(0, size - 4096))
+                payload = handle.read().decode("utf-8", errors="ignore")
+        except OSError:
+            return None
+        for line in reversed(payload.splitlines()):
+            line = line.strip()
+            if line.startswith("ADMIN|"):
+                return line.endswith("1")
+        return None
+
+    @staticmethod
+    def _is_admin() -> bool:
+        try:
+            return bool(ctypes.windll.shell32.IsUserAnAdmin())
+        except OSError:
+            return False
+
+    def _load_cooldowns_table(self) -> None:
+        if not self.cooldowns_tree or not self.cooldowns_tree.winfo_exists():
+            return
+        self._load_cooldowns_state()
+        self._refresh_cooldowns_table()
+
+    def _on_cooldown_select(self, _event: tk.Event) -> None:
+        if not self.cooldowns_tree or not self.cooldowns_tree.winfo_exists():
+            return
+        selection = self.cooldowns_tree.selection()
+        if not selection:
+            return
+        self._edit_selected_cooldown()
+
+    def _edit_selected_cooldown(self) -> None:
+        if not self.cooldowns_tree or not self.cooldowns_tree.winfo_exists():
+            return
+        selection = self.cooldowns_tree.selection()
+        if not selection:
+            return
+        item_id = selection[0]
+        data = next((entry for entry in self.cooldowns_defs if str(entry.get("id")) == item_id), None)
+        if not data:
+            return
+        if self.cooldown_action_entry:
+            self.cooldown_action_entry.delete(0, tk.END)
+            self.cooldown_action_entry.insert(0, str(data.get("action_id", "")))
+        if self.cooldown_name_entry:
+            self.cooldown_name_entry.delete(0, tk.END)
+            self.cooldown_name_entry.insert(0, str(data.get("name", "")))
+        if self.cooldown_ms_entry:
+            self.cooldown_ms_entry.delete(0, tk.END)
+            self.cooldown_ms_entry.insert(0, str(data.get("cooldown_ms", "")))
+        if self.cooldown_icon_entry:
+            self.cooldown_icon_entry.delete(0, tk.END)
+            self.cooldown_icon_entry.insert(0, str(data.get("icon_path", "")))
+
+    def _collect_cooldown_form(self) -> dict[str, object] | None:
+        if (
+            not self.cooldown_action_entry
+            or not self.cooldown_name_entry
+            or not self.cooldown_ms_entry
+            or not self.cooldown_icon_entry
+        ):
+            return None
+        action_id = self.cooldown_action_entry.get().strip()
+        name = self.cooldown_name_entry.get().strip()
+        cooldown_text = self.cooldown_ms_entry.get().strip()
+        icon_path = self.cooldown_icon_entry.get().strip()
+        if not action_id or not name:
+            messagebox.showwarning("Missing Data", "Action ID and Name are required.")
+            return None
+        try:
+            cooldown_ms = int(cooldown_text) if cooldown_text else 0
+        except ValueError:
+            messagebox.showwarning("Invalid Cooldown", "Cooldown must be an integer in milliseconds.")
+            return None
+        return {
+            "action_id": action_id,
+            "name": name,
+            "cooldown_ms": max(0, cooldown_ms),
+            "icon_path": icon_path,
+        }
+
+    def _add_cooldown(self) -> None:
+        data = self._collect_cooldown_form()
+        if not data:
+            return
+        data["id"] = str(uuid.uuid4())
+        self.cooldowns_defs.append(data)
+        self._refresh_cooldowns_table()
+        self._clear_cooldown_form()
+        self._save_cooldowns_state()
+
+    def _update_selected_cooldown(self) -> None:
+        if not self.cooldowns_tree or not self.cooldowns_tree.winfo_exists():
+            return
+        selection = self.cooldowns_tree.selection()
+        if not selection:
+            messagebox.showwarning("No Selection", "Select a cooldown entry to update.")
+            return
+        data = self._collect_cooldown_form()
+        if not data:
+            return
+        item_id = selection[0]
+        for entry in self.cooldowns_defs:
+            if str(entry.get("id")) == item_id:
+                entry.update(data)
                 break
-            self._register_cooldown_trigger(action_id)
-            processed = True
-        if processed:
-            self._refresh_cooldowns_view()
-        self.root.after(200, self._process_ipc_events)
+        self._refresh_cooldowns_table()
+        self._clear_cooldown_form()
+        self._save_cooldowns_state()
 
-    def _register_cooldown_trigger(self, action_id: str) -> None:
-        duration = self.cooldown_defs.get(action_id, 5)
-        for entry in self.hotkeys_defs:
-            if str(entry.get("action")) == action_id:
+    def _remove_cooldown(self) -> None:
+        if not self.cooldowns_tree or not self.cooldowns_tree.winfo_exists():
+            return
+        selection = self.cooldowns_tree.selection()
+        if not selection:
+            return
+        selected_ids = {str(item) for item in selection}
+        self.cooldowns_defs = [entry for entry in self.cooldowns_defs if str(entry.get("id")) not in selected_ids]
+        self._refresh_cooldowns_table()
+        self._save_cooldowns_state()
+
+    def _refresh_cooldowns_table(self) -> None:
+        if not self.cooldowns_tree or not self.cooldowns_tree.winfo_exists():
+            return
+        self.cooldowns_tree.delete(*self.cooldowns_tree.get_children())
+        for entry in self.cooldowns_defs:
+            item_id = str(entry.get("id") or uuid.uuid4())
+            entry["id"] = item_id
+            values = (
+                str(entry.get("action_id", "")),
+                str(entry.get("name", "")),
+                str(entry.get("cooldown_ms", "")),
+                str(entry.get("icon_path", "")),
+            )
+            self.cooldowns_tree.insert("", tk.END, iid=item_id, values=values)
+
+    def _clear_cooldown_form(self) -> None:
+        for widget in (
+            self.cooldown_action_entry,
+            self.cooldown_name_entry,
+            self.cooldown_ms_entry,
+            self.cooldown_icon_entry,
+        ):
+            if widget:
+                widget.delete(0, tk.END)
+
+    def _browse_cooldown_icon(self) -> None:
+        if not self.cooldown_icon_entry:
+            return
+        path = filedialog.askopenfilename(title="Select Icon")
+        if not path:
+            return
+        self.cooldown_icon_entry.delete(0, tk.END)
+        self.cooldown_icon_entry.insert(0, path)
+
+    def _load_cooldowns_state(self) -> None:
+        if not self.cooldowns_state_path.exists():
+            self.cooldowns_defs = []
+            self._ensure_default_cooldowns()
+            return
+        try:
+            payload = json.loads(self.cooldowns_state_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            self.cooldowns_defs = []
+            self._ensure_default_cooldowns()
+            return
+        cleaned: list[dict[str, object]] = []
+        if isinstance(payload, list):
+            for entry in payload:
+                if not isinstance(entry, dict):
+                    continue
+                action_id = str(entry.get("action_id", "")).strip()
+                name = str(entry.get("name", "")).strip()
+                if not action_id or not name:
+                    continue
+                cooldown_ms = entry.get("cooldown_ms", 0)
                 try:
-                    duration = max(0, int(entry.get("cooldown_ms") or 0)) / 1000
+                    cooldown_ms = max(0, int(cooldown_ms))
                 except (TypeError, ValueError):
-                    duration = self.cooldown_defs.get(action_id, 5)
-                break
-        self.cooldown_expiries[action_id] = time.time() + duration
+                    cooldown_ms = 0
+                cleaned.append(
+                    {
+                        "id": str(entry.get("id") or uuid.uuid4()),
+                        "action_id": action_id,
+                        "name": name,
+                        "cooldown_ms": cooldown_ms,
+                        "icon_path": str(entry.get("icon_path", "")).strip(),
+                    }
+                )
+        self.cooldowns_defs = cleaned
+        self._ensure_default_cooldowns()
 
-    def _schedule_cooldowns_refresh(self) -> None:
-        self._refresh_cooldowns_view()
-        self.root.after(500, self._schedule_cooldowns_refresh)
+    def _save_cooldowns_state(self) -> None:
+        payload = [
+            {
+                "id": str(entry.get("id") or uuid.uuid4()),
+                "action_id": str(entry.get("action_id", "")).strip(),
+                "name": str(entry.get("name", "")).strip(),
+                "cooldown_ms": int(entry.get("cooldown_ms") or 0),
+                "icon_path": str(entry.get("icon_path", "")).strip(),
+            }
+            for entry in self.cooldowns_defs
+            if str(entry.get("action_id", "")).strip() and str(entry.get("name", "")).strip()
+        ]
+        self.cooldowns_state_path.write_text(
+            json.dumps(payload, indent=2, ensure_ascii=True),
+            encoding="utf-8",
+        )
 
-    def _refresh_cooldowns_view(self) -> None:
-        now = time.time()
-        expired = [key for key, expiry in self.cooldown_expiries.items() if expiry <= now]
-        for key in expired:
-            self.cooldown_expiries.pop(key, None)
-        if not self.cooldowns_list or not self.cooldowns_list.winfo_exists():
+    def _ensure_default_cooldowns(self) -> None:
+        if self.cooldowns_defs:
             return
-        self.cooldowns_list.delete(0, tk.END)
-        if not self.cooldown_expiries:
-            self.cooldowns_list.insert(tk.END, "No active cooldowns.")
-            return
-        for action_id, expiry in sorted(self.cooldown_expiries.items()):
-            remaining = max(0, int(expiry - now))
-            self.cooldowns_list.insert(tk.END, f"{action_id} - {remaining}s")
+        defaults = [
+            {
+                "id": str(uuid.uuid4()),
+                "action_id": "HASTE",
+                "name": "Haste",
+                "cooldown_ms": 21000,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "action_id": "FIRE_WAVE",
+                "name": "Fire Wave",
+                "cooldown_ms": 4000,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "action_id": "GEB",
+                "name": "Great Energy Beam",
+                "cooldown_ms": 8000,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "action_id": "EB",
+                "name": "Energy Beam",
+                "cooldown_ms": 6000,
+                "icon_path": "",
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "action_id": "HELLS_CORE",
+                "name": "Hell's Core",
+                "cooldown_ms": 40000,
+                "icon_path": "",
+            },
+        ]
+        self.cooldowns_defs = defaults
+        self._save_cooldowns_state()
 
     def _load_hotkeys_state(self) -> None:
-        if not self.hotkeys_state_path.exists():
+        if not self.hotkeys_json_path.exists():
             self.hotkeys_defs = []
             self._ensure_default_hotkeys()
             return
         try:
-            payload = json.loads(self.hotkeys_state_path.read_text(encoding="utf-8"))
+            payload = json.loads(self.hotkeys_json_path.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             self.hotkeys_defs = []
             self._ensure_default_hotkeys()
             return
-        if isinstance(payload, list):
-            self.hotkeys_defs = [entry for entry in payload if isinstance(entry, dict)]
-        else:
-            self.hotkeys_defs = []
+        cleaned: list[dict[str, object]] = []
+        if isinstance(payload, dict):
+            target_win = str(payload.get("target_win", "")).strip()
+            if target_win:
+                self.hotkeys_target_win = target_win
+            hotkeys_payload = payload.get("hotkeys", [])
+            if isinstance(hotkeys_payload, list):
+                for entry in hotkeys_payload:
+                    if not isinstance(entry, dict):
+                        continue
+                    hotkey = str(entry.get("hotkey", "")).strip()
+                    action = str(entry.get("action", "")).strip()
+                    if not hotkey or not action:
+                        continue
+                    cleaned.append(
+                        {
+                            "id": str(entry.get("id") or uuid.uuid4()),
+                            "hotkey": hotkey,
+                            "action": action,
+                        }
+                    )
+        self.hotkeys_defs = cleaned
         self._ensure_default_hotkeys()
 
     def _save_hotkeys_state(self) -> None:
-        self.hotkeys_state_path.write_text(
-            json.dumps(self.hotkeys_defs, indent=2, ensure_ascii=True),
+        payload = [
+            {
+                "hotkey": str(entry.get("hotkey", "")).strip(),
+                "action": str(entry.get("action", "")).strip(),
+            }
+            for entry in self.hotkeys_defs
+            if str(entry.get("hotkey", "")).strip() and str(entry.get("action", "")).strip()
+        ]
+        data = {"target_win": self.hotkeys_target_win, "hotkeys": payload}
+        self.hotkeys_json_path.write_text(
+            json.dumps(data, indent=2, ensure_ascii=True),
             encoding="utf-8",
         )
 
@@ -1380,97 +1666,62 @@ class TibiaSearchApp:
         defaults = [
             {
                 "id": str(uuid.uuid4()),
-                "name": "F4 (MButton)",
                 "hotkey": "MButton",
-                "action": "{F4}",
-                "cooldown_ms": 0,
-                "icon_path": "",
+                "action": "F4",
             },
             {
                 "id": str(uuid.uuid4()),
-                "name": "F5 (Alt+MButton)",
                 "hotkey": "!MButton",
-                "action": "{F5}",
-                "cooldown_ms": 0,
-                "icon_path": "",
+                "action": "F5",
             },
             {
                 "id": str(uuid.uuid4()),
-                "name": "F6 (Ctrl+MButton)",
                 "hotkey": "^MButton",
-                "action": "{F6}",
-                "cooldown_ms": 0,
-                "icon_path": "",
+                "action": "F6",
             },
             {
                 "id": str(uuid.uuid4()),
-                "name": "F10 (XButton1)",
                 "hotkey": "XButton1",
-                "action": "{F10}",
-                "cooldown_ms": 0,
-                "icon_path": "",
+                "action": "F10",
             },
             {
                 "id": str(uuid.uuid4()),
-                "name": "Haste",
                 "hotkey": "$WheelUp",
-                "action": "!r",
-                "cooldown_ms": 21000,
-                "icon_path": "",
+                "action": "HASTE",
             },
             {
                 "id": str(uuid.uuid4()),
-                "name": "Alt+Q",
                 "hotkey": "$WheelDown",
-                "action": "!q",
-                "cooldown_ms": 0,
-                "icon_path": "",
+                "action": "ALT_Q",
             },
             {
                 "id": str(uuid.uuid4()),
-                "name": "Fire Wave",
                 "hotkey": "~3",
-                "action": "3",
-                "cooldown_ms": 4000,
-                "icon_path": "",
+                "action": "FIRE_WAVE",
             },
             {
                 "id": str(uuid.uuid4()),
-                "name": "Great Energy Beam",
                 "hotkey": "~4",
-                "action": "4",
-                "cooldown_ms": 8000,
-                "icon_path": "",
+                "action": "GEB",
             },
             {
                 "id": str(uuid.uuid4()),
-                "name": "Energy Beam",
                 "hotkey": "~!4",
-                "action": "!4",
-                "cooldown_ms": 6000,
-                "icon_path": "",
+                "action": "EB",
             },
             {
                 "id": str(uuid.uuid4()),
-                "name": "Hell's Core",
                 "hotkey": "~!2",
-                "action": "!2",
-                "cooldown_ms": 40000,
-                "icon_path": "",
+                "action": "HELLS_CORE",
             },
             {
                 "id": str(uuid.uuid4()),
-                "name": "Haste (pass-through)",
                 "hotkey": "~!r",
-                "action": "!r",
-                "cooldown_ms": 21000,
-                "icon_path": "",
+                "action": "HASTE",
             },
         ]
         self.hotkeys_defs = defaults
         self._save_hotkeys_state()
-        mappings = [(entry["hotkey"], entry["action"]) for entry in self.hotkeys_defs]
-        self._write_hotkeys_mappings(mappings)
 
     def _refresh_hotkeys_table(self) -> None:
         if not self.hotkeys_tree or not self.hotkeys_tree.winfo_exists():
@@ -1480,33 +1731,15 @@ class TibiaSearchApp:
             item_id = str(entry.get("id") or uuid.uuid4())
             entry["id"] = item_id
             values = (
-                str(entry.get("name", "")),
                 str(entry.get("hotkey", "")),
                 str(entry.get("action", "")),
-                str(entry.get("cooldown_ms", "")),
-                str(entry.get("icon_path", "")),
             )
             self.hotkeys_tree.insert("", tk.END, iid=item_id, values=values)
 
     def _clear_hotkeys_form(self) -> None:
-        for widget in (
-            self.hotkey_name_entry,
-            self.hotkey_entry,
-            self.action_entry,
-            self.hotkey_cooldown_entry,
-            self.hotkey_icon_entry,
-        ):
+        for widget in (self.hotkey_entry, self.action_entry):
             if widget:
                 widget.delete(0, tk.END)
-
-    def _browse_hotkey_icon(self) -> None:
-        if not self.hotkey_icon_entry:
-            return
-        path = filedialog.askopenfilename(title="Select Icon")
-        if not path:
-            return
-        self.hotkey_icon_entry.delete(0, tk.END)
-        self.hotkey_icon_entry.insert(0, path)
 
     def _open_module_window(self, module_key: str) -> None:
         existing = self.module_windows.get(module_key)
@@ -2674,7 +2907,6 @@ class TibiaSearchApp:
         return f"{value:,}".replace(",", ".") + " gp"
 
     def exit_app(self) -> None:
-        self._ipc_stop_event.set()
         if self._is_hotkeys_running():
             self._stop_hotkeys_script()
         self.root.destroy()
