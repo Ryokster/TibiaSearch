@@ -20,6 +20,7 @@ from history import HistoryManager
 from imbuable_items_data import IMBUABLE_ITEMS_RESOURCE
 from imbuements_data import IMBUEMENTS_RESOURCE
 from scripts.refresh_market_prices import refresh_market_prices
+from modules.credential_store import CredentialNotFoundError, CredentialStoreError, load_credentials
 
 SEARCH_PAGE_URL = "https://tibia.fandom.com/wiki/Special:Search"
 FANDOM_BASE_URL = IMBUEMENTS_RESOURCE.get("wiki_base", "https://tibia.fandom.com/wiki/")
@@ -69,7 +70,7 @@ def build_imbuements(resource: dict[str, object]) -> tuple[Imbuement, ...]:
 IMBUEMENTS = build_imbuements(IMBUEMENTS_RESOURCE)
 
 EQUIPMENT_SLOTS = ("head", "armor", "weapon", "shield", "legs")
-VOCATIONS = ("Druid", "Elder Druid")
+VOCATIONS = ("Elder Druid", "Master Sorcerer", "Elite Knight", "Royal Paladin")
 EQUIPMENT_TAGS = (
     "Normal",
     "Erdresi",
@@ -737,6 +738,13 @@ class TibiaSearchApp:
         self.hotkeys_json_path = self.hotkeys_dir / "hotkeys.json"
         self.hotkeys_events_path = self.hotkeys_dir / "hotkeys_events.log"
         self.hotkeys_cmd_path = self.hotkeys_dir / "hotkeys_cmd.txt"
+        self.tibia_exe_path = Path(r"C:\Users\Administrator\AppData\Local\Tibia\tibia.exe")
+        self.tibia_login_target = "com.tibiasearch.tibia.login.main"
+        self.tibia_paste_script_path = self.hotkeys_dir / "tibia_login_paste.ahk"
+        self.tibia_paste_log_path = self.base_dir / "tibia_paste.log"
+        self.tibia_login_after_id: str | None = None
+        self.tibia_login_remaining = 0
+        self.tibia_login_status_var = tk.StringVar(value="")
         self.hotkeys_process: subprocess.Popen[str] | None = None
         self.hotkeys_tree: ttk.Treeview | None = None
         self.hotkey_entry: ttk.Entry | None = None
@@ -928,6 +936,18 @@ class TibiaSearchApp:
         self.top_button.grid(row=1, column=0, sticky="ew", padx=6, pady=4)
         ttk.Button(actions_frame, text="Log", command=self.open_request_log).grid(
             row=2, column=0, sticky="ew", padx=6, pady=(4, 6)
+        )
+        ttk.Button(actions_frame, text="Start Tibia", command=lambda: self._start_tibia(False)).grid(
+            row=3, column=0, sticky="ew", padx=6, pady=(4, 4)
+        )
+        ttk.Button(actions_frame, text="Start Tibia (Admin)", command=lambda: self._start_tibia(True)).grid(
+            row=4, column=0, sticky="ew", padx=6, pady=(0, 6)
+        )
+        ttk.Button(actions_frame, text="Copy Tibia Password", command=self._copy_tibia_password).grid(
+            row=5, column=0, sticky="ew", padx=6, pady=(0, 6)
+        )
+        ttk.Label(actions_frame, textvariable=self.tibia_login_status_var).grid(
+            row=6, column=0, sticky="w", padx=6, pady=(0, 6)
         )
 
         history_frame = ttk.LabelFrame(content_frame, text="Search History")
@@ -2910,6 +2930,159 @@ class TibiaSearchApp:
         if self._is_hotkeys_running():
             self._stop_hotkeys_script()
         self.root.destroy()
+
+    def _start_tibia(self, as_admin: bool) -> None:
+        if not self.tibia_exe_path.exists():
+            messagebox.showerror("Tibia Missing", f"Missing Tibia executable: {self.tibia_exe_path}")
+            return
+        try:
+            if as_admin:
+                ctypes.windll.shell32.ShellExecuteW(
+                    None,
+                    "runas",
+                    str(self.tibia_exe_path),
+                    None,
+                    None,
+                    1,
+                )
+            else:
+                subprocess.Popen([str(self.tibia_exe_path)])
+            self._schedule_tibia_login()
+        except OSError as exc:
+            messagebox.showerror("Tibia Error", f"Failed to start Tibia: {exc}")
+
+    def _schedule_tibia_login(self) -> None:
+        if self.tibia_login_after_id is not None:
+            self.root.after_cancel(self.tibia_login_after_id)
+            self.tibia_login_after_id = None
+        self.tibia_login_remaining = 20
+        self.tibia_login_status_var.set("Tibia login in 20s")
+        self._log_tibia_paste("Timer started (20s).")
+        self.tibia_login_after_id = self.root.after(1000, self._tick_tibia_login)
+
+    def _tick_tibia_login(self) -> None:
+        self.tibia_login_remaining -= 1
+        if self.tibia_login_remaining <= 0:
+            self.tibia_login_after_id = None
+            self.tibia_login_status_var.set("Sending password...")
+            self._log_tibia_paste("Timer elapsed. Sending password.")
+            self._send_tibia_password()
+            return
+        self.tibia_login_status_var.set(f"Tibia login in {self.tibia_login_remaining}s")
+        self.tibia_login_after_id = self.root.after(1000, self._tick_tibia_login)
+
+    def _send_tibia_password(self) -> None:
+        try:
+            _username, password = load_credentials(self.tibia_login_target)
+        except CredentialNotFoundError:
+            self.tibia_login_status_var.set("")
+            messagebox.showerror(
+                "Credentials Missing",
+                f"No credentials found for target '{self.tibia_login_target}'.",
+            )
+            return
+        except CredentialStoreError as exc:
+            self.tibia_login_status_var.set("")
+            messagebox.showerror("Credential Error", str(exc))
+            return
+
+        hwnd = self._find_tibia_window()
+        if hwnd is None or not ctypes.windll.user32.SetForegroundWindow(hwnd):
+            self.tibia_login_status_var.set("")
+            messagebox.showerror("Tibia Window", "Tibia window not found or not focusable.")
+            return
+
+        self.tibia_login_status_var.set("Preparing paste...")
+        self._log_tibia_paste("Tibia window focused. Preparing paste.")
+        self.root.after(200, lambda: self._finish_tibia_login(password))
+
+    def _finish_tibia_login(self, password: str) -> None:
+        if not self._set_clipboard_text(password):
+            messagebox.showerror("Clipboard Error", "Failed to copy password to clipboard.")
+            return
+        self.tibia_login_status_var.set("Clipboard set, running paste script...")
+        self._log_tibia_paste("Clipboard set. Launching paste script.")
+        self._run_tibia_paste_script()
+
+    def _copy_tibia_password(self) -> None:
+        try:
+            _username, password = load_credentials(self.tibia_login_target)
+        except CredentialNotFoundError:
+            messagebox.showerror(
+                "Credentials Missing",
+                f"No credentials found for target '{self.tibia_login_target}'.",
+            )
+            return
+        except CredentialStoreError as exc:
+            messagebox.showerror("Credential Error", str(exc))
+            return
+        if not self._set_clipboard_text(password):
+            messagebox.showerror("Clipboard Error", "Failed to copy password to clipboard.")
+            return
+        messagebox.showinfo("Clipboard", "Password copied to clipboard.")
+
+    def _find_tibia_window(self) -> int | None:
+        user32 = ctypes.windll.user32
+        results: list[int] = []
+
+        @ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
+        def enum_proc(hwnd: int, _lparam: int) -> bool:
+            if not user32.IsWindowVisible(hwnd):
+                return True
+            length = user32.GetWindowTextLengthW(hwnd)
+            if length <= 0:
+                return True
+            buffer = ctypes.create_unicode_buffer(length + 1)
+            user32.GetWindowTextW(hwnd, buffer, length + 1)
+            title = buffer.value
+            if "tibia" in title.casefold():
+                results.append(hwnd)
+                return False
+            return True
+
+        user32.EnumWindows(enum_proc, 0)
+        return results[0] if results else None
+
+    def _set_clipboard_text(self, text: str) -> bool:
+        try:
+            self.root.clipboard_clear()
+            self.root.clipboard_append(text)
+            self.root.update_idletasks()
+            return True
+        except tk.TclError:
+            return False
+
+    def _run_tibia_paste_script(self) -> None:
+        if not self.tibia_paste_script_path.exists():
+            messagebox.showerror(
+                "Paste Script Missing",
+                f"Missing script: {self.tibia_paste_script_path}",
+            )
+            self._log_tibia_paste("Paste script missing.")
+            return
+        ahk_exe = self._resolve_ahk_exe()
+        if not ahk_exe:
+            messagebox.showerror(
+                "AutoHotkey Missing",
+                "AutoHotkey v2 was not found in PATH or the default install location.",
+            )
+            self._log_tibia_paste("AutoHotkey missing.")
+            return
+        try:
+            subprocess.Popen([ahk_exe, str(self.tibia_paste_script_path)])
+            self.tibia_login_status_var.set("Paste script started.")
+            self._log_tibia_paste(f"Paste script started via: {ahk_exe}")
+        except OSError as exc:
+            messagebox.showerror("AutoHotkey Error", f"Failed to start paste script: {exc}")
+            self._log_tibia_paste(f"Paste script failed: {exc}")
+
+    def _log_tibia_paste(self, message: str) -> None:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        try:
+            with self.tibia_paste_log_path.open("a", encoding="utf-8", errors="replace") as handle:
+                handle.write(f"[{timestamp}] {message}\n")
+        except Exception:
+            pass
 
     def open_character_window(self) -> None:
         if self.character_window and self.character_window.window.winfo_exists():
