@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "center_x": 960,
+  "center_y": 540,
+  "offset_x": -34,
+  "offset_y": -117,
+  "cell_size": 68,
+  "line_color": "#FF0000"
+}

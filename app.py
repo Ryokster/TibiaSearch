@@ -21,6 +21,8 @@ from imbuable_items_data import IMBUABLE_ITEMS_RESOURCE
 from imbuements_data import IMBUEMENTS_RESOURCE
 from scripts.refresh_market_prices import refresh_market_prices
 from modules.credential_store import CredentialNotFoundError, CredentialStoreError, load_credentials
+from modules.grid_overlay import GridOverlay
+from modules.grid_cone_overlay import GridConeOverlay
 
 SEARCH_PAGE_URL = "https://tibia.fandom.com/wiki/Special:Search"
 FANDOM_BASE_URL = IMBUEMENTS_RESOURCE.get("wiki_base", "https://tibia.fandom.com/wiki/")
@@ -758,14 +760,24 @@ class TibiaSearchApp:
         self.hotkeys_admin_state: bool | None = None
         self.python_is_admin = self._is_admin()
         self.cooldowns_state_path = self.base_dir / "cooldowns_state.json"
+        self.grid_overlay_state_path = self.base_dir / "grid_overlay_state.json"
         self.cooldowns_tree: ttk.Treeview | None = None
         self.cooldown_action_entry: ttk.Entry | None = None
         self.cooldown_name_entry: ttk.Entry | None = None
         self.cooldown_ms_entry: ttk.Entry | None = None
         self.cooldown_icon_entry: ttk.Entry | None = None
         self.cooldowns_defs: list[dict[str, object]] = []
+        self.grid_overlay = GridOverlay(self.root, on_change=self._save_grid_overlay_state)
+        self.grid_cone_overlay = GridConeOverlay(self.grid_overlay, title="Cone Great Firewave")
+        self.grid_cone_overlay_alt = GridConeOverlay(
+            self.grid_overlay,
+            title="Cone Great Energybeam",
+            pattern=(1, 1, 3, 3, 3),
+        )
+        self.grid_cone_overlay_alt.line_color = "#3366cc"
 
         self._apply_fantasy_theme()
+        self._load_grid_overlay_state()
         self._build_ui()
         self._bind_events()
         self._refresh_history_list()
@@ -916,14 +928,24 @@ class TibiaSearchApp:
         ).grid(row=3, column=0, sticky="ew", padx=6, pady=4)
         ttk.Button(
             modules_frame,
+            text="Grid Overlay",
+            command=lambda: self._open_module_window("grid_overlay"),
+        ).grid(row=4, column=0, sticky="ew", padx=6, pady=4)
+        ttk.Button(
+            modules_frame,
+            text="Grid Cones",
+            command=lambda: self._open_module_window("grid_cones"),
+        ).grid(row=5, column=0, sticky="ew", padx=6, pady=4)
+        ttk.Button(
+            modules_frame,
             text="Cooldowns",
             command=lambda: self._open_module_window("cooldowns"),
-        ).grid(row=4, column=0, sticky="ew", padx=6, pady=(4, 6))
+        ).grid(row=6, column=0, sticky="ew", padx=6, pady=(4, 6))
         ttk.Button(
             modules_frame,
             text="Hunting Ground",
             command=lambda: self._open_module_window("hunting_ground"),
-        ).grid(row=5, column=0, sticky="ew", padx=6, pady=(4, 6))
+        ).grid(row=7, column=0, sticky="ew", padx=6, pady=(4, 6))
 
         actions_frame = ttk.LabelFrame(left_frame, text="Actions")
         actions_frame.grid(row=1, column=0, sticky="nsew")
@@ -1055,6 +1077,18 @@ class TibiaSearchApp:
         ttk.Button(actions_frame, text="Restart as Admin", command=self._restart_hotkeys_as_admin).grid(
             row=0, column=4, sticky="w", padx=(6, 0)
         )
+
+    def _build_grid_overlay_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        settings_frame = self.grid_overlay.build_settings_frame(parent)
+        settings_frame.grid(row=0, column=0, sticky="nw", padx=8, pady=8)
+
+    def _build_grid_cones_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        settings_frame = self.grid_cone_overlay.build_settings_frame(parent)
+        settings_frame.grid(row=0, column=0, sticky="nw", padx=8, pady=(8, 4))
+        alt_frame = self.grid_cone_overlay_alt.build_settings_frame(parent)
+        alt_frame.grid(row=1, column=0, sticky="nw", padx=8, pady=(4, 8))
 
     def _build_cooldowns_tab(self, parent: ttk.Frame) -> None:
         parent.columnconfigure(0, weight=1)
@@ -1665,6 +1699,46 @@ class TibiaSearchApp:
         self.hotkeys_defs = cleaned
         self._ensure_default_hotkeys()
 
+    def _load_grid_overlay_state(self) -> None:
+        if not self.grid_overlay_state_path.exists():
+            return
+        try:
+            payload = json.loads(self.grid_overlay_state_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            return
+        if not isinstance(payload, dict):
+            return
+
+        updates: dict[str, int | bool] = {}
+        if "enabled" in payload:
+            raw_enabled = payload.get("enabled")
+            if isinstance(raw_enabled, bool):
+                updates["enabled"] = raw_enabled
+            else:
+                updates["enabled"] = str(raw_enabled).strip().lower() in {"1", "true", "yes", "on"}
+        for key in ("offset_x", "offset_y", "center_x", "center_y"):
+            if key not in payload:
+                continue
+            updates[key] = _parse_int_safe(str(payload.get(key, 0)))
+        if "cell_size" in payload:
+            cell_size = _parse_int_safe(str(payload.get("cell_size", 0)))
+            updates["cell_size"] = max(
+                self.grid_overlay.MIN_CELL_SIZE,
+                min(self.grid_overlay.MAX_CELL_SIZE, cell_size),
+            )
+        if "line_color" in payload:
+            color = str(payload.get("line_color", "")).strip()
+            if color:
+                updates["line_color"] = color
+        self.grid_overlay.apply_settings(**updates, notify=False)
+
+    def _save_grid_overlay_state(self) -> None:
+        payload = self.grid_overlay.get_state()
+        self.grid_overlay_state_path.write_text(
+            json.dumps(payload, indent=2, ensure_ascii=True),
+            encoding="utf-8",
+        )
+
     def _save_hotkeys_state(self) -> None:
         payload = [
             {
@@ -1776,6 +1850,8 @@ class TibiaSearchApp:
                 "items": "Tibia Items",
                 "hunts": "Hunts",
                 "hotkeys": "Hotkeys",
+                "grid_overlay": "Grid Overlay",
+                "grid_cones": "Grid Cones",
                 "cooldowns": "Cooldowns",
                 "hunting_ground": "Hunting Ground",
             }.get(module_key, "Module")
@@ -1804,6 +1880,10 @@ class TibiaSearchApp:
         elif module_key == "hotkeys":
             self._build_hotkeys_tab(container)
             self._load_hotkeys_table()
+        elif module_key == "grid_overlay":
+            self._build_grid_overlay_tab(container)
+        elif module_key == "grid_cones":
+            self._build_grid_cones_tab(container)
         elif module_key == "cooldowns":
             self._build_cooldowns_tab(container)
         elif module_key == "hunting_ground":
@@ -2166,6 +2246,7 @@ class TibiaSearchApp:
     def _bind_events(self) -> None:
         self.search_entry.bind("<Return>", lambda _event: self.perform_search())
         self.search_entry.bind("<Escape>", lambda _event: self.clear_entry())
+        self.root.bind_all("<KeyPress>", self._on_movement_key, add=True)
 
         self.history_list.bind("<ButtonRelease-1>", self.load_from_history)
         self.history_list.bind("<Double-Button-1>", lambda _event: self.search_from_history())
@@ -2199,6 +2280,17 @@ class TibiaSearchApp:
 
     def clear_entry(self) -> None:
         self.search_entry.delete(0, tk.END)
+
+    def _on_movement_key(self, event: tk.Event) -> None:
+        if isinstance(event.widget, (tk.Entry, tk.Text, ttk.Entry, ttk.Combobox)):
+            return
+        key = event.keysym.lower()
+        direction_map = {"w": "UP", "d": "RIGHT", "s": "DOWN", "a": "LEFT"}
+        direction = direction_map.get(key)
+        if not direction:
+            return
+        self.grid_cone_overlay.set_direction(direction)
+        self.grid_cone_overlay_alt.set_direction(direction)
 
     def _collect_imbuement_material_names(self) -> set[str]:
         names: set[str] = set()
@@ -2929,6 +3021,9 @@ class TibiaSearchApp:
     def exit_app(self) -> None:
         if self._is_hotkeys_running():
             self._stop_hotkeys_script()
+        self.grid_cone_overlay.shutdown()
+        self.grid_cone_overlay_alt.shutdown()
+        self.grid_overlay.shutdown()
         self.root.destroy()
 
     def _start_tibia(self, as_admin: bool) -> None:
