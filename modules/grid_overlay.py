@@ -29,6 +29,7 @@ class GridOverlay:
         self._suppress_ui = False
         self._on_change = on_change
         self._extra_painters: list[Callable[[tk.Canvas], None]] = []
+        self._aux_visible_sources: set[object] = set()
 
         self._set_default_center()
 
@@ -63,6 +64,7 @@ class GridOverlay:
             self._window.destroy()
         self._window = None
         self._canvas = None
+        self._aux_visible_sources.clear()
 
     def register_painter(self, painter: Callable[[tk.Canvas], None]) -> None:
         if painter in self._extra_painters:
@@ -74,6 +76,16 @@ class GridOverlay:
         if painter in self._extra_painters:
             self._extra_painters.remove(painter)
             self.request_repaint()
+
+    def set_auxiliary_visibility(self, source: object, visible: bool) -> None:
+        if visible:
+            self._aux_visible_sources.add(source)
+        else:
+            self._aux_visible_sources.discard(source)
+        self._sync_visibility()
+
+    def _is_visible(self) -> bool:
+        return self.enabled or bool(self._aux_visible_sources)
 
     def build_settings_frame(self, parent: ttk.Frame) -> ttk.LabelFrame:
         frame = ttk.LabelFrame(parent, text="Grid Settings")
@@ -203,17 +215,19 @@ class GridOverlay:
 
         if not changed:
             return
+        self._sync_visibility()
 
-        if self.enabled:
+        self._sync_ui()
+        if notify and self._on_change:
+            self._on_change()
+
+    def _sync_visibility(self) -> None:
+        if self._is_visible():
             self._ensure_window()
             self._show()
             self._repaint()
         else:
             self._hide()
-
-        self._sync_ui()
-        if notify and self._on_change:
-            self._on_change()
 
     def _sync_ui(self) -> None:
         if not self._settings_vars:
@@ -256,34 +270,35 @@ class GridOverlay:
         grid_width = (self.range_x * 2 + 1) * self.cell_size
         grid_height = (self.range_y * 2 + 1) * self.cell_size
 
-        dash_pattern = (4, 4)
-        line_color = self.line_color
+        if self.enabled:
+            dash_pattern = (4, 4)
+            line_color = self.line_color
 
-        for index in range(self.range_x * 2 + 2):
-            x = origin_x + index * self.cell_size
-            self._canvas.create_line(
-                x,
-                origin_y,
-                x,
-                origin_y + grid_height,
-                fill=line_color,
-                width=1,
-                dash=dash_pattern,
-                tags="grid",
-            )
+            for index in range(self.range_x * 2 + 2):
+                x = origin_x + index * self.cell_size
+                self._canvas.create_line(
+                    x,
+                    origin_y,
+                    x,
+                    origin_y + grid_height,
+                    fill=line_color,
+                    width=1,
+                    dash=dash_pattern,
+                    tags="grid",
+                )
 
-        for index in range(self.range_y * 2 + 2):
-            y = origin_y + index * self.cell_size
-            self._canvas.create_line(
-                origin_x,
-                y,
-                origin_x + grid_width,
-                y,
-                fill=line_color,
-                width=1,
-                dash=dash_pattern,
-                tags="grid",
-            )
+            for index in range(self.range_y * 2 + 2):
+                y = origin_y + index * self.cell_size
+                self._canvas.create_line(
+                    origin_x,
+                    y,
+                    origin_x + grid_width,
+                    y,
+                    fill=line_color,
+                    width=1,
+                    dash=dash_pattern,
+                    tags="grid",
+                )
 
         for painter in tuple(self._extra_painters):
             painter(self._canvas)
@@ -291,7 +306,7 @@ class GridOverlay:
         self._canvas.update_idletasks()
 
     def request_repaint(self) -> None:
-        if self.enabled:
+        if self._is_visible():
             self._repaint()
 
     def get_origin(self) -> tuple[int, int]:

@@ -744,6 +744,9 @@ class TibiaSearchApp:
         self.tibia_login_target = "com.tibiasearch.tibia.login.main"
         self.tibia_paste_script_path = self.hotkeys_dir / "tibia_login_paste.ahk"
         self.tibia_paste_log_path = self.base_dir / "tibia_paste.log"
+        self.cone_script_path = self.hotkeys_dir / "tibia_cones.ahk"
+        self.cone_events_path = self.hotkeys_dir / "cone_events.log"
+        self.cone_process: subprocess.Popen[str] | None = None
         self.tibia_login_after_id: str | None = None
         self.tibia_login_remaining = 0
         self.tibia_login_status_var = tk.StringVar(value="")
@@ -758,6 +761,8 @@ class TibiaSearchApp:
         self.hotkeys_target_win = "ahk_exe client.exe"
         self.hotkeys_defs: list[dict[str, object]] = []
         self.hotkeys_admin_state: bool | None = None
+        self._cone_events_pos = 0
+        self._cone_events_buffer = ""
         self.python_is_admin = self._is_admin()
         self.cooldowns_state_path = self.base_dir / "cooldowns_state.json"
         self.grid_overlay_state_path = self.base_dir / "grid_overlay_state.json"
@@ -768,9 +773,14 @@ class TibiaSearchApp:
         self.cooldown_icon_entry: ttk.Entry | None = None
         self.cooldowns_defs: list[dict[str, object]] = []
         self.grid_overlay = GridOverlay(self.root, on_change=self._save_grid_overlay_state)
-        self.grid_cone_overlay = GridConeOverlay(self.grid_overlay, title="Cone Great Firewave")
+        self.grid_cone_overlay = GridConeOverlay(
+            self.grid_overlay,
+            on_change=self._on_cones_change,
+            title="Cone Great Firewave",
+        )
         self.grid_cone_overlay_alt = GridConeOverlay(
             self.grid_overlay,
+            on_change=self._on_cones_change,
             title="Cone Great Energybeam",
             pattern=(1, 1, 3, 3, 3),
         )
@@ -783,6 +793,7 @@ class TibiaSearchApp:
         self._refresh_history_list()
         self._start_market_refresh()
         self._schedule_hotkeys_status_refresh()
+        self._schedule_cone_events_poll()
 
         self.root.protocol("WM_DELETE_WINDOW", self.exit_app)
 
@@ -1197,6 +1208,11 @@ class TibiaSearchApp:
         if not self.hotkeys_json_path.exists():
             self._ensure_default_hotkeys()
 
+    def _ensure_cones_files(self) -> None:
+        self.hotkeys_dir.mkdir(parents=True, exist_ok=True)
+        if not self.cone_events_path.exists():
+            self.cone_events_path.write_text("", encoding="utf-8")
+
     def _load_hotkeys_table(self) -> None:
         if not self.hotkeys_tree or not self.hotkeys_tree.winfo_exists():
             return
@@ -1334,16 +1350,104 @@ class TibiaSearchApp:
         self._stop_hotkeys_script()
         self._start_hotkeys_script()
 
+    def _is_cones_running(self) -> bool:
+        return self.cone_process is not None and self.cone_process.poll() is None
+
+    def _start_cones_script(self) -> None:
+        if self._is_cones_running():
+            return
+        self._ensure_cones_files()
+        if not self.cone_script_path.exists():
+            messagebox.showerror(
+                "AutoHotkey Script Missing",
+                f"Missing script: {self.cone_script_path}",
+            )
+            return
+        ahk_exe = self._resolve_ahk_exe()
+        if not ahk_exe:
+            messagebox.showerror(
+                "AutoHotkey Missing",
+                "AutoHotkey v2 was not found in PATH or the default install location.",
+            )
+            return
+        try:
+            self.cone_process = subprocess.Popen([ahk_exe, str(self.cone_script_path)])
+        except OSError as exc:
+            messagebox.showerror("AutoHotkey Error", f"Failed to start AutoHotkey: {exc}")
+
+    def _stop_cones_script(self) -> None:
+        if not self._is_cones_running():
+            return
+        if self.cone_process:
+            self.cone_process.terminate()
+            try:
+                self.cone_process.wait(timeout=2)
+            except subprocess.TimeoutExpired:
+                self.cone_process.kill()
+        self.cone_process = None
+
     def _schedule_hotkeys_status_refresh(self) -> None:
         self.hotkeys_status_var.set("Running" if self._is_hotkeys_running() else "Stopped")
         self._refresh_hotkeys_admin_status()
         self.root.after(1000, self._schedule_hotkeys_status_refresh)
+
+    def _schedule_cone_events_poll(self) -> None:
+        self._poll_cone_events()
+        self.root.after(100, self._schedule_cone_events_poll)
+
+    def _poll_cone_events(self) -> None:
+        if not self.cone_events_path.exists():
+            return
+        try:
+            with self.cone_events_path.open("rb") as handle:
+                handle.seek(0, 2)
+                size = handle.tell()
+                if size < self._cone_events_pos:
+                    self._cone_events_pos = 0
+                    self._cone_events_buffer = ""
+                handle.seek(self._cone_events_pos)
+                payload = handle.read()
+                self._cone_events_pos = handle.tell()
+        except OSError:
+            return
+
+        if not payload:
+            return
+
+        text = payload.decode("utf-8", errors="ignore")
+        self._cone_events_buffer += text
+        lines = self._cone_events_buffer.splitlines()
+        if self._cone_events_buffer and not self._cone_events_buffer.endswith(("\n", "\r")):
+            self._cone_events_buffer = lines.pop() if lines else self._cone_events_buffer
+        else:
+            self._cone_events_buffer = ""
+
+        for line in lines:
+            cleaned = line.strip()
+            if not cleaned.startswith("MOVE|"):
+                continue
+            direction = None
+            for part in cleaned.split("|")[1:]:
+                if part.startswith("dir="):
+                    direction = part[4:].strip().upper()
+                    break
+            if direction in {"UP", "RIGHT", "DOWN", "LEFT"}:
+                self._set_cone_direction(direction)
 
     def _toggle_overlay(self) -> None:
         self._ensure_hotkeys_files()
         self._send_hotkeys_command("TOGGLE_OVERLAY")
         current = self.hotkeys_overlay_var.get()
         self.hotkeys_overlay_var.set("Overlay: On" if "Off" in current else "Overlay: Off")
+
+    def _are_cones_enabled(self) -> bool:
+        return bool(self.grid_cone_overlay.enabled or self.grid_cone_overlay_alt.enabled)
+
+    def _on_cones_change(self) -> None:
+        if self._are_cones_enabled():
+            self._start_cones_script()
+        else:
+            self._stop_cones_script()
 
     def _send_hotkeys_command(self, command: str) -> None:
         payload = f"{command}\n"
@@ -2289,6 +2393,9 @@ class TibiaSearchApp:
         direction = direction_map.get(key)
         if not direction:
             return
+        self._set_cone_direction(direction)
+
+    def _set_cone_direction(self, direction: str) -> None:
         self.grid_cone_overlay.set_direction(direction)
         self.grid_cone_overlay_alt.set_direction(direction)
 
@@ -3021,6 +3128,8 @@ class TibiaSearchApp:
     def exit_app(self) -> None:
         if self._is_hotkeys_running():
             self._stop_hotkeys_script()
+        if self._is_cones_running():
+            self._stop_cones_script()
         self.grid_cone_overlay.shutdown()
         self.grid_cone_overlay_alt.shutdown()
         self.grid_overlay.shutdown()

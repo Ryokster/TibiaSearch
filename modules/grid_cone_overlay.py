@@ -22,6 +22,10 @@ class GridConeOverlay:
         self.enabled = False
         self.direction = "UP"
         self.line_color = "#cc3333"
+        self.opacity = 50
+        self.stipple = self._opacity_to_stipple(self.opacity)
+        self.frame_color = "#ffffff"
+        self.frame_width = 5
         self.pattern = pattern
         self.title = title
         self._settings_vars: dict[str, tk.Variable] = {}
@@ -39,10 +43,12 @@ class GridConeOverlay:
             self.grid_overlay.unregister_painter(self.draw)
         self.grid_overlay = grid_overlay_instance
         self.grid_overlay.register_painter(self.draw)
+        self.grid_overlay.set_auxiliary_visibility(self, self.enabled)
         self.request_repaint()
 
     def shutdown(self) -> None:
         if self.grid_overlay is not None:
+            self.grid_overlay.set_auxiliary_visibility(self, False)
             self.grid_overlay.unregister_painter(self.draw)
         self.grid_overlay = None
 
@@ -51,8 +57,16 @@ class GridConeOverlay:
         frame.columnconfigure(1, weight=1)
 
         enabled_var = tk.BooleanVar(value=self.enabled)
+        opacity_var = tk.StringVar(value=str(self.opacity))
+        frame_color_var = tk.StringVar(value=self.frame_color)
+        frame_width_var = tk.StringVar(value=str(self.frame_width))
 
-        self._settings_vars = {"enabled": enabled_var}
+        self._settings_vars = {
+            "enabled": enabled_var,
+            "opacity": opacity_var,
+            "frame_color": frame_color_var,
+            "frame_width": frame_width_var,
+        }
 
         ttk.Checkbutton(frame, text="Enabled", variable=enabled_var, command=self._apply_from_ui).grid(
             row=0,
@@ -63,7 +77,30 @@ class GridConeOverlay:
             pady=(6, 2),
         )
 
+        ttk.Label(frame, text="Opacity").grid(row=1, column=0, sticky="w", padx=6, pady=2)
+        opacity_combo = ttk.Combobox(
+            frame,
+            textvariable=opacity_var,
+            values=("100", "75", "50", "25"),
+            width=6,
+            state="readonly",
+        )
+        opacity_combo.grid(row=1, column=1, sticky="w", padx=6, pady=2)
+
+        ttk.Label(frame, text="Frame Color").grid(row=2, column=0, sticky="w", padx=6, pady=2)
+        ttk.Entry(frame, textvariable=frame_color_var, width=10).grid(
+            row=2, column=1, sticky="w", padx=6, pady=2
+        )
+
+        ttk.Label(frame, text="Frame Width").grid(row=3, column=0, sticky="w", padx=6, pady=(2, 6))
+        ttk.Entry(frame, textvariable=frame_width_var, width=6).grid(
+            row=3, column=1, sticky="w", padx=6, pady=(2, 6)
+        )
+
         enabled_var.trace_add("write", lambda *_args: self._apply_from_ui())
+        opacity_var.trace_add("write", lambda *_args: self._apply_from_ui())
+        frame_color_var.trace_add("write", lambda *_args: self._apply_from_ui())
+        frame_width_var.trace_add("write", lambda *_args: self._apply_from_ui())
 
         return frame
 
@@ -71,13 +108,32 @@ class GridConeOverlay:
         if self._suppress_ui or not self._settings_vars:
             return
         enabled = bool(self._settings_vars["enabled"].get())
-        self.apply_settings(enabled=enabled)
+        opacity_raw = str(self._settings_vars["opacity"].get()).strip()
+        frame_color = str(self._settings_vars["frame_color"].get()).strip()
+        frame_width_raw = str(self._settings_vars["frame_width"].get()).strip()
+        try:
+            opacity = int(opacity_raw)
+        except (TypeError, ValueError):
+            opacity = None
+        try:
+            frame_width = int(frame_width_raw)
+        except (TypeError, ValueError):
+            frame_width = None
+        self.apply_settings(
+            enabled=enabled,
+            opacity=opacity,
+            frame_color=frame_color or None,
+            frame_width=frame_width,
+        )
 
     def apply_settings(
         self,
         *,
         enabled: bool | None = None,
         direction: str | None = None,
+        opacity: int | None = None,
+        frame_color: str | None = None,
+        frame_width: int | None = None,
         notify: bool = True,
     ) -> None:
         changed = False
@@ -90,11 +146,27 @@ class GridConeOverlay:
             if direction in self.DIRECTIONS and direction != self.direction:
                 self.direction = direction
                 changed = True
+        if opacity is not None:
+            opacity = max(25, min(100, opacity))
+            if opacity != self.opacity:
+                self.opacity = opacity
+                self.stipple = self._opacity_to_stipple(self.opacity)
+                changed = True
+        if frame_color is not None and frame_color != self.frame_color:
+            self.frame_color = frame_color
+            changed = True
+        if frame_width is not None:
+            frame_width = max(0, min(10, frame_width))
+            if frame_width != self.frame_width:
+                self.frame_width = frame_width
+                changed = True
 
         if not changed:
             return
 
         self._sync_ui()
+        if self.grid_overlay:
+            self.grid_overlay.set_auxiliary_visibility(self, self.enabled)
         self.request_repaint()
         if notify and self._on_change:
             self._on_change()
@@ -105,6 +177,9 @@ class GridConeOverlay:
         self._suppress_ui = True
         try:
             self._settings_vars["enabled"].set(self.enabled)
+            self._settings_vars["opacity"].set(str(self.opacity))
+            self._settings_vars["frame_color"].set(self.frame_color)
+            self._settings_vars["frame_width"].set(str(self.frame_width))
         finally:
             self._suppress_ui = False
 
@@ -158,7 +233,7 @@ class GridConeOverlay:
 
     def draw(self, canvas: tk.Canvas) -> None:
         grid = self.grid_overlay
-        if not self.enabled or not grid or not grid.enabled:
+        if not self.enabled or not grid:
             return
         for cell_x, cell_y in self.compute_cells():
             x1, y1, x2, y2 = grid.get_cell_rect(cell_x, cell_y)
@@ -171,34 +246,62 @@ class GridConeOverlay:
         if width <= 0 or height <= 0:
             return
 
+        if self.frame_width > 0:
+            canvas.create_rectangle(
+                x1,
+                y1,
+                x2,
+                y2,
+                outline=self.frame_color,
+                width=self.frame_width,
+                tags="overlay",
+            )
+
+        line_width = self._line_width_for_opacity(self.opacity)
         x = x1
         while x < x2:
             length = min(x2 - x, height)
-            canvas.create_line(
-                x,
-                y1,
-                x + length,
-                y1 + length,
-                fill=self.line_color,
-                width=1,
-                tags="overlay",
-            )
+            line_kwargs = {
+                "fill": self.line_color,
+                "width": line_width,
+                "tags": "overlay",
+            }
+            if self.stipple:
+                line_kwargs["stipple"] = self.stipple
+            canvas.create_line(x, y1, x + length, y1 + length, **line_kwargs)
             x += step
 
         y = y1 + step
         while y < y2:
             length = min(width, y2 - y)
-            canvas.create_line(
-                x1,
-                y,
-                x1 + length,
-                y + length,
-                fill=self.line_color,
-                width=1,
-                tags="overlay",
-            )
+            line_kwargs = {
+                "fill": self.line_color,
+                "width": line_width,
+                "tags": "overlay",
+            }
+            if self.stipple:
+                line_kwargs["stipple"] = self.stipple
+            canvas.create_line(x1, y, x1 + length, y + length, **line_kwargs)
             y += step
 
     def request_repaint(self) -> None:
         if self.grid_overlay:
             self.grid_overlay.request_repaint()
+
+    @staticmethod
+    def _opacity_to_stipple(opacity: int) -> str:
+        if opacity >= 100:
+            return ""
+        if opacity >= 75:
+            return "gray75"
+        if opacity >= 50:
+            return "gray50"
+        return "gray50"
+
+    @staticmethod
+    def _line_width_for_opacity(opacity: int) -> int:
+        if opacity >= 100:
+            return 2
+        if opacity >= 75:
+            return 1
+        return 1
