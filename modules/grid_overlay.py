@@ -30,6 +30,7 @@ class GridOverlay:
         self._on_change = on_change
         self._extra_painters: list[Callable[[tk.Canvas], None]] = []
         self._aux_visible_sources: set[object] = set()
+        self._change_listeners: list[Callable[[], None]] = []
 
         self._set_default_center()
 
@@ -76,6 +77,19 @@ class GridOverlay:
         if painter in self._extra_painters:
             self._extra_painters.remove(painter)
             self.request_repaint()
+
+    def register_change_listener(self, listener: Callable[[], None]) -> None:
+        if listener in self._change_listeners:
+            return
+        self._change_listeners.append(listener)
+
+    def unregister_change_listener(self, listener: Callable[[], None]) -> None:
+        if listener in self._change_listeners:
+            self._change_listeners.remove(listener)
+
+    def _notify_change_listeners(self) -> None:
+        for listener in tuple(self._change_listeners):
+            listener()
 
     def set_auxiliary_visibility(self, source: object, visible: bool) -> None:
         if visible:
@@ -218,6 +232,7 @@ class GridOverlay:
         self._sync_visibility()
 
         self._sync_ui()
+        self._notify_change_listeners()
         if notify and self._on_change:
             self._on_change()
 

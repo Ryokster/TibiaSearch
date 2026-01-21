@@ -3294,10 +3294,16 @@ class TibiaSearchApp:
             self.character_window.window.lift()
             self.character_window.window.focus_force()
             return
+        market_price_lookup: dict[str, int] = {}
+        for item in (*self.creature_products, *self.delivery_items):
+            key = item.name.casefold()
+            gold = int(item.gold or 0)
+            if key not in market_price_lookup or gold > market_price_lookup[key]:
+                market_price_lookup[key] = gold
         self.character_window = CharacterWindow(
             self.root,
             self.character_store,
-            self.store,
+            market_price_lookup,
             self._on_character_window_closed,
         )
 
@@ -3310,12 +3316,12 @@ class CharacterWindow:
         self,
         root: tk.Tk,
         store: CharacterStore,
-        price_store: ImbuementStore,
+        market_price_lookup: dict[str, int],
         on_close: Callable[[], None],
     ) -> None:
         self.root = root
         self.store = store
-        self.price_store = price_store
+        self.market_price_lookup = market_price_lookup
         self.on_close = on_close
         self.window = tk.Toplevel(root)
         self.window.title("Character Window")
@@ -3873,13 +3879,13 @@ class CharacterWindow:
                 if imbuement:
                     for material in imbuement.materials:
                         total_qty = material.qty * count
-                        price = self.price_store.get_price(material.name)
+                        price = self.market_price_lookup.get(material.name.casefold(), 0)
                         imbue_total += total_qty * price
                 lines.append(f"{name} (x{count}) – Total: {self._format_gp(imbue_total)}")
                 if imbuement:
                     for material in imbuement.materials:
                         total_qty = material.qty * count
-                        price = self.price_store.get_price(material.name)
+                        price = self.market_price_lookup.get(material.name.casefold(), 0)
                         line_total = total_qty * price
                         lines.append(
                             f"  {total_qty} × {material.name} – {self._format_gp(price)}/Stk – {self._format_gp(line_total)}"
@@ -3896,7 +3902,7 @@ class CharacterWindow:
             if totals:
                 lines.append("Grand Totals")
                 for name in sorted(totals):
-                    price = self.price_store.get_price(name)
+                    price = self.market_price_lookup.get(name.casefold(), 0)
                     total_qty = totals[name]
                     line_total = total_qty * price
                     lines.append(

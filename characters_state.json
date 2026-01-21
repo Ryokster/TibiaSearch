@@ -22,12 +22,17 @@
       },
       "equipment": {
         "head": {
-          "item": null,
-          "imbues": []
+          "item": "Yalahari Mask",
+          "imbues": [
+            "Protective / Holy Protection|Powerful Demon Presence"
+          ]
         },
         "armor": {
-          "item": null,
-          "imbues": []
+          "item": "Blue Robe",
+          "imbues": [
+            "Protective / Fire Protection|Basic Dragon Hide",
+            "Protective / Fire Protection|Intricate Dragon Hide"
+          ]
         },
         "weapon": {
           "item": null,
