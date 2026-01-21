@@ -14,7 +14,9 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 from typing import Callable
+from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode
+from urllib.request import Request, urlopen
 
 from history import HistoryManager
 from imbuable_items_data import IMBUABLE_ITEMS_RESOURCE
@@ -726,6 +728,7 @@ class TibiaSearchApp:
         self.hunt_rate_vars: dict[str, tk.StringVar] = {}
         self.hunt_equipment_var = tk.StringVar(value=EQUIPMENT_TAGS[0])
         self.hunt_character_var = tk.StringVar()
+        self.character_search_var = tk.StringVar()
         self.hunt_kills_list: tk.Listbox | None = None
         self.hunt_loot_list: tk.Listbox | None = None
         self._suppress_hunt_equipment_change = False
@@ -957,6 +960,11 @@ class TibiaSearchApp:
             text="Hunting Ground",
             command=lambda: self._open_module_window("hunting_ground"),
         ).grid(row=7, column=0, sticky="ew", padx=6, pady=(4, 6))
+        ttk.Button(
+            modules_frame,
+            text="Charakter suchen",
+            command=lambda: self._open_module_window("character_search"),
+        ).grid(row=8, column=0, sticky="ew", padx=6, pady=(4, 6))
 
         actions_frame = ttk.LabelFrame(left_frame, text="Actions")
         actions_frame.grid(row=1, column=0, sticky="nsew")
@@ -1198,6 +1206,56 @@ class TibiaSearchApp:
             link_label = ttk.Label(list_frame, text=label, foreground="#0a66cc", cursor="hand2")
             link_label.grid(row=row, column=0, sticky="w", padx=6, pady=4)
             link_label.bind("<Button-1>", lambda _event, target=url: self._open_url(target, label))
+
+    def _build_character_search_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        parent.rowconfigure(0, weight=1)
+
+        frame = ttk.LabelFrame(parent, text="Charakter suchen")
+        frame.grid(row=0, column=0, sticky="nsew", padx=8, pady=8)
+        frame.columnconfigure(0, weight=1)
+
+        ttk.Label(frame, text="Name").grid(row=0, column=0, sticky="w", padx=6, pady=(6, 2))
+        entry = ttk.Entry(frame, textvariable=self.character_search_var)
+        entry.grid(row=1, column=0, sticky="ew", padx=6, pady=(0, 6))
+        entry.bind("<Return>", lambda _event: self._search_character())
+
+        ttk.Button(frame, text="Suchen", command=self._search_character).grid(
+            row=2, column=0, sticky="w", padx=6, pady=(0, 6)
+        )
+
+    def _search_character(self) -> None:
+        raw_name = self.character_search_var.get().strip()
+        if not raw_name:
+            messagebox.showwarning("Fehlender Name", "Bitte einen Charakter-Namen eingeben.")
+            return
+        encoded = "+".join(quote(part, safe="") for part in raw_name.split())
+        url = f"https://www.tibia.com/community/?subtopic=characters&name={encoded}"
+        fallback_url = "https://www.tibia.com/community/?subtopic=worlds&world=Xyla&order=level_desc"
+
+        def run() -> None:
+            target_url = fallback_url if self._url_returns_404(url) else url
+            self.root.after(0, lambda: self._open_url(target_url, f"Charakter: {raw_name}"))
+
+        threading.Thread(target=run, daemon=True).start()
+
+    def _url_returns_404(self, url: str) -> bool:
+        status = self._check_url_status(url, "HEAD")
+        if status == 404:
+            return True
+        if status == 405:
+            status = self._check_url_status(url, "GET")
+        return status == 404
+
+    def _check_url_status(self, url: str, method: str) -> int | None:
+        request = Request(url, method=method, headers={"User-Agent": "Mozilla/5.0"})
+        try:
+            with urlopen(request, timeout=5) as response:
+                return getattr(response, "status", None)
+        except HTTPError as exc:
+            return exc.code
+        except URLError:
+            return None
 
     def _ensure_hotkeys_files(self) -> None:
         self.hotkeys_dir.mkdir(parents=True, exist_ok=True)
@@ -1958,6 +2016,7 @@ class TibiaSearchApp:
                 "grid_cones": "Grid Cones",
                 "cooldowns": "Cooldowns",
                 "hunting_ground": "Hunting Ground",
+                "character_search": "Charakter suchen",
             }.get(module_key, "Module")
         )
         window.minsize(720, 480)
@@ -1992,6 +2051,8 @@ class TibiaSearchApp:
             self._build_cooldowns_tab(container)
         elif module_key == "hunting_ground":
             self._build_hunting_ground_tab(container)
+        elif module_key == "character_search":
+            self._build_character_search_tab(container)
 
         self.module_windows[module_key] = window
 

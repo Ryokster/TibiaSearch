@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import ctypes
+import os
 import tkinter as tk
 from tkinter import ttk
 from typing import Callable, Iterable
@@ -357,6 +359,21 @@ class GridConeOverlay:
         self._canvas = tk.Canvas(window, bg=self._transparent_color, highlightthickness=0)
         self._canvas.pack(fill="both", expand=True)
         self._apply_window_alpha()
+        self._set_clickthrough()
+
+    def _set_clickthrough(self) -> None:
+        if os.name != "nt" or not self._window or not self._window.winfo_exists():
+            return
+        try:
+            hwnd = self._window.winfo_id()
+            GWL_EXSTYLE = -20
+            WS_EX_LAYERED = 0x00080000
+            WS_EX_TRANSPARENT = 0x00000020
+            user32 = ctypes.windll.user32
+            style = user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
+            user32.SetWindowLongW(hwnd, GWL_EXSTYLE, style | WS_EX_LAYERED | WS_EX_TRANSPARENT)
+        except Exception:
+            return
 
     def _apply_window_alpha(self) -> None:
         if not self._window or not self._window.winfo_exists():

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import ctypes
+import os
 import tkinter as tk
 from tkinter import ttk
 from typing import Callable
@@ -59,6 +61,21 @@ class GridOverlay:
         canvas.pack(fill="both", expand=True)
         self._window = window
         self._canvas = canvas
+        self._set_clickthrough()
+
+    def _set_clickthrough(self) -> None:
+        if os.name != "nt" or not self._window or not self._window.winfo_exists():
+            return
+        try:
+            hwnd = self._window.winfo_id()
+            GWL_EXSTYLE = -20
+            WS_EX_LAYERED = 0x00080000
+            WS_EX_TRANSPARENT = 0x00000020
+            user32 = ctypes.windll.user32
+            style = user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
+            user32.SetWindowLongW(hwnd, GWL_EXSTYLE, style | WS_EX_LAYERED | WS_EX_TRANSPARENT)
+        except Exception:
+            return
 
     def shutdown(self) -> None:
         if self._window and self._window.winfo_exists():
