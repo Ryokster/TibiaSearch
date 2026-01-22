@@ -22,21 +22,19 @@
       },
       "equipment": {
         "head": {
-          "item": "Yalahari Mask",
-          "imbues": [
-            "Protective / Holy Protection|Powerful Demon Presence"
-          ]
-        },
-        "armor": {
-          "item": "Blue Robe",
-          "imbues": [
-            "Protective / Fire Protection|Basic Dragon Hide",
-            "Protective / Fire Protection|Intricate Dragon Hide"
-          ]
-        },
-        "weapon": {
           "item": null,
           "imbues": []
+        },
+        "armor": {
+          "item": null,
+          "imbues": []
+        },
+        "weapon": {
+          "item": "Crystal Mace",
+          "imbues": [
+            "Attack / Mana Leech|Intricate Void",
+            "Attack / Mana Leech|Intricate Void"
+          ]
         },
         "shield": {
           "item": null,
