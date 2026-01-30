@@ -2,7 +2,7 @@
 #SingleInstance Force
 SetTitleMatchMode 2
 
-#HotIf WinActive("Tibia")
+#HotIf WinActive("ahk_exe client.exe")
 
 ~w::LogMove("UP")
 ~d::LogMove("RIGHT")

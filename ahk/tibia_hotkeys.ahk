@@ -2,7 +2,7 @@
 #SingleInstance Force
 SetTitleMatchMode 2
 
-#HotIf WinActive("Tibia")
+#HotIf WinActive("ahk_exe client.exe")
 
 MButton::Send "{F4}"
 !MButton::Send "{F5}"
