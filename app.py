@@ -698,6 +698,7 @@ class TibiaSearchApp:
         self.items_state_path = self.base_dir / "items_state.json"
         self.character_path = self.base_dir / "characters_state.json"
         self.hunt_path = self.base_dir / "hunts_state.json"
+        self.search_window_state_path = self.base_dir / "search_window_state.json"
         self.history = HistoryManager(self.history_path)
         self.store = ImbuementStore(self.state_path)
         self.item_price_store = ItemPriceStore(self.items_state_path)
@@ -714,6 +715,13 @@ class TibiaSearchApp:
         self._seed_imbuement_material_favorites()
 
         self.always_on_top = False
+        self.search_window: tk.Toplevel | None = None
+        self.search_window_state: dict[str, object] = {}
+        self._search_window_save_after: str | None = None
+        self.search_window_width_var = tk.StringVar()
+        self.search_window_height_var = tk.StringVar()
+        self.search_window_x_var = tk.StringVar()
+        self.search_window_y_var = tk.StringVar()
         self.active_imbuement: Imbuement | None = None
         self.material_vars: dict[str, tk.StringVar] = {}
         self.material_rows: list[tuple[Material, ttk.Label]] = []
@@ -791,6 +799,7 @@ class TibiaSearchApp:
 
         self._apply_fantasy_theme()
         self._load_grid_overlay_state()
+        self._load_search_window_state()
         self._build_ui()
         self._bind_events()
         self._refresh_history_list()
@@ -895,15 +904,7 @@ class TibiaSearchApp:
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(1, weight=1)
 
-        top_frame = ttk.Frame(self.root)
-        top_frame.grid(row=0, column=0, sticky="ew", padx=8, pady=(8, 0))
-        top_frame.columnconfigure(0, weight=1)
-
-        self.search_entry = ttk.Entry(top_frame)
-        self.search_entry.grid(row=0, column=0, sticky="ew")
-
-        self.search_button = ttk.Button(top_frame, text="Search", command=self.perform_search)
-        self.search_button.grid(row=0, column=1, padx=(6, 0))
+        self._build_search_window()
 
         content_frame = ttk.Frame(self.root)
         content_frame.grid(row=1, column=0, sticky="nsew", padx=8, pady=8)
@@ -965,6 +966,11 @@ class TibiaSearchApp:
             text="Charakter suchen",
             command=lambda: self._open_module_window("character_search"),
         ).grid(row=8, column=0, sticky="ew", padx=6, pady=(4, 6))
+        ttk.Button(
+            modules_frame,
+            text="Suchfenster",
+            command=lambda: self._open_module_window("search_window"),
+        ).grid(row=9, column=0, sticky="ew", padx=6, pady=(4, 6))
 
         actions_frame = ttk.LabelFrame(left_frame, text="Actions")
         actions_frame.grid(row=1, column=0, sticky="nsew")
@@ -973,27 +979,51 @@ class TibiaSearchApp:
         ttk.Button(actions_frame, text="Character Window", command=self.open_character_window).grid(
             row=0, column=0, sticky="ew", padx=6, pady=(6, 4)
         )
-        self.top_button = ttk.Button(actions_frame, text="Top Off", width=8, command=self.toggle_topmost)
-        self.top_button.grid(row=1, column=0, sticky="ew", padx=6, pady=4)
         ttk.Button(actions_frame, text="Log", command=self.open_request_log).grid(
-            row=2, column=0, sticky="ew", padx=6, pady=(4, 6)
+            row=1, column=0, sticky="ew", padx=6, pady=(4, 6)
         )
         ttk.Button(actions_frame, text="Start Tibia", command=lambda: self._start_tibia(False)).grid(
-            row=3, column=0, sticky="ew", padx=6, pady=(4, 4)
+            row=2, column=0, sticky="ew", padx=6, pady=(4, 4)
         )
         ttk.Button(actions_frame, text="Start Tibia (Admin)", command=lambda: self._start_tibia(True)).grid(
-            row=4, column=0, sticky="ew", padx=6, pady=(0, 6)
+            row=3, column=0, sticky="ew", padx=6, pady=(0, 6)
         )
         ttk.Button(actions_frame, text="Copy Tibia Password", command=self._copy_tibia_password).grid(
-            row=5, column=0, sticky="ew", padx=6, pady=(0, 6)
+            row=4, column=0, sticky="ew", padx=6, pady=(0, 6)
         )
         ttk.Label(actions_frame, textvariable=self.tibia_login_status_var).grid(
-            row=6, column=0, sticky="w", padx=6, pady=(0, 6)
+            row=5, column=0, sticky="w", padx=6, pady=(0, 6)
         )
 
         history_frame = ttk.LabelFrame(content_frame, text="Search History")
         history_frame.grid(row=0, column=1, sticky="nsew")
         self._build_history_tab(history_frame)
+
+    def _build_search_window(self) -> None:
+        self.search_window = tk.Toplevel(self.root)
+        self.search_window.resizable(True, True)
+        self.search_window.configure(bg=self.root.cget("bg"), borderwidth=0, highlightthickness=0)
+        self.search_window.overrideredirect(True)
+        self.search_window.rowconfigure(0, weight=1)
+        self.search_window.columnconfigure(0, weight=1)
+
+        frame = ttk.Frame(self.search_window, padding=0)
+        frame.grid(row=0, column=0, sticky="nsew")
+        frame.rowconfigure(0, weight=1)
+        frame.columnconfigure(0, weight=1)
+
+        self.search_entry = ttk.Entry(frame, width=28, style="Search.TEntry")
+        self.search_entry.grid(row=0, column=0, sticky="nsew")
+        self.search_entry.focus_set()
+
+        self.top_button = ttk.Button(frame, text="Top", width=3, command=self.toggle_topmost, style="Search.TButton")
+        self.top_button.grid(row=0, column=1, sticky="nsew", padx=(4, 0))
+
+        self.search_window.update_idletasks()
+        self._apply_saved_search_window_geometry()
+        self._update_search_window_padding()
+        self.search_window.minsize(self.search_window.winfo_width(), self.search_window.winfo_height())
+        self.search_window.bind("<Configure>", self._on_search_window_resize)
 
     def _build_history_tab(self, parent: ttk.Frame) -> None:
         parent.columnconfigure(0, weight=1)
@@ -1223,6 +1253,148 @@ class TibiaSearchApp:
         ttk.Button(frame, text="Suchen", command=self._search_character).grid(
             row=2, column=0, sticky="w", padx=6, pady=(0, 6)
         )
+
+    def _build_search_window_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(1, weight=1)
+        self._sync_search_window_vars()
+
+        ttk.Label(parent, text="Breite").grid(row=0, column=0, sticky="w", padx=6, pady=(6, 2))
+        ttk.Entry(parent, textvariable=self.search_window_width_var, width=10).grid(
+            row=0, column=1, sticky="w", padx=6, pady=(6, 2)
+        )
+
+        ttk.Label(parent, text="Höhe").grid(row=1, column=0, sticky="w", padx=6, pady=2)
+        ttk.Entry(parent, textvariable=self.search_window_height_var, width=10).grid(
+            row=1, column=1, sticky="w", padx=6, pady=2
+        )
+
+        ttk.Label(parent, text="Position X").grid(row=2, column=0, sticky="w", padx=6, pady=2)
+        ttk.Entry(parent, textvariable=self.search_window_x_var, width=10).grid(
+            row=2, column=1, sticky="w", padx=6, pady=2
+        )
+
+        ttk.Label(parent, text="Position Y").grid(row=3, column=0, sticky="w", padx=6, pady=2)
+        ttk.Entry(parent, textvariable=self.search_window_y_var, width=10).grid(
+            row=3, column=1, sticky="w", padx=6, pady=2
+        )
+
+        action_frame = ttk.Frame(parent)
+        action_frame.grid(row=4, column=0, columnspan=2, sticky="w", padx=6, pady=(8, 6))
+
+        ttk.Button(action_frame, text="Fenster zeigen", command=self._show_search_window).grid(
+            row=0, column=0, padx=(0, 6)
+        )
+        ttk.Button(action_frame, text="Aktuell laden", command=self._sync_search_window_vars).grid(
+            row=0, column=0, padx=(0, 6)
+        )
+        ttk.Button(action_frame, text="Übernehmen", command=self._apply_search_window_geometry).grid(
+            row=0, column=1
+        )
+
+    def _on_search_window_resize(self, _event: tk.Event) -> None:
+        self._update_search_window_padding()
+        self._sync_search_window_vars()
+        self._queue_search_window_save()
+
+    def _update_search_window_padding(self) -> None:
+        if not self.search_window or not self.search_window.winfo_exists():
+            return
+        height = self.search_window.winfo_height()
+        entry_req = self.search_entry.winfo_reqheight()
+        button_req = self.top_button.winfo_reqheight()
+        target = max(entry_req, button_req, 1)
+        extra = max(0, height - target)
+        pad = extra // 2
+        style = ttk.Style(self.root)
+        style.configure("Search.TEntry", padding=(4, pad))
+        style.configure("Search.TButton", padding=(6, pad))
+
+    def _sync_search_window_vars(self) -> None:
+        if not self.search_window or not self.search_window.winfo_exists():
+            return
+        self.search_window.update_idletasks()
+        width = self.search_window.winfo_width()
+        height = self.search_window.winfo_height()
+        x = self.search_window.winfo_x()
+        y = self.search_window.winfo_y()
+        self.search_window_width_var.set(str(width))
+        self.search_window_height_var.set(str(height))
+        self.search_window_x_var.set(str(x))
+        self.search_window_y_var.set(str(y))
+
+    def _apply_search_window_geometry(self) -> None:
+        if not self.search_window or not self.search_window.winfo_exists():
+            return
+        width = self._parse_int_value(self.search_window_width_var.get())
+        height = self._parse_int_value(self.search_window_height_var.get())
+        x = self._parse_int_value(self.search_window_x_var.get())
+        y = self._parse_int_value(self.search_window_y_var.get())
+        if width is None or height is None or x is None or y is None:
+            messagebox.showwarning("Ungültig", "Bitte gültige Zahlen für Breite, Höhe, X und Y eingeben.")
+            return
+        width = max(1, width)
+        height = max(1, height)
+        self.search_window.geometry(f"{width}x{height}+{x}+{y}")
+        self.search_window.minsize(width, height)
+        self._update_search_window_padding()
+        self._queue_search_window_save()
+
+    def _apply_saved_search_window_geometry(self) -> None:
+        state = self.search_window_state
+        if not state:
+            return
+        width = state.get("width")
+        height = state.get("height")
+        x = state.get("x")
+        y = state.get("y")
+        if all(isinstance(value, int) for value in (width, height, x, y)):
+            self.search_window.geometry(f"{width}x{height}+{x}+{y}")
+            self.search_window.minsize(max(1, width), max(1, height))
+        topmost = state.get("topmost")
+        if isinstance(topmost, bool):
+            self.always_on_top = topmost
+            self.search_window.attributes("-topmost", self.always_on_top)
+
+    def _queue_search_window_save(self) -> None:
+        if self._search_window_save_after is not None:
+            self.root.after_cancel(self._search_window_save_after)
+        self._search_window_save_after = self.root.after(200, self._save_search_window_state)
+
+    def _save_search_window_state(self) -> None:
+        self._search_window_save_after = None
+        if not self.search_window or not self.search_window.winfo_exists():
+            return
+        payload = {
+            "width": int(self.search_window.winfo_width()),
+            "height": int(self.search_window.winfo_height()),
+            "x": int(self.search_window.winfo_x()),
+            "y": int(self.search_window.winfo_y()),
+            "topmost": bool(self.always_on_top),
+        }
+        self.search_window_state = payload
+        self.search_window_state_path.write_text(
+            json.dumps(payload, indent=2, ensure_ascii=True),
+            encoding="utf-8",
+        )
+
+    def _load_search_window_state(self) -> None:
+        if not self.search_window_state_path.exists():
+            return
+        try:
+            payload = json.loads(self.search_window_state_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            return
+        if isinstance(payload, dict):
+            self.search_window_state = payload
+
+    def _parse_int_value(self, value: str) -> int | None:
+        value = value.strip()
+        if not value:
+            return None
+        try:
+            return int(value)
+        except ValueError:
+            return None
 
     def _search_character(self) -> None:
         raw_name = self.character_search_var.get().strip()
@@ -2017,6 +2189,7 @@ class TibiaSearchApp:
                 "cooldowns": "Cooldowns",
                 "hunting_ground": "Hunting Ground",
                 "character_search": "Charakter suchen",
+                "search_window": "Suchfenster",
             }.get(module_key, "Module")
         )
         window.minsize(720, 480)
@@ -2053,6 +2226,8 @@ class TibiaSearchApp:
             self._build_hunting_ground_tab(container)
         elif module_key == "character_search":
             self._build_character_search_tab(container)
+        elif module_key == "search_window":
+            self._build_search_window_tab(container)
 
         self.module_windows[module_key] = window
 
@@ -2943,11 +3118,10 @@ class TibiaSearchApp:
 
     def toggle_topmost(self) -> None:
         self.always_on_top = not self.always_on_top
-        self.root.attributes("-topmost", self.always_on_top)
-        if self.always_on_top:
-            self.top_button.config(text="Top On")
-        else:
-            self.top_button.config(text="Top Off")
+        target = self.search_window if self.search_window and self.search_window.winfo_exists() else self.root
+        target.attributes("-topmost", self.always_on_top)
+        self.top_button.config(text="Top")
+        self._queue_search_window_save()
 
     def _refresh_history_list(self) -> None:
         self.history_list.delete(0, tk.END)
@@ -3191,6 +3365,7 @@ class TibiaSearchApp:
             self._stop_hotkeys_script()
         if self._is_cones_running():
             self._stop_cones_script()
+        self._save_search_window_state()
         self.grid_cone_overlay.shutdown()
         self.grid_cone_overlay_alt.shutdown()
         self.grid_overlay.shutdown()
