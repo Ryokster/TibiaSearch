@@ -1,4 +1,4 @@
-import ctypes
+﻿import ctypes
 import json
 import re
 import shutil
@@ -12,7 +12,7 @@ import webbrowser
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
-from tkinter import filedialog, messagebox, ttk
+from tkinter import filedialog, messagebox, simpledialog, ttk
 from typing import Callable
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode
@@ -357,9 +357,14 @@ def build_tibia_items(resource: dict[str, object]) -> tuple[TibiaItem, ...]:
 DEFAULT_STATS = {
     "magic_level": 0,
     "ml_percent": 0,
-    "mana_level": 0,
     "hp": 0,
     "mana": 0,
+    "mana_regen_hungry": 0,
+    "mana_regen_fed": 0,
+    "mana_regen_depot": 0,
+    "hp_regen_hungry": 0,
+    "hp_regen_fed": 0,
+    "hp_regen_depot": 0,
     "capacity": 0,
     "speed": 0,
     "soul_points": 0,
@@ -369,6 +374,16 @@ DEFAULT_STATS = {
     "axe": 0,
     "club": 0,
     "distance": 0,
+}
+
+FLOAT_STATS = {
+    "ml_percent",
+    "mana_regen_hungry",
+    "mana_regen_fed",
+    "mana_regen_depot",
+    "hp_regen_hungry",
+    "hp_regen_fed",
+    "hp_regen_depot",
 }
 
 
@@ -415,10 +430,16 @@ class CharacterStore:
             merged_stats = DEFAULT_STATS.copy()
             for key in DEFAULT_STATS:
                 if key in stats:
-                    try:
-                        merged_stats[key] = int(stats[key])
-                    except (TypeError, ValueError):
-                        merged_stats[key] = 0
+                    if key in FLOAT_STATS:
+                        try:
+                            merged_stats[key] = float(stats[key])
+                        except (TypeError, ValueError):
+                            merged_stats[key] = 0.0
+                    else:
+                        try:
+                            merged_stats[key] = int(stats[key])
+                        except (TypeError, ValueError):
+                            merged_stats[key] = 0
             equipment = entry.get("equipment", {})
             if not isinstance(equipment, dict):
                 equipment = {}
@@ -594,6 +615,196 @@ class ItemPriceStore:
         return key in self.favorites
 
 
+class RuneStore:
+    def __init__(self, path: Path) -> None:
+        self.path = path
+        self.runes: list[dict[str, object]] = []
+        self.active_id: str | None = None
+        self._load()
+
+    def _default_runes(self) -> list[dict[str, object]]:
+        defaults = [
+            ("Animate Dead Rune", 1, 600, 5, 375, 0),
+            ("Avalanche Rune", 4, 530, 3, 64, 0),
+            ("Chameleon Rune", 1, 600, 2, 210, 0),
+            ("Convince Creature Rune", 1, 200, 3, 80, 0),
+            ("Cure Poison Rune (Item)", 1, 200, 1, 65, 0),
+            ("Destroy Field Rune", 3, 120, 2, 15, 0),
+            ("Disintegrate Rune", 3, 200, 3, 26, 0),
+            ("Energy Bomb Rune", 2, 880, 5, 203, 0),
+            ("Energy Field Rune", 3, 320, 2, 38, 0),
+            ("Energy Wall Rune", 4, 1000, 5, 85, 0),
+            ("Explosion Rune", 6, 570, 4, 31, 0),
+            ("Fire Bomb Rune", 2, 600, 4, 147, 0),
+            ("Fire Field Rune", 3, 240, 1, 28, 0),
+            ("Fire Wall Rune", 4, 780, 4, 61, 0),
+            ("Fireball Rune", 5, 460, 3, 30, 0),
+            ("Great Fireball Rune", 4, 530, 3, 64, 0),
+            ("Heavy Magic Missile Rune", 10, 350, 2, 12, 0),
+            ("Holy Missile Rune", 5, 300, 3, 16, 0),
+            ("Icicle Rune", 5, 460, 3, 30, 0),
+            ("Intense Healing Rune (Item)", 1, 120, 2, 95, 0),
+            ("Light Magic Missile Rune", 10, 120, 1, 4, 0),
+            ("Magic Wall Rune", 3, 750, 5, 116, 0),
+            ("Paralyse Rune", 1, 1400, 3, 700, 0),
+            ("Poison Bomb Rune", 2, 520, 2, 85, 0),
+            ("Poison Field Rune", 3, 200, 1, 21, 0),
+            ("Poison Wall Rune", 4, 640, 3, 52, 0),
+            ("Soulfire Rune", 3, 420, 3, 46, 0),
+            ("Stalagmite Rune", 10, 350, 2, 12, 0),
+            ("Stone Shower Rune", 4, 430, 3, 41, 0),
+            ("Sudden Death Rune", 3, 985, 5, 162, 0),
+            ("Thunderstorm Rune", 4, 430, 3, 52, 0),
+            ("Ultimate Healing Rune (Item)", 1, 400, 3, 175, 0),
+            ("Wild Growth Rune", 2, 600, 5, 160, 0),
+        ]
+        runes: list[dict[str, object]] = []
+        for name, per_cast, mana, soul, ek_gp, vk_gp in defaults:
+            runes.append(
+                {
+                    "id": str(uuid.uuid4()),
+                    "name": name,
+                    "runes_per_cast": per_cast,
+                    "mana": mana,
+                    "soul_points": soul,
+                    "ek_gp": ek_gp,
+                    "vk_gp": vk_gp,
+                }
+            )
+        return runes
+
+    def _load(self) -> None:
+        if not self.path.exists():
+            self.runes = self._default_runes()
+            self.active_id = str(self.runes[0]["id"]) if self.runes else None
+            self._save()
+            return
+        try:
+            with self.path.open("r", encoding="utf-8") as handle:
+                data = json.load(handle)
+        except Exception:
+            data = {}
+        runes: list[dict[str, object]] = []
+        for entry in data.get("runes", []):
+            if not isinstance(entry, dict):
+                continue
+            rune_id = str(entry.get("id") or uuid.uuid4())
+            name = str(entry.get("name", "")).strip() or "Unnamed Rune"
+            runes_per_cast = entry.get("runes_per_cast", 1)
+            mana = entry.get("mana", 0)
+            soul_points = entry.get("soul_points", 0)
+            try:
+                runes_per_cast = int(runes_per_cast)
+            except (TypeError, ValueError):
+                runes_per_cast = 1
+            try:
+                mana = int(mana)
+            except (TypeError, ValueError):
+                mana = 0
+            try:
+                soul_points = int(soul_points)
+            except (TypeError, ValueError):
+                soul_points = 0
+            ek_gp = entry.get("ek_gp", 0)
+            vk_gp = entry.get("vk_gp", 0)
+            try:
+                ek_gp = int(ek_gp)
+            except (TypeError, ValueError):
+                ek_gp = 0
+            try:
+                vk_gp = int(vk_gp)
+            except (TypeError, ValueError):
+                vk_gp = 0
+            runes.append(
+                {
+                    "id": rune_id,
+                    "name": name,
+                    "runes_per_cast": max(1, runes_per_cast),
+                    "mana": max(0, mana),
+                    "soul_points": max(0, soul_points),
+                    "ek_gp": max(0, ek_gp),
+                    "vk_gp": max(0, vk_gp),
+                }
+            )
+        if not runes:
+            runes = self._default_runes()
+        self.runes = runes
+        active_id = data.get("active_rune_id")
+        self.active_id = active_id if any(entry.get("id") == active_id for entry in runes) else str(runes[0]["id"])
+
+    def _save(self) -> None:
+        payload = {"runes": self.runes, "active_rune_id": self.active_id}
+        try:
+            with self.path.open("w", encoding="utf-8") as handle:
+                json.dump(payload, handle, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
+    def names(self) -> list[str]:
+        return [str(entry.get("name", "")) for entry in self.runes]
+
+    def get_by_id(self, rune_id: str) -> dict[str, object] | None:
+        for entry in self.runes:
+            if str(entry.get("id")) == rune_id:
+                return entry
+        return None
+
+    def get_by_name(self, name: str) -> dict[str, object] | None:
+        for entry in self.runes:
+            if str(entry.get("name")) == name:
+                return entry
+        return None
+
+    def get_active(self) -> dict[str, object]:
+        if self.active_id:
+            entry = self.get_by_id(self.active_id)
+            if entry:
+                return entry
+        if self.runes:
+            self.active_id = str(self.runes[0]["id"])
+            return self.runes[0]
+        default = self._default_rune()
+        self.runes = [default]
+        self.active_id = str(default["id"])
+        self._save()
+        return default
+
+    def set_active(self, rune_id: str) -> None:
+        self.active_id = rune_id
+        self._save()
+
+    def is_name_unique(self, name: str, ignore_id: str | None = None) -> bool:
+        lowered = name.casefold()
+        for entry in self.runes:
+            if ignore_id and str(entry.get("id")) == ignore_id:
+                continue
+            if str(entry.get("name", "")).casefold() == lowered:
+                return False
+        return True
+
+    def add_rune(self, rune: dict[str, object]) -> None:
+        self.runes.append(rune)
+        self.active_id = str(rune.get("id"))
+        self._save()
+
+    def update_rune(self, rune_id: str, updates: dict[str, object]) -> None:
+        for idx, entry in enumerate(self.runes):
+            if str(entry.get("id")) == rune_id:
+                self.runes[idx] = updates
+                break
+        if self.active_id == rune_id:
+            self.active_id = str(updates.get("id", rune_id))
+        self._save()
+
+    def delete_rune(self, rune_id: str) -> None:
+        self.runes = [entry for entry in self.runes if str(entry.get("id")) != rune_id]
+        if not self.runes:
+            self.runes = [self._default_rune()]
+        if self.active_id == rune_id:
+            self.active_id = str(self.runes[0]["id"])
+        self._save()
+
+
 class HuntStore:
     def __init__(self, path: Path) -> None:
         self.path = path
@@ -696,12 +907,16 @@ class TibiaSearchApp:
         self.history_path = self.base_dir / "history.json"
         self.state_path = self.base_dir / "imbuements_state.json"
         self.items_state_path = self.base_dir / "items_state.json"
+        self.mana_items_state_path = self.base_dir / "mana_items_state.json"
+        self.runes_state_path = self.base_dir / "runes_state.json"
         self.character_path = self.base_dir / "characters_state.json"
         self.hunt_path = self.base_dir / "hunts_state.json"
         self.search_window_state_path = self.base_dir / "search_window_state.json"
         self.history = HistoryManager(self.history_path)
         self.store = ImbuementStore(self.state_path)
         self.item_price_store = ItemPriceStore(self.items_state_path)
+        self.mana_items_prices: dict[str, float] = {}
+        self.rune_store = RuneStore(self.runes_state_path)
         self.character_store = CharacterStore(self.character_path)
         self.hunt_store = HuntStore(self.hunt_path)
         self.imbuement_material_names = self._collect_imbuement_material_names()
@@ -718,6 +933,7 @@ class TibiaSearchApp:
         self.search_window: tk.Toplevel | None = None
         self.search_window_state: dict[str, object] = {}
         self._search_window_save_after: str | None = None
+        self._search_window_ready = False
         self.search_window_width_var = tk.StringVar()
         self.search_window_height_var = tk.StringVar()
         self.search_window_x_var = tk.StringVar()
@@ -737,6 +953,21 @@ class TibiaSearchApp:
         self.hunt_equipment_var = tk.StringVar(value=EQUIPMENT_TAGS[0])
         self.hunt_character_var = tk.StringVar()
         self.character_search_var = tk.StringVar()
+        self.rune_character_var = tk.StringVar()
+        self.rune_spell_var = tk.StringVar()
+        self.rune_time_minutes_var = tk.StringVar(value="0")
+        self.rune_use_depot_bonus_var = tk.BooleanVar(value=False)
+        self.rune_regen_mode_var = tk.StringVar(value="Fed")
+        self.rune_mana_item_rows: list[dict[str, object]] = []
+        self.rune_potion_var = tk.StringVar(value="None")
+        self.rune_potion_count_var = tk.StringVar(value="0")
+        self.rune_potion_hint_var = tk.StringVar(value="")
+        self.rune_potion_count_entry: ttk.Entry | None = None
+        self.rune_potion_vars: dict[str, tk.StringVar] = {}
+        self.rune_stats_vars: dict[str, tk.StringVar] = {}
+        self.rune_editor_vars: dict[str, tk.StringVar] = {}
+        self.rune_result_vars: dict[str, tk.StringVar] = {}
+        self.rune_spell_combo: ttk.Combobox | None = None
         self.hunt_kills_list: tk.Listbox | None = None
         self.hunt_loot_list: tk.Listbox | None = None
         self._suppress_hunt_equipment_change = False
@@ -798,6 +1029,7 @@ class TibiaSearchApp:
         self.grid_cone_overlay_alt.line_color = "#3366cc"
 
         self._apply_fantasy_theme()
+        self._load_mana_items_prices()
         self._load_grid_overlay_state()
         self._load_search_window_state()
         self._build_ui()
@@ -899,6 +1131,8 @@ class TibiaSearchApp:
             background=[("selected", accent_bg_alt)],
             foreground=[("selected", "#fff6e8")],
         )
+        style.configure("Formula.TLabel", font=("Georgia", 9, "italic"), foreground="#6b4b3b")
+        style.configure("Warning.TEntry", foreground="#b00020")
 
     def _build_ui(self) -> None:
         self.root.columnconfigure(0, weight=1)
@@ -968,9 +1202,14 @@ class TibiaSearchApp:
         ).grid(row=8, column=0, sticky="ew", padx=6, pady=(4, 6))
         ttk.Button(
             modules_frame,
+            text="Runen Rechner",
+            command=lambda: self._open_module_window("rune_calculator"),
+        ).grid(row=9, column=0, sticky="ew", padx=6, pady=(4, 6))
+        ttk.Button(
+            modules_frame,
             text="Suchfenster",
             command=lambda: self._open_module_window("search_window"),
-        ).grid(row=9, column=0, sticky="ew", padx=6, pady=(4, 6))
+        ).grid(row=10, column=0, sticky="ew", padx=6, pady=(4, 6))
 
         actions_frame = ttk.LabelFrame(left_frame, text="Actions")
         actions_frame.grid(row=1, column=0, sticky="nsew")
@@ -1024,6 +1263,11 @@ class TibiaSearchApp:
         self._update_search_window_padding()
         self.search_window.minsize(self.search_window.winfo_width(), self.search_window.winfo_height())
         self.search_window.bind("<Configure>", self._on_search_window_resize)
+        self._search_window_ready = False
+        self.root.after(300, self._mark_search_window_ready)
+
+    def _mark_search_window_ready(self) -> None:
+        self._search_window_ready = True
 
     def _build_history_tab(self, parent: ttk.Frame) -> None:
         parent.columnconfigure(0, weight=1)
@@ -1254,6 +1498,388 @@ class TibiaSearchApp:
             row=2, column=0, sticky="w", padx=6, pady=(0, 6)
         )
 
+    def _build_rune_calculator_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        parent.rowconfigure(1, weight=1)
+
+        header = ttk.Frame(parent)
+        header.grid(row=0, column=0, sticky="ew", padx=8, pady=(8, 6))
+        header.columnconfigure(1, weight=1)
+        header.columnconfigure(3, weight=1)
+        header.columnconfigure(6, weight=1)
+
+        ttk.Label(header, text="Character").grid(row=0, column=0, sticky="w")
+        self.rune_character_var.set(self.character_store.active_name or self._character_choices()[0])
+        character_combo = ttk.Combobox(
+            header,
+            textvariable=self.rune_character_var,
+            values=self._character_choices(),
+            state="readonly",
+            width=18,
+        )
+        character_combo.grid(row=0, column=1, sticky="w", padx=(6, 12))
+        character_combo.bind("<<ComboboxSelected>>", self._on_rune_character_change)
+
+        stats_frame = ttk.Frame(header)
+        stats_frame.grid(row=0, column=2, columnspan=4, sticky="w")
+        for idx, (label, key) in enumerate(
+            (
+                ("Level", "level"),
+                ("Max Mana", "max_mana"),
+                ("Soul", "soul_points"),
+                ("Magic Level", "magic_level"),
+                ("ML& to go", "ml_percent"),
+            )
+        ):
+            ttk.Label(stats_frame, text=label).grid(row=0, column=idx * 2, sticky="w", padx=(0, 4))
+            var = tk.StringVar(value="0")
+            ttk.Label(stats_frame, textvariable=var).grid(row=0, column=idx * 2 + 1, sticky="w", padx=(0, 12))
+            self.rune_stats_vars[key] = var
+
+        notebook = ttk.Notebook(parent)
+        notebook.grid(row=1, column=0, sticky="nsew", padx=8, pady=(0, 8))
+
+        runes_tab = ttk.Frame(notebook)
+        regen_tab = ttk.Frame(notebook)
+        potions_tab = ttk.Frame(notebook)
+        notebook.add(runes_tab, text="Runen")
+        notebook.add(regen_tab, text="Regeneration")
+        notebook.add(potions_tab, text="Potions")
+
+        # Runen tab
+        runes_tab.columnconfigure(1, weight=1)
+        runes_tab.columnconfigure(2, weight=1)
+        runes_tab.rowconfigure(0, weight=1)
+
+        list_frame = ttk.LabelFrame(runes_tab, text="Runenliste")
+        list_frame.grid(row=0, column=0, sticky="nsew", padx=(0, 8), pady=8)
+        list_frame.columnconfigure(0, weight=1)
+        list_frame.rowconfigure(2, weight=1)
+
+        ttk.Label(list_frame, text="Suche").grid(row=0, column=0, sticky="w", padx=6, pady=(6, 2))
+        self.rune_filter_var = tk.StringVar()
+        filter_entry = ttk.Entry(list_frame, textvariable=self.rune_filter_var)
+        filter_entry.grid(row=1, column=0, sticky="ew", padx=6, pady=(0, 6))
+
+        self.rune_listbox = tk.Listbox(list_frame, height=12)
+        self.rune_listbox.grid(row=2, column=0, sticky="nsew", padx=6, pady=(0, 6))
+        rune_scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self.rune_listbox.yview)
+        rune_scroll.grid(row=2, column=1, sticky="ns", pady=(0, 6))
+        self.rune_listbox.configure(yscrollcommand=rune_scroll.set)
+
+        def refresh_rune_list() -> None:
+            query = self.rune_filter_var.get().strip().casefold()
+            names = [name for name in self.rune_store.names() if name]
+            if query:
+                names = [name for name in names if query in name.casefold()]
+            self.rune_listbox.delete(0, tk.END)
+            for name in names:
+                self.rune_listbox.insert(tk.END, name)
+
+        def on_rune_select(_event: tk.Event) -> None:
+            selection = self.rune_listbox.curselection()
+            if not selection:
+                return
+            name = self.rune_listbox.get(selection[0])
+            self.rune_spell_var.set(name)
+            self._on_rune_spell_change()
+
+        self.rune_filter_var.trace_add("write", lambda *_: refresh_rune_list())
+        self.rune_listbox.bind("<<ListboxSelect>>", on_rune_select)
+
+        details_frame = ttk.LabelFrame(runes_tab, text="Rune Details")
+        details_frame.grid(row=0, column=1, sticky="nsew", padx=(0, 8), pady=8)
+        details_frame.columnconfigure(1, weight=1)
+        details_frame.columnconfigure(3, weight=1)
+
+        self.rune_result_vars = {}
+        detail_fields = [
+            ("Runes/Spell", "runes_per_cast"),
+            ("Mana Cost", "mana_cost"),
+            ("Soul Points", "soul_cost"),
+            ("EK (gp)", "ek_gp"),
+            ("VK (gp)", "vk_gp"),
+            ("Casts from Max. Mana", "casts_from_mana"),
+            ("Runes from Max. Mana", "runes_from_mana"),
+            ("Max Casts", "casts_possible"),
+            ("Max Runes", "runes_possible"),
+            ("ML Gewinn (Regen)", "ml_gain_regen"),
+            ("ML Gewinn (Potions)", "ml_gain_potion"),
+        ]
+        for row, (label, key) in enumerate(detail_fields):
+            col = 0 if row < 5 else 2
+            display_row = row if row < 5 else row - 5
+            ttk.Label(details_frame, text=label).grid(row=display_row, column=col, sticky="w", padx=6, pady=2)
+            var = tk.StringVar(value="0")
+            ttk.Label(details_frame, textvariable=var).grid(row=display_row, column=col + 1, sticky="w", padx=6, pady=2)
+            self.rune_result_vars[key] = var
+
+        editor_frame = ttk.LabelFrame(runes_tab, text="Editor")
+        editor_frame.grid(row=0, column=2, sticky="nsew", pady=8)
+        editor_frame.columnconfigure(0, weight=1)
+
+        self.rune_editor_vars = {}
+        for key in ("name", "runes_per_cast", "mana_cost", "soul_cost", "vk_gp"):
+            self.rune_editor_vars[key] = tk.StringVar()
+
+        ttk.Button(editor_frame, text="Bearbeiten…", command=self._open_rune_editor_dialog).grid(
+            row=0, column=0, sticky="ew", padx=6, pady=(6, 2)
+        )
+        ttk.Button(editor_frame, text="Add New", command=self._add_rune).grid(
+            row=1, column=0, sticky="ew", padx=6, pady=2
+        )
+        ttk.Button(editor_frame, text="Update", command=self._update_rune).grid(
+            row=2, column=0, sticky="ew", padx=6, pady=2
+        )
+        ttk.Button(editor_frame, text="Delete", command=self._remove_rune).grid(
+            row=3, column=0, sticky="ew", padx=6, pady=(2, 6)
+        )
+
+        # Regeneration tab
+        regen_tab.columnconfigure(0, weight=1)
+        regen_tab.rowconfigure(1, weight=1)
+
+        controls = ttk.Frame(regen_tab)
+        controls.grid(row=0, column=0, sticky="ew", padx=8, pady=(8, 6))
+        controls.columnconfigure(3, weight=1)
+
+        ttk.Label(controls, text="Sitting Time (min)").grid(row=0, column=0, sticky="w")
+        time_entry = ttk.Entry(controls, textvariable=self.rune_time_minutes_var, width=10)
+        time_entry.grid(row=0, column=1, sticky="w", padx=(6, 12))
+        time_entry.bind("<FocusOut>", lambda _event: self._refresh_rune_calculations())
+        time_entry.bind("<Return>", lambda _event: self._refresh_rune_calculations())
+
+        ttk.Checkbutton(
+            controls,
+            text="Depot/Resting (Daily Reward x2)",
+            variable=self.rune_use_depot_bonus_var,
+            command=self._refresh_rune_calculations,
+        ).grid(row=0, column=2, sticky="w", padx=(12, 0))
+
+        items_frame = ttk.LabelFrame(regen_tab, text="Mana Regen Items")
+        items_frame.grid(row=1, column=0, sticky="nsew", padx=8, pady=(0, 8))
+        items_frame.columnconfigure(0, weight=1)
+        items_frame.rowconfigure(0, weight=1)
+
+        columns = ("active", "item", "regen", "duration", "price", "needed", "cost")
+        self.mana_items_tree = ttk.Treeview(items_frame, columns=columns, show="headings", height=8)
+        self.mana_items_tree.heading("active", text="Aktiv")
+        self.mana_items_tree.heading("item", text="Item")
+        self.mana_items_tree.heading("regen", text="Regen/5s")
+        self.mana_items_tree.heading("duration", text="Dauer")
+        self.mana_items_tree.heading("price", text="Preis (gp)")
+        self.mana_items_tree.heading("needed", text="Benötigt")
+        self.mana_items_tree.heading("cost", text="Kosten")
+        self.mana_items_tree.column("active", width=60, anchor="center")
+        self.mana_items_tree.column("item", width=160, anchor="w")
+        self.mana_items_tree.column("regen", width=90, anchor="e")
+        self.mana_items_tree.column("duration", width=90, anchor="e")
+        self.mana_items_tree.column("price", width=90, anchor="e")
+        self.mana_items_tree.column("needed", width=90, anchor="e")
+        self.mana_items_tree.column("cost", width=90, anchor="e")
+        self.mana_items_tree.grid(row=0, column=0, sticky="nsew", padx=6, pady=6)
+        tree_scroll = ttk.Scrollbar(items_frame, orient="vertical", command=self.mana_items_tree.yview)
+        tree_scroll.grid(row=0, column=1, sticky="ns", pady=6)
+        self.mana_items_tree.configure(yscrollcommand=tree_scroll.set)
+
+        self.rune_mana_item_rows = []
+        for item in self._mana_regen_items():
+            if item["name"] == "None":
+                continue
+            default_price = 10000.0 if item["name"] == "Soft Boots" else float(
+                self.mana_items_prices.get(item["name"], 0.0)
+            )
+            row = {
+                "item": item,
+                "selected_var": tk.BooleanVar(value=False),
+                "price_var": tk.StringVar(value=self._format_rune_value(default_price)),
+                "needed_var": tk.StringVar(value="0"),
+                "cost_var": tk.StringVar(value="0"),
+            }
+            self.rune_mana_item_rows.append(row)
+            self.mana_items_tree.insert(
+                "",
+                tk.END,
+                iid=item["name"],
+                values=(
+                    "",
+                    item["name"],
+                    self._format_rune_value(float(item.get("mana_per_sec", 0.0)) * 5.0),
+                    self._format_duration_minutes(int(item.get("duration_sec", 0) or 0)),
+                    row["price_var"].get(),
+                    row["needed_var"].get(),
+                    row["cost_var"].get(),
+                ),
+            )
+
+        def _toggle_item(_event: tk.Event) -> None:
+            selection = self.mana_items_tree.selection()
+            if not selection:
+                return
+            name = selection[0]
+            row = next((r for r in self.rune_mana_item_rows if r["item"]["name"] == name), None)
+            if not row:
+                return
+            row["selected_var"].set(not row["selected_var"].get())
+            self._refresh_rune_calculations()
+
+        def _edit_price(_event: tk.Event) -> None:
+            selection = self.mana_items_tree.selection()
+            if not selection:
+                return
+            name = selection[0]
+            if name == "Soft Boots":
+                return
+            row = next((r for r in self.rune_mana_item_rows if r["item"]["name"] == name), None)
+            if not row:
+                return
+            value = row["price_var"].get()
+            new_value = simpledialog.askstring("Preis", f"Preis für {name}:", initialvalue=value)
+            if new_value is None:
+                return
+            row["price_var"].set(new_value)
+            self._save_mana_item_price(name, row["price_var"])
+            self._refresh_rune_calculations()
+
+        self.mana_items_tree.bind("<Double-Button-1>", _toggle_item)
+        self.mana_items_tree.bind("<Return>", _toggle_item)
+        self.mana_items_tree.bind("<Button-3>", _edit_price)
+
+        results_frame = ttk.LabelFrame(regen_tab, text="Ergebnis")
+        results_frame.grid(row=2, column=0, sticky="ew", padx=8, pady=(0, 8))
+        results_frame.columnconfigure(1, weight=1)
+        results_frame.columnconfigure(3, weight=1)
+
+        calc_fields = [
+            ("Zeit", "time_used"),
+            ("Mana regeneriert", "mana_regenerated"),
+            ("Soul regeneriert", "soul_regenerated"),
+            ("Soul verfügbar", "soul_available"),
+            ("Soul benötigt (Regen)", "soul_needed_regen"),
+            ("Mana verbraucht (Regen)", "mana_spent_regen"),
+            ("ML Gewinn", "ml_gain_regen"),
+            ("Casts insgesamt", "casts_from_regen"),
+            ("Runen insgesamt", "runes_from_regen"),
+            ("Gold für Runen insgesamt", "gold_from_regen"),
+            ("Item-Kosten", "item_cost"),
+            ("Netto (Runen - Items)", "net_regen"),
+        ]
+        self.rune_regen_result_vars = {}
+        self.rune_regen_formula_vars = {}
+        for idx, (label, key) in enumerate(calc_fields):
+            col = 0 if idx < 6 else 2
+            display_row = (idx if idx < 6 else idx - 6) * 2
+            ttk.Label(results_frame, text=label).grid(row=display_row, column=col, sticky="w", padx=6, pady=2)
+            value_var = tk.StringVar(value="0")
+            formula_var = tk.StringVar(value="")
+            ttk.Label(results_frame, textvariable=value_var).grid(
+                row=display_row, column=col + 1, sticky="w", padx=6, pady=2
+            )
+            ttk.Label(results_frame, textvariable=formula_var, style="Formula.TLabel").grid(
+                row=display_row + 1, column=col + 1, sticky="w", padx=6, pady=(0, 6)
+            )
+            self.rune_regen_result_vars[key] = value_var
+            self.rune_regen_formula_vars[key] = formula_var
+
+        # Potions tab
+        potions_tab.columnconfigure(1, weight=1)
+
+        potion_frame = ttk.LabelFrame(potions_tab, text="Mana Potion Calculator")
+        potion_frame.grid(row=0, column=0, sticky="ew", padx=8, pady=8)
+        potion_frame.columnconfigure(1, weight=1)
+
+        ttk.Label(potion_frame, text="Potion").grid(row=0, column=0, sticky="w", padx=6, pady=6)
+        potion_names = [item["name"] for item in self._mana_potions()]
+        potion_combo = ttk.Combobox(
+            potion_frame,
+            textvariable=self.rune_potion_var,
+            values=potion_names,
+            state="readonly",
+            width=26,
+        )
+        potion_combo.grid(row=0, column=1, sticky="w", padx=6, pady=6)
+        potion_combo.bind("<<ComboboxSelected>>", lambda _event: self._refresh_potion_stats())
+
+        ttk.Label(potion_frame, text="Count").grid(row=0, column=2, sticky="w", padx=6, pady=6)
+        potion_count_entry = ttk.Entry(potion_frame, textvariable=self.rune_potion_count_var, width=8)
+        potion_count_entry.grid(row=0, column=3, sticky="w", padx=6, pady=6)
+        potion_count_entry.bind("<FocusOut>", lambda _event: self._refresh_potion_stats())
+        potion_count_entry.bind("<Return>", lambda _event: self._refresh_potion_stats())
+        self.rune_potion_count_entry = potion_count_entry
+
+        hint_label = ttk.Label(potion_frame, textvariable=self.rune_potion_hint_var, foreground="#b00020")
+        hint_label.grid(row=1, column=2, columnspan=2, sticky="w", padx=6, pady=(0, 6))
+
+        self.rune_potion_vars = {}
+        self.rune_potion_formula_vars = {}
+        potion_fields = [
+            ("Avg. Mana Regain", "mana_gain"),
+            ("Price (gp)", "price"),
+            ("__sep__", "__sep__"),
+            ("Time Needed", "time_needed"),
+            ("Mana from Potions", "mana_total"),
+            ("Mana Spent", "mana_spent"),
+            ("ML Gewinn", "ml_gain_potion"),
+            ("Potion Cost", "potion_cost"),
+            ("Deposit", "deposit"),
+            ("Soul Regenerated", "soul_regen"),
+            ("Soul Needed", "soul_needed"),
+            ("Runes from Potions", "runes_from_potions"),
+            ("Gold from Runes", "gold_from_runes"),
+            ("Net (Runes - Potions)", "net_profit"),
+            ("Time to Soul 200", "time_to_soul_200"),
+        ]
+        for idx, (label, key) in enumerate(potion_fields, start=1):
+            display_row = (idx - 1) * 2 + 1
+            if key == "__sep__":
+                sep = ttk.Separator(potion_frame, orient="horizontal")
+                sep.grid(row=display_row, column=0, columnspan=4, sticky="ew", padx=6, pady=6)
+                continue
+            ttk.Label(potion_frame, text=label).grid(row=display_row, column=0, sticky="w", padx=6, pady=2)
+            value_var = tk.StringVar(value="0")
+            formula_var = tk.StringVar(value="")
+            ttk.Label(potion_frame, textvariable=value_var).grid(
+                row=display_row, column=1, columnspan=3, sticky="w", padx=6, pady=2
+            )
+            ttk.Label(potion_frame, textvariable=formula_var, style="Formula.TLabel").grid(
+                row=display_row + 1, column=1, columnspan=3, sticky="w", padx=6, pady=(0, 6)
+            )
+            self.rune_potion_vars[key] = value_var
+            self.rune_potion_formula_vars[key] = formula_var
+
+        refresh_rune_list()
+        self._refresh_rune_spell_choices()
+        self._refresh_rune_character_stats()
+        self._sync_rune_editor_from_selection()
+        self._refresh_rune_calculations()
+        self._refresh_potion_stats()
+
+    def _open_rune_editor_dialog(self) -> None:
+        dialog = tk.Toplevel(self.root)
+        dialog.title("Rune Editor")
+        dialog.transient(self.root)
+        dialog.grab_set()
+        dialog.resizable(False, False)
+
+        editor_fields = [
+            ("Name", "name"),
+            ("Runes/Spell", "runes_per_cast"),
+            ("Mana Cost", "mana_cost"),
+            ("Soul Points", "soul_cost"),
+            ("VK (gp)", "vk_gp"),
+        ]
+        for row, (label, key) in enumerate(editor_fields):
+            ttk.Label(dialog, text=label).grid(row=row, column=0, sticky="w", padx=6, pady=2)
+            var = self.rune_editor_vars.get(key) or tk.StringVar()
+            ttk.Entry(dialog, textvariable=var, width=20).grid(row=row, column=1, sticky="w", padx=6, pady=2)
+            self.rune_editor_vars[key] = var
+
+        button_frame = ttk.Frame(dialog)
+        button_frame.grid(row=len(editor_fields), column=0, columnspan=2, sticky="e", padx=6, pady=6)
+        ttk.Button(button_frame, text="Add New", command=self._add_rune).grid(row=0, column=0, padx=(0, 6))
+        ttk.Button(button_frame, text="Update", command=self._update_rune).grid(row=0, column=1, padx=(0, 6))
+        ttk.Button(button_frame, text="Delete", command=self._remove_rune).grid(row=0, column=2)
+
     def _build_search_window_tab(self, parent: ttk.Frame) -> None:
         parent.columnconfigure(1, weight=1)
         self._sync_search_window_vars()
@@ -1263,7 +1889,7 @@ class TibiaSearchApp:
             row=0, column=1, sticky="w", padx=6, pady=(6, 2)
         )
 
-        ttk.Label(parent, text="Höhe").grid(row=1, column=0, sticky="w", padx=6, pady=2)
+        ttk.Label(parent, text="HÃ¶he").grid(row=1, column=0, sticky="w", padx=6, pady=2)
         ttk.Entry(parent, textvariable=self.search_window_height_var, width=10).grid(
             row=1, column=1, sticky="w", padx=6, pady=2
         )
@@ -1287,7 +1913,7 @@ class TibiaSearchApp:
         ttk.Button(action_frame, text="Aktuell laden", command=self._sync_search_window_vars).grid(
             row=0, column=1, padx=(0, 6)
         )
-        ttk.Button(action_frame, text="Übernehmen", command=self._apply_search_window_geometry).grid(
+        ttk.Button(action_frame, text="Ãœbernehmen", command=self._apply_search_window_geometry).grid(
             row=0, column=2
         )
 
@@ -1338,7 +1964,7 @@ class TibiaSearchApp:
         x = self._parse_int_value(self.search_window_x_var.get())
         y = self._parse_int_value(self.search_window_y_var.get())
         if width is None or height is None or x is None or y is None:
-            messagebox.showwarning("Ungültig", "Bitte gültige Zahlen für Breite, Höhe, X und Y eingeben.")
+            messagebox.showwarning("UngÃ¼ltig", "Bitte gÃ¼ltige Zahlen fÃ¼r Breite, HÃ¶he, X und Y eingeben.")
             return
         width = max(1, width)
         height = max(1, height)
@@ -1370,13 +1996,28 @@ class TibiaSearchApp:
 
     def _save_search_window_state(self) -> None:
         self._search_window_save_after = None
+        if not self._search_window_ready:
+            return
         if not self.search_window or not self.search_window.winfo_exists():
             return
+        width = int(self.search_window.winfo_width())
+        height = int(self.search_window.winfo_height())
+        x = int(self.search_window.winfo_x())
+        y = int(self.search_window.winfo_y())
+        prev = self.search_window_state or {}
+        if width <= 1 or height <= 1:
+            width = int(prev.get("width", width) or width)
+            height = int(prev.get("height", height) or height)
+        if x == 0 and y == 0:
+            prev_x = prev.get("x")
+            prev_y = prev.get("y")
+            if isinstance(prev_x, int) and isinstance(prev_y, int) and (prev_x, prev_y) != (0, 0):
+                x, y = prev_x, prev_y
         payload = {
-            "width": int(self.search_window.winfo_width()),
-            "height": int(self.search_window.winfo_height()),
-            "x": int(self.search_window.winfo_x()),
-            "y": int(self.search_window.winfo_y()),
+            "width": width,
+            "height": height,
+            "x": x,
+            "y": y,
             "topmost": bool(self.always_on_top),
         }
         self.search_window_state = payload
@@ -1395,6 +2036,34 @@ class TibiaSearchApp:
         if isinstance(payload, dict):
             self.search_window_state = payload
 
+    def _load_mana_items_prices(self) -> None:
+        if not self.mana_items_state_path.exists():
+            self.mana_items_prices = {}
+            return
+        try:
+            payload = json.loads(self.mana_items_state_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            self.mana_items_prices = {}
+            return
+        if isinstance(payload, dict):
+            self.mana_items_prices = {str(k): float(v) for k, v in payload.items()}
+
+    def _save_mana_items_prices(self) -> None:
+        try:
+            self.mana_items_state_path.write_text(
+                json.dumps(self.mana_items_prices, indent=2, ensure_ascii=False),
+                encoding="utf-8",
+            )
+        except Exception:
+            pass
+
+    def _save_mana_item_price(self, name: str, var: tk.StringVar) -> None:
+        value = self._parse_float_value(var.get())
+        if value is None:
+            return
+        self.mana_items_prices[name] = value
+        self._save_mana_items_prices()
+
     def _parse_int_value(self, value: str) -> int | None:
         value = value.strip()
         if not value:
@@ -1403,6 +2072,727 @@ class TibiaSearchApp:
             return int(value)
         except ValueError:
             return None
+
+    def _parse_float_value(self, value: str) -> float | None:
+        value = value.strip().replace(",", ".")
+        if not value:
+            return None
+        try:
+            return float(value)
+        except ValueError:
+            return None
+
+    def _format_rune_value(self, value: float) -> str:
+        return f"{value:.2f}".rstrip("0").rstrip(".")
+
+    def _format_de_number(self, value: float, decimals: int = 0) -> str:
+        return _format_number(value, decimals)
+
+    def _format_with_unit(self, value: float, unit: str, decimals: int = 0) -> str:
+        return f"{self._format_de_number(value, decimals)} {unit}"
+
+    def _magic_level_percent_gain(self, mana_spent: float, magic_level: int, vocation_value: str) -> float:
+        if mana_spent <= 0:
+            return 0.0
+        b_map = {
+            "Elite Knight": 3.0,
+            "Royal Paladin": 1.4,
+            "Master Sorcerer": 1.1,
+            "Elder Druid": 1.1,
+        }
+        b = b_map.get(vocation_value, 1.1)
+        mana_to_next = 1600.0 * (b ** magic_level)
+        if mana_to_next <= 0:
+            return 0.0
+        return (mana_spent / mana_to_next) * 100.0
+
+    def _compute_derived_stats(
+        self,
+        level: int,
+        magic_level: int,
+        vocation_value: str,
+        existing_stats: dict[str, object],
+    ) -> dict[str, object]:
+        mage_vocations = {"Elder Druid", "Master Sorcerer"}
+        is_mage = vocation_value in mage_vocations
+
+        if is_mage:
+            hp = 5 * (level + 29)
+            mana = 30 * level - 150
+            capacity = 10 * (level + 19)
+        else:
+            hp = int(existing_stats.get("hp") or 0)
+            mana = int(existing_stats.get("mana") or 0)
+            capacity = int(existing_stats.get("capacity") or 0)
+
+        speed = 109 + level
+        soul_points = 200
+        ml_percent = float(existing_stats.get("ml_percent") or 0.0)
+
+        if is_mage:
+            mana_regen_hungry = 5.0
+            mana_regen_fed = 6.0
+            hp_regen_hungry = 4.0
+            hp_regen_fed = 5.0
+        else:
+            mana_regen_hungry = 2.0 * 5.0 / 6.0
+            mana_regen_fed = 2.0
+            hp_regen_hungry = 8.0
+            hp_regen_fed = 10.0
+
+        mana_regen_depot = mana_regen_fed * 2.0
+        hp_regen_depot = hp_regen_fed * 2.0
+
+        return {
+            "hp": hp,
+            "mana": mana,
+            "capacity": capacity,
+            "speed": speed,
+            "soul_points": soul_points,
+            "ml_percent": ml_percent,
+            "mana_regen_hungry": mana_regen_hungry,
+            "mana_regen_fed": mana_regen_fed,
+            "mana_regen_depot": mana_regen_depot,
+            "hp_regen_hungry": hp_regen_hungry,
+            "hp_regen_fed": hp_regen_fed,
+            "hp_regen_depot": hp_regen_depot,
+        }
+
+    def _mana_regen_items(self) -> list[dict[str, object]]:
+        return [
+            {"name": "None", "mana_per_sec": 0.0, "duration_sec": 0},
+            {"name": "Soft Boots", "mana_per_sec": 2.0, "duration_sec": 4 * 60 * 60},
+            {"name": "Ring of Healing", "mana_per_sec": 4.0, "duration_sec": 7 * 60 + 30},
+            {"name": "Life Ring", "mana_per_sec": 8.0 / 6.0, "duration_sec": 20 * 60},
+            {"name": "Tiara of Power", "mana_per_sec": 8.0 / 6.0, "duration_sec": 60 * 60},
+            {"name": "Collar of Green Plasma", "mana_per_sec": 8.0 / 6.0, "duration_sec": 30 * 60},
+        ]
+
+    def _format_duration_minutes(self, duration_sec: int) -> str:
+        if duration_sec <= 0:
+            return "â€”"
+        minutes = duration_sec // 60
+        hours = minutes // 60
+        minutes = minutes % 60
+        if hours:
+            return f"{hours}h {minutes}m"
+        return f"{minutes}m"
+
+    def _mana_potions(self) -> list[dict[str, object]]:
+        return [
+            {"name": "None", "mana_gain": 0, "price": 0},
+            {"name": "Mana Potion", "mana_gain": 100, "price": 51},
+            {"name": "Strong Mana Potion", "mana_gain": 150, "price": 88},
+            {"name": "Great Mana Potion", "mana_gain": 200, "price": 139},
+            {"name": "Ultimate Mana Potion", "mana_gain": 500, "price": 433},
+            {"name": "Great Spirit Potion", "mana_gain": 150, "price": 185},
+            {"name": "Ultimate Spirit Potion", "mana_gain": 200, "price": 345},
+        ]
+
+    def _refresh_potion_stats(self) -> None:
+        selected = self.rune_potion_var.get().strip() or "None"
+        entry = next((item for item in self._mana_potions() if item["name"] == selected), None)
+        if not entry:
+            entry = self._mana_potions()[0]
+        mana_gain = int(entry.get("mana_gain", 0) or 0)
+        price = int(entry.get("price", 0) or 0)
+        count = self._parse_int_value(self.rune_potion_count_var.get()) or 0
+        rune = self._get_selected_rune() or {}
+        mana_cost = int(rune.get("mana", 0) or 0)
+        runes_per_cast = int(rune.get("runes_per_cast", 0) or 0)
+        vk_gp = int(rune.get("vk_gp", 0) or 0)
+        soul_cost = int(rune.get("soul_points", 0) or 0)
+
+        def _count_ok(candidate: int) -> bool:
+            if candidate <= 0:
+                return True
+            if mana_gain <= 0 or mana_cost <= 0:
+                return False
+            if soul_cost <= 0:
+                return True
+            mana_casts = (mana_gain * candidate) // mana_cost
+            soul_available = 200 + (candidate / 16.0)
+            soul_casts = int(soul_available // soul_cost)
+            return mana_casts <= soul_casts
+
+        max_count = count
+        if mana_gain > 0 and mana_cost > 0 and soul_cost > 0:
+            if not _count_ok(count):
+                lo, hi = 0, count
+                while lo <= hi:
+                    mid = (lo + hi) // 2
+                    if _count_ok(mid):
+                        max_count = mid
+                        lo = mid + 1
+                    else:
+                        hi = mid - 1
+        if max_count < count:
+            count = max_count
+            self.rune_potion_count_var.set(str(count))
+            if self.rune_potion_count_entry:
+                self.rune_potion_count_entry.configure(style="Warning.TEntry")
+            self.rune_potion_hint_var.set("Maximal wegen Soul-Limit")
+        else:
+            if self.rune_potion_count_entry:
+                self.rune_potion_count_entry.configure(style="TEntry")
+            self.rune_potion_hint_var.set("")
+
+        character = self._get_character_by_name(self.rune_character_var.get().strip())
+        stats = character.get("stats", {})
+        if not isinstance(stats, dict):
+            stats = {}
+        max_mana = int(stats.get("mana") or 0)
+
+        total_mana = mana_gain * count
+        total_mana_available = max_mana + total_mana
+        potion_cost = price * count
+        deposit = count * 5
+        time_seconds = count
+        time_minutes = time_seconds / 60.0
+        time_hours = time_seconds / 3600.0
+
+        soul_regen_per_5s = 5.0 / 16.0
+        soul_regenerated = soul_regen_per_5s * (time_seconds / 5.0) if time_seconds > 0 else 0.0
+        soul_available = 200 + soul_regenerated
+
+        casts_from_potions = total_mana_available // mana_cost if mana_cost > 0 else 0
+        if soul_cost > 0:
+            casts_from_potions = min(casts_from_potions, int(soul_available // soul_cost))
+        runes_from_potions = casts_from_potions * runes_per_cast
+        gold_from_runes = runes_from_potions * vk_gp
+        net_profit = gold_from_runes - potion_cost + deposit
+        soul_needed = casts_from_potions * soul_cost
+        mana_spent = casts_from_potions * mana_cost
+        mana_spent_from_potions = max(0, mana_spent - max_mana)
+        b_map = {
+            "Elite Knight": 3.0,
+            "Royal Paladin": 1.4,
+            "Master Sorcerer": 1.1,
+            "Elder Druid": 1.1,
+        }
+        vocation = str(self._get_character_by_name(self.rune_character_var.get().strip()).get("vocation", VOCATIONS[0]))
+        magic_level = int(self._get_character_by_name(self.rune_character_var.get().strip()).get("stats", {}).get("magic_level", 0) or 0)
+        mana_to_next = 1600.0 * (b_map.get(vocation, 1.1) ** magic_level)
+        ml_gain_potion = (mana_spent / mana_to_next) * 100.0 if mana_to_next > 0 else 0.0
+        soul_remaining = max(0.0, soul_available - soul_needed)
+        soul_missing = max(0.0, 200 - soul_remaining)
+        time_to_soul_200_sec = soul_missing * 16.0
+
+        if "mana_gain" in self.rune_potion_vars:
+            self.rune_potion_vars["mana_gain"].set(self._format_with_unit(mana_gain, "Mana", 0))
+            self.rune_potion_formula_vars["mana_gain"].set("")
+        if "price" in self.rune_potion_vars:
+            self.rune_potion_vars["price"].set(self._format_gp(price))
+            self.rune_potion_formula_vars["price"].set("")
+        if "time_needed" in self.rune_potion_vars:
+            self.rune_potion_vars["time_needed"].set(
+                f"{self._format_de_number(time_seconds, 0)} Sekunden / "
+                f"{self._format_de_number(time_minutes, 2)} Minuten / "
+                f"{self._format_de_number(time_hours, 2)} Stunden"
+            )
+            self.rune_potion_formula_vars["time_needed"].set(
+                f"({count} × 1s)"
+            )
+        if "mana_total" in self.rune_potion_vars:
+            self.rune_potion_vars["mana_total"].set(
+                f"{self._format_de_number(total_mana_available, 0)} Mana"
+            )
+            self.rune_potion_formula_vars["mana_total"].set(
+                f"({self._format_de_number(max_mana, 0)} + {mana_gain} × {count})"
+            )
+        if "mana_spent" in self.rune_potion_vars:
+            self.rune_potion_vars["mana_spent"].set(
+                f"{self._format_de_number(mana_spent, 0)} Mana"
+            )
+            self.rune_potion_formula_vars["mana_spent"].set(
+                f"({casts_from_potions} × {mana_cost}) = "
+                f"{self._format_de_number(mana_spent_from_potions, 0)} Mana aus Potions"
+            )
+        if "ml_gain_potion" in self.rune_potion_vars:
+            self.rune_potion_vars["ml_gain_potion"].set(
+                f"{self._format_de_number(ml_gain_potion, 2)} %"
+            )
+            self.rune_potion_formula_vars["ml_gain_potion"].set(
+                f"({self._format_de_number(mana_spent, 0)} / "
+                f"{self._format_de_number(mana_to_next, 0)} × 100)"
+            )
+            if "ml_gain_potion" in self.rune_result_vars:
+                self.rune_result_vars["ml_gain_potion"].set(f"{self._format_de_number(ml_gain_potion, 2)} %")
+        if "potion_cost" in self.rune_potion_vars:
+            self.rune_potion_vars["potion_cost"].set(self._format_gp(int(potion_cost)))
+            self.rune_potion_formula_vars["potion_cost"].set(
+                f"({price} × {count})"
+            )
+        if "deposit" in self.rune_potion_vars:
+            self.rune_potion_vars["deposit"].set(self._format_gp(int(deposit)))
+            self.rune_potion_formula_vars["deposit"].set(
+                f"({count} × 5)"
+            )
+        if "soul_regen" in self.rune_potion_vars:
+            self.rune_potion_vars["soul_regen"].set(
+                f"{self._format_de_number(soul_regenerated, 0)} Soul"
+            )
+            self.rune_potion_formula_vars["soul_regen"].set(
+                f"({self._format_de_number(soul_regen_per_5s, 2)} × "
+                f"{self._format_de_number(time_seconds, 0)} / 5)"
+            )
+        if "soul_needed" in self.rune_potion_vars:
+            self.rune_potion_vars["soul_needed"].set(
+                f"{self._format_de_number(soul_needed, 0)} Soul"
+            )
+            self.rune_potion_formula_vars["soul_needed"].set(
+                f"({casts_from_potions} × {soul_cost})"
+            )
+        if "runes_from_potions" in self.rune_potion_vars:
+            self.rune_potion_vars["runes_from_potions"].set(
+                f"{self._format_de_number(runes_from_potions, 0)} Runen"
+            )
+            self.rune_potion_formula_vars["runes_from_potions"].set(
+                f"({casts_from_potions} × {runes_per_cast})"
+            )
+        if "gold_from_runes" in self.rune_potion_vars:
+            self.rune_potion_vars["gold_from_runes"].set(self._format_gp(int(gold_from_runes)))
+            self.rune_potion_formula_vars["gold_from_runes"].set(
+                f"({runes_from_potions} × {vk_gp})"
+            )
+        if "net_profit" in self.rune_potion_vars:
+            self.rune_potion_vars["net_profit"].set(self._format_gp(int(net_profit)))
+            self.rune_potion_formula_vars["net_profit"].set(
+                f"({self._format_de_number(gold_from_runes, 0)} - "
+                f"{self._format_de_number(potion_cost, 0)} + {deposit})"
+            )
+        if "time_to_soul_200" in self.rune_potion_vars:
+            self.rune_potion_vars["time_to_soul_200"].set(
+                f"{self._format_de_number(time_to_soul_200_sec, 0)} Sekunden / "
+                f"{self._format_de_number(time_to_soul_200_sec / 60.0, 2)} Minuten / "
+                f"{self._format_de_number(time_to_soul_200_sec / 3600.0, 2)} Stunden"
+            )
+            self.rune_potion_formula_vars["time_to_soul_200"].set(
+                f"({self._format_de_number(soul_missing, 2)} × 16)"
+            )
+
+    def _get_character_by_name(self, name: str) -> dict[str, object]:
+        for entry in self.character_store.characters:
+            if str(entry.get("name")) == name:
+                return entry
+        return self.character_store.get_active()
+
+    def _refresh_rune_character_stats(self) -> None:
+        name = self.rune_character_var.get().strip()
+        character = self._get_character_by_name(name)
+        level = int(character.get("level") or 1)
+        stats = character.get("stats", {})
+        if not isinstance(stats, dict):
+            stats = {}
+        vocation = str(character.get("vocation", VOCATIONS[0]))
+        magic_level = int(stats.get("magic_level", 0) or 0)
+        derived = self._compute_derived_stats(level, magic_level, vocation, stats)
+        merged_stats = DEFAULT_STATS.copy()
+        merged_stats.update(stats)
+        merged_stats.update(derived)
+        character["stats"] = merged_stats
+        self.character_store.update_character(str(character.get("name", "")), character)
+
+        max_mana = int(merged_stats.get("mana") or 0)
+        soul_points = int(merged_stats.get("soul_points") or 0)
+        magic_level_value = int(merged_stats.get("magic_level") or 0)
+        regen_hungry = float(merged_stats.get("mana_regen_hungry") or 0.0)
+        regen_fed = float(merged_stats.get("mana_regen_fed") or 0.0)
+        regen_depot = float(merged_stats.get("mana_regen_depot") or 0.0)
+
+        if "level" in self.rune_stats_vars:
+            self.rune_stats_vars["level"].set(str(level))
+        if "max_mana" in self.rune_stats_vars:
+            self.rune_stats_vars["max_mana"].set(str(max_mana))
+        if "soul_points" in self.rune_stats_vars:
+            self.rune_stats_vars["soul_points"].set(str(soul_points))
+        if "magic_level" in self.rune_stats_vars:
+            self.rune_stats_vars["magic_level"].set(str(magic_level_value))
+        if "ml_percent" in self.rune_stats_vars:
+            self.rune_stats_vars["ml_percent"].set(self._format_rune_value(float(merged_stats.get("ml_percent") or 0.0)))
+        if "regen_hungry" in self.rune_stats_vars:
+            self.rune_stats_vars["regen_hungry"].set(self._format_rune_value(regen_hungry))
+        if "regen_fed" in self.rune_stats_vars:
+            self.rune_stats_vars["regen_fed"].set(self._format_rune_value(regen_fed))
+        if "regen_depot" in self.rune_stats_vars:
+            self.rune_stats_vars["regen_depot"].set(self._format_rune_value(regen_depot))
+
+    def _refresh_rune_spell_choices(self, select_name: str | None = None) -> None:
+        names = [name for name in self.rune_store.names() if name]
+        if not names:
+            self.rune_spell_var.set("")
+            return
+        if select_name and select_name in names:
+            self.rune_spell_var.set(select_name)
+        else:
+            active_name = str(self.rune_store.get_active().get("name", ""))
+            self.rune_spell_var.set(active_name if active_name in names else names[0])
+        if self.rune_spell_combo:
+            self.rune_spell_combo.configure(values=names, state="readonly")
+        selected = self.rune_spell_var.get().strip()
+        rune = self.rune_store.get_by_name(selected)
+        if rune:
+            self.rune_store.set_active(str(rune.get("id")))
+        if hasattr(self, "rune_listbox"):
+            query = self.rune_filter_var.get().strip().casefold() if hasattr(self, "rune_filter_var") else ""
+            filtered = [name for name in names if not query or query in name.casefold()]
+            self.rune_listbox.delete(0, tk.END)
+            for name in filtered:
+                self.rune_listbox.insert(tk.END, name)
+            if selected in filtered:
+                idx = filtered.index(selected)
+                self.rune_listbox.selection_set(idx)
+                self.rune_listbox.see(idx)
+
+    def _get_selected_rune(self) -> dict[str, object] | None:
+        name = self.rune_spell_var.get().strip()
+        if not name:
+            return None
+        return self.rune_store.get_by_name(name)
+
+    def _sync_rune_editor_from_selection(self) -> None:
+        rune = self._get_selected_rune()
+        if not rune:
+            for var in self.rune_editor_vars.values():
+                var.set("")
+            return
+        if "name" in self.rune_editor_vars:
+            self.rune_editor_vars["name"].set(str(rune.get("name", "")))
+        if "runes_per_cast" in self.rune_editor_vars:
+            self.rune_editor_vars["runes_per_cast"].set(str(rune.get("runes_per_cast", 1)))
+        if "mana_cost" in self.rune_editor_vars:
+            self.rune_editor_vars["mana_cost"].set(str(rune.get("mana", 0)))
+        if "soul_cost" in self.rune_editor_vars:
+            self.rune_editor_vars["soul_cost"].set(str(rune.get("soul_points", 0)))
+        if "vk_gp" in self.rune_editor_vars:
+            self.rune_editor_vars["vk_gp"].set(str(rune.get("vk_gp", 0)))
+
+    def _collect_rune_editor_values(self, existing_id: str | None = None) -> dict[str, object] | None:
+        name = self.rune_editor_vars["name"].get().strip()
+        if not name:
+            messagebox.showwarning("Missing Name", "Rune name is required.")
+            return None
+        if not self.rune_store.is_name_unique(name, ignore_id=existing_id):
+            messagebox.showwarning("Name exists", "Rune name must be unique.")
+            return None
+        runes_per_cast = self._parse_int_value(self.rune_editor_vars["runes_per_cast"].get())
+        if runes_per_cast is None or runes_per_cast < 1:
+            messagebox.showwarning("Invalid Runes", "Runes/Spell must be an integer >= 1.")
+            return None
+        mana_cost = self._parse_int_value(self.rune_editor_vars["mana_cost"].get())
+        if mana_cost is None or mana_cost < 1:
+            messagebox.showwarning("Invalid Mana", "Mana Cost must be an integer >= 1.")
+            return None
+        soul_cost = self._parse_int_value(self.rune_editor_vars["soul_cost"].get())
+        if soul_cost is None or soul_cost < 0:
+            messagebox.showwarning("Invalid Soul Points", "Soul Points must be an integer >= 0.")
+            return None
+        vk_gp = self._parse_int_value(self.rune_editor_vars["vk_gp"].get())
+        if vk_gp is None or vk_gp < 0:
+            messagebox.showwarning("Invalid VK", "VK (gp) must be an integer >= 0.")
+            return None
+        ek_gp = 0
+        if existing_id:
+            existing = self.rune_store.get_by_id(existing_id)
+            if existing:
+                ek_gp = int(existing.get("ek_gp", 0) or 0)
+        return {
+            "id": existing_id or str(uuid.uuid4()),
+            "name": name,
+            "runes_per_cast": runes_per_cast,
+            "mana": mana_cost,
+            "soul_points": soul_cost,
+            "ek_gp": ek_gp,
+            "vk_gp": vk_gp,
+        }
+
+    def _on_rune_character_change(self, *_args: object) -> None:
+        self._refresh_rune_character_stats()
+        self._refresh_rune_calculations()
+
+    def _on_rune_spell_change(self, *_args: object) -> None:
+        rune = self._get_selected_rune()
+        if rune:
+            self.rune_store.set_active(str(rune.get("id")))
+        self._sync_rune_editor_from_selection()
+        self._refresh_rune_calculations()
+
+    def _add_rune(self) -> None:
+        payload = self._collect_rune_editor_values()
+        if not payload:
+            return
+        self.rune_store.add_rune(payload)
+        self._refresh_rune_spell_choices(select_name=payload["name"])
+        self._sync_rune_editor_from_selection()
+        self._refresh_rune_calculations()
+
+    def _update_rune(self) -> None:
+        rune = self._get_selected_rune()
+        if not rune:
+            messagebox.showwarning("No Selection", "Select a rune to update.")
+            return
+        rune_id = str(rune.get("id"))
+        payload = self._collect_rune_editor_values(existing_id=rune_id)
+        if not payload:
+            return
+        self.rune_store.update_rune(rune_id, payload)
+        self._refresh_rune_spell_choices(select_name=payload["name"])
+        self._sync_rune_editor_from_selection()
+        self._refresh_rune_calculations()
+
+    def _remove_rune(self) -> None:
+        rune = self._get_selected_rune()
+        if not rune:
+            messagebox.showwarning("No Selection", "Select a rune to delete.")
+            return
+        name = str(rune.get("name", ""))
+        if not messagebox.askyesno("Delete Rune", f"Delete {name}?"):
+            return
+        self.rune_store.delete_rune(str(rune.get("id")))
+        self._refresh_rune_spell_choices()
+        self._sync_rune_editor_from_selection()
+        self._refresh_rune_calculations()
+
+    def _refresh_rune_calculations(self) -> None:
+        rune = self._get_selected_rune()
+        if not rune:
+            for key, var in self.rune_result_vars.items():
+                var.set("0")
+            if hasattr(self, "rune_regen_result_vars"):
+                for var in self.rune_regen_result_vars.values():
+                    var.set("0")
+            if hasattr(self, "rune_regen_formula_vars"):
+                for var in self.rune_regen_formula_vars.values():
+                    var.set("")
+            if hasattr(self, "rune_potion_formula_vars"):
+                for var in self.rune_potion_formula_vars.values():
+                    var.set("")
+            return
+
+        runes_per_cast = int(rune.get("runes_per_cast", 0) or 0)
+        mana_cost = int(rune.get("mana", 0) or 0)
+        soul_cost = int(rune.get("soul_points", 0) or 0)
+
+        character = self._get_character_by_name(self.rune_character_var.get().strip())
+        stats = character.get("stats", {})
+        if not isinstance(stats, dict):
+            stats = {}
+        vocation = str(character.get("vocation", VOCATIONS[0]))
+        level = int(character.get("level") or 1)
+        magic_level = int(stats.get("magic_level", 0) or 0)
+        derived = self._compute_derived_stats(level, magic_level, vocation, stats)
+        merged_stats = DEFAULT_STATS.copy()
+        merged_stats.update(stats)
+        merged_stats.update(derived)
+
+        max_mana = int(merged_stats.get("mana") or 0)
+        soul_points = int(merged_stats.get("soul_points") or 0)
+        mana_regen_hungry = float(merged_stats.get("mana_regen_hungry") or 0.0)
+        mana_regen_fed = float(merged_stats.get("mana_regen_fed") or 0.0)
+        mana_regen_depot = float(merged_stats.get("mana_regen_depot") or 0.0)
+
+        casts_from_mana = max_mana // mana_cost if mana_cost > 0 else 0
+        casts_possible = casts_from_mana
+
+        minutes = self._parse_float_value(self.rune_time_minutes_var.get()) or 0.0
+        seconds = max(0.0, minutes) * 60.0
+        base_regen = mana_regen_fed
+        mana_regen_per_5s = mana_regen_depot if self.rune_use_depot_bonus_var.get() else base_regen
+        base_mana_regenerated = mana_regen_per_5s * (seconds / 5.0) if seconds > 0 else 0.0
+        item_mana_regenerated = 0.0
+        total_item_cost = 0.0
+        if seconds > 0:
+            for row in self.rune_mana_item_rows:
+                item = row["item"]
+                selected_var = row["selected_var"]
+                price_var = row["price_var"]
+                needed_var = row["needed_var"]
+                cost_var = row["cost_var"]
+                if not selected_var.get():
+                    needed_var.set("0")
+                    cost_var.set("0")
+                    if hasattr(self, "mana_items_tree") and self.mana_items_tree.exists(item["name"]):
+                        self.mana_items_tree.item(
+                            item["name"],
+                            values=(
+                                "",
+                                item["name"],
+                                self._format_rune_value(float(item.get("mana_per_sec", 0.0)) * 5.0),
+                                self._format_duration_minutes(int(item.get("duration_sec", 0) or 0)),
+                                price_var.get(),
+                                needed_var.get(),
+                                cost_var.get(),
+                            ),
+                        )
+                    continue
+                duration_sec = int(item.get("duration_sec", 0) or 0)
+                if duration_sec <= 0:
+                    needed_var.set("0")
+                    cost_var.set("0")
+                    continue
+                items_needed = seconds / duration_sec
+                price = self._parse_float_value(price_var.get()) or 0.0
+                cost = items_needed * price
+                needed_var.set(self._format_rune_value(items_needed))
+                cost_var.set(self._format_rune_value(cost))
+                total_item_cost += cost
+                if hasattr(self, "mana_items_tree") and self.mana_items_tree.exists(item["name"]):
+                    self.mana_items_tree.item(
+                        item["name"],
+                        values=(
+                            "✓",
+                            item["name"],
+                            self._format_rune_value(float(item.get("mana_per_sec", 0.0)) * 5.0),
+                            self._format_duration_minutes(int(item.get("duration_sec", 0) or 0)),
+                            price_var.get(),
+                            needed_var.get(),
+                            cost_var.get(),
+                        ),
+                    )
+
+                item_per_5s = float(item.get("mana_per_sec", 0.0)) * 5.0
+                if self.rune_use_depot_bonus_var.get():
+                    item_per_5s *= 2.0
+                item_mana_regenerated += item_per_5s * (seconds / 5.0)
+        else:
+            for row in self.rune_mana_item_rows:
+                row["needed_var"].set("0")
+                row["cost_var"].set("0")
+                item = row["item"]
+                if hasattr(self, "mana_items_tree") and self.mana_items_tree.exists(item["name"]):
+                    self.mana_items_tree.item(
+                        item["name"],
+                        values=(
+                            "",
+                            item["name"],
+                            self._format_rune_value(float(item.get("mana_per_sec", 0.0)) * 5.0),
+                            self._format_duration_minutes(int(item.get("duration_sec", 0) or 0)),
+                            row["price_var"].get(),
+                            row["needed_var"].get(),
+                            row["cost_var"].get(),
+                        ),
+                    )
+
+        mana_regenerated = base_mana_regenerated + item_mana_regenerated
+        soul_regen_per_5s = 5.0 / 16.0
+        soul_regenerated = soul_regen_per_5s * (seconds / 5.0) if seconds > 0 else 0.0
+        soul_available = 200 + soul_regenerated
+        casts_from_soul = int(soul_available // soul_cost) if soul_cost > 0 else 0
+        casts_from_regen = int(mana_regenerated // mana_cost) if mana_cost > 0 else 0
+        casts_from_regen = min(casts_from_regen, casts_from_soul) if soul_cost > 0 else casts_from_regen
+        runes_from_regen = casts_from_regen * runes_per_cast
+
+        runes_from_mana = casts_from_mana * runes_per_cast
+        casts_possible = min(casts_from_mana, casts_from_soul) if soul_cost > 0 else casts_from_mana
+        runes_possible = casts_possible * runes_per_cast
+        vk_gp = int(rune.get("vk_gp", 0) or 0)
+        gold_from_regen = runes_from_regen * vk_gp
+        net_regen = gold_from_regen - total_item_cost
+        gold_from_max = runes_possible * vk_gp
+
+        self.rune_result_vars["runes_per_cast"].set(str(runes_per_cast))
+        self.rune_result_vars["mana_cost"].set(str(mana_cost))
+        self.rune_result_vars["soul_cost"].set(str(soul_cost))
+        self.rune_result_vars["ek_gp"].set(str(int(rune.get("ek_gp", 0) or 0)))
+        self.rune_result_vars["vk_gp"].set(str(int(rune.get("vk_gp", 0) or 0)))
+        soul_needed_regen = casts_from_regen * soul_cost
+        mana_spent_regen = casts_from_regen * mana_cost
+        b_map = {
+            "Elite Knight": 3.0,
+            "Royal Paladin": 1.4,
+            "Master Sorcerer": 1.1,
+            "Elder Druid": 1.1,
+        }
+        mana_to_next = 1600.0 * (b_map.get(vocation, 1.1) ** magic_level)
+        ml_gain_regen = (mana_spent_regen / mana_to_next) * 100.0 if mana_to_next > 0 else 0.0
+        if "ml_gain_regen" in self.rune_result_vars or "ml_gain_potion" in self.rune_result_vars:
+            ml_gain_per_rune = (mana_cost / mana_to_next) * 100.0 if mana_to_next > 0 else 0.0
+            if "ml_gain_regen" in self.rune_result_vars:
+                self.rune_result_vars["ml_gain_regen"].set(f"{self._format_de_number(ml_gain_per_rune, 4)} %")
+            if "ml_gain_potion" in self.rune_result_vars:
+                self.rune_result_vars["ml_gain_potion"].set(f"{self._format_de_number(ml_gain_per_rune, 4)} %")
+
+        if hasattr(self, "rune_regen_result_vars"):
+            self.rune_regen_result_vars["time_used"].set(self._format_with_unit(seconds, "Sekunden", 0))
+            self.rune_regen_formula_vars["time_used"].set(
+                f"({self._format_de_number(minutes, 2)} × 60)"
+            )
+
+            self.rune_regen_result_vars["mana_regenerated"].set(
+                self._format_with_unit(mana_regenerated, "Mana", 0)
+            )
+            self.rune_regen_formula_vars["mana_regenerated"].set(
+                f"({self._format_de_number(mana_regen_per_5s, 2)} × "
+                f"{self._format_de_number(seconds, 0)} / 5 + items)"
+            )
+
+            self.rune_regen_result_vars["soul_regenerated"].set(
+                self._format_with_unit(soul_regenerated, "Soul", 0)
+            )
+            self.rune_regen_formula_vars["soul_regenerated"].set(
+                f"({self._format_de_number(soul_regen_per_5s, 2)} × "
+                f"{self._format_de_number(seconds, 0)} / 5)"
+            )
+
+            self.rune_regen_result_vars["soul_available"].set(
+                self._format_with_unit(soul_available, "Soul", 0)
+            )
+            self.rune_regen_formula_vars["soul_available"].set(
+                f"(200 + {self._format_de_number(soul_regenerated, 2)})"
+            )
+
+            self.rune_regen_result_vars["soul_needed_regen"].set(
+                self._format_with_unit(soul_needed_regen, "Soul", 0)
+            )
+            self.rune_regen_formula_vars["soul_needed_regen"].set(
+                f"({casts_from_regen} × {soul_cost})"
+            )
+
+            self.rune_regen_result_vars["mana_spent_regen"].set(
+                self._format_with_unit(mana_spent_regen, "Mana", 0)
+            )
+            self.rune_regen_formula_vars["mana_spent_regen"].set(
+                f"({casts_from_regen} × {mana_cost})"
+            )
+
+            self.rune_regen_result_vars["ml_gain_regen"].set(
+                f"{self._format_de_number(ml_gain_regen, 2)} %"
+            )
+            self.rune_regen_formula_vars["ml_gain_regen"].set(
+                f"({self._format_de_number(mana_spent_regen, 0)} / "
+                f"{self._format_de_number(mana_to_next, 0)} × 100)"
+            )
+
+            self.rune_regen_result_vars["casts_from_regen"].set(
+                self._format_with_unit(casts_from_regen, "Casts", 0)
+            )
+            self.rune_regen_formula_vars["casts_from_regen"].set(
+                f"(min({self._format_de_number(mana_regenerated, 0)} // {mana_cost}, "
+                f"{self._format_de_number(soul_available, 0)} // {soul_cost}))"
+            )
+
+            self.rune_regen_result_vars["runes_from_regen"].set(
+                self._format_with_unit(runes_from_regen, "Runen", 0)
+            )
+            self.rune_regen_formula_vars["runes_from_regen"].set(
+                f"({casts_from_regen} × {runes_per_cast})"
+            )
+
+            self.rune_regen_result_vars["gold_from_regen"].set(self._format_gp(int(gold_from_regen)))
+            self.rune_regen_formula_vars["gold_from_regen"].set(
+                f"({runes_from_regen} × {vk_gp})"
+            )
+
+            self.rune_regen_result_vars["item_cost"].set(self._format_gp(int(total_item_cost)))
+            self.rune_regen_formula_vars["item_cost"].set("(Summe Items)")
+
+            self.rune_regen_result_vars["net_regen"].set(self._format_gp(int(net_regen)))
+            self.rune_regen_formula_vars["net_regen"].set(
+                f"({self._format_de_number(gold_from_regen, 0)} - "
+                f"{self._format_de_number(total_item_cost, 0)})"
+            )
+
+        self._refresh_potion_stats()
 
     def _search_character(self) -> None:
         raw_name = self.character_search_var.get().strip()
@@ -2197,6 +3587,7 @@ class TibiaSearchApp:
                 "cooldowns": "Cooldowns",
                 "hunting_ground": "Hunting Ground",
                 "character_search": "Charakter suchen",
+                "rune_calculator": "Runen Rechner",
                 "search_window": "Suchfenster",
             }.get(module_key, "Module")
         )
@@ -2234,6 +3625,8 @@ class TibiaSearchApp:
             self._build_hunting_ground_tab(container)
         elif module_key == "character_search":
             self._build_character_search_tab(container)
+        elif module_key == "rune_calculator":
+            self._build_rune_calculator_tab(container)
         elif module_key == "search_window":
             self._build_search_window_tab(container)
 
@@ -2255,7 +3648,7 @@ class TibiaSearchApp:
         left_frame.rowconfigure(0, weight=1)
 
         self.imbuement_tree = ttk.Treeview(left_frame, columns=("fav", "name", "total"), show="headings", height=12)
-        self.imbuement_tree.heading("fav", text="★")
+        self.imbuement_tree.heading("fav", text="â˜…")
         self.imbuement_tree.heading("name", text="Imbuement")
         self.imbuement_tree.heading("total", text="Total")
         self.imbuement_tree.column("fav", width=32, anchor="center", stretch=False)
@@ -2279,7 +3672,7 @@ class TibiaSearchApp:
         self.imbuement_title = ttk.Label(header_frame, text="Select an Imbuement", font=title_font)
         self.imbuement_title.grid(row=0, column=0, sticky="w")
 
-        self.favorite_button = ttk.Button(header_frame, text="☆", width=3, command=self.toggle_selected_favorite)
+        self.favorite_button = ttk.Button(header_frame, text="â˜†", width=3, command=self.toggle_selected_favorite)
         self.favorite_button.grid(row=0, column=1, padx=(6, 0))
 
         self.category_label = ttk.Label(header_frame, text="")
@@ -2350,10 +3743,10 @@ class TibiaSearchApp:
             columns=("fav", "name", "providers", "trader_price", "market_price"),
             show="headings",
         )
-        self.items_tree.heading("fav", text="★")
+        self.items_tree.heading("fav", text="â˜…")
         self.items_tree.heading("name", text="Item", command=lambda: self._set_items_sort("name"))
         self.items_tree.heading("providers", text="Provider")
-        self.items_tree.heading("trader_price", text="Händler VK")
+        self.items_tree.heading("trader_price", text="HÃ¤ndler VK")
         self.items_tree.heading(
             "market_price",
             text="Auktionshaus VK",
@@ -2384,7 +3777,7 @@ class TibiaSearchApp:
         header_frame.columnconfigure(0, weight=1)
 
         ttk.Label(header_frame, text="Hunts").grid(row=0, column=0, sticky="w")
-        ttk.Button(header_frame, text="＋ Hunt hinzufügen", command=self._open_add_hunt_dialog).grid(
+        ttk.Button(header_frame, text="ï¼‹ Hunt hinzufÃ¼gen", command=self._open_add_hunt_dialog).grid(
             row=0, column=1, sticky="e"
         )
 
@@ -2407,7 +3800,7 @@ class TibiaSearchApp:
         )
         self.hunts_tree.heading("name", text="Hunt-Name")
         self.hunts_tree.heading("character", text="Character")
-        self.hunts_tree.heading("equipment", text="Ausrüstung")
+        self.hunts_tree.heading("equipment", text="AusrÃ¼stung")
         self.hunts_tree.heading("xp", text="XP Gain")
         self.hunts_tree.column("name", width=220, anchor="w")
         self.hunts_tree.column("character", width=140, anchor="center")
@@ -2447,7 +3840,7 @@ class TibiaSearchApp:
         )
         self.hunt_character_combo.grid(row=0, column=1, sticky="w", padx=(6, 0))
 
-        ttk.Label(equipment_frame, text="Ausrüstung:").grid(row=1, column=0, sticky="w")
+        ttk.Label(equipment_frame, text="AusrÃ¼stung:").grid(row=1, column=0, sticky="w")
         self.hunt_equipment_combo = ttk.Combobox(
             equipment_frame,
             textvariable=self.hunt_equipment_var,
@@ -2483,7 +3876,7 @@ class TibiaSearchApp:
         row = 0
         for label, key in detail_fields:
             ttk.Label(left_frame, text=f"{label}:").grid(row=row, column=0, sticky="w", padx=6, pady=2)
-            var = tk.StringVar(value="—")
+            var = tk.StringVar(value="â€”")
             self.hunt_detail_vars[key] = var
             ttk.Label(left_frame, textvariable=var).grid(row=row, column=1, sticky="e", padx=6, pady=2)
             row += 1
@@ -2520,7 +3913,7 @@ class TibiaSearchApp:
         ]
         for row, (label, key) in enumerate(rate_fields):
             ttk.Label(right_frame, text=f"{label}:").grid(row=row, column=0, sticky="w", padx=6, pady=2)
-            var = tk.StringVar(value="—")
+            var = tk.StringVar(value="â€”")
             self.hunt_rate_vars[key] = var
             ttk.Label(right_frame, textvariable=var).grid(row=row, column=1, sticky="e", padx=6, pady=2)
 
@@ -2554,7 +3947,7 @@ class TibiaSearchApp:
         )
         self.hunt_profit_tree.heading("name", text="Hunt-Name")
         self.hunt_profit_tree.heading("character", text="Character")
-        self.hunt_profit_tree.heading("equipment", text="Ausrüstung")
+        self.hunt_profit_tree.heading("equipment", text="AusrÃ¼stung")
         self.hunt_profit_tree.heading("balance", text="Balance")
         self.hunt_profit_tree.column("name", width=180, anchor="w")
         self.hunt_profit_tree.column("character", width=140, anchor="center")
@@ -2579,7 +3972,7 @@ class TibiaSearchApp:
         )
         self.hunt_xp_tree.heading("name", text="Hunt-Name")
         self.hunt_xp_tree.heading("character", text="Character")
-        self.hunt_xp_tree.heading("equipment", text="Ausrüstung")
+        self.hunt_xp_tree.heading("equipment", text="AusrÃ¼stung")
         self.hunt_xp_tree.heading("xp", text="XP Gain")
         self.hunt_xp_tree.column("name", width=180, anchor="w")
         self.hunt_xp_tree.column("character", width=140, anchor="center")
@@ -2694,7 +4087,7 @@ class TibiaSearchApp:
             trader_display = self._format_price(trader_price)
             market_display = self._format_price(item.gold)
             row_id = str(len(self.items_list_items))
-            fav = "★" if self.item_price_store.is_favorite(item.name) else "☆"
+            fav = "â˜…" if self.item_price_store.is_favorite(item.name) else "â˜†"
             tags = ("imbuement-material",) if self._is_imbuement_material(item.name) else ()
             self.items_tree.insert(
                 "",
@@ -2813,7 +4206,7 @@ class TibiaSearchApp:
 
     def _open_add_hunt_dialog(self) -> None:
         dialog = tk.Toplevel(self.root)
-        dialog.title("Hunt hinzufügen")
+        dialog.title("Hunt hinzufÃ¼gen")
         dialog.resizable(False, False)
         dialog.transient(self.root)
         dialog.grab_set()
@@ -2840,7 +4233,7 @@ class TibiaSearchApp:
         )
         character_combo.grid(row=1, column=1, sticky="w", pady=4)
 
-        ttk.Label(form_frame, text="Ausrüstung:").grid(row=2, column=0, sticky="w", pady=4)
+        ttk.Label(form_frame, text="AusrÃ¼stung:").grid(row=2, column=0, sticky="w", pady=4)
         equipment_combo = ttk.Combobox(
             form_frame,
             textvariable=equipment_var,
@@ -2868,10 +4261,10 @@ class TibiaSearchApp:
                 messagebox.showwarning("Fehlender Name", "Bitte einen Hunt-Namen angeben.")
                 return
             if not character_id:
-                messagebox.showwarning("Fehlender Character", "Bitte einen Character auswählen.")
+                messagebox.showwarning("Fehlender Character", "Bitte einen Character auswÃ¤hlen.")
                 return
             if not raw_log:
-                messagebox.showwarning("Fehlender Log", "Bitte den Session-Log einfügen.")
+                messagebox.showwarning("Fehlender Log", "Bitte den Session-Log einfÃ¼gen.")
                 return
             hunt_id = self.hunt_store.add_hunt(name, character_id, equipment_tag, raw_log)
             self._refresh_hunts_list(select_id=hunt_id)
@@ -2931,7 +4324,7 @@ class TibiaSearchApp:
 
     def _display_character_name(self, value: object) -> str:
         name = str(value or "").strip()
-        return name or "—"
+        return name or "â€”"
 
     def _on_hunt_select(self, _event: tk.Event) -> None:
         selection = self.hunts_tree.selection()
@@ -2951,9 +4344,9 @@ class TibiaSearchApp:
         entry = self.hunt_store.get_hunt(self.active_hunt_id) if self.active_hunt_id else None
         if not entry:
             for var in self.hunt_detail_vars.values():
-                var.set("—")
+                var.set("â€”")
             for var in self.hunt_rate_vars.values():
-                var.set("—")
+                var.set("â€”")
             self._set_breakdown_list(self.hunt_kills_list, {})
             self._set_breakdown_list(self.hunt_loot_list, {})
             self._suppress_hunt_equipment_change = True
@@ -3013,14 +4406,14 @@ class TibiaSearchApp:
             self.hunt_rate_vars["healing_per_hour"].set(self._format_rate(healing_rate))
         else:
             for key in self.hunt_rate_vars:
-                self.hunt_rate_vars[key].set("—")
+                self.hunt_rate_vars[key].set("â€”")
 
     def _set_breakdown_list(self, listbox: tk.Listbox | None, breakdown: dict[str, int]) -> None:
         if listbox is None:
             return
         listbox.delete(0, tk.END)
         if not breakdown:
-            listbox.insert(tk.END, "—")
+            listbox.insert(tk.END, "â€”")
             return
         sorted_items = sorted(breakdown.items(), key=lambda item: (-item[1], item[0].lower()))
         for name, count in sorted_items:
@@ -3109,7 +4502,7 @@ class TibiaSearchApp:
 
     def _format_duration(self, seconds: int) -> str:
         if seconds <= 0:
-            return "—"
+            return "â€”"
         hours = seconds // 3600
         minutes = (seconds % 3600) // 60
         secs = seconds % 60
@@ -3117,11 +4510,11 @@ class TibiaSearchApp:
 
     def _format_rate(self, value: object) -> str:
         if value is None:
-            return "—"
+            return "â€”"
         try:
             numeric = float(value)
         except (TypeError, ValueError):
-            return "—"
+            return "â€”"
         if abs(numeric - round(numeric)) < 0.01:
             return _format_number(round(numeric))
         return _format_number(numeric, decimals=2)
@@ -3177,7 +4570,7 @@ class TibiaSearchApp:
             self._insert_imbuement(imbuement)
 
     def _insert_imbuement(self, imbuement: Imbuement) -> None:
-        fav = "★" if self.store.is_favorite(imbuement.key) else "☆"
+        fav = "â˜…" if self.store.is_favorite(imbuement.key) else "â˜†"
         total = self._format_gp(self._calculate_total(imbuement))
         self.imbuement_tree.insert("", tk.END, iid=imbuement.key, values=(fav, imbuement.name, total))
 
@@ -3240,7 +4633,7 @@ class TibiaSearchApp:
     def _render_imbuement_details(self, imbuement: Imbuement) -> None:
         self.imbuement_title.config(text=imbuement.name)
         self.category_label.config(text=imbuement.category)
-        self.favorite_button.config(text="★" if self.store.is_favorite(imbuement.key) else "☆")
+        self.favorite_button.config(text="â˜…" if self.store.is_favorite(imbuement.key) else "â˜†")
 
         for widget in self.materials_frame.grid_slaves():
             info = widget.grid_info()
@@ -3361,7 +4754,7 @@ class TibiaSearchApp:
             if not imbuement:
                 continue
             total = self._format_gp(self._calculate_total(imbuement))
-            fav = "★" if self.store.is_favorite(imbuement.key) else "☆"
+            fav = "â˜…" if self.store.is_favorite(imbuement.key) else "â˜†"
             self.imbuement_tree.item(child, values=(fav, imbuement.name, total))
 
     def _calculate_total(self, imbuement: Imbuement) -> int:
@@ -3659,10 +5052,15 @@ class CharacterWindow:
             ("Vocation", "vocation"),
             ("Level", "level"),
             ("Magic Level", "magic_level"),
-            ("ML %", "ml_percent"),
-            ("Mana Level", "mana_level"),
+            ("ML& to go", "ml_percent"),
             ("HP", "hp"),
             ("Mana", "mana"),
+            ("Mana Regen (Hungry /5s)", "mana_regen_hungry"),
+            ("Mana Regen (Fed /5s)", "mana_regen_fed"),
+            ("Mana Regen (Depot /5s, Daily Reward x2)", "mana_regen_depot"),
+            ("HP Regen (Hungry /5s)", "hp_regen_hungry"),
+            ("HP Regen (Fed /5s)", "hp_regen_fed"),
+            ("HP Regen (Depot /5s, Daily Reward x2)", "hp_regen_depot"),
             ("Capacity", "capacity"),
             ("Speed", "speed"),
             ("Soul Points", "soul_points"),
@@ -3674,6 +5072,20 @@ class CharacterWindow:
             ("Distance Fighting", "distance"),
         ]
 
+        readonly_fields = {
+            "hp",
+            "mana",
+            "mana_regen_hungry",
+            "mana_regen_fed",
+            "mana_regen_depot",
+            "hp_regen_hungry",
+            "hp_regen_fed",
+            "hp_regen_depot",
+            "capacity",
+            "speed",
+            "soul_points",
+        }
+
         for row, (label, key) in enumerate(fields):
             ttk.Label(stats_frame, text=label).grid(row=row, column=0, sticky="w", padx=6, pady=2)
             if key == "vocation":
@@ -3683,7 +5095,8 @@ class CharacterWindow:
                 self.stats_widgets[key] = entry
             else:
                 var = tk.StringVar()
-                entry = ttk.Entry(stats_frame, textvariable=var)
+                entry_state = "readonly" if key in readonly_fields else "normal"
+                entry = ttk.Entry(stats_frame, textvariable=var, state=entry_state)
                 entry.grid(row=row, column=1, sticky="ew", padx=6, pady=2)
                 self.stats_entries[key] = entry
                 self.stats_widgets[key] = entry
@@ -3704,7 +5117,7 @@ class CharacterWindow:
             slot_frame.bind("<Button-1>", lambda _event, s=slot: self._set_active_slot(s))
             header = tk.Label(slot_frame, text=slot.title(), font=("TkDefaultFont", 10, "bold"))
             header.grid(row=0, column=0, sticky="w", padx=4, pady=2)
-            item_label = tk.Label(slot_frame, text="— leer —")
+            item_label = tk.Label(slot_frame, text="â€” leer â€”")
             item_label.grid(row=0, column=1, sticky="w", padx=4, pady=2)
 
             imbue_info = tk.Label(slot_frame, text="Imbues: 0/0")
@@ -3713,7 +5126,7 @@ class CharacterWindow:
             imbue_labels = []
             remove_buttons = []
             for slot_idx in range(3):
-                label = tk.Label(slot_frame, text=f"Slot {slot_idx + 1}: —")
+                label = tk.Label(slot_frame, text=f"Slot {slot_idx + 1}: â€”")
                 label.grid(row=2 + slot_idx, column=0, sticky="w", padx=4)
                 button = ttk.Button(
                     slot_frame,
@@ -3801,6 +5214,9 @@ class CharacterWindow:
         self.character_combo.bind("<<ComboboxSelected>>", self._on_character_change)
         for key, widget in self.stats_widgets.items():
             widget.bind("<FocusOut>", lambda _event, k=key: self._save_stats(k))
+        vocation_widget = self.stats_widgets.get("vocation")
+        if vocation_widget:
+            vocation_widget.bind("<<ComboboxSelected>>", lambda _event: self._save_stats("vocation"))
 
     def _set_active_slot(self, slot: str) -> None:
         self.active_slot = slot
@@ -3836,7 +5252,21 @@ class CharacterWindow:
         stats = character.get("stats", {})
         for key in DEFAULT_STATS:
             value = stats.get(key, 0) if isinstance(stats, dict) else 0
-            self.stats_vars[key].set(str(value))
+            self.stats_vars[key].set(self._format_stat_value(key, value))
+
+        derived = self._compute_derived_stats(
+            int(character.get("level", 1) or 1),
+            int(stats.get("magic_level", 0) or 0) if isinstance(stats, dict) else 0,
+            str(character.get("vocation", VOCATIONS[0])),
+            stats if isinstance(stats, dict) else {},
+        )
+        if isinstance(stats, dict):
+            stats.update(derived)
+        for key, value in derived.items():
+            self.stats_vars[key].set(self._format_stat_value(key, value))
+        character["stats"] = stats
+        self.store.update_character(self.current_character_name, character)
+        self._update_stat_entry_states(str(character.get("vocation", VOCATIONS[0])))
 
         self._set_active_slot(self.active_slot)
         self._refresh_equipment()
@@ -3848,6 +5278,7 @@ class CharacterWindow:
         name_value = self.stats_vars["name"].get().strip()
         vocation_value = self.stats_vars["vocation"].get().strip() or VOCATIONS[0]
         level_value = self._parse_int(self.stats_vars["level"].get(), minimum=1)
+        magic_level_value = self._parse_int(self.stats_vars["magic_level"].get(), minimum=0)
 
         if not name_value:
             self._mark_invalid("name", old_name)
@@ -3860,6 +5291,9 @@ class CharacterWindow:
         if level_value is None:
             self._mark_invalid("level", character.get("level", 1))
             return
+        if magic_level_value is None:
+            self._mark_invalid("magic_level", character.get("stats", {}).get("magic_level", 0))
+            return
 
         stats = character.get("stats", {})
         if not isinstance(stats, dict):
@@ -3867,17 +5301,49 @@ class CharacterWindow:
         updated_stats = DEFAULT_STATS.copy()
         updated_stats.update(stats)
 
-        for key in DEFAULT_STATS:
+        mage_vocations = {"Elder Druid", "Master Sorcerer"}
+        is_mage = vocation_value in mage_vocations
+        editable_keys = {
+            "magic_level",
+            "ml_percent",
+            "stamina",
+            "shielding",
+            "sword",
+            "axe",
+            "club",
+            "distance",
+        }
+        if not is_mage:
+            editable_keys.update({"hp", "mana", "capacity"})
+        for key in editable_keys:
             raw = self.stats_vars[key].get()
             if key == "ml_percent":
-                value = self._parse_int(raw, minimum=0, maximum=99)
-            else:
-                value = self._parse_int(raw, minimum=0)
+                value = self._parse_float_value(raw)
+                if value is None:
+                    self._mark_invalid(key, updated_stats.get(key, 0))
+                    return
+                value = max(0.0, min(100.0, value))
+                updated_stats[key] = value
+                self._clear_invalid(key)
+                continue
+            value = self._parse_int(raw, minimum=0)
             if value is None:
                 self._mark_invalid(key, updated_stats.get(key, 0))
                 return
             updated_stats[key] = value
             self._clear_invalid(key)
+
+        derived = self._compute_derived_stats(
+            level_value,
+            magic_level_value,
+            vocation_value,
+            updated_stats,
+        )
+        for key, value in derived.items():
+            updated_stats[key] = value
+            self.stats_vars[key].set(self._format_stat_value(key, value))
+            self._clear_invalid(key)
+        self._update_stat_entry_states(vocation_value)
 
         updated_character = {
             "name": name_value,
@@ -3916,6 +5382,87 @@ class CharacterWindow:
         if maximum is not None and parsed > maximum:
             return None
         return parsed
+
+    def _parse_float_value(self, value: str) -> float | None:
+        value = value.strip().replace(",", ".")
+        if not value:
+            return None
+        try:
+            return float(value)
+        except ValueError:
+            return None
+
+    def _format_stat_value(self, key: str, value: object) -> str:
+        if key in FLOAT_STATS:
+            try:
+                return f"{float(value):.2f}"
+            except (TypeError, ValueError):
+                return "0.00"
+        try:
+            return str(int(value))
+        except (TypeError, ValueError):
+            return "0"
+
+    def _update_stat_entry_states(self, vocation_value: str) -> None:
+        mage_vocations = {"Elder Druid", "Master Sorcerer"}
+        is_mage = vocation_value in mage_vocations
+        for key in ("hp", "mana", "capacity"):
+            entry = self.stats_entries.get(key)
+            if not entry:
+                continue
+            entry.configure(state="readonly" if is_mage else "normal")
+
+    def _compute_derived_stats(
+        self,
+        level: int,
+        magic_level: int,
+        vocation_value: str,
+        existing_stats: dict[str, object],
+    ) -> dict[str, object]:
+        mage_vocations = {"Elder Druid", "Master Sorcerer"}
+        is_mage = vocation_value in mage_vocations
+
+        if is_mage:
+            hp = 5 * (level + 29)
+            mana = 30 * level - 150
+            capacity = 10 * (level + 19)
+        else:
+            hp = int(existing_stats.get("hp") or 0)
+            mana = int(existing_stats.get("mana") or 0)
+            capacity = int(existing_stats.get("capacity") or 0)
+
+        speed = 109 + level
+        soul_points = 200
+        ml_percent = float(existing_stats.get("ml_percent") or 0.0)
+
+        if is_mage:
+            mana_regen_hungry = 5.0
+            mana_regen_fed = 6.0
+            hp_regen_hungry = 4.0
+            hp_regen_fed = 5.0
+        else:
+            mana_regen_hungry = 2.0 * 5.0 / 6.0
+            mana_regen_fed = 2.0
+            hp_regen_hungry = 8.0
+            hp_regen_fed = 10.0
+
+        mana_regen_depot = mana_regen_fed * 2.0
+        hp_regen_depot = hp_regen_fed * 2.0
+
+        return {
+            "hp": hp,
+            "mana": mana,
+            "capacity": capacity,
+            "speed": speed,
+            "soul_points": soul_points,
+            "ml_percent": ml_percent,
+            "mana_regen_hungry": mana_regen_hungry,
+            "mana_regen_fed": mana_regen_fed,
+            "mana_regen_depot": mana_regen_depot,
+            "hp_regen_hungry": hp_regen_hungry,
+            "hp_regen_fed": hp_regen_fed,
+            "hp_regen_depot": hp_regen_depot,
+        }
 
     def _on_character_change(self, _event: tk.Event) -> None:
         self._save_stats("name")
@@ -4071,7 +5618,7 @@ class CharacterWindow:
             item_label = self.equipment_labels[slot]["item"]
             imbue_info = self.equipment_labels[slot]["imbue_info"]
 
-            item_label.config(text=item_name or "— leer —")
+            item_label.config(text=item_name or "â€” leer â€”")
             item = self.item_map.get(item_name) if item_name else None
             max_slots = item.imbue_slots if item else 0
             imbue_info.config(text=f"Imbues: {len(imbues)}/{max_slots}")
@@ -4080,7 +5627,7 @@ class CharacterWindow:
                 label_key = f"slot_{idx + 1}"
                 label = self.equipment_labels[slot][label_key]
                 if idx < max_slots:
-                    name = "—"
+                    name = "â€”"
                     if idx < len(imbues):
                         imbuement = self.imbuement_map.get(imbues[idx])
                         name = imbuement.name if imbuement else imbues[idx]
@@ -4127,14 +5674,14 @@ class CharacterWindow:
                         total_qty = material.qty * count
                         price = self.market_price_lookup.get(material.name.casefold(), 0)
                         imbue_total += total_qty * price
-                lines.append(f"{name} (x{count}) – Total: {self._format_gp(imbue_total)}")
+                lines.append(f"{name} (x{count}) â€“ Total: {self._format_gp(imbue_total)}")
                 if imbuement:
                     for material in imbuement.materials:
                         total_qty = material.qty * count
                         price = self.market_price_lookup.get(material.name.casefold(), 0)
                         line_total = total_qty * price
                         lines.append(
-                            f"  {total_qty} × {material.name} – {self._format_gp(price)}/Stk – {self._format_gp(line_total)}"
+                            f"  {total_qty} Ã— {material.name} â€“ {self._format_gp(price)}/Stk â€“ {self._format_gp(line_total)}"
                         )
                 lines.append("")
 
@@ -4152,7 +5699,7 @@ class CharacterWindow:
                     total_qty = totals[name]
                     line_total = total_qty * price
                     lines.append(
-                        f"  {name}: {total_qty} × {self._format_gp(price)}/Stk – {self._format_gp(line_total)}"
+                        f"  {name}: {total_qty} Ã— {self._format_gp(price)}/Stk â€“ {self._format_gp(line_total)}"
                     )
 
         self.summary_text.configure(state="normal")
@@ -4171,3 +5718,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+

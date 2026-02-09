@@ -1,0 +1,302 @@
+{
+  "runes": [
+    {
+      "id": "68b77e39-61ae-4c9d-ab88-fbf5e5108998",
+      "name": "Animate Dead Rune",
+      "runes_per_cast": 1,
+      "mana": 600,
+      "soul_points": 5,
+      "ek_gp": 375,
+      "vk_gp": 0
+    },
+    {
+      "id": "f26d99e0-56e2-423c-b084-1d19b7093910",
+      "name": "Avalanche Rune",
+      "runes_per_cast": 4,
+      "mana": 530,
+      "soul_points": 3,
+      "ek_gp": 64,
+      "vk_gp": 62
+    },
+    {
+      "id": "f76e098f-6393-4103-8096-6ecceb0ffed6",
+      "name": "Chameleon Rune",
+      "runes_per_cast": 1,
+      "mana": 600,
+      "soul_points": 2,
+      "ek_gp": 210,
+      "vk_gp": 0
+    },
+    {
+      "id": "521573c4-2b59-4e62-b761-dc18ce60d4f1",
+      "name": "Convince Creature Rune",
+      "runes_per_cast": 1,
+      "mana": 200,
+      "soul_points": 3,
+      "ek_gp": 80,
+      "vk_gp": 0
+    },
+    {
+      "id": "cf008ff7-7d52-4c3e-a1fd-ca9ed4aa5a23",
+      "name": "Cure Poison Rune (Item)",
+      "runes_per_cast": 1,
+      "mana": 200,
+      "soul_points": 1,
+      "ek_gp": 65,
+      "vk_gp": 0
+    },
+    {
+      "id": "a22fb53e-599c-46c1-b378-1d31ea653bd7",
+      "name": "Destroy Field Rune",
+      "runes_per_cast": 3,
+      "mana": 120,
+      "soul_points": 2,
+      "ek_gp": 15,
+      "vk_gp": 0
+    },
+    {
+      "id": "1a78726f-338b-4ff7-82eb-f96f9e4b18fc",
+      "name": "Disintegrate Rune",
+      "runes_per_cast": 3,
+      "mana": 200,
+      "soul_points": 3,
+      "ek_gp": 26,
+      "vk_gp": 0
+    },
+    {
+      "id": "5c6e2ae7-8023-4532-9665-5b527fc2b86d",
+      "name": "Energy Bomb Rune",
+      "runes_per_cast": 2,
+      "mana": 880,
+      "soul_points": 5,
+      "ek_gp": 203,
+      "vk_gp": 0
+    },
+    {
+      "id": "10998bf5-22f7-4e23-8a31-98a20e51df0f",
+      "name": "Energy Field Rune",
+      "runes_per_cast": 3,
+      "mana": 320,
+      "soul_points": 2,
+      "ek_gp": 38,
+      "vk_gp": 0
+    },
+    {
+      "id": "623f9bbe-0be1-4b65-8703-9bbcf69ac9ca",
+      "name": "Energy Wall Rune",
+      "runes_per_cast": 4,
+      "mana": 1000,
+      "soul_points": 5,
+      "ek_gp": 85,
+      "vk_gp": 0
+    },
+    {
+      "id": "ee900f9d-ca09-453f-a830-eb0b44daa287",
+      "name": "Explosion Rune",
+      "runes_per_cast": 6,
+      "mana": 570,
+      "soul_points": 4,
+      "ek_gp": 31,
+      "vk_gp": 0
+    },
+    {
+      "id": "6319bb46-3286-4b56-9fe6-298a3fb27f23",
+      "name": "Fire Bomb Rune",
+      "runes_per_cast": 2,
+      "mana": 600,
+      "soul_points": 4,
+      "ek_gp": 147,
+      "vk_gp": 0
+    },
+    {
+      "id": "c34c6375-e2bd-4cd3-b307-b75284612f72",
+      "name": "Fire Field Rune",
+      "runes_per_cast": 3,
+      "mana": 240,
+      "soul_points": 1,
+      "ek_gp": 28,
+      "vk_gp": 0
+    },
+    {
+      "id": "3be0afc2-9fee-445e-bf06-d96d5ba4e681",
+      "name": "Fire Wall Rune",
+      "runes_per_cast": 4,
+      "mana": 780,
+      "soul_points": 4,
+      "ek_gp": 61,
+      "vk_gp": 0
+    },
+    {
+      "id": "a6530c8b-a8fb-4262-8f3d-f2cd5cfe9819",
+      "name": "Fireball Rune",
+      "runes_per_cast": 5,
+      "mana": 460,
+      "soul_points": 3,
+      "ek_gp": 30,
+      "vk_gp": 0
+    },
+    {
+      "id": "4d69926d-a2fe-453a-b1b3-9c3ad89530cb",
+      "name": "Great Fireball Rune",
+      "runes_per_cast": 4,
+      "mana": 530,
+      "soul_points": 3,
+      "ek_gp": 64,
+      "vk_gp": 69
+    },
+    {
+      "id": "81bc0113-e4c4-45ca-a5c7-71501252e0ec",
+      "name": "Heavy Magic Missile Rune",
+      "runes_per_cast": 10,
+      "mana": 350,
+      "soul_points": 2,
+      "ek_gp": 12,
+      "vk_gp": 0
+    },
+    {
+      "id": "cef4ec4a-dba7-4787-adc1-aaac5d500276",
+      "name": "Holy Missile Rune",
+      "runes_per_cast": 5,
+      "mana": 300,
+      "soul_points": 3,
+      "ek_gp": 16,
+      "vk_gp": 0
+    },
+    {
+      "id": "537f688c-2173-4357-8657-af94723e165d",
+      "name": "Icicle Rune",
+      "runes_per_cast": 5,
+      "mana": 460,
+      "soul_points": 3,
+      "ek_gp": 30,
+      "vk_gp": 0
+    },
+    {
+      "id": "b6824adf-b1b3-4661-834f-ced5cf9060de",
+      "name": "Intense Healing Rune (Item)",
+      "runes_per_cast": 1,
+      "mana": 120,
+      "soul_points": 2,
+      "ek_gp": 95,
+      "vk_gp": 0
+    },
+    {
+      "id": "4425fafd-fe0b-49ea-91a8-d56442abfd5d",
+      "name": "Light Magic Missile Rune",
+      "runes_per_cast": 10,
+      "mana": 120,
+      "soul_points": 1,
+      "ek_gp": 4,
+      "vk_gp": 0
+    },
+    {
+      "id": "2cb93ec4-1365-4941-ba96-6bf091cf2bc2",
+      "name": "Magic Wall Rune",
+      "runes_per_cast": 3,
+      "mana": 750,
+      "soul_points": 5,
+      "ek_gp": 116,
+      "vk_gp": 0
+    },
+    {
+      "id": "3c1d9ecb-9aea-4e49-94c3-af8e0f43b2be",
+      "name": "Paralyse Rune",
+      "runes_per_cast": 1,
+      "mana": 1400,
+      "soul_points": 3,
+      "ek_gp": 700,
+      "vk_gp": 0
+    },
+    {
+      "id": "ec03608d-23c6-4b0c-b816-165723a112a4",
+      "name": "Poison Bomb Rune",
+      "runes_per_cast": 2,
+      "mana": 520,
+      "soul_points": 2,
+      "ek_gp": 85,
+      "vk_gp": 0
+    },
+    {
+      "id": "13c3854d-e531-4a30-b272-27cf80d525c9",
+      "name": "Poison Field Rune",
+      "runes_per_cast": 3,
+      "mana": 200,
+      "soul_points": 1,
+      "ek_gp": 21,
+      "vk_gp": 0
+    },
+    {
+      "id": "9d4aba61-e612-4e7f-8067-c25d5e001564",
+      "name": "Poison Wall Rune",
+      "runes_per_cast": 4,
+      "mana": 640,
+      "soul_points": 3,
+      "ek_gp": 52,
+      "vk_gp": 0
+    },
+    {
+      "id": "8ed30ed3-9f70-43b8-be31-1fbb13286ea3",
+      "name": "Soulfire Rune",
+      "runes_per_cast": 3,
+      "mana": 420,
+      "soul_points": 3,
+      "ek_gp": 46,
+      "vk_gp": 0
+    },
+    {
+      "id": "75dc7ff1-7224-4aef-97c0-da57a29436ef",
+      "name": "Stalagmite Rune",
+      "runes_per_cast": 10,
+      "mana": 350,
+      "soul_points": 2,
+      "ek_gp": 12,
+      "vk_gp": 0
+    },
+    {
+      "id": "3abb8dc6-841a-4273-93cc-efeb482a55d3",
+      "name": "Stone Shower Rune",
+      "runes_per_cast": 4,
+      "mana": 430,
+      "soul_points": 3,
+      "ek_gp": 41,
+      "vk_gp": 0
+    },
+    {
+      "id": "313a19a1-7f57-416d-a4ce-2edc45010eed",
+      "name": "Sudden Death Rune",
+      "runes_per_cast": 3,
+      "mana": 985,
+      "soul_points": 5,
+      "ek_gp": 162,
+      "vk_gp": 199
+    },
+    {
+      "id": "acd77d4d-45f9-43df-bb6a-524f0c9ef431",
+      "name": "Thunderstorm Rune",
+      "runes_per_cast": 4,
+      "mana": 430,
+      "soul_points": 3,
+      "ek_gp": 52,
+      "vk_gp": 80
+    },
+    {
+      "id": "cb914012-5e86-4b62-91d5-0c6f21268d43",
+      "name": "Ultimate Healing Rune (Item)",
+      "runes_per_cast": 1,
+      "mana": 400,
+      "soul_points": 3,
+      "ek_gp": 175,
+      "vk_gp": 0
+    },
+    {
+      "id": "d918a821-cc8b-4736-9d03-e2db945c1e71",
+      "name": "Wild Growth Rune",
+      "runes_per_cast": 2,
+      "mana": 600,
+      "soul_points": 5,
+      "ek_gp": 160,
+      "vk_gp": 0
+    }
+  ],
+  "active_rune_id": "313a19a1-7f57-416d-a4ce-2edc45010eed"
+}
