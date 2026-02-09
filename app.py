@@ -1285,10 +1285,10 @@ class TibiaSearchApp:
             row=0, column=0, padx=(0, 6)
         )
         ttk.Button(action_frame, text="Aktuell laden", command=self._sync_search_window_vars).grid(
-            row=0, column=0, padx=(0, 6)
+            row=0, column=1, padx=(0, 6)
         )
         ttk.Button(action_frame, text="Übernehmen", command=self._apply_search_window_geometry).grid(
-            row=0, column=1
+            row=0, column=2
         )
 
     def _on_search_window_resize(self, _event: tk.Event) -> None:
@@ -1321,6 +1321,14 @@ class TibiaSearchApp:
         self.search_window_height_var.set(str(height))
         self.search_window_x_var.set(str(x))
         self.search_window_y_var.set(str(y))
+
+    def _show_search_window(self) -> None:
+        if not self.search_window or not self.search_window.winfo_exists():
+            self._build_search_window()
+            return
+        self.search_window.deiconify()
+        self.search_window.lift()
+        self.search_window.focus_force()
 
     def _apply_search_window_geometry(self) -> None:
         if not self.search_window or not self.search_window.winfo_exists():
@@ -2586,6 +2594,8 @@ class TibiaSearchApp:
     def _bind_events(self) -> None:
         self.search_entry.bind("<Return>", lambda _event: self.perform_search())
         self.search_entry.bind("<Escape>", lambda _event: self.clear_entry())
+        self.root.bind("<Control-Shift-f>", lambda _event: self._show_search_window())
+        self.root.bind("<FocusIn>", lambda _event: self._show_search_window())
         self.root.bind_all("<KeyPress>", self._on_movement_key, add=True)
 
         self.history_list.bind("<ButtonRelease-1>", self.load_from_history)
