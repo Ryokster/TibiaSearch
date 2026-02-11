@@ -958,6 +958,8 @@ class TibiaSearchApp:
         self.rune_time_minutes_var = tk.StringVar(value="0")
         self.rune_use_depot_bonus_var = tk.BooleanVar(value=False)
         self.rune_regen_mode_var = tk.StringVar(value="Fed")
+        self.rune_regen_start_percent_var = tk.StringVar(value="0%")
+        self.rune_regen_show_formulas_var = tk.BooleanVar(value=False)
         self.rune_mana_item_rows: list[dict[str, object]] = []
         self.rune_potion_var = tk.StringVar(value="None")
         self.rune_potion_count_var = tk.StringVar(value="0")
@@ -1643,7 +1645,7 @@ class TibiaSearchApp:
         controls.grid(row=0, column=0, sticky="ew", padx=8, pady=(8, 6))
         controls.columnconfigure(3, weight=1)
 
-        ttk.Label(controls, text="Sitting Time (min)").grid(row=0, column=0, sticky="w")
+        ttk.Label(controls, text="⏱ Sitting Time (min)").grid(row=0, column=0, sticky="w")
         time_entry = ttk.Entry(controls, textvariable=self.rune_time_minutes_var, width=10)
         time_entry.grid(row=0, column=1, sticky="w", padx=(6, 12))
         time_entry.bind("<FocusOut>", lambda _event: self._refresh_rune_calculations())
@@ -1651,12 +1653,12 @@ class TibiaSearchApp:
 
         ttk.Checkbutton(
             controls,
-            text="Depot/Resting (Daily Reward x2)",
+            text="🛏 Depot/Resting (Daily Reward x2)",
             variable=self.rune_use_depot_bonus_var,
             command=self._refresh_rune_calculations,
         ).grid(row=0, column=2, sticky="w", padx=(12, 0))
 
-        items_frame = ttk.LabelFrame(regen_tab, text="Mana Regen Items")
+        items_frame = ttk.LabelFrame(regen_tab, text="💧 Mana Regen Items")
         items_frame.grid(row=1, column=0, sticky="nsew", padx=8, pady=(0, 8))
         items_frame.columnconfigure(0, weight=1)
         items_frame.rowconfigure(0, weight=1)
@@ -1745,50 +1747,78 @@ class TibiaSearchApp:
         self.mana_items_tree.bind("<Return>", _toggle_item)
         self.mana_items_tree.bind("<Button-3>", _edit_price)
 
-        results_frame = ttk.LabelFrame(regen_tab, text="Ergebnis")
+        results_frame = ttk.LabelFrame(regen_tab, text="📊 Ergebnis")
         results_frame.grid(row=2, column=0, sticky="ew", padx=8, pady=(0, 8))
         results_frame.columnconfigure(1, weight=1)
         results_frame.columnconfigure(3, weight=1)
 
+        ttk.Label(results_frame, text="Start Mana").grid(row=0, column=0, sticky="w", padx=6, pady=(6, 2))
+        start_percent_values = [f"{value}%" for value in range(0, 101, 10)]
+        start_percent_combo = ttk.Combobox(
+            results_frame,
+            textvariable=self.rune_regen_start_percent_var,
+            values=start_percent_values,
+            state="readonly",
+            width=8,
+        )
+        start_percent_combo.grid(row=0, column=1, sticky="w", padx=6, pady=(6, 2))
+        start_percent_combo.bind("<<ComboboxSelected>>", lambda _event: self._refresh_rune_calculations())
+
+        show_formulas_check = ttk.Checkbutton(
+            results_frame,
+            text="Formeln",
+            variable=self.rune_regen_show_formulas_var,
+            command=self._toggle_rune_regen_formulas,
+        )
+        show_formulas_check.grid(row=0, column=3, sticky="e", padx=6, pady=(6, 2))
+
         calc_fields = [
-            ("Zeit", "time_used"),
-            ("Mana regeneriert", "mana_regenerated"),
-            ("Soul regeneriert", "soul_regenerated"),
-            ("Soul verfügbar", "soul_available"),
-            ("Soul benötigt (Regen)", "soul_needed_regen"),
-            ("Mana verbraucht (Regen)", "mana_spent_regen"),
-            ("ML Gewinn", "ml_gain_regen"),
-            ("Casts insgesamt", "casts_from_regen"),
-            ("Runen insgesamt", "runes_from_regen"),
-            ("Gold für Runen insgesamt", "gold_from_regen"),
-            ("Item-Kosten", "item_cost"),
-            ("Netto (Runen - Items)", "net_regen"),
+            ("⏳ Zeit bis Mana wieder bei 100%", "time_to_full"),
+            ("⏱ Zeit", "time_used"),
+            ("💧 Mana regeneriert", "mana_regenerated"),
+            ("🔮 Soulpunkte regeneriert (x Min)", "soul_regenerated"),
+            ("🔮 Soulpunkte verfügbar (Start 200)", "soul_available"),
+            ("⚠️ Soulpunkte benötigt (x Min)", "soul_needed_regen"),
+            ("🔥 Mana verbraucht (x Min)", "mana_spent_regen"),
+            ("📈 ML Gewinn", "ml_gain_regen"),
+            ("🎯 Casts insgesamt", "casts_from_regen"),
+            ("📜 Runen insgesamt", "runes_from_regen"),
+            ("💰 Gold für Runen insgesamt", "gold_from_regen"),
+            ("🏦 Gewinn durch Deposit", "deposit_gain"),
+            ("🧾 Item-Kosten", "item_cost"),
+            ("🪵 Blank Rune Kosten", "blank_rune_cost"),
+            ("⚖️ Netto (Runen - Kosten)", "net_regen"),
         ]
         self.rune_regen_result_vars = {}
         self.rune_regen_formula_vars = {}
+        self.rune_regen_formula_labels = []
         for idx, (label, key) in enumerate(calc_fields):
             col = 0 if idx < 6 else 2
-            display_row = (idx if idx < 6 else idx - 6) * 2
+            display_row = ((idx if idx < 6 else idx - 6) * 2) + 1
             ttk.Label(results_frame, text=label).grid(row=display_row, column=col, sticky="w", padx=6, pady=2)
             value_var = tk.StringVar(value="0")
             formula_var = tk.StringVar(value="")
             ttk.Label(results_frame, textvariable=value_var).grid(
                 row=display_row, column=col + 1, sticky="w", padx=6, pady=2
             )
-            ttk.Label(results_frame, textvariable=formula_var, style="Formula.TLabel").grid(
+            formula_label = ttk.Label(results_frame, textvariable=formula_var, style="Formula.TLabel")
+            formula_label.grid(
                 row=display_row + 1, column=col + 1, sticky="w", padx=6, pady=(0, 6)
             )
             self.rune_regen_result_vars[key] = value_var
             self.rune_regen_formula_vars[key] = formula_var
+            self.rune_regen_formula_labels.append(formula_label)
+
+        self._toggle_rune_regen_formulas()
 
         # Potions tab
         potions_tab.columnconfigure(1, weight=1)
 
-        potion_frame = ttk.LabelFrame(potions_tab, text="Mana Potion Calculator")
+        potion_frame = ttk.LabelFrame(potions_tab, text="🧪 Mana Potion Calculator")
         potion_frame.grid(row=0, column=0, sticky="ew", padx=8, pady=8)
         potion_frame.columnconfigure(1, weight=1)
 
-        ttk.Label(potion_frame, text="Potion").grid(row=0, column=0, sticky="w", padx=6, pady=6)
+        ttk.Label(potion_frame, text="🧪 Potion").grid(row=0, column=0, sticky="w", padx=6, pady=6)
         potion_names = [item["name"] for item in self._mana_potions()]
         potion_combo = ttk.Combobox(
             potion_frame,
@@ -1800,7 +1830,7 @@ class TibiaSearchApp:
         potion_combo.grid(row=0, column=1, sticky="w", padx=6, pady=6)
         potion_combo.bind("<<ComboboxSelected>>", lambda _event: self._refresh_potion_stats())
 
-        ttk.Label(potion_frame, text="Count").grid(row=0, column=2, sticky="w", padx=6, pady=6)
+        ttk.Label(potion_frame, text="🔢 Count").grid(row=0, column=2, sticky="w", padx=6, pady=6)
         potion_count_entry = ttk.Entry(potion_frame, textvariable=self.rune_potion_count_var, width=8)
         potion_count_entry.grid(row=0, column=3, sticky="w", padx=6, pady=6)
         potion_count_entry.bind("<FocusOut>", lambda _event: self._refresh_potion_stats())
@@ -1813,21 +1843,22 @@ class TibiaSearchApp:
         self.rune_potion_vars = {}
         self.rune_potion_formula_vars = {}
         potion_fields = [
-            ("Avg. Mana Regain", "mana_gain"),
-            ("Price (gp)", "price"),
+            ("💧 Avg. Mana Regain", "mana_gain"),
+            ("💰 Price (gp)", "price"),
             ("__sep__", "__sep__"),
-            ("Time Needed", "time_needed"),
-            ("Mana from Potions", "mana_total"),
-            ("Mana Spent", "mana_spent"),
-            ("ML Gewinn", "ml_gain_potion"),
-            ("Potion Cost", "potion_cost"),
-            ("Deposit", "deposit"),
-            ("Soul Regenerated", "soul_regen"),
-            ("Soul Needed", "soul_needed"),
-            ("Runes from Potions", "runes_from_potions"),
-            ("Gold from Runes", "gold_from_runes"),
-            ("Net (Runes - Potions)", "net_profit"),
-            ("Time to Soul 200", "time_to_soul_200"),
+            ("⏱ Time Needed", "time_needed"),
+            ("💧 Mana from Potions", "mana_total"),
+            ("🔥 Mana Spent", "mana_spent"),
+            ("📈 ML Gewinn", "ml_gain_potion"),
+            ("🧾 Potion Cost", "potion_cost"),
+            ("🪵 Blank Rune Kosten", "blank_rune_cost"),
+            ("🏦 Deposit", "deposit"),
+            ("🔮 Soul Regenerated", "soul_regen"),
+            ("🔮 Soul Needed", "soul_needed"),
+            ("📜 Runes from Potions", "runes_from_potions"),
+            ("💰 Gold from Runes", "gold_from_runes"),
+            ("⚖️ Net (Runes - Costs)", "net_profit"),
+            ("⏳ Time to Soul 200", "time_to_soul_200"),
         ]
         for idx, (label, key) in enumerate(potion_fields, start=1):
             display_row = (idx - 1) * 2 + 1
@@ -1879,6 +1910,14 @@ class TibiaSearchApp:
         ttk.Button(button_frame, text="Add New", command=self._add_rune).grid(row=0, column=0, padx=(0, 6))
         ttk.Button(button_frame, text="Update", command=self._update_rune).grid(row=0, column=1, padx=(0, 6))
         ttk.Button(button_frame, text="Delete", command=self._remove_rune).grid(row=0, column=2)
+
+    def _toggle_rune_regen_formulas(self) -> None:
+        show = bool(self.rune_regen_show_formulas_var.get())
+        for label in getattr(self, "rune_regen_formula_labels", []):
+            if show:
+                label.grid()
+            else:
+                label.grid_remove()
 
     def _build_search_window_tab(self, parent: ttk.Frame) -> None:
         parent.columnconfigure(1, weight=1)
@@ -2178,6 +2217,14 @@ class TibiaSearchApp:
             return f"{hours}h {minutes}m"
         return f"{minutes}m"
 
+    def _format_minutes_seconds(self, seconds: float) -> str:
+        if seconds < 0:
+            seconds = 0.0
+        total_seconds = int(round(seconds))
+        minutes = total_seconds // 60
+        secs = total_seconds % 60
+        return f"{minutes} Minuten {secs} Sekunden"
+
     def _mana_potions(self) -> list[dict[str, object]]:
         return [
             {"name": "None", "mana_gain": 0, "price": 0},
@@ -2260,7 +2307,8 @@ class TibiaSearchApp:
             casts_from_potions = min(casts_from_potions, int(soul_available // soul_cost))
         runes_from_potions = casts_from_potions * runes_per_cast
         gold_from_runes = runes_from_potions * vk_gp
-        net_profit = gold_from_runes - potion_cost + deposit
+        blank_rune_cost = casts_from_potions * 10
+        net_profit = gold_from_runes - potion_cost - blank_rune_cost + deposit
         soul_needed = casts_from_potions * soul_cost
         mana_spent = casts_from_potions * mana_cost
         mana_spent_from_potions = max(0, mana_spent - max_mana)
@@ -2323,6 +2371,11 @@ class TibiaSearchApp:
             self.rune_potion_formula_vars["potion_cost"].set(
                 f"({price} × {count})"
             )
+        if "blank_rune_cost" in self.rune_potion_vars:
+            self.rune_potion_vars["blank_rune_cost"].set(self._format_gp(int(blank_rune_cost)))
+            self.rune_potion_formula_vars["blank_rune_cost"].set(
+                f"({casts_from_potions} × 10)"
+            )
         if "deposit" in self.rune_potion_vars:
             self.rune_potion_vars["deposit"].set(self._format_gp(int(deposit)))
             self.rune_potion_formula_vars["deposit"].set(
@@ -2359,7 +2412,8 @@ class TibiaSearchApp:
             self.rune_potion_vars["net_profit"].set(self._format_gp(int(net_profit)))
             self.rune_potion_formula_vars["net_profit"].set(
                 f"({self._format_de_number(gold_from_runes, 0)} - "
-                f"{self._format_de_number(potion_cost, 0)} + {deposit})"
+                f"{self._format_de_number(potion_cost, 0)} - "
+                f"{self._format_de_number(blank_rune_cost, 0)} + {deposit})"
             )
         if "time_to_soul_200" in self.rune_potion_vars:
             self.rune_potion_vars["time_to_soul_200"].set(
@@ -2600,7 +2654,19 @@ class TibiaSearchApp:
         mana_regen_per_5s = mana_regen_depot if self.rune_use_depot_bonus_var.get() else base_regen
         base_mana_regenerated = mana_regen_per_5s * (seconds / 5.0) if seconds > 0 else 0.0
         item_mana_regenerated = 0.0
+        item_regen_per_5s = 0.0
         total_item_cost = 0.0
+        for row in self.rune_mana_item_rows:
+            if not row["selected_var"].get():
+                continue
+            item = row["item"]
+            duration_sec = int(item.get("duration_sec", 0) or 0)
+            if duration_sec <= 0:
+                continue
+            item_per_5s = float(item.get("mana_per_sec", 0.0)) * 5.0
+            if self.rune_use_depot_bonus_var.get():
+                item_per_5s *= 2.0
+            item_regen_per_5s += item_per_5s
         if seconds > 0:
             for row in self.rune_mana_item_rows:
                 item = row["item"]
@@ -2674,6 +2740,7 @@ class TibiaSearchApp:
                     )
 
         mana_regenerated = base_mana_regenerated + item_mana_regenerated
+        total_regen_per_5s = mana_regen_per_5s + item_regen_per_5s
         soul_regen_per_5s = 5.0 / 16.0
         soul_regenerated = soul_regen_per_5s * (seconds / 5.0) if seconds > 0 else 0.0
         soul_available = 200 + soul_regenerated
@@ -2687,8 +2754,18 @@ class TibiaSearchApp:
         runes_possible = casts_possible * runes_per_cast
         vk_gp = int(rune.get("vk_gp", 0) or 0)
         gold_from_regen = runes_from_regen * vk_gp
-        net_regen = gold_from_regen - total_item_cost
+        blank_rune_cost = casts_from_regen * 10
+        deposit_gain = 0
+        net_regen = gold_from_regen - total_item_cost - blank_rune_cost + deposit_gain
         gold_from_max = runes_possible * vk_gp
+
+        start_percent_raw = self.rune_regen_start_percent_var.get().strip().replace("%", "")
+        start_percent = self._parse_float_value(start_percent_raw) or 0.0
+        start_percent = min(100.0, max(0.0, start_percent))
+        start_mana = max_mana * (start_percent / 100.0)
+        mana_missing = max(0.0, max_mana - start_mana)
+        total_regen_per_sec = total_regen_per_5s / 5.0
+        time_to_full_seconds = mana_missing / total_regen_per_sec if total_regen_per_sec > 0 else 0.0
 
         self.rune_result_vars["runes_per_cast"].set(str(runes_per_cast))
         self.rune_result_vars["mana_cost"].set(str(mana_cost))
@@ -2718,6 +2795,22 @@ class TibiaSearchApp:
                 f"({self._format_de_number(minutes, 2)} × 60)"
             )
 
+            if mana_missing <= 0:
+                time_to_full_display = self._format_minutes_seconds(0)
+            elif total_regen_per_sec <= 0:
+                time_to_full_display = "â€”"
+            else:
+                time_to_full_display = self._format_minutes_seconds(time_to_full_seconds)
+            self.rune_regen_result_vars["time_to_full"].set(time_to_full_display)
+            if total_regen_per_sec > 0:
+                self.rune_regen_formula_vars["time_to_full"].set(
+                    f"({self._format_de_number(mana_missing, 0)} / "
+                    f"{self._format_de_number(total_regen_per_5s, 2)} × 5) "
+                    f"[Start {self._format_de_number(start_percent, 0)}%]"
+                )
+            else:
+                self.rune_regen_formula_vars["time_to_full"].set("")
+
             self.rune_regen_result_vars["mana_regenerated"].set(
                 self._format_with_unit(mana_regenerated, "Mana", 0)
             )
@@ -2731,7 +2824,7 @@ class TibiaSearchApp:
             )
             self.rune_regen_formula_vars["soul_regenerated"].set(
                 f"({self._format_de_number(soul_regen_per_5s, 2)} × "
-                f"{self._format_de_number(seconds, 0)} / 5)"
+                f"{self._format_de_number(seconds, 0)} / 5) in {self._format_de_number(minutes, 2)} Min"
             )
 
             self.rune_regen_result_vars["soul_available"].set(
@@ -2745,14 +2838,14 @@ class TibiaSearchApp:
                 self._format_with_unit(soul_needed_regen, "Soul", 0)
             )
             self.rune_regen_formula_vars["soul_needed_regen"].set(
-                f"({casts_from_regen} × {soul_cost})"
+                f"({casts_from_regen} × {soul_cost}) in {self._format_de_number(minutes, 2)} Min"
             )
 
             self.rune_regen_result_vars["mana_spent_regen"].set(
                 self._format_with_unit(mana_spent_regen, "Mana", 0)
             )
             self.rune_regen_formula_vars["mana_spent_regen"].set(
-                f"({casts_from_regen} × {mana_cost})"
+                f"({casts_from_regen} × {mana_cost}) in {self._format_de_number(minutes, 2)} Min"
             )
 
             self.rune_regen_result_vars["ml_gain_regen"].set(
@@ -2783,13 +2876,23 @@ class TibiaSearchApp:
                 f"({runes_from_regen} × {vk_gp})"
             )
 
+            self.rune_regen_result_vars["deposit_gain"].set(self._format_gp(int(deposit_gain)))
+            self.rune_regen_formula_vars["deposit_gain"].set("")
+
             self.rune_regen_result_vars["item_cost"].set(self._format_gp(int(total_item_cost)))
             self.rune_regen_formula_vars["item_cost"].set("(Summe Items)")
+
+            self.rune_regen_result_vars["blank_rune_cost"].set(self._format_gp(int(blank_rune_cost)))
+            self.rune_regen_formula_vars["blank_rune_cost"].set(
+                f"({casts_from_regen} × 10)"
+            )
 
             self.rune_regen_result_vars["net_regen"].set(self._format_gp(int(net_regen)))
             self.rune_regen_formula_vars["net_regen"].set(
                 f"({self._format_de_number(gold_from_regen, 0)} - "
-                f"{self._format_de_number(total_item_cost, 0)})"
+                f"{self._format_de_number(total_item_cost, 0)} - "
+                f"{self._format_de_number(blank_rune_cost, 0)} + "
+                f"{self._format_de_number(deposit_gain, 0)})"
             )
 
         self._refresh_potion_stats()
