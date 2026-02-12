@@ -85,6 +85,200 @@ EQUIPMENT_TAGS = (
     "Physresi",
 )
 
+GREEN_DJINN_BUYS: dict[str, tuple[tuple[str, int], ...]] = {
+    "Yaman": (
+        ("Ankh", 100),
+        ("Dragon Necklace", 100),
+        ("Dwarven Ring", 100),
+        ("Energy Ring", 100),
+        ("Glacial Rod", 6500),
+        ("Hailstorm Rod", 3000),
+        ("Life Ring", 50),
+        ("Might Ring", 250),
+        ("Moonlight Rod", 200),
+        ("Muck Rod", 6000),
+        ("Mysterious Fetish", 50),
+        ("Necrotic Rod", 1000),
+        ("Northwind Rod", 1500),
+        ("Protection Amulet", 100),
+        ("Ring of Healing", 100),
+        ("Silver Amulet", 50),
+        ("Snakebite Rod", 100),
+        ("Springsprout Rod", 3600),
+        ("Strange Talisman", 30),
+        ("Terra Rod", 2000),
+        ("Time Ring", 100),
+        ("Underworld Rod", 4400),
+    ),
+    "Alesar": (
+        ("Ancient Shield", 900),
+        ("Black Shield", 800),
+        ("Bonebreaker", 10000),
+        ("Dark Armor", 400),
+        ("Dark Helmet", 250),
+        ("Dragon Hammer", 2000),
+        ("Dreaded Cleaver", 15000),
+        ("Earth Knight Axe", 2000),
+        ("Energy Knight Axe", 2000),
+        ("Fiery Knight Axe", 2000),
+        ("Giant Sword", 17000),
+        ("Haunted Blade", 8000),
+        ("Icy Knight Axe", 2000),
+        ("Knight Armor", 5000),
+        ("Knight Axe", 2000),
+        ("Knight Legs", 5000),
+        ("Mystic Turban", 150),
+        ("Onyx Flail", 22000),
+        ("Ornamented Axe", 20000),
+        ("Poison Dagger", 50),
+        ("Scimitar", 150),
+        ("Serpent Sword", 900),
+        ("Skull Staff", 6000),
+        ("Strange Helmet", 500),
+        ("Titan Axe", 4000),
+        ("Tower Shield", 8000),
+        ("Vampire Shield", 15000),
+        ("Warrior Helmet", 5000),
+    ),
+}
+
+BLUE_DJINN_BUYS: dict[str, tuple[tuple[str, int], ...]] = {
+    "Nah'Bob": (
+        ("Angelic Axe", 5000),
+        ("Blue Robe", 10000),
+        ("Bonelord Shield", 1200),
+        ("Boots of Haste", 30000),
+        ("Broadsword", 500),
+        ("Butcher's Axe", 18000),
+        ("Crown Armor", 12000),
+        ("Crown Helmet", 2500),
+        ("Crown Legs", 12000),
+        ("Crown Shield", 8000),
+        ("Crusader Helmet", 6000),
+        ("Dragon Lance", 9000),
+        ("Dragon Shield", 4000),
+        ("Earth Spike Sword", 1000),
+        ("Earth War Hammer", 1200),
+        ("Energy Spike Sword", 1000),
+        ("Energy War Hammer", 1200),
+        ("Fiery Spike Sword", 1000),
+        ("Fiery War Hammer", 1200),
+        ("Fire Axe", 8000),
+        ("Fire Sword", 4000),
+        ("Glorious Axe", 3000),
+        ("Guardian Shield", 2000),
+        ("Ice Rapier", 1000),
+        ("Icy Spike Sword", 1000),
+        ("Icy War Hammer", 1200),
+        ("Noble Armor", 900),
+        ("Obsidian Lance", 500),
+        ("Phoenix Shield", 16000),
+        ("Queen's Sceptre", 20000),
+        ("Royal Helmet", 30000),
+        ("Shadow Sceptre", 10000),
+        ("Spike Sword", 1000),
+        ("Thaian Sword", 16000),
+        ("War Hammer", 1200),
+    ),
+    "Haroun": (
+        ("Axe Ring", 100),
+        ("Bronze Amulet", 50),
+        ("Club Ring", 100),
+        ("Elven Amulet", 100),
+        ("Garlic Necklace", 50),
+        ("Life Crystal", 50),
+        ("Magic Light Wand", 35),
+        ("Mind Stone", 100),
+        ("Orb", 750),
+        ("Power Ring", 50),
+        ("Stealth Ring", 200),
+        ("Stone Skin Amulet", 500),
+        ("Sword Ring", 100),
+        ("Wand of Cosmic Energy", 2000),
+        ("Wand of Decay", 1000),
+        ("Wand of Defiance", 6500),
+        ("Wand of Draconia", 1500),
+        ("Wand of Dragonbreath", 200),
+        ("Wand of Everblazing", 6000),
+        ("Wand of Inferno", 3000),
+        ("Wand of Starstorm", 3600),
+        ("Wand of Voodoo", 4400),
+        ("Wand of Vortex", 100),
+    ),
+}
+
+MORPEL_BUYS: tuple[tuple[str, int], ...] = (
+    ("Axe", 7),
+    ("Barbarian Axe", 185),
+    ("Battle Axe", 80),
+    ("Battle Hammer", 120),
+    ("Battle Shield", 95),
+    ("Bone Club", 5),
+    ("Bone Sword", 20),
+    ("Brass Armor", 150),
+    ("Brass Helmet", 30),
+    ("Brass Legs", 49),
+    ("Brass Shield", 25),
+    ("Carlin Sword", 118),
+    ("Chain Armor", 70),
+    ("Chain Helmet", 17),
+    ("Chain Legs", 25),
+    ("Clerical Mace", 170),
+    ("Club", 1),
+    ("Coat", 1),
+    ("Copper Shield", 50),
+    ("Crowbar", 50),
+    ("Dagger", 2),
+    ("Double Axe", 260),
+    ("Doublet", 3),
+    ("Dwarven Shield", 100),
+    ("Fire Sword", 1000),
+    ("Halberd", 400),
+    ("Hand Axe", 4),
+    ("Hatchet", 25),
+    ("Iron Helmet", 150),
+    ("Jacket", 1),
+    ("Katana", 35),
+    ("Leather Armor", 12),
+    ("Leather Boots", 2),
+    ("Leather Helmet", 4),
+    ("Leather Legs", 9),
+    ("Legion Helmet", 22),
+    ("Longsword", 51),
+    ("Mace", 30),
+    ("Morning Star", 100),
+    ("Nunchaku", 135),
+    ("Orcish Axe", 350),
+    ("Pair of Monk Fists", 90),
+    ("Plate Armor", 400),
+    ("Plate Legs", 115),
+    ("Plate Shield", 45),
+    ("Rapier", 5),
+    ("Sabre", 12),
+    ("Sai", 180),
+    ("Scale Armor", 75),
+    ("Short Sword", 10),
+    ("Sickle", 3),
+    ("Small Axe", 5),
+    ("Soldier Helmet", 16),
+    ("Spike Sword", 240),
+    ("Steel Helmet", 293),
+    ("Steel Shield", 80),
+    ("Studded Armor", 25),
+    ("Studded Club", 10),
+    ("Studded Helmet", 20),
+    ("Studded Legs", 15),
+    ("Studded Shield", 16),
+    ("Swampling Club", 40),
+    ("Sword", 25),
+    ("Throwing Knife", 2),
+    ("Two Handed Sword", 450),
+    ("Viking Helmet", 66),
+    ("Viking Shield", 85),
+    ("War Hammer", 470),
+    ("Wooden Shield", 5),
+)
+
 
 @dataclass(frozen=True)
 class EquipmentItem:
@@ -934,10 +1128,16 @@ class TibiaSearchApp:
         self.search_window_state: dict[str, object] = {}
         self._search_window_save_after: str | None = None
         self._search_window_ready = False
+        self._search_window_restore_pending = False
+        self._search_window_position_dirty = False
+        self._search_window_commit_position_on_save = False
+        self._search_window_drag_start: tuple[int, int] | None = None
+        self._search_window_drag_origin: tuple[int, int] | None = None
         self.search_window_width_var = tk.StringVar()
         self.search_window_height_var = tk.StringVar()
         self.search_window_x_var = tk.StringVar()
         self.search_window_y_var = tk.StringVar()
+        self.search_window_lock_var = tk.BooleanVar(value=True)
         self.active_imbuement: Imbuement | None = None
         self.material_vars: dict[str, tk.StringVar] = {}
         self.material_rows: list[tuple[Material, ttk.Label]] = []
@@ -1040,6 +1240,7 @@ class TibiaSearchApp:
         self._start_market_refresh()
         self._schedule_hotkeys_status_refresh()
         self._schedule_cone_events_poll()
+        self.root.after(0, self._start_hotkeys_script)
 
         self.root.protocol("WM_DELETE_WINDOW", self.exit_app)
 
@@ -1212,6 +1413,11 @@ class TibiaSearchApp:
             text="Suchfenster",
             command=lambda: self._open_module_window("search_window"),
         ).grid(row=10, column=0, sticky="ew", padx=6, pady=(4, 6))
+        ttk.Button(
+            modules_frame,
+            text="Djinn Selling",
+            command=lambda: self._open_module_window("djinn_selling"),
+        ).grid(row=11, column=0, sticky="ew", padx=6, pady=(4, 6))
 
         actions_frame = ttk.LabelFrame(left_frame, text="Actions")
         actions_frame.grid(row=1, column=0, sticky="nsew")
@@ -1259,9 +1465,17 @@ class TibiaSearchApp:
 
         self.top_button = ttk.Button(frame, text="Top", width=3, command=self.toggle_topmost, style="Search.TButton")
         self.top_button.grid(row=0, column=1, sticky="nsew", padx=(4, 0))
+        for widget in (self.search_window, frame, self.search_entry, self.top_button):
+            widget.bind("<Alt-ButtonPress-1>", self._on_search_window_drag_start, add="+")
+            widget.bind("<Alt-B1-Motion>", self._on_search_window_drag_move, add="+")
+            widget.bind("<Alt-ButtonRelease-1>", self._on_search_window_drag_end, add="+")
 
         self.search_window.update_idletasks()
         self._apply_saved_search_window_geometry()
+        self._search_window_restore_pending = True
+        self.root.after(50, lambda: self._restore_pending_search_window_geometry(finalize=False))
+        self.root.after(300, lambda: self._restore_pending_search_window_geometry(finalize=True))
+        self._apply_search_window_lock_state()
         self._update_search_window_padding()
         self.search_window.minsize(self.search_window.winfo_width(), self.search_window.winfo_height())
         self.search_window.bind("<Configure>", self._on_search_window_resize)
@@ -1270,6 +1484,24 @@ class TibiaSearchApp:
 
     def _mark_search_window_ready(self) -> None:
         self._search_window_ready = True
+
+    def _restore_pending_search_window_geometry(self, finalize: bool) -> None:
+        if not self._search_window_restore_pending:
+            return
+        if not self.search_window or not self.search_window.winfo_exists():
+            return
+        state = self.search_window_state or {}
+        width = state.get("width")
+        height = state.get("height")
+        x = state.get("x")
+        y = state.get("y")
+        if all(isinstance(value, int) for value in (width, height, x, y)):
+            self.search_window.geometry(f"{width}x{height}+{x}+{y}")
+            self.search_window.minsize(max(1, width), max(1, height))
+            self.search_window.update_idletasks()
+            self._sync_search_window_vars()
+        if finalize:
+            self._search_window_restore_pending = False
 
     def _build_history_tab(self, parent: ttk.Frame) -> None:
         parent.columnconfigure(0, weight=1)
@@ -1499,6 +1731,121 @@ class TibiaSearchApp:
         ttk.Button(frame, text="Suchen", command=self._search_character).grid(
             row=2, column=0, sticky="w", padx=6, pady=(0, 6)
         )
+
+    def _build_djinn_selling_tab(self, parent: ttk.Frame) -> None:
+        parent.columnconfigure(0, weight=1)
+        parent.columnconfigure(1, weight=1)
+        parent.rowconfigure(1, weight=1)
+        parent.rowconfigure(3, weight=1)
+        parent.rowconfigure(5, weight=1)
+        delivery_names = {item.name.casefold() for item in self.delivery_items}
+        self._djinn_filter_vars: dict[str, tk.BooleanVar] = {
+            "green": tk.BooleanVar(value=False),
+            "blue": tk.BooleanVar(value=False),
+            "morpel": tk.BooleanVar(value=False),
+        }
+
+        def build_tree(
+            container: ttk.LabelFrame,
+            items: tuple[tuple[str, int], ...],
+            only_delivery_var: tk.BooleanVar,
+        ) -> ttk.Treeview:
+            tree = ttk.Treeview(container, columns=("item", "price", "delivery"), show="headings", height=14)
+            tree.heading("item", text="Item")
+            tree.heading("price", text="Price")
+            tree.heading("delivery", text="Delivery")
+            tree.column("item", width=220, anchor="w")
+            tree.column("price", width=120, anchor="e")
+            tree.column("delivery", width=75, anchor="center", stretch=False)
+            tree.grid(row=0, column=0, sticky="nsew")
+            scrollbar = ttk.Scrollbar(container, orient="vertical", command=tree.yview)
+            scrollbar.grid(row=0, column=1, sticky="ns")
+            tree.configure(yscrollcommand=scrollbar.set)
+            tree.tag_configure("delivery-item", foreground="#1a7f37")
+
+            def refresh_rows() -> None:
+                tree.delete(*tree.get_children())
+                only_delivery = bool(only_delivery_var.get())
+                for item_name, price in items:
+                    is_delivery = item_name.casefold() in delivery_names
+                    if only_delivery and not is_delivery:
+                        continue
+                    tree.insert(
+                        "",
+                        tk.END,
+                        values=(item_name, f"{_format_number(price)} Gold", "Yes" if is_delivery else ""),
+                        tags=("delivery-item",) if is_delivery else (),
+                    )
+
+            only_delivery_var.trace_add("write", lambda *_args: refresh_rows())
+            refresh_rows()
+            tree.bind("<Double-Button-1>", lambda _event, t=tree: self._search_selected_djinn_item(t))
+            tree.bind("<Return>", lambda _event, t=tree: self._search_selected_djinn_item(t))
+            return tree
+
+        green_header = ttk.Frame(parent)
+        green_header.grid(row=0, column=0, columnspan=2, sticky="ew", padx=6, pady=(6, 4))
+        green_header.columnconfigure(0, weight=1)
+        ttk.Label(green_header, text="Green Djinns - Efreet Faction (Alesar & Yaman) - Buys").grid(
+            row=0, column=0, sticky="w"
+        )
+        ttk.Checkbutton(green_header, text="nur Delivery", variable=self._djinn_filter_vars["green"]).grid(
+            row=0, column=1, sticky="e"
+        )
+        yaman_frame = ttk.LabelFrame(parent, text="Yaman")
+        yaman_frame.grid(row=1, column=0, sticky="nsew", padx=(6, 3), pady=6)
+        yaman_frame.columnconfigure(0, weight=1)
+        yaman_frame.rowconfigure(0, weight=1)
+        alesar_frame = ttk.LabelFrame(parent, text="Alesar")
+        alesar_frame.grid(row=1, column=1, sticky="nsew", padx=(3, 6), pady=6)
+        alesar_frame.columnconfigure(0, weight=1)
+        alesar_frame.rowconfigure(0, weight=1)
+        build_tree(yaman_frame, GREEN_DJINN_BUYS["Yaman"], self._djinn_filter_vars["green"])
+        build_tree(alesar_frame, GREEN_DJINN_BUYS["Alesar"], self._djinn_filter_vars["green"])
+
+        blue_header = ttk.Frame(parent)
+        blue_header.grid(row=2, column=0, columnspan=2, sticky="ew", padx=6, pady=(8, 4))
+        blue_header.columnconfigure(0, weight=1)
+        ttk.Label(blue_header, text="Blue Djinns - Marid Faction (Nah'Bob & Haroun) - Buys").grid(
+            row=0, column=0, sticky="w"
+        )
+        ttk.Checkbutton(blue_header, text="nur Delivery", variable=self._djinn_filter_vars["blue"]).grid(
+            row=0, column=1, sticky="e"
+        )
+        nahbob_frame = ttk.LabelFrame(parent, text="Nah'Bob")
+        nahbob_frame.grid(row=3, column=0, sticky="nsew", padx=(6, 3), pady=6)
+        nahbob_frame.columnconfigure(0, weight=1)
+        nahbob_frame.rowconfigure(0, weight=1)
+        haroun_frame = ttk.LabelFrame(parent, text="Haroun")
+        haroun_frame.grid(row=3, column=1, sticky="nsew", padx=(3, 6), pady=6)
+        haroun_frame.columnconfigure(0, weight=1)
+        haroun_frame.rowconfigure(0, weight=1)
+        build_tree(nahbob_frame, BLUE_DJINN_BUYS["Nah'Bob"], self._djinn_filter_vars["blue"])
+        build_tree(haroun_frame, BLUE_DJINN_BUYS["Haroun"], self._djinn_filter_vars["blue"])
+
+        morpel_header = ttk.Frame(parent)
+        morpel_header.grid(row=4, column=0, columnspan=2, sticky="ew", padx=6, pady=(8, 4))
+        morpel_header.columnconfigure(0, weight=1)
+        ttk.Label(morpel_header, text="Normaler Loot (Morpel) - Buys").grid(row=0, column=0, sticky="w")
+        ttk.Checkbutton(morpel_header, text="nur Delivery", variable=self._djinn_filter_vars["morpel"]).grid(
+            row=0, column=1, sticky="e"
+        )
+        morpel_frame = ttk.LabelFrame(parent, text="Morpel")
+        morpel_frame.grid(row=5, column=0, columnspan=2, sticky="nsew", padx=6, pady=6)
+        morpel_frame.columnconfigure(0, weight=1)
+        morpel_frame.rowconfigure(0, weight=1)
+        build_tree(morpel_frame, MORPEL_BUYS, self._djinn_filter_vars["morpel"])
+
+    def _search_selected_djinn_item(self, tree: ttk.Treeview) -> None:
+        selection = tree.selection()
+        if not selection:
+            return
+        values = tree.item(selection[0], "values")
+        if not values:
+            return
+        item_name = str(values[0]).strip()
+        if item_name:
+            self.open_search(item_name)
 
     def _build_rune_calculator_tab(self, parent: ttk.Frame) -> None:
         parent.columnconfigure(0, weight=1)
@@ -1942,9 +2289,15 @@ class TibiaSearchApp:
         ttk.Entry(parent, textvariable=self.search_window_y_var, width=10).grid(
             row=3, column=1, sticky="w", padx=6, pady=2
         )
+        ttk.Checkbutton(
+            parent,
+            text="Position gelockt (Alt + Ziehen zum Verschieben wenn aus)",
+            variable=self.search_window_lock_var,
+            command=self._on_search_window_lock_toggle,
+        ).grid(row=4, column=0, columnspan=2, sticky="w", padx=6, pady=2)
 
         action_frame = ttk.Frame(parent)
-        action_frame.grid(row=4, column=0, columnspan=2, sticky="w", padx=6, pady=(8, 6))
+        action_frame.grid(row=5, column=0, columnspan=2, sticky="w", padx=6, pady=(8, 6))
 
         ttk.Button(action_frame, text="Fenster zeigen", command=self._show_search_window).grid(
             row=0, column=0, padx=(0, 6)
@@ -1959,7 +2312,49 @@ class TibiaSearchApp:
     def _on_search_window_resize(self, _event: tk.Event) -> None:
         self._update_search_window_padding()
         self._sync_search_window_vars()
+        if not self.search_window_lock_var.get() and self._search_window_position_dirty:
+            return
         self._queue_search_window_save()
+
+    def _on_search_window_lock_toggle(self) -> None:
+        self._apply_search_window_lock_state()
+        if self.search_window_lock_var.get():
+            self._queue_search_window_save(commit_position=True)
+
+    def _apply_search_window_lock_state(self) -> None:
+        if not self.search_window or not self.search_window.winfo_exists():
+            return
+        if self.search_window_lock_var.get():
+            self.search_window.configure(cursor="")
+        else:
+            self.search_window.configure(cursor="fleur")
+
+    def _on_search_window_drag_start(self, event: tk.Event) -> None:
+        if self.search_window_lock_var.get():
+            return
+        if not self.search_window or not self.search_window.winfo_exists():
+            return
+        self._search_window_drag_start = (int(event.x_root), int(event.y_root))
+        self._search_window_drag_origin = (int(self.search_window.winfo_x()), int(self.search_window.winfo_y()))
+
+    def _on_search_window_drag_move(self, event: tk.Event) -> None:
+        if self.search_window_lock_var.get():
+            return
+        if not self.search_window or not self.search_window.winfo_exists():
+            return
+        if self._search_window_drag_start is None or self._search_window_drag_origin is None:
+            return
+        start_x, start_y = self._search_window_drag_start
+        origin_x, origin_y = self._search_window_drag_origin
+        new_x = origin_x + int(event.x_root) - start_x
+        new_y = origin_y + int(event.y_root) - start_y
+        self.search_window.geometry(f"+{new_x}+{new_y}")
+        self._search_window_position_dirty = True
+        self._sync_search_window_vars()
+
+    def _on_search_window_drag_end(self, _event: tk.Event) -> None:
+        self._search_window_drag_start = None
+        self._search_window_drag_origin = None
 
     def _update_search_window_padding(self) -> None:
         if not self.search_window or not self.search_window.winfo_exists():
@@ -2010,7 +2405,8 @@ class TibiaSearchApp:
         self.search_window.geometry(f"{width}x{height}+{x}+{y}")
         self.search_window.minsize(width, height)
         self._update_search_window_padding()
-        self._queue_search_window_save()
+        self._search_window_position_dirty = True
+        self._queue_search_window_save(commit_position=True)
 
     def _apply_saved_search_window_geometry(self) -> None:
         state = self.search_window_state
@@ -2027,14 +2423,20 @@ class TibiaSearchApp:
         if isinstance(topmost, bool):
             self.always_on_top = topmost
             self.search_window.attributes("-topmost", self.always_on_top)
+        position_locked = state.get("position_locked")
+        if isinstance(position_locked, bool):
+            self.search_window_lock_var.set(position_locked)
 
-    def _queue_search_window_save(self) -> None:
+    def _queue_search_window_save(self, commit_position: bool = False) -> None:
+        self._search_window_commit_position_on_save = self._search_window_commit_position_on_save or commit_position
         if self._search_window_save_after is not None:
             self.root.after_cancel(self._search_window_save_after)
         self._search_window_save_after = self.root.after(200, self._save_search_window_state)
 
-    def _save_search_window_state(self) -> None:
+    def _save_search_window_state(self, force_position: bool = False) -> None:
         self._search_window_save_after = None
+        commit_position = self._search_window_commit_position_on_save or force_position
+        self._search_window_commit_position_on_save = False
         if not self._search_window_ready:
             return
         if not self.search_window or not self.search_window.winfo_exists():
@@ -2052,12 +2454,20 @@ class TibiaSearchApp:
             prev_y = prev.get("y")
             if isinstance(prev_x, int) and isinstance(prev_y, int) and (prev_x, prev_y) != (0, 0):
                 x, y = prev_x, prev_y
+        if self._search_window_position_dirty and not (self.search_window_lock_var.get() or commit_position):
+            prev_x = prev.get("x")
+            prev_y = prev.get("y")
+            if isinstance(prev_x, int) and isinstance(prev_y, int):
+                x, y = prev_x, prev_y
+        else:
+            self._search_window_position_dirty = False
         payload = {
             "width": width,
             "height": height,
             "x": x,
             "y": y,
             "topmost": bool(self.always_on_top),
+            "position_locked": bool(self.search_window_lock_var.get()),
         }
         self.search_window_state = payload
         self.search_window_state_path.write_text(
@@ -3692,6 +4102,7 @@ class TibiaSearchApp:
                 "character_search": "Charakter suchen",
                 "rune_calculator": "Runen Rechner",
                 "search_window": "Suchfenster",
+                "djinn_selling": "Djinn Selling",
             }.get(module_key, "Module")
         )
         window.minsize(720, 480)
@@ -3732,6 +4143,8 @@ class TibiaSearchApp:
             self._build_rune_calculator_tab(container)
         elif module_key == "search_window":
             self._build_search_window_tab(container)
+        elif module_key == "djinn_selling":
+            self._build_djinn_selling_tab(container)
 
         self.module_windows[module_key] = window
 
@@ -4871,7 +5284,7 @@ class TibiaSearchApp:
             self._stop_hotkeys_script()
         if self._is_cones_running():
             self._stop_cones_script()
-        self._save_search_window_state()
+        self._save_search_window_state(force_position=True)
         self.grid_cone_overlay.shutdown()
         self.grid_cone_overlay_alt.shutdown()
         self.grid_overlay.shutdown()

@@ -1,7 +1,8 @@
 {
-  "width": 315,
+  "width": 350,
   "height": 30,
-  "x": 1050,
-  "y": 925,
-  "topmost": true
+  "x": 1057,
+  "y": 923,
+  "topmost": true,
+  "position_locked": true
 }
