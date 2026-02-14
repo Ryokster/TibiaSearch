@@ -28,3 +28,6 @@
 [2026-01-21 22:44:16] Tibia window focused. Preparing paste.
 [2026-01-21 22:44:16] Clipboard set. Launching paste script.
 [2026-01-21 22:44:16] Paste script started via: C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe
+[2026-02-13 06:27:03] Autostart skipped. Tibia window already detected.
+[2026-02-13 06:30:39] Timer started (20s).
+[2026-02-13 06:30:59] Timer elapsed. Sending password.

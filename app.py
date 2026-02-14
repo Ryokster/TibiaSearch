@@ -1185,6 +1185,7 @@ class TibiaSearchApp:
         self.hotkeys_events_path = self.hotkeys_dir / "hotkeys_events.log"
         self.hotkeys_cmd_path = self.hotkeys_dir / "hotkeys_cmd.txt"
         self.tibia_exe_path = Path(r"C:\Users\Administrator\AppData\Local\Tibia\tibia.exe")
+        self.auto_start_tibia_on_launch = True
         self.tibia_login_target = "com.tibiasearch.tibia.login.main"
         self.tibia_paste_script_path = self.hotkeys_dir / "tibia_login_paste.ahk"
         self.tibia_paste_log_path = self.base_dir / "tibia_paste.log"
@@ -1241,6 +1242,7 @@ class TibiaSearchApp:
         self._schedule_hotkeys_status_refresh()
         self._schedule_cone_events_poll()
         self.root.after(0, self._start_hotkeys_script)
+        self.root.after(250, self._auto_start_tibia)
 
         self.root.protocol("WM_DELETE_WINDOW", self.exit_app)
 
@@ -5290,7 +5292,15 @@ class TibiaSearchApp:
         self.grid_overlay.shutdown()
         self.root.destroy()
 
-    def _start_tibia(self, as_admin: bool) -> None:
+    def _auto_start_tibia(self) -> None:
+        if not self.auto_start_tibia_on_launch:
+            return
+        if not self.tibia_exe_path.exists():
+            self._log_tibia_paste(f"Autostart skipped. Missing Tibia executable: {self.tibia_exe_path}")
+            return
+        self._start_tibia(False, schedule_login=False)
+
+    def _start_tibia(self, as_admin: bool, schedule_login: bool = True) -> None:
         if not self.tibia_exe_path.exists():
             messagebox.showerror("Tibia Missing", f"Missing Tibia executable: {self.tibia_exe_path}")
             return
@@ -5306,7 +5316,8 @@ class TibiaSearchApp:
                 )
             else:
                 subprocess.Popen([str(self.tibia_exe_path)])
-            self._schedule_tibia_login()
+            if schedule_login:
+                self._schedule_tibia_login()
         except OSError as exc:
             messagebox.showerror("Tibia Error", f"Failed to start Tibia: {exc}")
 
@@ -5393,8 +5404,8 @@ class TibiaSearchApp:
                 return True
             buffer = ctypes.create_unicode_buffer(length + 1)
             user32.GetWindowTextW(hwnd, buffer, length + 1)
-            title = buffer.value
-            if "tibia" in title.casefold():
+            title = buffer.value.casefold()
+            if "tibia" in title and title != "tibia search":
                 results.append(hwnd)
                 return False
             return True
