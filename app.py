@@ -7,6 +7,7 @@ import subprocess
 import sys
 import threading
 import uuid
+import winreg
 import tkinter as tk
 import tkinter.font as tkfont
 import webbrowser
@@ -1190,7 +1191,7 @@ class TibiaSearchApp:
         self.hotkeys_json_path = self.hotkeys_dir / "hotkeys.json"
         self.hotkeys_events_path = self.hotkeys_dir / "hotkeys_events.log"
         self.hotkeys_cmd_path = self.hotkeys_dir / "hotkeys_cmd.txt"
-        self.tibia_exe_path = Path(r"C:\Users\Administrator\AppData\Local\Tibia\tibia.exe")
+        self.tibia_exe_path = self._resolve_tibia_exe_path()
         self.auto_start_tibia_on_launch = True
         self.tibia_login_target = "com.tibiasearch.tibia.login.main"
         self.tibia_paste_script_path = self.hotkeys_dir / "tibia_login_paste.ahk"
@@ -3995,6 +3996,170 @@ class TibiaSearchApp:
             or r"C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe"
         )
 
+    def _resolve_tibia_exe_path(self) -> Path:
+        """Best-effort resolution of the Tibia executable.
+
+        Historically this was hardcoded to a single user profile path. That breaks as soon
+        as Tibia is installed for a different Windows user or installed into Program Files.
+        """
+        candidates: list[Path] = []
+
+        # Local override file next to the app (one line: full path to tibia.exe/client.exe).
+        try:
+            override_file = getattr(self, "base_dir", Path(".")) / "tibia_exe_path.txt"
+            if override_file.exists():
+                payload = override_file.read_text(encoding="utf-8", errors="replace").strip().strip('"')
+                if payload:
+                    candidates.append(Path(payload))
+        except OSError:
+            pass
+
+        # Allow an explicit override (useful for portable installs or uncommon locations).
+        override = (os.environ.get("TIBIA_EXE") or os.environ.get("TIBIA_PATH") or "").strip().strip('"')
+        if override:
+            candidates.append(Path(override))
+
+        # Try to discover install location via Windows "Uninstall" registry keys.
+        for install_dir in self._find_tibia_install_dirs_from_registry():
+            candidates.extend(
+                [
+                    install_dir / "client.exe",
+                    install_dir / "Client.exe",
+                    install_dir / "tibia.exe",
+                    install_dir / "Tibia.exe",
+                ]
+            )
+
+        # Common install locations (per-user and machine-wide).
+        local_appdata = os.environ.get("LOCALAPPDATA") or ""
+        program_files = os.environ.get("ProgramFiles") or ""
+        program_files_x86 = os.environ.get("ProgramFiles(x86)") or ""
+        userprofile = os.environ.get("USERPROFILE") or ""
+
+        # Newer Tibia installs can place the actual client in a packages folder.
+        # Example: %LOCALAPPDATA%\Tibia\packages\Tibia\bin\client.exe
+        if local_appdata:
+            tibia_root = Path(local_appdata) / "Tibia"
+            packages_dir = tibia_root / "packages"
+            try:
+                if packages_dir.exists():
+                    for p in packages_dir.glob("**/bin/client.exe"):
+                        candidates.append(p)
+                    for p in packages_dir.glob("**/bin/Client.exe"):
+                        candidates.append(p)
+                    for p in packages_dir.glob("**/bin/tibia.exe"):
+                        candidates.append(p)
+                    for p in packages_dir.glob("**/bin/Tibia.exe"):
+                        candidates.append(p)
+            except OSError:
+                pass
+
+        for base in (local_appdata, userprofile and str(Path(userprofile) / "AppData" / "Local")):
+            if base:
+                candidates.extend(
+                    [
+                        Path(base) / "Tibia" / "client.exe",
+                        Path(base) / "Tibia" / "tibia.exe",
+                        Path(base) / "Programs" / "Tibia" / "tibia.exe",
+                        Path(base) / "Programs" / "Tibia" / "client.exe",
+                    ]
+                )
+        for base in (program_files, program_files_x86):
+            if base:
+                candidates.extend(
+                    [
+                        Path(base) / "Tibia" / "client.exe",
+                        Path(base) / "Tibia" / "tibia.exe",
+                    ]
+                )
+
+        # Prefer the first existing candidate.
+        seen: set[str] = set()
+        for path in candidates:
+            key = str(path).casefold()
+            if key in seen:
+                continue
+            seen.add(key)
+            try:
+                if path.exists():
+                    return path
+            except OSError:
+                continue
+
+        # Fallback to the historical default (may not exist; callers handle this).
+        if local_appdata:
+            client = Path(local_appdata) / "Tibia" / "client.exe"
+            if client.exists():
+                return client
+            return Path(local_appdata) / "Tibia" / "tibia.exe"
+        return Path(r"C:\Users\Administrator\AppData\Local\Tibia\tibia.exe")
+
+    def _find_tibia_install_dirs_from_registry(self) -> list[Path]:
+        install_dirs: list[Path] = []
+
+        def _reg_get_str(key: winreg.HKEYType, value_name: str) -> str:
+            try:
+                value, _ = winreg.QueryValueEx(key, value_name)
+            except OSError:
+                return ""
+            if not value:
+                return ""
+            return str(value).strip().strip('"')
+
+        uninstall_keys = [
+            (winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Uninstall"),
+            (winreg.HKEY_LOCAL_MACHINE, r"Software\Microsoft\Windows\CurrentVersion\Uninstall"),
+            (winreg.HKEY_LOCAL_MACHINE, r"Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"),
+        ]
+
+        for root, path in uninstall_keys:
+            try:
+                base = winreg.OpenKey(root, path)
+            except OSError:
+                continue
+            try:
+                count, _, _ = winreg.QueryInfoKey(base)
+                for i in range(count):
+                    try:
+                        sub_name = winreg.EnumKey(base, i)
+                        sub = winreg.OpenKey(base, sub_name)
+                    except OSError:
+                        continue
+                    try:
+                        display_name = _reg_get_str(sub, "DisplayName").casefold()
+                        if "tibia" not in display_name:
+                            continue
+                        install_loc = _reg_get_str(sub, "InstallLocation")
+                        if install_loc:
+                            install_dirs.append(Path(install_loc))
+                        display_icon = _reg_get_str(sub, "DisplayIcon")
+                        if display_icon:
+                            # Often formatted like: C:\Path\To\tibia.exe,0
+                            icon_path = display_icon.split(",", 1)[0].strip().strip('"')
+                            if icon_path:
+                                install_dirs.append(Path(icon_path).parent)
+                    finally:
+                        try:
+                            sub.Close()
+                        except Exception:
+                            pass
+            finally:
+                try:
+                    base.Close()
+                except Exception:
+                    pass
+
+        # Deduplicate while preserving order.
+        deduped: list[Path] = []
+        seen = set()
+        for p in install_dirs:
+            key = str(p).casefold()
+            if key in seen:
+                continue
+            seen.add(key)
+            deduped.append(p)
+        return deduped
+
     def _restart_hotkeys_as_admin(self) -> None:
         if self._is_hotkeys_running():
             self._stop_hotkeys_script()
@@ -5696,7 +5861,11 @@ class TibiaSearchApp:
         if not self.auto_start_tibia_on_launch:
             return
         if not self.tibia_exe_path.exists():
-            self._log_tibia_paste(f"Autostart skipped. Missing Tibia executable: {self.tibia_exe_path}")
+            self.tibia_exe_path = self._resolve_tibia_exe_path()
+        if not self.tibia_exe_path.exists():
+            self._log_tibia_paste(
+                f"Autostart skipped. Missing Tibia executable (resolved): {self.tibia_exe_path}"
+            )
             return
         if self._is_tibia_running():
             self._log_tibia_paste("Autostart skipped. Tibia is already running.")
@@ -5705,7 +5874,17 @@ class TibiaSearchApp:
 
     def _start_tibia(self, as_admin: bool, schedule_login: bool = True) -> None:
         if not self.tibia_exe_path.exists():
-            messagebox.showerror("Tibia Missing", f"Missing Tibia executable: {self.tibia_exe_path}")
+            self.tibia_exe_path = self._resolve_tibia_exe_path()
+        if not self.tibia_exe_path.exists():
+            messagebox.showerror(
+                "Tibia Missing",
+                "Tibia-Executable nicht gefunden.\n\n"
+                f"Gesucht (resolved): {self.tibia_exe_path}\n\n"
+                "Fix:\n"
+                "- Lege eine Datei 'tibia_exe_path.txt' neben TibiaSearch (einzeilig: voller Pfad zu client.exe/tibia.exe)\n"
+                "- oder setze die Umgebungsvariable TIBIA_EXE auf den vollen Pfad.",
+            )
+            self._log_tibia_paste(f"Tibia start failed. Missing executable: {self.tibia_exe_path}")
             return
         if self._is_tibia_running():
             self.tibia_login_status_var.set("Tibia läuft bereits.")
@@ -5713,20 +5892,23 @@ class TibiaSearchApp:
             return
         try:
             if as_admin:
-                ctypes.windll.shell32.ShellExecuteW(
+                rc = ctypes.windll.shell32.ShellExecuteW(
                     None,
                     "runas",
                     str(self.tibia_exe_path),
                     None,
-                    None,
+                    str(self.tibia_exe_path.parent),
                     1,
                 )
+                if rc <= 32:
+                    raise OSError(f"ShellExecuteW failed with code {rc}")
             else:
-                subprocess.Popen([str(self.tibia_exe_path)])
+                subprocess.Popen([str(self.tibia_exe_path)], cwd=str(self.tibia_exe_path.parent))
             if schedule_login:
                 self._schedule_tibia_login()
         except OSError as exc:
             messagebox.showerror("Tibia Error", f"Failed to start Tibia: {exc}")
+            self._log_tibia_paste(f"Tibia start failed: {exc}")
 
     def _is_tibia_running(self) -> bool:
         if self._find_tibia_window() is not None:
