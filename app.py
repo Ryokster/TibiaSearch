@@ -1986,7 +1986,7 @@ class TibiaSearchApp:
         editor_frame.columnconfigure(0, weight=1)
 
         self.rune_editor_vars = {}
-        for key in ("name", "runes_per_cast", "mana_cost", "soul_cost", "vk_gp"):
+        for key in ("name", "runes_per_cast", "mana_cost", "soul_cost", "ek_gp", "vk_gp"):
             self.rune_editor_vars[key] = tk.StringVar()
 
         ttk.Button(editor_frame, text="Bearbeiten…", command=self._open_rune_editor_dialog).grid(
@@ -2164,6 +2164,9 @@ class TibiaSearchApp:
             ("🧾 Item-Kosten", "item_cost"),
             ("🪵 Blank Rune Kosten", "blank_rune_cost"),
             ("⚖️ Netto (Runen - Kosten)", "net_regen"),
+            ("🏭 Kosten pro Rune", "cost_per_rune"),
+            ("📈 Gewinn/Verlust pro Rune", "profit_per_rune"),
+            ("🛒 EK vs Produktion (pro Rune)", "buy_vs_make_per_rune"),
         ]
         self.rune_regen_result_vars = {}
         self.rune_regen_formula_vars = {}
@@ -2236,6 +2239,9 @@ class TibiaSearchApp:
             ("📜 Runes from Potions", "runes_from_potions"),
             ("💰 Gold from Runes", "gold_from_runes"),
             ("⚖️ Net (Runes - Costs)", "net_profit"),
+            ("🏭 Kosten pro Rune", "cost_per_rune"),
+            ("📈 Gewinn/Verlust pro Rune", "profit_per_rune"),
+            ("🛒 EK vs Produktion (pro Rune)", "buy_vs_make_per_rune"),
             ("⏳ Time to Soul 200", "time_to_soul_200"),
         ]
         for idx, (label, key) in enumerate(potion_fields, start=1):
@@ -2275,6 +2281,7 @@ class TibiaSearchApp:
             ("Runes/Spell", "runes_per_cast"),
             ("Mana Cost", "mana_cost"),
             ("Soul Points", "soul_cost"),
+            ("EK (gp)", "ek_gp"),
             ("VK (gp)", "vk_gp"),
         ]
         for row, (label, key) in enumerate(editor_fields):
@@ -2393,6 +2400,9 @@ class TibiaSearchApp:
             ("🪵 Blank Rune Kosten", "blank_rune_cost"),
             ("💰 Gold aus Runen", "gold_from_runes"),
             ("⚖️ Netto", "net_profit"),
+            ("🏭 Kosten pro Rune", "cost_per_rune"),
+            ("📈 Gewinn/Verlust pro Rune", "profit_per_rune"),
+            ("🛒 EK vs Produktion (pro Rune)", "buy_vs_make_per_rune"),
             ("💧 End-Mana", "end_mana"),
             ("🔮 End-Soul", "end_soul"),
         ]
@@ -2687,6 +2697,16 @@ class TibiaSearchApp:
     def _format_with_unit(self, value: float, unit: str, decimals: int = 0) -> str:
         return f"{self._format_de_number(value, decimals)} {unit}"
 
+    def _format_gp_float(self, value: float, decimals: int = 2) -> str:
+        return f"{self._format_de_number(value, decimals)} gp"
+
+    def _format_gp_per_rune(self, value: float, decimals: int = 2) -> str:
+        return f"{self._format_de_number(value, decimals)} gp/Rune"
+
+    def _format_signed_gp_per_rune(self, value: float, decimals: int = 2) -> str:
+        prefix = "+" if value > 0 else ""
+        return f"{prefix}{self._format_de_number(value, decimals)} gp/Rune"
+
     def _magic_level_percent_gain(self, mana_spent: float, magic_level: int, vocation_value: str) -> float:
         if mana_spent <= 0:
             return 0.0
@@ -2822,6 +2842,7 @@ class TibiaSearchApp:
         rune = self._get_selected_rune() or {}
         mana_cost = int(rune.get("mana", 0) or 0)
         runes_per_cast = int(rune.get("runes_per_cast", 0) or 0)
+        ek_gp = int(rune.get("ek_gp", 0) or 0)
         vk_gp = int(rune.get("vk_gp", 0) or 0)
         soul_cost = int(rune.get("soul_points", 0) or 0)
 
@@ -2982,6 +3003,41 @@ class TibiaSearchApp:
                 f"{self._format_de_number(potion_cost, 0)} - "
                 f"{self._format_de_number(blank_rune_cost, 0)} + {deposit})"
             )
+        if "cost_per_rune" in self.rune_potion_vars:
+            cost_total = float(potion_cost) + float(blank_rune_cost) - float(deposit)
+            if runes_from_potions > 0:
+                cost_per_rune = cost_total / float(runes_from_potions)
+                self.rune_potion_vars["cost_per_rune"].set(self._format_gp_per_rune(cost_per_rune, 2))
+                self.rune_potion_formula_vars["cost_per_rune"].set(
+                    f"(({self._format_de_number(potion_cost, 0)} + {self._format_de_number(blank_rune_cost, 0)} - "
+                    f"{self._format_de_number(deposit, 0)}) / {self._format_de_number(runes_from_potions, 0)})"
+                )
+            else:
+                self.rune_potion_vars["cost_per_rune"].set("—")
+                self.rune_potion_formula_vars["cost_per_rune"].set("")
+        if "profit_per_rune" in self.rune_potion_vars:
+            cost_total = float(potion_cost) + float(blank_rune_cost) - float(deposit)
+            if runes_from_potions > 0:
+                cost_per_rune = cost_total / float(runes_from_potions)
+                profit_per_rune = float(vk_gp) - cost_per_rune
+                self.rune_potion_vars["profit_per_rune"].set(self._format_signed_gp_per_rune(profit_per_rune, 2))
+                self.rune_potion_formula_vars["profit_per_rune"].set(f"({vk_gp} - Kosten/Rune)")
+            else:
+                self.rune_potion_vars["profit_per_rune"].set("—")
+                self.rune_potion_formula_vars["profit_per_rune"].set("")
+        if "buy_vs_make_per_rune" in self.rune_potion_vars:
+            cost_total = float(potion_cost) + float(blank_rune_cost) - float(deposit)
+            if runes_from_potions > 0:
+                cost_per_rune = cost_total / float(runes_from_potions)
+                buy_delta = float(ek_gp) - cost_per_rune
+                note = "Produzieren günstiger" if buy_delta > 0 else "Kaufen günstiger" if buy_delta < 0 else "gleich"
+                self.rune_potion_vars["buy_vs_make_per_rune"].set(
+                    f"{self._format_signed_gp_per_rune(buy_delta, 2)} ({note})"
+                )
+                self.rune_potion_formula_vars["buy_vs_make_per_rune"].set(f"({ek_gp} - Kosten/Rune)")
+            else:
+                self.rune_potion_vars["buy_vs_make_per_rune"].set("—")
+                self.rune_potion_formula_vars["buy_vs_make_per_rune"].set("")
         if "time_to_soul_200" in self.rune_potion_vars:
             self.rune_potion_vars["time_to_soul_200"].set(
                 f"{self._format_de_number(time_to_soul_200_sec, 0)} Sekunden / "
@@ -3085,6 +3141,8 @@ class TibiaSearchApp:
             self.rune_editor_vars["mana_cost"].set(str(rune.get("mana", 0)))
         if "soul_cost" in self.rune_editor_vars:
             self.rune_editor_vars["soul_cost"].set(str(rune.get("soul_points", 0)))
+        if "ek_gp" in self.rune_editor_vars:
+            self.rune_editor_vars["ek_gp"].set(str(rune.get("ek_gp", 0)))
         if "vk_gp" in self.rune_editor_vars:
             self.rune_editor_vars["vk_gp"].set(str(rune.get("vk_gp", 0)))
 
@@ -3112,8 +3170,12 @@ class TibiaSearchApp:
         if vk_gp is None or vk_gp < 0:
             messagebox.showwarning("Invalid VK", "VK (gp) must be an integer >= 0.")
             return None
-        ek_gp = 0
-        if existing_id:
+        ek_input = self._parse_int_value(self.rune_editor_vars.get("ek_gp", tk.StringVar()).get())
+        if ek_input is not None and ek_input < 0:
+            messagebox.showwarning("Invalid EK", "EK (gp) must be an integer >= 0.")
+            return None
+        ek_gp = int(ek_input) if ek_input is not None else 0
+        if ek_input is None and existing_id:
             existing = self.rune_store.get_by_id(existing_id)
             if existing:
                 ek_gp = int(existing.get("ek_gp", 0) or 0)
@@ -3466,6 +3528,29 @@ class TibiaSearchApp:
                 f"{self._format_de_number(deposit_gain, 0)})"
             )
 
+            ek_gp = int(rune.get("ek_gp", 0) or 0)
+            cost_total = float(total_item_cost) + float(blank_rune_cost) - float(deposit_gain)
+            if runes_from_regen > 0:
+                cost_per_rune = cost_total / float(runes_from_regen)
+                profit_per_rune = float(vk_gp) - cost_per_rune
+                buy_delta = float(ek_gp) - cost_per_rune
+                self.rune_regen_result_vars["cost_per_rune"].set(self._format_gp_per_rune(cost_per_rune, 2))
+                self.rune_regen_formula_vars["cost_per_rune"].set(
+                    f"(({self._format_de_number(total_item_cost, 0)} + {self._format_de_number(blank_rune_cost, 0)} - "
+                    f"{self._format_de_number(deposit_gain, 0)}) / {self._format_de_number(runes_from_regen, 0)})"
+                )
+                self.rune_regen_result_vars["profit_per_rune"].set(self._format_signed_gp_per_rune(profit_per_rune, 2))
+                self.rune_regen_formula_vars["profit_per_rune"].set(f"({vk_gp} - Kosten/Rune)")
+                note = "Produzieren günstiger" if buy_delta > 0 else "Kaufen günstiger" if buy_delta < 0 else "gleich"
+                self.rune_regen_result_vars["buy_vs_make_per_rune"].set(
+                    f"{self._format_signed_gp_per_rune(buy_delta, 2)} ({note})"
+                )
+                self.rune_regen_formula_vars["buy_vs_make_per_rune"].set(f"({ek_gp} - Kosten/Rune)")
+            else:
+                for key in ("cost_per_rune", "profit_per_rune", "buy_vs_make_per_rune"):
+                    self.rune_regen_result_vars[key].set("—")
+                    self.rune_regen_formula_vars[key].set("")
+
         self._refresh_rune_soul_cycle_stats()
         self._refresh_potion_stats()
 
@@ -3483,6 +3568,7 @@ class TibiaSearchApp:
         runes_per_cast = int(rune.get("runes_per_cast", 0) or 0)
         mana_cost = int(rune.get("mana", 0) or 0)
         soul_cost = int(rune.get("soul_points", 0) or 0)
+        ek_gp = int(rune.get("ek_gp", 0) or 0)
         vk_gp = int(rune.get("vk_gp", 0) or 0)
 
         character = self._get_character_by_name(self.rune_character_var.get().strip())
@@ -3644,6 +3730,20 @@ class TibiaSearchApp:
         self.rune_soul_result_vars["blank_rune_cost"].set(self._format_gp(int(blank_rune_cost)))
         self.rune_soul_result_vars["gold_from_runes"].set(self._format_gp(int(gold_from_runes)))
         self.rune_soul_result_vars["net_profit"].set(self._format_gp(int(net_profit)))
+        if runes_total > 0:
+            cost_total = float(blank_rune_cost) + float(potion_cost) + float(total_item_cost)
+            cost_per_rune = cost_total / float(runes_total)
+            profit_per_rune = float(vk_gp) - cost_per_rune
+            buy_delta = float(ek_gp) - cost_per_rune
+            self.rune_soul_result_vars["cost_per_rune"].set(self._format_gp_per_rune(cost_per_rune, 2))
+            self.rune_soul_result_vars["profit_per_rune"].set(self._format_signed_gp_per_rune(profit_per_rune, 2))
+            note = "Produzieren günstiger" if buy_delta > 0 else "Kaufen günstiger" if buy_delta < 0 else "gleich"
+            self.rune_soul_result_vars["buy_vs_make_per_rune"].set(
+                f"{self._format_signed_gp_per_rune(buy_delta, 2)} ({note})"
+            )
+        else:
+            for key in ("cost_per_rune", "profit_per_rune", "buy_vs_make_per_rune"):
+                self.rune_soul_result_vars[key].set("—")
         self.rune_soul_result_vars["end_mana"].set(self._format_with_unit(mana, "Mana", 0))
         self.rune_soul_result_vars["end_soul"].set(self._format_with_unit(soul, "Soul", 0))
 
@@ -3681,6 +3781,16 @@ class TibiaSearchApp:
                 f"({self._format_de_number(gold_from_runes, 0)} - {self._format_de_number(blank_rune_cost, 0)} - "
                 f"{self._format_de_number(potion_cost, 0)} - {self._format_de_number(total_item_cost, 0)})"
             )
+            if runes_total > 0:
+                self.rune_soul_formula_vars["cost_per_rune"].set(
+                    f"(({self._format_de_number(blank_rune_cost, 0)} + {self._format_de_number(potion_cost, 0)} + "
+                    f"{self._format_de_number(total_item_cost, 0)}) / {self._format_de_number(runes_total, 0)})"
+                )
+                self.rune_soul_formula_vars["profit_per_rune"].set(f"({vk_gp} - Kosten/Rune)")
+                self.rune_soul_formula_vars["buy_vs_make_per_rune"].set(f"({ek_gp} - Kosten/Rune)")
+            else:
+                for key in ("cost_per_rune", "profit_per_rune", "buy_vs_make_per_rune"):
+                    self.rune_soul_formula_vars[key].set("")
             self.rune_soul_formula_vars["end_mana"].set(
                 "(Start + nat. Regen + Potions - Mana für Casts)"
             )
