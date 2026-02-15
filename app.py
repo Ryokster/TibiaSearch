@@ -2380,6 +2380,7 @@ class TibiaSearchApp:
             ("⏱ Simulierte Zeit", "time_used"),
             ("💧 Nat. Mana Regen", "natural_mana_regen"),
             ("🔮 Soul regeneriert", "soul_regenerated"),
+            ("📈 ML Gewinn (x Min)", "ml_gain_cycle"),
             ("🎯 Casts gesamt", "casts"),
             ("📜 Runen gesamt", "runes_total"),
             ("🔥 Mana verbraucht", "mana_spent"),
@@ -2695,10 +2696,28 @@ class TibiaSearchApp:
             "Elder Druid": 1.1,
         }
         b = b_map.get(vocation_value, 1.1)
-        mana_to_next = 1600.0 * (b ** magic_level)
-        if mana_to_next <= 0:
-            return 0.0
-        return (mana_spent / mana_to_next) * 100.0
+        if b <= 1.0:
+            mana_to_next = 1600.0 * (b ** max(0, magic_level))
+            if mana_to_next <= 0:
+                return 0.0
+            return (mana_spent / mana_to_next) * 100.0
+        remaining_mana = float(mana_spent)
+        current_ml = max(0, int(magic_level))
+        gained_percent = 0.0
+        iterations = 0
+        while remaining_mana > 0 and iterations < 10000:
+            iterations += 1
+            mana_to_next = 1600.0 * (b ** current_ml)
+            if mana_to_next <= 0:
+                break
+            if remaining_mana >= mana_to_next:
+                gained_percent += 100.0
+                remaining_mana -= mana_to_next
+                current_ml += 1
+                continue
+            gained_percent += (remaining_mana / mana_to_next) * 100.0
+            break
+        return gained_percent
 
     def _compute_derived_stats(
         self,
@@ -2867,16 +2886,9 @@ class TibiaSearchApp:
         soul_needed = casts_from_potions * soul_cost
         mana_spent = casts_from_potions * mana_cost
         mana_spent_from_potions = max(0, mana_spent - max_mana)
-        b_map = {
-            "Elite Knight": 3.0,
-            "Royal Paladin": 1.4,
-            "Master Sorcerer": 1.1,
-            "Elder Druid": 1.1,
-        }
         vocation = str(self._get_character_by_name(self.rune_character_var.get().strip()).get("vocation", VOCATIONS[0]))
         magic_level = int(self._get_character_by_name(self.rune_character_var.get().strip()).get("stats", {}).get("magic_level", 0) or 0)
-        mana_to_next = 1600.0 * (b_map.get(vocation, 1.1) ** magic_level)
-        ml_gain_potion = (mana_spent / mana_to_next) * 100.0 if mana_to_next > 0 else 0.0
+        ml_gain_potion = self._magic_level_percent_gain(mana_spent, magic_level, vocation)
         soul_remaining = max(0.0, soul_available - soul_needed)
         soul_missing = max(0.0, 200 - soul_remaining)
         time_to_soul_200_sec = soul_missing * 16.0
@@ -2916,8 +2928,7 @@ class TibiaSearchApp:
                 f"{self._format_de_number(ml_gain_potion, 2)} %"
             )
             self.rune_potion_formula_vars["ml_gain_potion"].set(
-                f"({self._format_de_number(mana_spent, 0)} / "
-                f"{self._format_de_number(mana_to_next, 0)} × 100)"
+                f"(stufenweise ab ML {magic_level}, Mana gesamt {self._format_de_number(mana_spent, 0)})"
             )
             if "ml_gain_potion" in self.rune_result_vars:
                 self.rune_result_vars["ml_gain_potion"].set(f"{self._format_de_number(ml_gain_potion, 2)} %")
@@ -3342,14 +3353,11 @@ class TibiaSearchApp:
             "Master Sorcerer": 1.1,
             "Elder Druid": 1.1,
         }
-        mana_to_next = 1600.0 * (b_map.get(vocation, 1.1) ** magic_level)
-        ml_gain_regen = (mana_spent_regen / mana_to_next) * 100.0 if mana_to_next > 0 else 0.0
+        b_value = b_map.get(vocation, 1.1)
+        ml_gain_regen = self._magic_level_percent_gain(mana_spent_regen, magic_level, vocation)
         if "ml_gain_regen" in self.rune_result_vars or "ml_gain_potion" in self.rune_result_vars:
-            ml_gain_per_rune = (mana_cost / mana_to_next) * 100.0 if mana_to_next > 0 else 0.0
             if "ml_gain_regen" in self.rune_result_vars:
-                self.rune_result_vars["ml_gain_regen"].set(f"{self._format_de_number(ml_gain_per_rune, 4)} %")
-            if "ml_gain_potion" in self.rune_result_vars:
-                self.rune_result_vars["ml_gain_potion"].set(f"{self._format_de_number(ml_gain_per_rune, 4)} %")
+                self.rune_result_vars["ml_gain_regen"].set(f"{self._format_de_number(ml_gain_regen, 2)} %")
 
         if hasattr(self, "rune_regen_result_vars"):
             self.rune_regen_result_vars["time_used"].set(self._format_with_unit(seconds, "Sekunden", 0))
@@ -3414,8 +3422,8 @@ class TibiaSearchApp:
                 f"{self._format_de_number(ml_gain_regen, 2)} %"
             )
             self.rune_regen_formula_vars["ml_gain_regen"].set(
-                f"({self._format_de_number(mana_spent_regen, 0)} / "
-                f"{self._format_de_number(mana_to_next, 0)} × 100)"
+                f"(stufenweise ab ML {magic_level}, b={self._format_de_number(b_value, 2)}, "
+                f"Mana {self._format_de_number(mana_spent_regen, 0)})"
             )
 
             self.rune_regen_result_vars["casts_from_regen"].set(
@@ -3611,10 +3619,19 @@ class TibiaSearchApp:
         net_profit = gold_from_runes - blank_rune_cost - potion_cost - total_item_cost
 
         soul_regenerated = soul_regen_per_sec * seconds if seconds > 0 else 0.0
+        ml_gain_cycle = self._magic_level_percent_gain(mana_spent, magic_level, vocation)
+        b_map = {
+            "Elite Knight": 3.0,
+            "Royal Paladin": 1.4,
+            "Master Sorcerer": 1.1,
+            "Elder Druid": 1.1,
+        }
+        b_value = b_map.get(vocation, 1.1)
 
         self.rune_soul_result_vars["time_used"].set(self._format_with_unit(seconds, "Sekunden", 0))
         self.rune_soul_result_vars["natural_mana_regen"].set(self._format_with_unit(natural_mana_regenerated, "Mana", 0))
         self.rune_soul_result_vars["soul_regenerated"].set(self._format_with_unit(soul_regenerated, "Soul", 0))
+        self.rune_soul_result_vars["ml_gain_cycle"].set(f"{self._format_de_number(ml_gain_cycle, 2)} %")
         self.rune_soul_result_vars["casts"].set(self._format_with_unit(casts, "Casts", 0))
         self.rune_soul_result_vars["runes_total"].set(self._format_with_unit(runes_total, "Runen", 0))
         self.rune_soul_result_vars["mana_spent"].set(self._format_with_unit(mana_spent, "Mana", 0))
@@ -3638,6 +3655,10 @@ class TibiaSearchApp:
             )
             self.rune_soul_formula_vars["soul_regenerated"].set(
                 f"({self._format_de_number(seconds, 0)} / 16)"
+            )
+            self.rune_soul_formula_vars["ml_gain_cycle"].set(
+                f"(stufenweise ab ML {magic_level}, b={self._format_de_number(b_value, 2)}, "
+                f"Mana {self._format_de_number(mana_spent, 0)})"
             )
             self.rune_soul_formula_vars["casts"].set("(Erfolgreiche Casts aus Simulation)")
             self.rune_soul_formula_vars["runes_total"].set(f"({casts} × {runes_per_cast})")
