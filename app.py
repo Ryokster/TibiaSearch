@@ -281,6 +281,166 @@ MORPEL_BUYS: tuple[tuple[str, int], ...] = (
     ("Wooden Shield", 5),
 )
 
+RASHID_SUNDAY_CARLIN_BUYS: tuple[tuple[str, int], ...] = (
+    ("Abyss Hammer", 20000),
+    ("Albino Plate", 1500),
+    ("Amber Staff", 8000),
+    ("Ancient Amulet", 200),
+    ("Assassin Dagger", 20000),
+    ("Bandana", 150),
+    ("Beastslayer Axe", 1500),
+    ("Beetle Necklace", 1500),
+    ("Berserker", 40000),
+    ("Blacksteel Sword", 6000),
+    ("Blessed Sceptre", 40000),
+    ("Bone Shield", 80),
+    ("Bonelord Helmet", 7500),
+    ("Brutetamer's Staff", 1500),
+    ("Buckle", 7000),
+    ("Castle Shield", 5000),
+    ("Chain Bolter", 40000),
+    ("Chaos Mace", 9000),
+    ("Cobra Crown", 50000),
+    ("Coconut Shoes", 500),
+    ("Composite Hornbow", 25000),
+    ("Cranial Basher", 30000),
+    ("Crocodile Boots", 1000),
+    ("Crystal Crossbow", 35000),
+    ("Crystal Mace", 12000),
+    ("Crystal Necklace", 400),
+    ("Crystal Ring", 250),
+    ("Crystal Sword", 600),
+    ("Crystalline Armor", 16000),
+    ("Daramian Mace", 110),
+    ("Daramian Waraxe", 1000),
+    ("Dark Shield", 400),
+    ("Death Ring", 1000),
+    ("Demon Shield", 30000),
+    ("Demonbone Amulet", 32000),
+    ("Demonrage Sword", 36000),
+    ("Devil Helmet", 1000),
+    ("Diamond Sceptre", 3000),
+    ("Divine Plate", 55000),
+    ("Djinn Blade", 15000),
+    ("Doll", 200),
+    ("Dragon Scale Mail", 40000),
+    ("Dragon Slayer", 15000),
+    ("Dragonbone Staff", 3000),
+    ("Dreaded Cleaver", 10000),
+    ("Dwarven Armor", 30000),
+    ("Elvish Bow", 2000),
+    ("Emerald Bangle", 800),
+    ("Epee", 8000),
+    ("Flower Dress", 1000),
+    ("Flower Wreath", 500),
+    ("Fur Boots", 2000),
+    ("Furry Club", 1000),
+    ("Glacier Amulet", 1500),
+    ("Glacier Kilt", 11000),
+    ("Glacier Mask", 2500),
+    ("Glacier Robe", 11000),
+    ("Glacier Shoes", 2500),
+    ("Gold Ring", 8000),
+    ("Golden Armor", 20000),
+    ("Golden Legs", 30000),
+    ("Goo Shell", 4000),
+    ("Griffin Shield", 3000),
+    ("Guardian Halberd", 11000),
+    ("Hammer of Wrath", 30000),
+    ("Headchopper", 6000),
+    ("Heavy Mace", 50000),
+    ("Heavy Machete", 90),
+    ("Heavy Trident", 2000),
+    ("Helmet of the Lost", 2000),
+    ("Heroic Axe", 30000),
+    ("Hibiscus Dress", 3000),
+    ("Hieroglyph Banner", 500),
+    ("Horn (Ring)", 300),
+    ("Jade Hammer", 25000),
+    ("Krimhorn Helmet", 200),
+    ("Lavos Armor", 16000),
+    ("Leaf Legs", 500),
+    ("Leopard Armor", 1000),
+    ("Leviathan's Amulet", 3000),
+    ("Light Shovel", 300),
+    ("Lightning Boots", 2500),
+    ("Lightning Headband", 2500),
+    ("Lightning Legs", 11000),
+    ("Lightning Pendant", 1500),
+    ("Lightning Robe", 11000),
+    ("Lunar Staff", 5000),
+    ("Magic Plate Armor", 90000),
+    ("Magma Amulet", 1500),
+    ("Magma Boots", 2500),
+    ("Magma Coat", 11000),
+    ("Magma Legs", 11000),
+    ("Magma Monocle", 2500),
+    ("Mammoth Fur Cape", 6000),
+    ("Mammoth Fur Shorts", 850),
+    ("Mammoth Whopper", 300),
+    ("Mastermind Shield", 50000),
+    ("Medusa Shield", 9000),
+    ("Mercenary Sword", 12000),
+    ("Model Ship", 1000),
+    ("Mycological Bow", 35000),
+    ("Mystic Blade", 30000),
+    ("Naginata", 2000),
+    ("Nightmare Blade", 35000),
+    ("Noble Axe", 10000),
+    ("Norse Shield", 1500),
+    ("Onyx Pendant", 3500),
+    ("Orcish Maul", 6000),
+    ("Oriental Shoes", 15000),
+    ("Pair of Iron Fists", 4000),
+    ("Paladin Armor", 15000),
+    ("Patched Boots", 2000),
+    ("Pharaoh Banner", 1000),
+    ("Pharaoh Sword", 23000),
+    ("Pirate Boots", 3000),
+    ("Pirate Hat", 1000),
+    ("Pirate Knee Breeches", 200),
+    ("Pirate Shirt", 500),
+    ("Pirate Voodoo Doll", 500),
+    ("Platinum Amulet", 2500),
+    ("Ragnir Helmet", 400),
+    ("Relic Sword", 25000),
+    ("Rift Bow", 45000),
+    ("Rift Crossbow", 45000),
+    ("Rift Lance", 30000),
+    ("Rift Shield", 50000),
+    ("Ring of the Sky", 30000),
+    ("Royal Axe", 40000),
+    ("Ruby Necklace", 2000),
+    ("Ruthless Axe", 45000),
+    ("Sacred Tree Amulet", 3000),
+    ("Sapphire Hammer", 7000),
+    ("Scarab Amulet", 200),
+    ("Scarab Shield", 2000),
+    ("Shockwave Amulet", 3000),
+    ("Silver Brooch", 150),
+    ("Silver Dagger", 500),
+    ("Skull Helmet", 40000),
+    ("Skullcracker Armor", 18000),
+    ("Spiked Squelcher", 5000),
+    ("Steel Boots", 30000),
+    ("Swamplair Armor", 16000),
+    ("Taurus Mace", 500),
+    ("Tempest Shield", 35000),
+    ("Terra Amulet", 1500),
+    ("Terra Boots", 2500),
+    ("Terra Hood", 2500),
+    ("Terra Legs", 11000),
+    ("Terra Mantle", 11000),
+    ("The Justice Seeker", 40000),
+    ("Tortoise Shield", 150),
+    ("Vile Axe", 30000),
+    ("Voodoo Doll", 400),
+    ("War Axe", 12000),
+    ("War Horn", 8000),
+    ("Witch Hat", 5000),
+    ("Wyvern Fang", 1500),
+)
+
 
 @dataclass(frozen=True)
 class EquipmentItem:
@@ -1754,11 +1914,13 @@ class TibiaSearchApp:
         parent.rowconfigure(1, weight=1)
         parent.rowconfigure(3, weight=1)
         parent.rowconfigure(5, weight=1)
+        parent.rowconfigure(7, weight=1)
         delivery_names = {item.name.casefold() for item in self.delivery_items}
         self._djinn_filter_vars: dict[str, tk.BooleanVar] = {
             "green": tk.BooleanVar(value=False),
             "blue": tk.BooleanVar(value=False),
             "morpel": tk.BooleanVar(value=False),
+            "rashid": tk.BooleanVar(value=False),
         }
 
         def build_tree(
@@ -1851,6 +2013,19 @@ class TibiaSearchApp:
         morpel_frame.columnconfigure(0, weight=1)
         morpel_frame.rowconfigure(0, weight=1)
         build_tree(morpel_frame, MORPEL_BUYS, self._djinn_filter_vars["morpel"])
+
+        rashid_header = ttk.Frame(parent)
+        rashid_header.grid(row=6, column=0, columnspan=2, sticky="ew", padx=6, pady=(8, 4))
+        rashid_header.columnconfigure(0, weight=1)
+        ttk.Label(rashid_header, text="Rashid - Sunday in Carlin - Buys").grid(row=0, column=0, sticky="w")
+        ttk.Checkbutton(rashid_header, text="nur Delivery", variable=self._djinn_filter_vars["rashid"]).grid(
+            row=0, column=1, sticky="e"
+        )
+        rashid_frame = ttk.LabelFrame(parent, text="Rashid")
+        rashid_frame.grid(row=7, column=0, columnspan=2, sticky="nsew", padx=6, pady=6)
+        rashid_frame.columnconfigure(0, weight=1)
+        rashid_frame.rowconfigure(0, weight=1)
+        build_tree(rashid_frame, RASHID_SUNDAY_CARLIN_BUYS, self._djinn_filter_vars["rashid"])
 
     def _search_selected_djinn_item(self, tree: ttk.Treeview) -> None:
         selection = tree.selection()
@@ -6946,25 +7121,32 @@ class CharacterWindow:
             item_label.config(text=item_name or "â€” leer â€”")
             item = self.item_map.get(item_name) if item_name else None
             max_slots = item.imbue_slots if item else 0
-            imbue_info.config(text=f"Imbues: {len(imbues)}/{max_slots}")
+            visible_imbues = imbues[:max_slots] if max_slots > 0 else []
+            imbue_info.config(text=f"Imbues: {len(visible_imbues)}/{max_slots}")
 
             for idx in range(3):
                 label_key = f"slot_{idx + 1}"
                 label = self.equipment_labels[slot][label_key]
                 if idx < max_slots:
                     name = "â€”"
-                    if idx < len(imbues):
-                        imbuement = self.imbuement_map.get(imbues[idx])
-                        name = imbuement.name if imbuement else imbues[idx]
+                    if idx < len(visible_imbues):
+                        imbuement = self.imbuement_map.get(visible_imbues[idx])
+                        name = imbuement.name if imbuement else visible_imbues[idx]
                     label.config(text=f"Slot {idx + 1}: {name}")
+                    label.grid()
                 else:
-                    label.config(text=f"Slot {idx + 1}: n/a")
+                    label.grid_remove()
 
                 remove_button = self.imbue_remove_buttons[slot][idx]
-                if idx < len(imbues):
+                if idx < len(visible_imbues):
                     remove_button.state(["!disabled"])
+                    remove_button.grid()
                 else:
                     remove_button.state(["disabled"])
+                    if idx >= max_slots:
+                        remove_button.grid_remove()
+                    else:
+                        remove_button.grid()
 
         self._set_active_slot(self.active_slot)
 
@@ -6999,14 +7181,14 @@ class CharacterWindow:
                         total_qty = material.qty * count
                         price = self.market_price_lookup.get(material.name.casefold(), 0)
                         imbue_total += total_qty * price
-                lines.append(f"{name} (x{count}) â€“ Total: {self._format_gp(imbue_total)}")
+                lines.append(f"{name} (x{count}) - Total: {self._format_gp(imbue_total)}")
                 if imbuement:
                     for material in imbuement.materials:
                         total_qty = material.qty * count
                         price = self.market_price_lookup.get(material.name.casefold(), 0)
                         line_total = total_qty * price
                         lines.append(
-                            f"  {total_qty} Ã— {material.name} â€“ {self._format_gp(price)}/Stk â€“ {self._format_gp(line_total)}"
+                            f"  {total_qty} x {material.name} - {self._format_gp(price)}/Stk - {self._format_gp(line_total)}"
                         )
                 lines.append("")
 
@@ -7024,7 +7206,7 @@ class CharacterWindow:
                     total_qty = totals[name]
                     line_total = total_qty * price
                     lines.append(
-                        f"  {name}: {total_qty} Ã— {self._format_gp(price)}/Stk â€“ {self._format_gp(line_total)}"
+                        f"  {name}: {total_qty} x {self._format_gp(price)}/Stk - {self._format_gp(line_total)}"
                     )
 
         self.summary_text.configure(state="normal")
