@@ -126,11 +126,13 @@
       },
       "equipment": {
         "head": {
-          "item": null,
-          "imbues": []
+          "item": "Yalahari Mask",
+          "imbues": [
+            "Attack / Mana Leech|Intricate Void"
+          ]
         },
         "armor": {
-          "item": null,
+          "item": "Ghost Chestplate",
           "imbues": []
         },
         "weapon": {

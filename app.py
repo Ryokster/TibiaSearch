@@ -2157,12 +2157,14 @@ class TibiaSearchApp:
             ("⚠️ Soulpunkte benötigt (x Min)", "soul_needed_regen"),
             ("🔥 Mana verbraucht (x Min)", "mana_spent_regen"),
             ("📈 ML Gewinn", "ml_gain_regen"),
+            ("📈 ML % pro Cast", "ml_per_cast"),
             ("🎯 Casts insgesamt", "casts_from_regen"),
             ("📜 Runen insgesamt", "runes_from_regen"),
             ("💰 Gold für Runen insgesamt", "gold_from_regen"),
             ("🏦 Gewinn durch Deposit", "deposit_gain"),
             ("🧾 Item-Kosten", "item_cost"),
             ("🪵 Blank Rune Kosten", "blank_rune_cost"),
+            ("🧾 Kosten pro Cast", "cost_per_cast"),
             ("⚖️ Netto (Runen - Kosten)", "net_regen"),
             ("🏭 Kosten pro Rune", "cost_per_rune"),
             ("📈 Gewinn/Verlust pro Rune", "profit_per_rune"),
@@ -2231,8 +2233,10 @@ class TibiaSearchApp:
             ("💧 Mana from Potions", "mana_total"),
             ("🔥 Mana Spent", "mana_spent"),
             ("📈 ML Gewinn", "ml_gain_potion"),
+            ("📈 ML % pro Cast", "ml_per_cast"),
             ("🧾 Potion Cost", "potion_cost"),
             ("🪵 Blank Rune Kosten", "blank_rune_cost"),
+            ("🧾 Kosten pro Cast", "cost_per_cast"),
             ("🏦 Deposit", "deposit"),
             ("🔮 Soul Regenerated", "soul_regen"),
             ("🔮 Soul Needed", "soul_needed"),
@@ -2389,6 +2393,7 @@ class TibiaSearchApp:
             ("💧 Nat. Mana Regen", "natural_mana_regen"),
             ("🔮 Soul regeneriert", "soul_regenerated"),
             ("📈 ML Gewinn (x Min)", "ml_gain_cycle"),
+            ("📈 ML % pro Cast", "ml_per_cast"),
             ("🎯 Casts gesamt", "casts"),
             ("📜 Runen gesamt", "runes_total"),
             ("🔥 Mana verbraucht", "mana_spent"),
@@ -2398,6 +2403,7 @@ class TibiaSearchApp:
             ("🧾 Potion-Kosten", "potion_cost"),
             ("🧾 Item-Kosten", "item_cost"),
             ("🪵 Blank Rune Kosten", "blank_rune_cost"),
+            ("🧾 Kosten pro Cast", "cost_per_cast"),
             ("💰 Gold aus Runen", "gold_from_runes"),
             ("⚖️ Netto", "net_profit"),
             ("🏭 Kosten pro Rune", "cost_per_rune"),
@@ -2707,6 +2713,9 @@ class TibiaSearchApp:
         prefix = "+" if value > 0 else ""
         return f"{prefix}{self._format_de_number(value, decimals)} gp/Rune"
 
+    def _format_gp_per_cast(self, value: float, decimals: int = 2) -> str:
+        return f"{self._format_de_number(value, decimals)} gp/Cast"
+
     def _magic_level_percent_gain(self, mana_spent: float, magic_level: int, vocation_value: str) -> float:
         if mana_spent <= 0:
             return 0.0
@@ -2954,6 +2963,16 @@ class TibiaSearchApp:
             )
             if "ml_gain_potion" in self.rune_result_vars:
                 self.rune_result_vars["ml_gain_potion"].set(f"{self._format_de_number(ml_gain_potion, 2)} %")
+        if "ml_per_cast" in self.rune_potion_vars:
+            if casts_from_potions > 0:
+                ml_per_cast = float(ml_gain_potion) / float(casts_from_potions)
+                self.rune_potion_vars["ml_per_cast"].set(f"{self._format_de_number(ml_per_cast, 4)} %/Cast")
+                self.rune_potion_formula_vars["ml_per_cast"].set(
+                    f"({self._format_de_number(ml_gain_potion, 2)} / {casts_from_potions})"
+                )
+            else:
+                self.rune_potion_vars["ml_per_cast"].set("—")
+                self.rune_potion_formula_vars["ml_per_cast"].set("")
         if "potion_cost" in self.rune_potion_vars:
             self.rune_potion_vars["potion_cost"].set(self._format_gp(int(potion_cost)))
             self.rune_potion_formula_vars["potion_cost"].set(
@@ -2964,6 +2983,18 @@ class TibiaSearchApp:
             self.rune_potion_formula_vars["blank_rune_cost"].set(
                 f"({casts_from_potions} × 10)"
             )
+        if "cost_per_cast" in self.rune_potion_vars:
+            cost_total_casts = float(potion_cost) + float(blank_rune_cost) - float(deposit)
+            if casts_from_potions > 0:
+                cost_per_cast = cost_total_casts / float(casts_from_potions)
+                self.rune_potion_vars["cost_per_cast"].set(self._format_gp_per_cast(cost_per_cast, 2))
+                self.rune_potion_formula_vars["cost_per_cast"].set(
+                    f"(({self._format_de_number(potion_cost, 0)} + {self._format_de_number(blank_rune_cost, 0)} - "
+                    f"{self._format_de_number(deposit, 0)}) / {casts_from_potions})"
+                )
+            else:
+                self.rune_potion_vars["cost_per_cast"].set("—")
+                self.rune_potion_formula_vars["cost_per_cast"].set("")
         if "deposit" in self.rune_potion_vars:
             self.rune_potion_vars["deposit"].set(self._format_gp(int(deposit)))
             self.rune_potion_formula_vars["deposit"].set(
@@ -3488,6 +3519,15 @@ class TibiaSearchApp:
                 f"(stufenweise ab ML {magic_level}, b={self._format_de_number(b_value, 2)}, "
                 f"Mana {self._format_de_number(mana_spent_regen, 0)})"
             )
+            if casts_from_regen > 0:
+                ml_per_cast = float(ml_gain_regen) / float(casts_from_regen)
+                self.rune_regen_result_vars["ml_per_cast"].set(f"{self._format_de_number(ml_per_cast, 4)} %/Cast")
+                self.rune_regen_formula_vars["ml_per_cast"].set(
+                    f"({self._format_de_number(ml_gain_regen, 2)} / {casts_from_regen})"
+                )
+            else:
+                self.rune_regen_result_vars["ml_per_cast"].set("—")
+                self.rune_regen_formula_vars["ml_per_cast"].set("")
 
             self.rune_regen_result_vars["casts_from_regen"].set(
                 self._format_with_unit(casts_from_regen, "Casts", 0)
@@ -3519,6 +3559,18 @@ class TibiaSearchApp:
             self.rune_regen_formula_vars["blank_rune_cost"].set(
                 f"({casts_from_regen} × 10)"
             )
+
+            cost_total_casts = float(total_item_cost) + float(blank_rune_cost) - float(deposit_gain)
+            if casts_from_regen > 0:
+                cost_per_cast = cost_total_casts / float(casts_from_regen)
+                self.rune_regen_result_vars["cost_per_cast"].set(self._format_gp_per_cast(cost_per_cast, 2))
+                self.rune_regen_formula_vars["cost_per_cast"].set(
+                    f"(({self._format_de_number(total_item_cost, 0)} + {self._format_de_number(blank_rune_cost, 0)} - "
+                    f"{self._format_de_number(deposit_gain, 0)}) / {casts_from_regen})"
+                )
+            else:
+                self.rune_regen_result_vars["cost_per_cast"].set("—")
+                self.rune_regen_formula_vars["cost_per_cast"].set("")
 
             self.rune_regen_result_vars["net_regen"].set(self._format_gp(int(net_regen)))
             self.rune_regen_formula_vars["net_regen"].set(
@@ -3719,6 +3771,11 @@ class TibiaSearchApp:
         self.rune_soul_result_vars["natural_mana_regen"].set(self._format_with_unit(natural_mana_regenerated, "Mana", 0))
         self.rune_soul_result_vars["soul_regenerated"].set(self._format_with_unit(soul_regenerated, "Soul", 0))
         self.rune_soul_result_vars["ml_gain_cycle"].set(f"{self._format_de_number(ml_gain_cycle, 2)} %")
+        if casts > 0:
+            ml_per_cast = float(ml_gain_cycle) / float(casts)
+            self.rune_soul_result_vars["ml_per_cast"].set(f"{self._format_de_number(ml_per_cast, 4)} %/Cast")
+        else:
+            self.rune_soul_result_vars["ml_per_cast"].set("—")
         self.rune_soul_result_vars["casts"].set(self._format_with_unit(casts, "Casts", 0))
         self.rune_soul_result_vars["runes_total"].set(self._format_with_unit(runes_total, "Runen", 0))
         self.rune_soul_result_vars["mana_spent"].set(self._format_with_unit(mana_spent, "Mana", 0))
@@ -3728,6 +3785,12 @@ class TibiaSearchApp:
         self.rune_soul_result_vars["potion_cost"].set(self._format_gp(int(potion_cost)))
         self.rune_soul_result_vars["item_cost"].set(self._format_gp(int(total_item_cost)))
         self.rune_soul_result_vars["blank_rune_cost"].set(self._format_gp(int(blank_rune_cost)))
+        if casts > 0:
+            cost_total_casts = float(blank_rune_cost) + float(potion_cost) + float(total_item_cost)
+            cost_per_cast = cost_total_casts / float(casts)
+            self.rune_soul_result_vars["cost_per_cast"].set(self._format_gp_per_cast(cost_per_cast, 2))
+        else:
+            self.rune_soul_result_vars["cost_per_cast"].set("—")
         self.rune_soul_result_vars["gold_from_runes"].set(self._format_gp(int(gold_from_runes)))
         self.rune_soul_result_vars["net_profit"].set(self._format_gp(int(net_profit)))
         if runes_total > 0:
@@ -3761,6 +3824,12 @@ class TibiaSearchApp:
                 f"(stufenweise ab ML {magic_level}, b={self._format_de_number(b_value, 2)}, "
                 f"Mana {self._format_de_number(mana_spent, 0)})"
             )
+            if casts > 0:
+                self.rune_soul_formula_vars["ml_per_cast"].set(
+                    f"({self._format_de_number(ml_gain_cycle, 2)} / {casts})"
+                )
+            else:
+                self.rune_soul_formula_vars["ml_per_cast"].set("")
             self.rune_soul_formula_vars["casts"].set("(Erfolgreiche Casts aus Simulation)")
             self.rune_soul_formula_vars["runes_total"].set(f"({casts} × {runes_per_cast})")
             self.rune_soul_formula_vars["mana_spent"].set(f"({casts} × {mana_cost})")
@@ -3776,6 +3845,13 @@ class TibiaSearchApp:
                 "(" + (" + ".join(item_cost_parts) if item_cost_parts else "keine aktiven Items") + ")"
             )
             self.rune_soul_formula_vars["blank_rune_cost"].set(f"({casts} × 10)")
+            if casts > 0:
+                self.rune_soul_formula_vars["cost_per_cast"].set(
+                    f"(({self._format_de_number(blank_rune_cost, 0)} + {self._format_de_number(potion_cost, 0)} + "
+                    f"{self._format_de_number(total_item_cost, 0)}) / {casts})"
+                )
+            else:
+                self.rune_soul_formula_vars["cost_per_cast"].set("")
             self.rune_soul_formula_vars["gold_from_runes"].set(f"({runes_total} × {vk_gp})")
             self.rune_soul_formula_vars["net_profit"].set(
                 f"({self._format_de_number(gold_from_runes, 0)} - {self._format_de_number(blank_rune_cost, 0)} - "
